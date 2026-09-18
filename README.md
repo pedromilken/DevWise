@@ -1,0 +1,73 @@
+# DevWise
+
+Jogo instrutivo de **programação e engenharia de software** com *knowledge tracing*, histórias de problemas reais e tutor com IA. Derivado do [ENEMWise](https://github.com/pedromilken/enemwise).
+
+**Jogar:** https://pedromilken.github.io/DevWise/
+
+## Como funciona
+
+Você entra na Ponte, uma pequena casa de software que atende a padaria, o posto de saúde, a escola e a cooperativa do bairro. Cada uma das 11 missões segue três passos:
+
+1. **História**: o cliente conta um problema real (o caixa que não fecha, a fila de triagem, o código que sumiu na sexta-feira).
+2. **Arsenal teórico**: três conceitos essenciais, exemplo de código na linguagem escolhida e as competências dos *Referenciais de Formação para os Cursos de Graduação em Computação* da SBC (2017) que estão sendo treinadas.
+3. **Tickets (teste)**: prever a saída, ordenar código embaralhado (problemas de Parsons), caçar o bug ou tomar uma decisão de engenharia. Toda resposta traz explicação e analogia prática.
+
+| Recurso | Detalhe |
+|---|---|
+| Modelo do estudante | Bayesian Knowledge Tracing por habilidade; chute ajustado ao tipo de item; pedido de dica enfraquece a evidência |
+| Sequenciamento | Grafo de pré-requisitos (60% libera, 95% domina); item escolhido pela dificuldade mais próxima do domínio atual |
+| Banco de itens | 55 itens, 5 por habilidade, com nível de Bloom e dificuldade |
+| Idiomas | Português, inglês e espanhol (interface, histórias, teoria e itens) |
+| Linguagens de programação | Python, JavaScript, Java e C, com o mesmo gabarito nas quatro |
+| Tutor com IA | Dicas socráticas e novas analogias via Anthropic, qualquer API compatível com OpenAI ou servidor local (Ollama); sem IA, usa as dicas autorais |
+| Relatório | Domínio por habilidade, acerto por nível de Bloom, recomendações e exportação do registro em formato longo de KT |
+
+### Mapeamento para a SBC
+
+| Habilidades | Competências |
+|---|---|
+| Variáveis, Condicionais, Laços, Funções | RF-CC C.1.3; RF-ES C.1.1 e C.6.4 |
+| Coleções, Recursão | RF-CC C.1.3; RF-ES C.1.1 |
+| Requisitos | RF-ES C.5.3 |
+| Ágil | RF-ES C.4.2 e C.4.4 |
+| Git | RF-ES C.6.3 |
+| Testes | RF-ES C.6.2 e C.7.3 |
+| Design | RF-ES C.6.1, C.6.7 e C.4.3 |
+
+## Estrutura
+
+```
+index.html        arquivo único gerado, é o que o GitHub Pages serve
+build.py          junta src/ em index.html
+tests.js          consistência do banco (3 idiomas x 4 linguagens) e simulação do motor
+src/data.js       habilidades, mapeamento SBC, exemplos e itens com código
+src/lang-pt.js    textos em português (en e es seguem o mesmo formato)
+src/app.js        motor BKT, telas, tutor com IA
+src/style.css
+```
+
+```bash
+python3 build.py   # gera index.html
+node tests.js      # valida o banco e simula um estudante
+```
+
+## Como ampliar
+
+- **Novo idioma**: copie `src/lang-pt.js` para `src/lang-xx.js`, troque `LANG.pt` por `LANG.xx`, traduza e acrescente o arquivo à lista `order` de `build.py`. O seletor de idioma aparece sozinho; chaves ausentes caem no português.
+- **Novo item**: acrescente a entrada em `ITEMS` (`src/data.js`) e os textos em cada `lang-*.js`. Em itens de múltipla escolha, a primeira opção é a correta. `node tests.js` acusa o que faltar.
+- **Nova linguagem de programação**: acrescente a chave em `PLS` e o código correspondente em cada item e em `EX`.
+
+## Publicação no GitHub Pages
+
+Settings > Pages > Deploy from a branch > `main` / `(root)`.
+
+## Tutor com IA e privacidade
+
+A chave de API informada em Ajustes fica apenas no `localStorage` do navegador e é enviada direto ao provedor. Para uso em sala, prefira um servidor local (Ollama em `http://localhost:11434/v1`), que dispensa chave. O progresso do estudante também fica só no navegador.
+
+## Referências
+
+- SBC. *Referenciais de Formação para os Cursos de Graduação em Computação*. 2017.
+- Corbett, A. T.; Anderson, J. R. Knowledge tracing: modeling the acquisition of procedural knowledge. *UMUAI*, 1995.
+- Abdelrahman, G.; Wang, Q.; Nunes, B. P. Knowledge Tracing: A Survey. *ACM Computing Surveys*, 2023.
+- Parsons, D.; Haden, P. Parson's programming puzzles. *ACE*, 2006.
