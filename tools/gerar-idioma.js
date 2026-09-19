@@ -10,6 +10,8 @@
      ANTHROPIC_API_KEY                                   usa a API da Anthropic
      OPENAI_API_KEY [+ OPENAI_BASE_URL]                  qualquer API compatível (OpenAI, DeepSeek, Qwen, Ollama)
      DEVWISE_MODEL                                       nome do modelo (padrão: claude-sonnet-5 ou gpt-4o-mini)
+     DEVWISE_THINKING                                    "on" religa o modo de raciocínio do DeepSeek (padrão: desligado, para não pagar raciocínio)
+     DEVWISE_PARALLEL                                    blocos simultâneos (padrão: 4)
      DEVWISE_MAX_TOKENS                                  teto de saída por bloco (padrão: 16000)
 
    O que o script garante antes de gravar: mesmas chaves da fonte, mesmos tamanhos de lista, marcadores {x}
@@ -23,7 +25,7 @@ const target = args.find(a => !a.startsWith("--") && a !== from) || "";
 
 /* carrega dados e pacotes existentes, como o tests.js faz */
 global.four = undefined;
-const files = ["data.js", "game.js", ...fs.readdirSync(srcDir).filter(f => /^lang-.*\.js$/.test(f))];
+const files = ["data.js", "game.js", ...fs.readdirSync(srcDir).filter(f => /^lang-.*\.js$/.test(f) && !f.includes(".mock."))];
 const code = files.map(f => fs.readFileSync(path.join(srcDir, f), "utf8")).join("\n").replace('"use strict";', "");
 const { LANG, STUDY_LANGS } = new Function(code + ";return {LANG, STUDY_LANGS};")();
 
@@ -39,7 +41,9 @@ function validate(a, b, where, errs) {
     for (const k of Object.keys(b)) if (!(k in a)) errs.push(where + "." + k + ": chave inventada"); }
 }
 
-const usage = { in: 0, out: 0 }, MAXTOK = +(process.env.DEVWISE_MAX_TOKENS || 16000);
+let jsonMode = true, noThink = (process.env.DEVWISE_THINKING || "off").toLowerCase() !== "on";
+const PARALLEL = Math.max(1, +(process.env.DEVWISE_PARALLEL || 4));
+const usage = { in: 0, out: 0, think: 0 }, MAXTOK = +(process.env.DEVWISE_MAX_TOKENS || 16000);
 async function callLLM(prompt) {
   const model = process.env.DEVWISE_MODEL;
   if (process.env.ANTHROPIC_API_KEY) {
@@ -52,9 +56,16 @@ async function callLLM(prompt) {
   if (process.env.OPENAI_API_KEY || process.env.OPENAI_BASE_URL) {
     const base = (process.env.OPENAI_BASE_URL || "https://api.openai.com/v1").replace(/\/+$/, ""), hd = { "content-type": "application/json" };
     if (process.env.OPENAI_API_KEY) hd.authorization = "Bearer " + process.env.OPENAI_API_KEY;
-    const r = await fetch(base + "/chat/completions", { method: "POST", headers: hd, body: JSON.stringify({ model: model || "gpt-4o-mini", max_tokens: MAXTOK, messages: [{ role: "user", content: prompt }] }) });
+    const body = { model: model || "gpt-4o-mini", max_tokens: MAXTOK, messages: [{ role: "user", content: prompt }] };
+    if (jsonMode) body.response_format = { type: "json_object" };
+    /* DeepSeek V4 "pensa" por padrão e cobra o raciocínio como saída (5x mais tokens numa tradução). Desligado, salvo DEVWISE_THINKING=on. */
+    if (noThink && /deepseek/i.test(base + " " + body.model)) body.thinking = { type: "disabled" };
+    let r = await fetch(base + "/chat/completions", { method: "POST", headers: hd, body: JSON.stringify(body) });
+    if (r.status === 400 && body.thinking) { noThink = false; delete body.thinking; r = await fetch(base + "/chat/completions", { method: "POST", headers: hd, body: JSON.stringify(body) }); }
+    if (r.status === 400 && jsonMode) { jsonMode = false; delete body.response_format; r = await fetch(base + "/chat/completions", { method: "POST", headers: hd, body: JSON.stringify(body) }); }
+    if (r.status === 429 || r.status >= 500) { await new Promise(z => setTimeout(z, 8000)); r = await fetch(base + "/chat/completions", { method: "POST", headers: hd, body: JSON.stringify(body) }); }
     if (!r.ok) throw new Error("HTTP " + r.status + " " + (await r.text()).slice(0, 200));
-    const d = await r.json(); if (d.usage) { usage.in += d.usage.prompt_tokens || 0; usage.out += d.usage.completion_tokens || 0; }
+    const d = await r.json(); if (d.usage) { usage.in += d.usage.prompt_tokens || 0; usage.out += d.usage.completion_tokens || 0; usage.think += (d.usage.completion_tokens_details || {}).reasoning_tokens || 0; }
     return d.choices[0].message.content;
   }
   throw new Error("Defina ANTHROPIC_API_KEY ou OPENAI_API_KEY (ou use --mock).");
@@ -99,8 +110,9 @@ async function generate(code) {
   chunks.push(["sbc", src.sbc, r => out.sbc = r], ["game", src.game, r => out.game = r]);
   for (const k of Object.keys(src.skills)) chunks.push(["skill-" + k, { [k]: src.skills[k] }, r => Object.assign(out.skills, r)]);
   for (let i = 0; i < itemKeys.length; i += 8) chunks.push(["items" + i, Object.fromEntries(itemKeys.slice(i, i + 8).map(k => [k, src.items[k]])), r => Object.assign(out.items, r)]);
-  let done = 0;
-  for (const [name, chunk, put] of chunks) { put(await translateChunk(name, chunk, meta)); process.stdout.write("\r   blocos: " + (++done) + "/" + chunks.length); }
+  let done = 0, next = 0;
+  const worker = async () => { while (next < chunks.length) { const [name, chunk, put] = chunks[next++]; put(await translateChunk(name, chunk, meta)); process.stdout.write("\r   blocos: " + (++done) + "/" + chunks.length + "  "); } };
+  await Promise.all(Array.from({ length: mock ? 1 : PARALLEL }, worker));
   console.log("");
   const errs = []; validate({ name: "x", llmName: "x", ui: src.ui, sbc: src.sbc, skills: src.skills, items: src.items, game: src.game }, out, code, errs);
   const re = SCRIPT_RE[meta.script]; if (re && !mock) { const sample = Object.values(out.items).map(x => x.why).join(" "); if (!re.test(sample)) errs.push("o texto não contém a escrita " + meta.script); }
@@ -113,5 +125,10 @@ async function generate(code) {
 (async () => {
   if (!target) { console.log("Uso: node tools/gerar-idioma.js <código|todos> [--from en|pt|es] [--mock]\nIdiomas do estudo: " + STUDY_LANGS.map(x => x.code + (LANG[x.code] ? "*" : "")).join(" ") + "   (* já tem pacote)"); return; }
   const list = target === "todos" ? STUDY_LANGS.filter(x => !LANG[x.code]).map(x => x.code) : [target];
-  for (const c of list) { await generate(c); if (!mock) console.log("   tokens acumulados nesta execução: entrada " + usage.in + ", saída " + usage.out); }
+  const falhas = [];
+  for (const c of list) {
+    try { await generate(c); } catch (e) { falhas.push(c); console.log("\n   FALHOU " + c + ": " + e.message.split("\n")[0] + " (rode de novo; o cache preserva os blocos prontos)"); }
+    if (!mock) console.log("   tokens acumulados nesta execução: entrada " + usage.in + ", saída " + usage.out + (usage.think ? " (dos quais " + usage.think + " de raciocínio)" : ""));
+  }
+  console.log("\nConcluídos: " + (list.length - falhas.length) + " de " + list.length + (falhas.length ? ". Pendentes: " + falhas.join(", ") : ""));
 })().catch(e => { console.error("\nERRO: " + e.message); process.exit(1); });
