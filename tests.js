@@ -15,6 +15,8 @@ for(const l of Object.keys(LANG)){
   for(const it of ITEMS.concat(BOSS_ITEMS)){const x=LANG[l].items[it.id]; if(!x){errs.push(l+": falta item "+it.id);continue}
     for(const f of ["title","prompt","hint","why","analogy"]) if(!x[f]&&!(f==="hint"&&it.boss)) errs.push(l+": "+it.id+"."+f);
     if(it.type==="mc"&&!it.opts&&(!x.opts||x.opts.length!==4)) errs.push(l+": opts "+it.id);
+    if(it.type==="sort"&&(!x.bins||x.bins.length!==2||!x.cards||x.cards.length!==it.key.length)) errs.push(l+": cartões "+it.id);
+    if(it.type==="parsons"&&!it.code&&!it.shared){ if(!x.lines||x.lines.length<3||new Set(x.lines).size!==x.lines.length||x.lines.length!==LANG.pt.items[it.id].lines.length) errs.push(l+": etapas "+it.id); }
     if(/\\u2014/.test(JSON.stringify(x))) errs.push(l+": travessão em "+it.id);}
   for(const id of Object.keys(LANG[l].items)) if(!IT[id]) errs.push(l+": item órfão "+id);
 }
@@ -22,7 +24,8 @@ for(const it of ITEMS.concat(BOSS_ITEMS)){
   if(it.code) for(const p of Object.keys(PLS)){ if(!it.code[p]) errs.push(it.id+": sem código "+p);
     const n=it.code[p].split("\\n"); if(it.type==="bug"&&!(it.answer<n.length)) errs.push(it.id+": answer fora "+p);
     if(it.type==="parsons"&&new Set(n).size!==n.length) errs.push(it.id+": linhas repetidas "+p);}
-  if(it.type!=="mc"&&!it.code&&!it.shared) errs.push(it.id+": sem linhas");
+  if(it.type==="bug"&&!it.code) errs.push(it.id+": sem linhas");
+  if(it.type==="sort"&&it.key.filter(k=>k===0).length===0) errs.push(it.id+": chave");
   if(it.opts&&new Set(it.opts).size!==it.opts.length) errs.push(it.id+": opções repetidas");
 }
 for(const l of Object.keys(LANG)){const g=LANG[l].game; if(!g){errs.push(l+": falta game");continue}
@@ -31,6 +34,7 @@ for(const l of Object.keys(LANG)){const g=LANG[l].game; if(!g){errs.push(l+": fa
   for(const k of Object.keys(MODES)) if(!LANG[l].ui.modes[k]||!LANG[l].ui.modeDesc[k]) errs.push(l+": modo "+k);}
 for(const s of SKILLS) if(GATES[s.id]===undefined) errs.push("portão "+s.id);
 for(const s of SKILLS) if(EX[s.id]) for(const p of Object.keys(PLS)) if(!EX[s.id][p]) errs.push("EX "+s.id+" "+p);
+const area={prog:0,se:0}; ITEMS.forEach(i=>area[SK[i.skill].area]++); console.log("itens por área:",JSON.stringify(area));
 const per={}; ITEMS.forEach(i=>per[i.skill]=(per[i.skill]||0)+1);
 console.log("idiomas com pacote:",Object.keys(LANG).join(", "),"de",STUDY_LANGS.length,"do estudo");
 console.log("itens:",ITEMS.length,JSON.stringify(per));

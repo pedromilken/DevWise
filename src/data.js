@@ -41,8 +41,11 @@ const SKILLS = [
   {id:"req",   area:"se",   pre:[],       x:60,  y:254, sbc:["ES-C.5.3"]},
   {id:"agil",  area:"se",   pre:["req"],  x:180, y:254, sbc:["ES-C.4.2","ES-C.4.4"]},
   {id:"git",   area:"se",   pre:[],       x:300, y:254, sbc:["ES-C.6.3"]},
-  {id:"test",  area:"se",   pre:["func"], x:420, y:254, sbc:["ES-C.6.2","ES-C.7.3"]},
-  {id:"design",area:"se",   pre:["func"], x:540, y:254, sbc:["ES-C.6.1","ES-C.6.7","ES-C.4.3"]}
+  {id:"test",  area:"se",   pre:["cond"], x:420, y:254, sbc:["ES-C.6.2","ES-C.7.3"]},
+  {id:"design",area:"se",   pre:["func"], x:540, y:254, sbc:["ES-C.6.1","ES-C.6.7","ES-C.4.3"]},
+  {id:"model", area:"se",   pre:["req"],  x:60,  y:356, sbc:["ES-C.5.4"]},
+  {id:"qual",  area:"se",   pre:["git"],  x:300, y:356, sbc:["ES-C.7.1","ES-C.7.2","ES-C.6.2"]},
+  {id:"devops",area:"se",   pre:["git","test"], x:420, y:356, sbc:["ES-C.6.5","ES-C.6.3"]}
 ];
 
 /* Exemplo de código do arsenal teórico, por habilidade e linguagem. */
@@ -160,6 +163,7 @@ c:`int total(int n) {
 };
 
 /* Banco de itens. type: mc | parsons | bug. d: dificuldade 1-3. bloom: 1-5.
+   "parsons" sem código ordena frases do pacote de idioma (lines). "sort" classifica cartões em duas categorias: key traz a categoria correta de cada cartão.
    Em "mc" a primeira opção é a correta (a tela embaralha). "@err" e "@none" são traduzidos.
    Itens sem "opts" aqui têm opções textuais no arquivo de idioma. */
 const four = (py,js,java,c)=>({py,js,java,c});
@@ -750,5 +754,20 @@ void testDiscount() {
   else if (kind == CARD) { /* ... */ }
   else if (kind == BOLETO) { /* ... */ }
 }`)},
-{id:"d5",skill:"design",type:"mc",d:3,bloom:4}
+{id:"d5",skill:"design",type:"mc",d:3,bloom:4},
+/* itens de engenharia de software em formatos próprios: classificar e ordenar etapas */
+{id:"q6",skill:"req",type:"sort",d:2,bloom:4,key:[0,1,0,1]},
+{id:"a6",skill:"agil",type:"parsons",d:2,bloom:2},
+{id:"g6",skill:"git",type:"parsons",d:3,bloom:3},
+{id:"t6",skill:"test",type:"parsons",d:2,bloom:3},
+{id:"d6",skill:"design",type:"sort",d:3,bloom:4,key:[0,1,0,1]},
+/* Modelagem */
+{id:"m1",skill:"model",type:"mc",d:1,bloom:2},{id:"m2",skill:"model",type:"mc",d:2,bloom:3},{id:"m3",skill:"model",type:"sort",d:2,bloom:4,key:[0,1,0,1]},
+{id:"m4",skill:"model",type:"parsons",d:2,bloom:3},{id:"m5",skill:"model",type:"mc",d:3,bloom:5},
+/* Qualidade e revisão de código */
+{id:"u1",skill:"qual",type:"mc",d:1,bloom:2},{id:"u2",skill:"qual",type:"mc",d:2,bloom:5},{id:"u3",skill:"qual",type:"sort",d:2,bloom:4,key:[0,1,0,1]},
+{id:"u4",skill:"qual",type:"mc",d:2,bloom:3},{id:"u5",skill:"qual",type:"mc",d:3,bloom:4},
+/* Entrega contínua */
+{id:"o1",skill:"devops",type:"mc",d:1,bloom:1},{id:"o2",skill:"devops",type:"parsons",d:2,bloom:3},{id:"o3",skill:"devops",type:"mc",d:2,bloom:4},
+{id:"o4",skill:"devops",type:"sort",d:2,bloom:4,key:[0,1,0,1]},{id:"o5",skill:"devops",type:"mc",d:3,bloom:5}
 ];

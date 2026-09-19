@@ -228,3 +228,15 @@ textarea{width:100%;height:160px;font-family:var(--mono);font-size:.8rem;backgro
 [dir="rtl"] .ticket{border-left:1px solid var(--line);border-right:10px solid var(--prog);border-radius:12px 4px 4px 12px}
 [dir="rtl"] .ticket.se{border-right-color:var(--se)}
 [dir="rtl"] .story{border-left:0;border-right:6px solid var(--gold);padding:4px 20px 4px 0}
+
+/* ---- v5: formatos próprios de engenharia de software ---- */
+.node .lbl{paint-order:stroke;stroke:var(--surface);stroke-width:5px;stroke-linejoin:round}
+.sortcards{display:grid;gap:12px;margin-bottom:18px}
+.sortcard{background:var(--surface);border:2px solid var(--line);border-radius:12px;padding:14px 16px}
+.sortcard p{margin:0 0 10px;font-size:1.05rem}
+.sortcard .tabs{margin:0}
+.sortcard.right{border-color:var(--ok);background:var(--ok-soft)}
+.sortcard.wrong{border-color:var(--gold);background:var(--gold-soft);border-style:dashed}
+.sortcard .tabs button.goal{outline:3px solid var(--ok);outline-offset:1px}
+.parsons.prose .pline{font-family:var(--body);font-size:1rem;white-space:normal;line-height:1.4}
+ol.steps{margin:0 0 18px;padding-left:22px}

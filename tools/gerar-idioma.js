@@ -10,6 +10,7 @@
      ANTHROPIC_API_KEY                                   usa a API da Anthropic
      OPENAI_API_KEY [+ OPENAI_BASE_URL]                  qualquer API compatível (OpenAI, DeepSeek, Qwen, Ollama)
      DEVWISE_MODEL                                       nome do modelo (padrão: claude-sonnet-5 ou gpt-4o-mini)
+     DEVWISE_MAX_TOKENS                                  teto de saída por bloco (padrão: 16000)
 
    O que o script garante antes de gravar: mesmas chaves da fonte, mesmos tamanhos de lista, marcadores {x}
    preservados, ordem das opções preservada (a primeira é a correta) e escrita esperada presente no texto.
@@ -38,20 +39,23 @@ function validate(a, b, where, errs) {
     for (const k of Object.keys(b)) if (!(k in a)) errs.push(where + "." + k + ": chave inventada"); }
 }
 
+const usage = { in: 0, out: 0 }, MAXTOK = +(process.env.DEVWISE_MAX_TOKENS || 16000);
 async function callLLM(prompt) {
   const model = process.env.DEVWISE_MODEL;
   if (process.env.ANTHROPIC_API_KEY) {
     const r = await fetch("https://api.anthropic.com/v1/messages", { method: "POST", headers: { "content-type": "application/json", "x-api-key": process.env.ANTHROPIC_API_KEY, "anthropic-version": "2023-06-01" },
-      body: JSON.stringify({ model: model || "claude-sonnet-5", max_tokens: 16000, messages: [{ role: "user", content: prompt }] }) });
+      body: JSON.stringify({ model: model || "claude-sonnet-5", max_tokens: MAXTOK, messages: [{ role: "user", content: prompt }] }) });
     if (!r.ok) throw new Error("Anthropic HTTP " + r.status + " " + (await r.text()).slice(0, 200));
-    return (await r.json()).content.map(c => c.text || "").join("");
+    const d = await r.json(); if (d.usage) { usage.in += d.usage.input_tokens || 0; usage.out += d.usage.output_tokens || 0; }
+    return d.content.map(c => c.text || "").join("");
   }
   if (process.env.OPENAI_API_KEY || process.env.OPENAI_BASE_URL) {
     const base = (process.env.OPENAI_BASE_URL || "https://api.openai.com/v1").replace(/\/+$/, ""), hd = { "content-type": "application/json" };
     if (process.env.OPENAI_API_KEY) hd.authorization = "Bearer " + process.env.OPENAI_API_KEY;
-    const r = await fetch(base + "/chat/completions", { method: "POST", headers: hd, body: JSON.stringify({ model: model || "gpt-4o-mini", messages: [{ role: "user", content: prompt }] }) });
+    const r = await fetch(base + "/chat/completions", { method: "POST", headers: hd, body: JSON.stringify({ model: model || "gpt-4o-mini", max_tokens: MAXTOK, messages: [{ role: "user", content: prompt }] }) });
     if (!r.ok) throw new Error("HTTP " + r.status + " " + (await r.text()).slice(0, 200));
-    return (await r.json()).choices[0].message.content;
+    const d = await r.json(); if (d.usage) { usage.in += d.usage.prompt_tokens || 0; usage.out += d.usage.completion_tokens || 0; }
+    return d.choices[0].message.content;
   }
   throw new Error("Defina ANTHROPIC_API_KEY ou OPENAI_API_KEY (ou use --mock).");
 }
@@ -109,5 +113,5 @@ async function generate(code) {
 (async () => {
   if (!target) { console.log("Uso: node tools/gerar-idioma.js <código|todos> [--from en|pt|es] [--mock]\nIdiomas do estudo: " + STUDY_LANGS.map(x => x.code + (LANG[x.code] ? "*" : "")).join(" ") + "   (* já tem pacote)"); return; }
   const list = target === "todos" ? STUDY_LANGS.filter(x => !LANG[x.code]).map(x => x.code) : [target];
-  for (const c of list) await generate(c);
+  for (const c of list) { await generate(c); if (!mock) console.log("   tokens acumulados nesta execução: entrada " + usage.in + ", saída " + usage.out); }
 })().catch(e => { console.error("\nERRO: " + e.message); process.exit(1); });

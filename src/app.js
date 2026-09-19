@@ -76,7 +76,7 @@ function fillBoard(lastId){
   for(const k of order){ if(S.board.length>=3)break; const it=pickItem(k,lastId?[lastId]:[]); if(it)S.board.push(it.id); }
   if(!S.board.length&&eligible.length){const it=pickItem(eligible[0],[]); if(it)S.board.push(it.id);}
 }
-function guessProb(it){return it.type==="mc"?1/itemOpts(it).length:it.type==="bug"?1/itemCode(it).split("\n").length:0.05}
+function guessProb(it){return it.type==="mc"?1/itemOpts(it).length:it.type==="bug"?1/itemCode(it).split("\n").length:it.type==="sort"?1/Math.pow(2,it.key.length):0.05}
 function bkt(L,ok,g){const post=ok? L*(1-SLIP)/(L*(1-SLIP)+(1-L)*g) : L*SLIP/(L*SLIP+(1-L)*(1-g)); return Math.min(.995,post+(1-post)*T)}
 function resolve(ok){
   stopTimer();
@@ -157,7 +157,7 @@ function aiContext(it){
   return "You are the tutor inside DevWise, an educational game that teaches programming and software engineering through real-world stories and everyday analogies.\n"+
     "Skill: "+skT(it.skill).name+". Story context: "+skT(it.skill).client+" - "+skT(it.skill).title+".\n"+
     "Task type: "+it.type+". Question: "+tx.prompt+"\n"+(code?"Code ("+(it.shared?"shell":PLS[S.pl])+"):\n"+code+"\n":"")+
-    (it.type==="mc"?"Options: "+itemOpts(it).join(" | ")+"\n":"")+
+    (it.type==="mc"?"Options: "+itemOpts(it).join(" | ")+"\n":"")+(it.type==="sort"?"Categories: "+tx.bins.join(" / ")+". Cards: "+tx.cards.join(" | ")+"\n":"")+(tx.lines?"Steps to be ordered (shown shuffled to the student): "+shuffle(tx.lines).join(" | ")+"\n":"")+
     "Student's estimated mastery of this skill: "+Math.round(trk(it.skill).L*100)+"%.\n";
 }
 async function aiHint(){
@@ -258,7 +258,7 @@ function pips(){
 }
 function skillMap(){
   const R=25, C=2*Math.PI*R;
-  const svg=sv("svg",{viewBox:"0 0 610 310",role:"group","aria-label":t("map")},
+  const svg=sv("svg",{viewBox:"0 0 610 412",role:"group","aria-label":t("map")},
     sv("defs",null,sv("marker",{id:"arr",viewBox:"0 0 10 10",refX:"9",refY:"5",markerWidth:"7",markerHeight:"7",orient:"auto-start-reverse"},sv("path",{d:"M0 0L10 5L0 10z",fill:"var(--muted)"}))),
     sv("text",{x:"30",y:"18","font-size":"13.5",fill:"var(--muted)","font-family":"var(--body)"},t("areaProg")+" ("+PLS[S.pl]+")"),
     sv("text",{x:"30",y:"208","font-size":"13.5",fill:"var(--muted)","font-family":"var(--body)"},t("areaSE")));
@@ -323,7 +323,8 @@ function openTicket(id,o){
   const it=IT[id]; o=o||{};
   cur={item:it,sel:null,hint:false,done:false,result:null,aiText:null,aiAfter:null,aiUsed:false,mode:S.mode,daily:!!o.daily,typed:isTyped(it),text:"",fifty:false,timeout:false};
   if(it.type==="mc")cur.order=shuffle(itemOpts(it).map((_,i)=>i));
-  if(it.type!=="mc"){cur.lines=itemCode(it).split("\n");}
+  if(it.type==="bug"||it.type==="parsons"){cur.prose=!itemCode(it);cur.lines=cur.prose?itT(it.id).lines.slice():itemCode(it).split("\n");}
+  if(it.type==="sort")cur.pick=it.key.map(()=>null);
   if(it.type==="parsons"){let b;do{b=shuffle(cur.lines.map((_,i)=>i))}while(b.every((v,i)=>v===i));cur.bank=b;cur.sol=[]}
   go("ticket"); startTimer();
 }
@@ -358,7 +359,7 @@ function ticket(){
   const it=cur.item, tx=itT(it.id), se=SK[it.skill].area==="se", r=cur.result, body=[], opts=it.type==="mc"?itemOpts(it):null, m=MODES[cur.mode], isBoss=!!it.boss;
   const check=()=>{
     if(cur.typed&&!normOut(cur.text))return;
-    const ok=cur.typed?normOut(cur.text)===normOut(opts[0]):it.type==="mc"?cur.sel===0:it.type==="bug"?cur.sel===it.answer:cur.sol.map(i=>cur.lines[i]).join("\n")===cur.lines.join("\n");
+    const ok=cur.typed?normOut(cur.text)===normOut(opts[0]):it.type==="mc"?cur.sel===0:it.type==="bug"?cur.sel===it.answer:it.type==="sort"?cur.pick.every((p,i)=>p===it.key[i]):cur.sol.map(i=>cur.lines[i]).join("\n")===cur.lines.join("\n");
     resolve(ok); render(); celebrate(cur.result,isBoss); const fb=document.getElementById("fb"); if(fb){fb.focus();fb.scrollIntoView({block:"nearest",behavior:"smooth"})}
   };
   if(it.type==="mc"){
@@ -376,17 +377,23 @@ function ticket(){
       let cls="cl"; if(cur.done){ if(i===it.answer)cls+=" right"; else if(i===cur.sel)cls+=" wrong"; }
       return h("button",{class:cls,"aria-pressed":String(cur.sel===i),disabled:cur.done,onclick:()=>{cur.sel=i;render()}},h("span",{class:"n"},String(i+1)),h("span",null,ln));})));
   }
+  if(it.type==="sort"){
+    body.push(h("p",{class:"note"},t("sortHint")));
+    body.push(h("div",{class:"sortcards"},tx.cards.map((c,i)=>{const okc=cur.done&&cur.pick[i]===it.key[i];
+      return h("div",{class:"sortcard"+(cur.done?(okc?" right":" wrong"):"")},h("p",null,c),
+        h("div",{class:"tabs",role:"group"},tx.bins.map((b,k)=>h("button",{"aria-pressed":String(cur.pick[i]===k),disabled:cur.done,class:cur.done&&it.key[i]===k?"goal":null,onclick:()=>{cur.pick[i]=k;render()}},b))));})));
+  }
   if(it.type==="parsons"){
     const move=(i,dir)=>{const j=i+dir;if(j<0||j>=cur.sol.length)return;[cur.sol[i],cur.sol[j]]=[cur.sol[j],cur.sol[i]];render()};
-    body.push(h("div",{class:"parsons"},
+    body.push(h("div",{class:"parsons"+(cur.prose?" prose":"")},
       h("div",{class:"zone"},h("h4",null,t("bank")),cur.bank.length?cur.bank.map(i=>h("div",{class:"prow"},h("button",{class:"pline",disabled:cur.done,onclick:()=>{cur.bank=cur.bank.filter(x=>x!==i);cur.sol.push(i);render()}},cur.lines[i].trimStart()))):h("p",{class:"empty"},t("allUsed"))),
       h("div",{class:"zone sol"},h("h4",null,t("sol")),cur.sol.map((i,pos)=>h("div",{class:"prow"},
         h("button",{class:"pline",disabled:cur.done,onclick:()=>{cur.sol=cur.sol.filter(x=>x!==i);cur.bank.push(i);render()}},cur.lines[i]),
         !cur.done&&h("button",{class:"mv","aria-label":t("up"),onclick:()=>move(pos,-1)},"↑"),
         !cur.done&&h("button",{class:"mv","aria-label":t("down"),onclick:()=>move(pos,1)},"↓"))))));
-    if(cur.done&&!r.ok)body.push(h("p",{class:"note"},t("correctOrder")),h("pre",{class:"code"},cur.lines.join("\n")));
+    if(cur.done&&!r.ok)body.push(h("p",{class:"note"},t("correctOrder")),cur.prose?h("ol",{class:"steps"},cur.lines.map(l=>h("li",null,l))):h("pre",{class:"code"},cur.lines.join("\n")));
   }
-  const ready=cur.typed?true:it.type==="parsons"?cur.sol.length===cur.lines.length:cur.sel!==null;
+  const ready=cur.typed?true:it.type==="parsons"?cur.sol.length===cur.lines.length:it.type==="sort"?cur.pick.every(p=>p!==null):cur.sel!==null;
   const over=S.sprint.done.length>=SPRINT, busy=cur.aiText===t("aiThinking")||cur.aiAfter===t("aiThinking");
   const hints=isBoss?"none":m.hint, canPay=hints!=="paid"||S.xp>=HINT_COST, payHint=()=>{if(hints==="paid"){S.xp-=HINT_COST;save()}};
   const timed=m.timer>0&&!cur.done, b=isBoss&&BOSSES.find(x=>x.id===it.boss);

@@ -6,17 +6,17 @@ Jogo instrutivo de **programação e engenharia de software** com *knowledge tra
 
 ## Como funciona
 
-Você entra na Ponte, uma pequena casa de software que atende a padaria, o posto de saúde, a escola e a cooperativa do bairro. Cada uma das 11 missões segue três passos:
+Você entra na Ponte, uma pequena casa de software que atende a padaria, o posto de saúde, a escola e a cooperativa do bairro. Cada uma das 14 missões (6 de programação e 8 de engenharia de software) segue três passos:
 
 1. **História**: o cliente conta um problema real (o caixa que não fecha, a fila de triagem, o código que sumiu na sexta-feira).
 2. **Arsenal teórico**: três conceitos essenciais, exemplo de código na linguagem escolhida e as competências dos *Referenciais de Formação para os Cursos de Graduação em Computação* da SBC (2017) que estão sendo treinadas.
-3. **Tickets (teste)**: prever a saída, ordenar código embaralhado (problemas de Parsons), caçar o bug ou tomar uma decisão de engenharia. Toda resposta traz explicação e analogia prática.
+3. **Tickets (teste)**: prever a saída, ordenar código embaralhado (problemas de Parsons), caçar o bug, **classificar cartões** (requisito funcional ou não funcional, paga ou aumenta a dívida técnica), **ordenar etapas de um processo** (sprint, TDD, esteira de entrega) ou tomar uma decisão de engenharia. Toda resposta traz explicação e analogia prática.
 
 | Recurso | Detalhe |
 |---|---|
 | Modelo do estudante | Bayesian Knowledge Tracing por habilidade; chute ajustado ao tipo de item; pedido de dica enfraquece a evidência |
 | Sequenciamento | Grafo de pré-requisitos (60% libera, 95% domina); item escolhido pela dificuldade mais próxima do domínio atual |
-| Banco de itens | 55 itens, 5 por habilidade, com nível de Bloom e dificuldade |
+| Banco de itens | 75 itens (30 de programação e 45 de engenharia de software), com nível de Bloom e dificuldade |
 | Idiomas | Português, inglês e espanhol completos; registro dos 20 idiomas do estudo e gerador de pacotes para os demais |
 | Linguagens de programação | Python, JavaScript, Java e C, com o mesmo gabarito nas quatro |
 | Tutor com IA | Dicas socráticas e novas analogias via Anthropic, qualquer API compatível com OpenAI ou servidor local (Ollama); sem IA, usa as dicas autorais |
@@ -67,6 +67,9 @@ Também aceita `OPENAI_API_KEY` com `OPENAI_BASE_URL` (DeepSeek, Qwen, Ollama) e
 | Git | RF-ES C.6.3 |
 | Testes | RF-ES C.6.2 e C.7.3 |
 | Design | RF-ES C.6.1, C.6.7 e C.4.3 |
+| Modelagem | RF-ES C.5.4 |
+| Qualidade | RF-ES C.7.1, C.7.2 e C.6.2 |
+| Entrega contínua | RF-ES C.6.5 e C.6.3 |
 
 ## Estrutura
 

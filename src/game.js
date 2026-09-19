@@ -13,7 +13,7 @@ const MODE_ICON = {normal:"🌱", medio:"⚙️", dificil:"🔥", hardcore:"💀
 const COMEBACK = 5; // bônus por acertar logo depois de um erro
 
 /* XP acumulado exigido para abrir cada fase (além dos pré-requisitos de domínio). */
-const GATES = {var:0, req:0, git:30, cond:60, agil:100, loop:150, func:240, test:320, col:380, rec:450, design:520};
+const GATES = {var:0, req:0, git:0, cond:60, agil:60, model:120, loop:150, test:200, func:240, qual:260, col:380, devops:400, rec:450, design:520};
 
 /* Loja. kind: "power" (consumível) | "title" (cosmético, compra única). */
 const SHOP = [
