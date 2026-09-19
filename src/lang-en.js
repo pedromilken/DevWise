@@ -184,3 +184,52 @@ d4:{title:"One more \"if\" in payments",prompt:"Every new payment method means e
 d5:{title:"The database welded into the class",prompt:"The Order class creates its own connection to a specific MySQL database. What does that make harder, and how do you fix it?",opts:["Testing and swapping the database; receive the dependency ready-made, through an interface","Nothing; creating the connection inside is the tidiest way","Speed; fix it with a more powerful server","Readability; fix it with more comments"],hint:"How would you test Order without a running MySQL?",why:"Creating the concrete dependency internally couples the class to it. With dependency injection, the class receives something that fulfils an interface, and in tests it receives a stand-in.",analogy:"A lamp with the bulb welded in: when it burns out, you throw everything away. With a standard socket you replace only the bulb, even with a test bulb."}
 }
 };
+
+/* ---------- Game layer (shop, difficulty, challenges, bosses) ---------- */
+Object.assign(LANG.en.ui,{
+ navShop:"Shop", balance:"Balance", total:"Lifetime XP", titleLbl:"Title",
+ modeH:"Difficulty", modes:{normal:"Normal",medio:"Medium",dificil:"Hard",hardcore:"Extra hardcore"},
+ modeDesc:{normal:"XP ×1. Free hints (a hinted correct answer earns half). Each mistake costs 2 XP per ticket level.",
+  medio:"XP ×1.5. Each hint costs 5 XP. Each mistake costs 4 XP per ticket level.",
+  dificil:"XP ×2. No hints and no options on output tickets: you type what the program prints. Each mistake costs 6 XP per level.",
+  hardcore:"XP ×3. No hints, typed answers and 60 seconds on the clock. Each mistake costs 10 XP per level."},
+ typedLbl:"Type exactly what the program prints", typedPh:"program output", yourAnswer:"Your answer: {a}", expected:"Correct output: {a}",
+ timeLeft:"Time: {s} s", timeout:"Time is up.", lost:"Penalty: -{x} XP from your balance.", shieldUsed:"Your shield absorbed the penalty.",
+ boostOn:"Double XP: {n} tickets left", hintPaid:"Ask for a hint (costs {c} XP)", noHints:"There are no hints in this mode.",
+ useFifty:"Use Remove two ({n})", useTime:"Use +30 s ({n})",
+ lockedXp:"Locked: needs 60% in {p} and {x} lifetime XP (you have {y}).", lockedXpOnly:"Locked: needs {x} lifetime XP (you have {y}).",
+ bountiesH:"Sprint challenges", bountyDone:"Challenge completed: {s} (+{x} XP)",
+ dailyH:"Daily challenge", dailyTag:"Double XP", dailyDone:"Daily challenge done. A new one arrives tomorrow.",
+ bossesH:"Bosses", bossLocked:"Needs 60% in {p} and {x} lifetime XP.", bossDefeated:"Defeated", bossFight:"Face the boss",
+ bossStage:"Stage {n} of {m}", bossLives:"Mistakes still allowed: {n}", bossNext:"Next stage", bossResult:"See the result",
+ bossWin:"Boss defeated", bossWinP:"You earned {x} XP and the \"{t}\" trophy.", bossLose:"The boss won this time", bossLoseP:"You lost {x} XP from your balance. Review the missions involved and come back for a rematch.",
+ bossRules:"Three chained stages, no hints and no power-ups. You may make a single mistake. The difficulty chosen on the board applies here too.", bossStart:"Start the fight", reward:"Reward: {x} XP",
+ trophies:"Trophies", noTrophies:"None yet. Bosses show up on the board once you have enough mastery and XP.", review:"Review",
+ shopH:"Shop", shopP:"Trade your XP balance for power-ups and titles. Spending the balance does not reduce lifetime XP, which is what opens stages and bosses.",
+ shopA:"these are the miles of a loyalty programme. You spend the balance on tickets; your card tier depends on total miles flown and does not drop when you redeem.",
+ powers:"Power-ups", titlesH:"Titles", owned:"You have: {n}", buy:"Redeem for {c} XP", equip:"Use this title", equipped:"In use", unequip:"Stop using",
+ kTotal:"lifetime XP", kBosses:"bosses defeated"
+});
+LANG.en.game={
+ shop:{shield:["Shield","Absorbs the XP penalty of your next mistake. Used automatically."],
+  fifty:["Remove two","Removes two wrong options from a multiple-choice ticket. A correct answer then counts as weaker evidence of mastery."],
+  time:["Extra time","Adds 30 seconds to the clock in Extra hardcore mode."],
+  boost:["Double XP","Doubles the XP of your next 3 tickets. Activates as soon as you redeem it."],
+  tBug:["Bug hunter","A title shown next to your role."],tArch:["Architect's mind","A title shown next to your role."],tLegend:["Deploy legend","A title shown next to your role."]},
+ bounties:{b1:"Get 3 tickets right in a row without hints",b2:"Solve a ticket on Hard or Extra hardcore",b3:"Clean sprint: 5 out of 5"},
+ bosses:{
+  bossA:{name:"The Inspector",client:"Dona Lúcia's bakery",trophy:"Inspector's Seal",story:"A city inspector walks into the bakery and wants to see, within the hour, total discounted sales, the count of customers who got the discount, and the change calculation. The till program mixes variables, conditions and loops, and any slip means a fine. Dona Lúcia looks at you."},
+  bossB:{name:"The Great Migration",client:"2nd District Notary Office",trophy:"Archive Key",story:"The notary office is moving 40 years of files to a new server this weekend. The script uses recursive functions over lists, and a report with the wrong count voids the whole process. Helena needs every function checked before Saturday."},
+  bossC:{name:"Friday, 5 pm",client:"Roda Viva delivery co-op",trophy:"Friday Medal",story:"Friday, 5 pm. The co-op demands meal vouchers live today, because the campaign starts tomorrow. The code sits finished on someone's machine, with no tests and no review. Everything you learned about requirements, process, versioning, testing and design will be put to the test in the next few hours."}}
+};
+Object.assign(LANG.en.items,{
+xa1:{title:"The discounted total",prompt:"Sales of 50 or more get a 10% discount (integer part). What does the program print?",why:"12 stays 12; 55 becomes 50; 50 becomes 45; 8 stays 8. The total is 115. The discount also applies to exactly 50, because of >=.",analogy:"It is checking the receipt line by line: whoever looks only at the total cannot see on which line the discount came in."},
+xa2:{title:"The count that comes out zero",prompt:"The program should count 2 discounted sales but prints 0. Which line is in the wrong place?",why:"Resetting the counter inside the loop wipes the count every round. Initialisation belongs before the loop, where it already exists.",analogy:"It is the doorman who resets his hand clicker for every person who walks in: at the end of the day, the display only knows about the last one."},
+xa3:{title:"Change in ten-notes",prompt:"Assemble the program that validates the payment and prints how many 10-notes and how many 1-coins make up the change.",why:"The price must exist before the amount paid, which depends on it. Validation comes before the calculation, and change is only computed on the branch where the payment is enough.",analogy:"The cashier first checks that the money covers the bill; only then does the drawer open to sort out the change."},
+xb1:{title:"A sum starting from a position",prompt:"What does the program print?",why:"The call starts at index 1, so it adds 7 + 9 = 16. The value at index 0 is left out. The base case happens when i reaches the size of the list.",analogy:"It is joining a queue at the second spot and asking everyone to add their number to those behind them."},
+xb2:{title:"One file too many",prompt:"The function should count 3 files but answers 4. Which line is wrong?",why:"With >, the recursion only stops after going past the end, counting a position that does not exist. The correct base case compares for equality with the size.",analogy:"It is counting the steps of a staircase and including the floor upstairs: the brake was applied one step too late."},
+xb3:{title:"How many large files",prompt:"Assemble the function that counts how many values exceed the limit and the call that prints the result.",why:"The counter is created before the loop, updated inside it, and only returned after the loop ends. The call comes after the definition.",analogy:"It is the roadside weigh station: the counter is reset at the start of the shift, each overweight truck is counted, and the report only goes out at the end."},
+xc1:{title:"The 5 pm request",prompt:"The co-op wants meal vouchers live today. The code exists only on a colleague's machine, with no tests. What is the best course of action?",opts:["Push the code to a branch, test the critical path, review and release with a rollback plan; if it does not fit today, negotiate the deadline","Copy the files straight to the server, because the deadline rules","Refuse any release until the whole payments module is rewritten","Release now and write the tests on Monday"],why:"A tight deadline does not suspend the process: versioning, testing the critical path, review and a way back reduce risk. If it does not fit, you negotiate scope or deadline, never quality in silence.",analogy:"Emergency surgery still has a checklist and sterile technique: urgency changes the pace, not the steps that prevent tragedy."},
+xc2:{title:"Pix went down",prompt:"Ten minutes after the release, Pix payments start failing. What is the first action?",opts:["Roll back to the previous version and investigate the cause with the system stable","Debug directly in production until the error is found","Wait for more reports to be sure","Shut the server down and sort it out on Monday"],why:"First you restore the service; then you investigate. Git history makes going back quick and safe.",analogy:"With a burst pipe, you shut off the water first. Finding out why it burst comes later, with a dry floor."},
+xc3:{title:"Monday's meeting",prompt:"In the retrospective, it turns out the change broke a case nobody tested. Which follow-up is best?",opts:["A blameless review: add the regression test and adjust the process so that code review requires tests","Identify the culprit and issue a written warning","Ban Friday releases and close the matter","Extend every project deadline by 50%"],why:"Failures belong to the system of work, not to one person. The regression test keeps the defect from returning, and the process change keeps the situation from returning.",analogy:"In aviation, every incident becomes an investigation and a better procedure, not a witch hunt. That is why flying became so safe."}
+});

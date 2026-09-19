@@ -184,3 +184,52 @@ d4:{title:"Mais um \"se\" no pagamento",prompt:"Cada nova forma de pagamento exi
 d5:{title:"O banco de dados soldado na classe",prompt:"A classe Pedido cria dentro de si a conexão com um banco MySQL específico. O que isso dificulta e como resolver?",opts:["Testar e trocar o banco; receber a dependência pronta, por uma interface","Nada; criar a conexão lá dentro é o mais organizado","A velocidade; resolver com um servidor mais potente","A leitura; resolver com mais comentários"],hint:"Como você testaria Pedido sem um MySQL ligado?",why:"Criar a dependência concreta internamente acopla a classe a ela. Com injeção de dependência, a classe recebe algo que cumpre uma interface, e nos testes recebe um substituto.",analogy:"Luminária com a lâmpada soldada: queimou, joga-se tudo fora. Com soquete padrão, troca-se só a lâmpada, inclusive por uma de teste."}
 }
 };
+
+/* ---------- Camada de jogo (loja, dificuldade, desafios, chefões) ---------- */
+Object.assign(LANG.pt.ui,{
+ navShop:"Loja", balance:"Saldo", total:"XP acumulado", titleLbl:"Título",
+ modeH:"Dificuldade", modes:{normal:"Normal",medio:"Médio",dificil:"Difícil",hardcore:"Extra hardcore"},
+ modeDesc:{normal:"XP ×1. Dicas livres (acerto com dica vale metade). Cada erro custa 2 XP por nível do ticket.",
+  medio:"XP ×1,5. Cada dica custa 5 XP. Cada erro custa 4 XP por nível do ticket.",
+  dificil:"XP ×2. Sem dicas e sem opções nos tickets de saída: você digita o que o programa imprime. Cada erro custa 6 XP por nível.",
+  hardcore:"XP ×3. Sem dicas, resposta digitada e 60 segundos no relógio. Cada erro custa 10 XP por nível."},
+ typedLbl:"Digite exatamente o que o programa imprime", typedPh:"saída do programa", yourAnswer:"Sua resposta: {a}", expected:"Saída correta: {a}",
+ timeLeft:"Tempo: {s} s", timeout:"O tempo acabou.", lost:"Penalidade: -{x} XP do saldo.", shieldUsed:"Seu escudo absorveu a penalidade.",
+ boostOn:"XP em dobro: restam {n} tickets", hintPaid:"Pedir dica (custa {c} XP)", noHints:"Neste modo não há dicas.",
+ useFifty:"Usar Eliminar duas ({n})", useTime:"Usar +30 s ({n})",
+ lockedXp:"Bloqueada: requer 60% em {p} e {x} XP acumulados (você tem {y}).", lockedXpOnly:"Bloqueada: requer {x} XP acumulados (você tem {y}).",
+ bountiesH:"Desafios do sprint", bountyDone:"Desafio cumprido: {s} (+{x} XP)",
+ dailyH:"Desafio do dia", dailyTag:"XP em dobro", dailyDone:"Desafio do dia concluído. Amanhã tem outro.",
+ bossesH:"Chefões", bossLocked:"Requer 60% em {p} e {x} XP acumulados.", bossDefeated:"Derrotado", bossFight:"Enfrentar o chefão",
+ bossStage:"Fase {n} de {m}", bossLives:"Erros ainda permitidos: {n}", bossNext:"Próxima fase", bossResult:"Ver o resultado",
+ bossWin:"Chefão derrotado", bossWinP:"Você ganhou {x} XP e o troféu \"{t}\".", bossLose:"O chefão venceu desta vez", bossLoseP:"Você perdeu {x} XP do saldo. Revise as missões envolvidas e volte para a revanche.",
+ bossRules:"Três fases encadeadas, sem dicas e sem poderes. Você pode errar uma única vez. A dificuldade escolhida no quadro também vale aqui.", bossStart:"Começar o combate", reward:"Recompensa: {x} XP",
+ trophies:"Troféus", noTrophies:"Nenhum ainda. Os chefões aparecem no quadro quando você tiver domínio e XP suficientes.", review:"Revisão",
+ shopH:"Loja", shopP:"Troque seu saldo de XP por poderes e títulos. Gastar o saldo não reduz o XP acumulado, que é o que abre fases e chefões.",
+ shopA:"são as milhas de um programa de fidelidade. O saldo você gasta em passagens; a categoria do cartão depende do total voado e não cai quando você resgata.",
+ powers:"Poderes", titlesH:"Títulos", owned:"Você tem: {n}", buy:"Resgatar por {c} XP", equip:"Usar este título", equipped:"Em uso", unequip:"Deixar de usar",
+ kTotal:"XP acumulado", kBosses:"chefões derrotados"
+});
+LANG.pt.game={
+ shop:{shield:["Escudo","Absorve a penalidade de XP do seu próximo erro. É usado automaticamente."],
+  fifty:["Eliminar duas","Remove duas opções erradas de um ticket de múltipla escolha. O acerto passa a contar como evidência mais fraca de domínio."],
+  time:["Tempo extra","Soma 30 segundos ao relógio no modo Extra hardcore."],
+  boost:["XP em dobro","Dobra o XP dos seus próximos 3 tickets. Ativa no momento do resgate."],
+  tBug:["Caça-bugs","Título exibido ao lado do seu cargo."],tArch:["Mente de arquiteto","Título exibido ao lado do seu cargo."],tLegend:["Lenda do deploy","Título exibido ao lado do seu cargo."]},
+ bounties:{b1:"Acertar 3 tickets seguidos sem dica",b2:"Resolver um ticket no Difícil ou no Extra hardcore",b3:"Sprint limpo: 5 acertos em 5"},
+ bosses:{
+  bossA:{name:"O Fiscal",client:"Padaria da Dona Lúcia",trophy:"Selo do Fiscal",story:"Um fiscal da prefeitura aparece na padaria e quer ver, em uma hora, o total de vendas com desconto, a contagem de clientes beneficiados e o cálculo do troco. O programa do caixa mistura variáveis, condições e laços, e qualquer deslize vira multa. Dona Lúcia olha para você."},
+  bossB:{name:"A Grande Migração",client:"Cartório do 2º Ofício",trophy:"Chave do Arquivo",story:"O cartório vai migrar 40 anos de arquivos para um servidor novo neste fim de semana. O script usa funções recursivas sobre listas, e um relatório com a contagem errada invalida o processo inteiro. Helena precisa de cada função conferida antes de sábado."},
+  bossC:{name:"Sexta-feira, 17h",client:"Cooperativa de entregas Roda Viva",trophy:"Medalha da Sexta-feira",story:"Sexta-feira, 17h. A cooperativa exige o vale-refeição no ar ainda hoje, porque a campanha começa amanhã. O código está pronto na máquina de alguém, sem testes e sem revisão. Tudo o que você aprendeu sobre requisitos, processo, versionamento, testes e design será cobrado nas próximas horas."}}
+};
+Object.assign(LANG.pt.items,{
+xa1:{title:"O total com desconto",prompt:"Vendas a partir de 50 recebem 10% de desconto (parte inteira). O que o programa imprime?",why:"12 fica 12; 55 vira 50; 50 vira 45; 8 fica 8. O total é 115. O desconto vale também para exatamente 50, por causa do >=.",analogy:"É conferir a nota fiscal item a item: quem olha só o total não vê em que linha o desconto entrou."},
+xa2:{title:"A contagem que dá zero",prompt:"O programa deveria contar 2 vendas com desconto, mas imprime 0. Qual linha está no lugar errado?",why:"Zerar o contador dentro do laço apaga a contagem a cada volta. A inicialização pertence a antes do laço, onde já existe.",analogy:"É o porteiro que zera o contador de mão a cada pessoa que entra: no fim do dia, o visor só sabe da última."},
+xa3:{title:"O troco em notas de dez",prompt:"Monte o programa que valida o pagamento e imprime quantas notas de 10 e quantas moedas de 1 compõem o troco.",why:"O preço precisa existir antes do valor pago, que depende dele. A validação vem antes do cálculo, e o troco só é calculado no ramo em que o pagamento é suficiente.",analogy:"O caixa primeiro confere se o dinheiro cobre a conta; só depois abre a gaveta para separar o troco."},
+xb1:{title:"A soma a partir de uma posição",prompt:"O que o programa imprime?",why:"A chamada começa no índice 1, então soma 7 + 9 = 16. O valor do índice 0 fica de fora. O caso base ocorre quando i chega ao tamanho da lista.",analogy:"É entrar numa fila já na segunda posição e pedir que cada um some o seu número ao dos que vêm atrás."},
+xb2:{title:"Um arquivo a mais",prompt:"A função deveria contar 3 arquivos, mas responde 4. Qual linha está errada?",why:"Com >, a recursão só para depois de passar do fim, contando uma posição que não existe. O caso base correto compara por igualdade com o tamanho.",analogy:"É contar os degraus de uma escada e incluir o piso do andar de cima: o freio foi posto um passo tarde demais."},
+xb3:{title:"Quantos arquivos grandes",prompt:"Monte a função que conta quantos valores passam do limite e a chamada que imprime o resultado.",why:"O contador nasce antes do laço, é atualizado dentro dele e só é devolvido depois que o laço termina. A chamada vem após a definição.",analogy:"É a balança da rodovia: zera-se o contador no início do turno, conta-se cada caminhão acima do peso e o relatório só sai no fim."},
+xc1:{title:"O pedido das 17h",prompt:"A cooperativa quer o vale-refeição no ar hoje. O código existe só na máquina de um colega, sem testes. Qual é a melhor conduta?",opts:["Subir o código numa branch, testar o caminho crítico, revisar e publicar com plano de rollback; se não couber hoje, negociar o prazo","Copiar os arquivos direto para o servidor, porque o prazo manda","Recusar qualquer publicação até reescrever o módulo de pagamentos inteiro","Publicar agora e escrever os testes na segunda-feira"],why:"Prazo curto não suspende o processo: versionamento, teste do caminho crítico, revisão e plano de volta reduzem o risco. Se não couber, negocia-se escopo ou prazo, nunca a qualidade em silêncio.",analogy:"Cirurgia de emergência ainda tem checklist e assepsia: a pressa muda o ritmo, não elimina as etapas que evitam a tragédia."},
+xc2:{title:"O Pix parou",prompt:"Dez minutos após a publicação, os pagamentos por Pix começam a falhar. Qual é a primeira ação?",opts:["Reverter para a versão anterior e investigar a causa com o sistema estável","Depurar direto em produção até achar o erro","Esperar mais relatos para ter certeza","Desligar o servidor e resolver na segunda-feira"],why:"Primeiro se restaura o serviço; depois se investiga. O histórico do Git torna a volta rápida e segura.",analogy:"Com um cano estourado, primeiro se fecha o registro. Descobrir por que estourou vem depois, com o chão seco."},
+xc3:{title:"A reunião de segunda",prompt:"Na retrospectiva, descobre-se que a mudança quebrou um caso que ninguém testou. Qual encaminhamento é o melhor?",opts:["Análise sem culpados: criar o teste de regressão e ajustar o processo para que a revisão exija testes","Identificar o culpado e adverti-lo por escrito","Proibir publicações às sextas e encerrar o assunto","Aumentar em 50% o prazo de todos os projetos"],why:"Falhas são do sistema de trabalho, não de uma pessoa. O teste de regressão impede a volta do defeito, e a mudança no processo impede a volta da situação.",analogy:"Na aviação, cada incidente vira investigação e melhoria de procedimento, não caça às bruxas. Por isso voar ficou tão seguro."}
+});

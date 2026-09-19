@@ -1,21 +1,22 @@
 /* DevWise - motor do jogo */
 const SK = Object.fromEntries(SKILLS.map(s=>[s.id,s]));
-const IT = Object.fromEntries(ITEMS.map(i=>[i.id,i]));
+const IT = Object.fromEntries(ITEMS.concat(BOSS_ITEMS).map(i=>[i.id,i]));
 const KEY="devwise-v2", L0=0.15, T=0.2, SLIP=0.1, MASTER=0.95, UNLOCK=0.6, SPRINT=5;
-let S, view="home", cur=null, selSkill=null, briefId=null, resetArmed=false, showJson=false, setMsg="";
+let S, view="home", boss=null, tick=null, cur=null, selSkill=null, briefId=null, resetArmed=false, showJson=false, setMsg="";
 
 /* ---------- Estado ---------- */
 function snapshot(sk){const o={};for(const k in sk)o[k]=sk[k].L;return o}
 function guessLang(){const n=(navigator.language||"pt").slice(0,2).toLowerCase();return LANG[n]?n:"pt"}
+function newSprint(n,skills){return {n,done:[],start:snapshot(skills),b:{},run:0}}
 function fresh(){
   const skills={}; SKILLS.forEach(s=>skills[s.id]={L:L0,n:0,c:0});
-  return {v:2,started:false,lang:guessLang(),pl:"py",skills,brief:{},seen:{},log:[],xp:0,streak:0,best:0,board:[],
-    sprint:{n:1,done:[],start:snapshot(skills)},ai:{provider:"anthropic",key:"",model:"",base:""}};
+  return {v:2,started:false,lang:guessLang(),pl:"py",skills,brief:{},seen:{},log:[],xp:0,xpTotal:0,mode:"normal",inv:{shield:0,fifty:0,time:0},boost:0,titles:[],title:null,bosses:{},daily:{date:"",item:null,done:false},streak:0,best:0,board:[],
+    sprint:newSprint(1,skills),ai:{provider:"anthropic",key:"",model:"",base:""}};
 }
 function load(){
   try{const d=JSON.parse(localStorage.getItem(KEY)||"null");
     if(d&&d.v===2&&d.skills){const f=fresh();SKILLS.forEach(s=>{if(!d.skills[s.id])d.skills[s.id]=f.skills[s.id]});
-      if(!LANG[d.lang])d.lang="pt"; if(!PLS[d.pl])d.pl="py"; d.ai=d.ai||f.ai; d.brief=d.brief||{}; return d;}}catch(e){}
+      if(d.xpTotal===undefined)d.xpTotal=d.xp||0; for(const k in f)if(d[k]===undefined)d[k]=f[k]; d.sprint.b=d.sprint.b||{}; d.sprint.run=d.sprint.run||0; if(!MODES[d.mode])d.mode="normal"; if(!LANG[d.lang])d.lang="pt"; if(!PLS[d.pl])d.pl="py"; d.ai=d.ai||f.ai; d.brief=d.brief||{}; return d;}}catch(e){}
   return fresh();
 }
 function save(){try{localStorage.setItem(KEY,JSON.stringify(S))}catch(e){}}
@@ -31,7 +32,14 @@ function itemOpts(it){return (it.opts||itT(it.id).opts).map(o=>o==="@err"?t("err
 
 /* ---------- Motor adaptativo (BKT) ---------- */
 const mastered=id=>S.skills[id].L>=MASTER;
-const unlocked=id=>SK[id].pre.every(p=>S.skills[p].L>=UNLOCK);
+const preOk=id=>SK[id].pre.every(p=>S.skills[p].L>=UNLOCK);
+const gateOk=id=>S.xpTotal>=(GATES[id]||0)||!!S.brief[id];
+const unlocked=id=>preOk(id)&&gateOk(id);
+function earn(x){S.xp+=x;S.xpTotal+=x}
+const gt=()=>Lg().game||LANG.pt.game;
+const isTyped=it=>MODES[S.mode].typed&&it.type==="mc"&&it.mono&&!!it.code;
+const normOut=s=>String(s).replace(/,/g," ").replace(/\s+/g," ").trim();
+const bossOpen=b=>b.need.every(k=>S.skills[k].L>=UNLOCK)&&S.xpTotal>=b.gate;
 const allMastered=()=>SKILLS.every(s=>mastered(s.id));
 const avgL=()=>SKILLS.reduce((a,s)=>a+S.skills[s.id].L,0)/SKILLS.length;
 function career(){const r=t("roles"); if(allMastered())return r[4]; const a=avgL(); return a>=.8?r[3]:a>=.55?r[2]:a>=.3?r[1]:r[0]}
@@ -48,7 +56,7 @@ function pickItem(skillId,avoid){
 function pendingMissions(){return SKILLS.filter(s=>unlocked(s.id)&&!S.brief[s.id]&&!mastered(s.id))}
 function fillBoard(lastId){
   let eligible=SKILLS.filter(s=>unlocked(s.id)&&!mastered(s.id)&&S.brief[s.id]).map(s=>s.id);
-  if(!eligible.length&&allMastered())eligible=SKILLS.map(s=>s.id);
+  if(!eligible.length&&!pendingMissions().length)eligible=SKILLS.filter(s=>S.brief[s.id]||allMastered()).map(s=>s.id); // revisão: mantém o XP fluindo até o próximo portão
   S.board=S.board.filter(id=>IT[id]&&id!==lastId&&eligible.includes(IT[id].skill));
   const used=S.board.map(id=>IT[id].skill);
   const order=eligible.filter(k=>!used.includes(k)).sort((a,b)=>(S.skills[a].L+Math.random()*.3)-(S.skills[b].L+Math.random()*.3));
@@ -58,18 +66,46 @@ function fillBoard(lastId){
 function guessProb(it){return it.type==="mc"?1/itemOpts(it).length:it.type==="bug"?1/itemCode(it).split("\n").length:0.05}
 function bkt(L,ok,g){const post=ok? L*(1-SLIP)/(L*(1-SLIP)+(1-L)*g) : L*SLIP/(L*SLIP+(1-L)*(1-g)); return Math.min(.995,post+(1-post)*T)}
 function resolve(ok){
-  const it=cur.item, sk=S.skills[it.skill], before=sk.L, roleBefore=career();
+  stopTimer();
+  const it=cur.item, sk=S.skills[it.skill], before=sk.L, roleBefore=career(), m=MODES[cur.mode];
   const openBefore=SKILLS.filter(s=>unlocked(s.id)).map(s=>s.id);
-  const g=cur.hint?Math.max(.5,guessProb(it)):guessProb(it);
+  let g=guessProb(it); if(cur.typed)g=0.03; else if(cur.fifty||cur.hint)g=Math.max(.5,g);
   sk.L=bkt(before,ok,g); sk.n++; if(ok)sk.c++;
-  S.streak=ok?S.streak+1:0; S.best=Math.max(S.best,S.streak);
-  let xp=ok?it.d*10:2; if(ok&&cur.hint)xp=Math.ceil(xp/2); if(ok&&S.streak>=3)xp+=5; S.xp+=xp;
-  S.seen[it.id]={n:(S.seen[it.id]?S.seen[it.id].n:0)+1,ok};
-  S.log.push({item:it.id,skill:it.skill,bloom:it.bloom,d:it.d,ok,hint:cur.hint,ai:!!cur.aiUsed,lang:S.lang,pl:it.code?S.pl:null,before:+before.toFixed(3),after:+sk.L.toFixed(3),t:Date.now()});
-  S.sprint.done.push({item:it.id,ok});
-  const newly=SKILLS.filter(s=>unlocked(s.id)&&!openBefore.includes(s.id)).map(s=>skT(s.id).name);
-  cur.done=true; cur.result={ok,before,after:sk.L,xp,newly,promo:career()!==roleBefore?career():null,masteredNow:before<MASTER&&sk.L>=MASTER};
-  fillBoard(it.id); save();
+  const res={ok,before,after:sk.L,xp:0,pen:0,shield:false,bounties:[],newly:[],promo:null,masteredNow:before<MASTER&&sk.L>=MASTER};
+  S.log.push({item:it.id,skill:it.skill,bloom:it.bloom,d:it.d,ok,hint:cur.hint,ai:!!cur.aiUsed,mode:cur.mode,typed:!!cur.typed,timeout:!!cur.timeout,boss:it.boss||null,lang:S.lang,pl:it.code?S.pl:null,before:+before.toFixed(3),after:+sk.L.toFixed(3),t:Date.now()});
+  if(it.boss){ if(!ok)boss.errors++; }
+  else{
+    S.streak=ok?S.streak+1:0; S.best=Math.max(S.best,S.streak);
+    if(ok){ let xp=Math.round(it.d*10*m.mult); if(cur.hint)xp=Math.ceil(xp/2); if(S.streak>=3)xp+=5; if(S.boost>0)xp*=2; if(cur.daily)xp*=2; res.xp=xp; earn(xp); }
+    else{ const pen=m.pen*it.d; if(S.inv.shield>0){S.inv.shield--;res.shield=true} else {res.pen=Math.min(S.xp,pen);S.xp-=res.pen} }
+    if(S.boost>0)S.boost--;
+    if(cur.daily)S.daily.done=true;
+    S.seen[it.id]={n:(S.seen[it.id]?S.seen[it.id].n:0)+1,ok};
+    const sp=S.sprint; sp.done.push({item:it.id,ok}); sp.run=ok&&!cur.hint?sp.run+1:0;
+    const met={b1:sp.run>=3,b2:ok&&(cur.mode==="dificil"||cur.mode==="hardcore"),b3:sp.done.length>=SPRINT&&sp.done.every(d=>d.ok)};
+    BOUNTIES.forEach(b=>{if(met[b.id]&&!sp.b[b.id]){sp.b[b.id]=true;earn(b.xp);res.bounties.push(b)}});
+    res.newly=SKILLS.filter(s=>unlocked(s.id)&&!openBefore.includes(s.id)).map(s=>skT(s.id).name);
+    res.promo=career()!==roleBefore?career():null;
+    fillBoard(it.id);
+  }
+  cur.done=true; cur.result=res; save();
+}
+function stopTimer(){if(tick){clearInterval(tick);tick=null}}
+function startTimer(){
+  stopTimer(); const sec=MODES[cur.mode].timer; if(!sec)return; cur.deadline=Date.now()+sec*1000;
+  tick=setInterval(()=>{ if(view!=="ticket"||!cur||cur.done){stopTimer();return}
+    const left=Math.ceil((cur.deadline-Date.now())/1000), el=document.getElementById("timer");
+    if(left<=0){cur.timeout=true;resolve(false);render();return} if(el)el.textContent=t("timeLeft",{s:left}); },250);
+}
+function ensureDaily(){
+  const d=new Date(), today=d.getFullYear()+"-"+(d.getMonth()+1)+"-"+d.getDate(); if(S.daily.date===today)return;
+  const pool=ITEMS.filter(i=>S.brief[i.skill]&&unlocked(i.skill)); if(!pool.length)return;
+  S.daily={date:today,item:shuffle(pool)[0].id,done:false};
+}
+function buy(p){
+  if(S.xp<p.cost)return; if(p.kind==="title"&&S.titles.includes(p.id))return; S.xp-=p.cost;
+  if(p.kind==="title"){S.titles.push(p.id);S.title=p.id} else if(p.id==="boost")S.boost+=3; else S.inv[p.id]++;
+  save(); render();
 }
 
 /* ---------- Tutor com LLM ---------- */
@@ -124,19 +160,24 @@ function sv(tag,attrs,...kids){
   return el;
 }
 const pct=x=>Math.round(x*100)+"%";
-function go(v){view=v; resetArmed=false; setMsg=""; render(); window.scrollTo(0,0)}
+function go(v){if(v!=="ticket")stopTimer(); view=v; resetArmed=false; setMsg=""; render(); window.scrollTo(0,0)}
 function setLang(l){S.lang=l; save(); document.documentElement.lang=l; render()}
 function langBar(){return h("div",{class:"langbar",role:"group","aria-label":t("uiLang")},Object.keys(LANG).map(l=>h("button",{"aria-pressed":String(S.lang===l),title:LANG[l].name,onclick:()=>setLang(l)},l.toUpperCase())))}
 function plTabs(){return h("div",{class:"tabs",role:"group","aria-label":t("codeLang")},Object.keys(PLS).map(p=>h("button",{"aria-pressed":String(S.pl===p),onclick:()=>{S.pl=p;save();render()}},PLS[p])))}
 
 /* ---------- Telas ---------- */
 function topbar(){
-  const onBoard=["board","ticket","retro","brief"].includes(view);
+  const onBoard=["board","ticket","retro","brief","boss"].includes(view);
   return h("header",{class:"top"},
     h("button",{class:"brand",onclick:()=>go(S.started?"board":"home")},"DevWise"),
-    S.started&&h("div",{class:"stats"},h("span",null,t("role")+" ",h("b",null,career())),h("span",null,t("xp")+" ",h("b",null,String(S.xp))),h("span",null,t("streak")+" ",h("b",null,String(S.streak)))),
+    S.started&&h("div",{class:"stats"},h("span",null,t("role")+" ",h("b",null,career())),
+      S.title&&h("span",null,t("titleLbl")+" ",h("b",null,gt().shop[S.title][0])),
+      h("span",null,t("balance")+" ",h("b",null,S.xp+" XP")),h("span",null,t("total")+" ",h("b",null,String(S.xpTotal))),
+      h("span",null,t("streak")+" ",h("b",null,String(S.streak))),
+      S.boost>0&&h("span",{class:"tag",style:"background:var(--gold-soft)"},t("boostOn",{n:S.boost}))),
     h("nav",{class:"nav"},
       S.started&&h("button",{"aria-current":onBoard?"page":null,onclick:()=>go("board")},t("navBoard")),
+      S.started&&h("button",{"aria-current":view==="shop"?"page":null,onclick:()=>go("shop")},t("navShop")),
       S.started&&h("button",{"aria-current":view==="report"?"page":null,onclick:()=>go("report")},t("navReport")),
       S.started&&h("button",{"aria-current":view==="settings"?"page":null,onclick:()=>go("settings")},t("navSettings")),
       langBar()));
@@ -147,13 +188,27 @@ function home(){
       h("button",{class:"btn",onclick:()=>{S.started=true;fillBoard();save();go("board")}},S.log.length?t("cont"):t("start"))),
     h("ol",{class:"loop"},t("steps").map(s=>h("li",null,h("div",null,h("strong",null,s[0]),s[1])))));
 }
-function ticketCard(it){
-  const se=SK[it.skill].area==="se";
-  return h("button",{class:"ticket"+(se?" se":""),onclick:()=>openTicket(it.id)},
+function ticketCard(it,daily){
+  const se=SK[it.skill].area==="se", rev=mastered(it.skill)&&!daily;
+  return h("button",{class:"ticket"+(se?" se":"")+(daily?" daily":""),onclick:()=>openTicket(it.id,{daily})},
     h("span",{class:"id"},"DW-"+it.id.toUpperCase()+"  "+skT(it.skill).client),
     h("span",{class:"tt"},itT(it.id).title),
-    h("span",{class:"meta"},h("span",{class:"tag"+(se?" se":"")},skT(it.skill).name),h("span",{class:"tag plain"},t("types")[it.type]),h("span",{class:"tag plain"},t("bloom")[it.bloom-1]),
+    h("span",{class:"meta"},daily&&h("span",{class:"tag",style:"background:var(--gold-soft)"},t("dailyTag")),rev&&h("span",{class:"tag plain"},t("review")),
+      h("span",{class:"tag"+(se?" se":"")},skT(it.skill).name),h("span",{class:"tag plain"},t("types")[it.type]),h("span",{class:"tag plain"},t("bloom")[it.bloom-1]),
       h("span",{class:"pts",role:"img","aria-label":t("diff",{d:it.d})},"●".repeat(it.d)+"○".repeat(3-it.d))));
+}
+function bossCard(b){
+  const x=gt().bosses[b.id], won=!!S.bosses[b.id], open=bossOpen(b);
+  return h("button",{class:"bosscard"+(won?" won":""),disabled:!open||won,onclick:()=>{boss={id:b.id,stage:0,errors:0,phase:"intro"};go("boss")}},
+    h("span",{class:"who"},x.client),h("span",{class:"tt"},x.name),
+    h("span",{class:"note"},won?t("bossDefeated")+": "+x.trophy:open?t("bossFight")+". "+t("reward",{x:Math.round(b.reward*MODES[S.mode].mult)}):t("bossLocked",{p:b.need.map(k=>skT(k).name).join(", "),x:b.gate})));
+}
+function modePanel(){
+  return h("div",{class:"panel",style:"margin-bottom:18px"},
+    h("div",{class:"tabs",role:"group","aria-label":t("modeH")},Object.keys(MODES).map(k=>h("button",{"aria-pressed":String(S.mode===k),onclick:()=>{S.mode=k;save();render()}},t("modes")[k]+" ×"+String(MODES[k].mult).replace(".",S.lang==="en"?".":",")))),
+    h("p",{class:"note",style:"margin:6px 0 14px"},t("modeDesc")[S.mode]),
+    h("b",{style:"font-family:var(--display)"},t("bountiesH")),
+    h("ul",{class:"bounties"},BOUNTIES.map(b=>h("li",{class:S.sprint.b[b.id]?"ok":null},(S.sprint.b[b.id]?"✓ ":"")+gt().bounties[b.id]+"  +"+b.xp+" XP"))));
 }
 function missionCard(s){
   const x=skT(s.id);
@@ -192,15 +247,16 @@ function skillMap(){
 }
 function skillInfo(){
   if(!selSkill)return h("p",{class:"skillinfo empty"},t("mapHint"));
-  const s=SK[selSkill],x=skT(selSkill),st=S.skills[selSkill],un=unlocked(selSkill);
-  return h("div",{class:"skillinfo","aria-live":"polite"},h("h4",null,x.name),h("p",null,x.about),
-    h("p",{class:"note"},un?(mastered(selSkill)?t("masteredTxt"):t("estTxt",{p:pct(st.L)}))+t("hits",{c:st.c,n:st.n}):t("locked",{p:s.pre.map(p=>skT(p).name).join(t("and"))})),
+  const s=SK[selSkill],x=skT(selSkill),st=S.skills[selSkill],un=unlocked(selSkill),pre=s.pre.map(p=>skT(p).name).join(t("and")),gate=GATES[selSkill]||0;
+  const why=un?(mastered(selSkill)?t("masteredTxt"):t("estTxt",{p:pct(st.L)}))+t("hits",{c:st.c,n:st.n})
+    :preOk(selSkill)?t("lockedXpOnly",{x:gate,y:S.xpTotal}):gate?t("lockedXp",{p:pre,x:gate,y:S.xpTotal}):t("locked",{p:pre});
+  return h("div",{class:"skillinfo","aria-live":"polite"},h("h4",null,x.name),h("p",null,x.about),h("p",{class:"note"},why),
     un&&h("button",{class:"btn ghost small",onclick:()=>{briefId=selSkill;go("brief")}},t("reread")));
 }
 function board(){
   if(S.sprint.done.length>=SPRINT)return retro();
-  fillBoard(); save();
-  const miss=pendingMissions(), free=allMastered();
+  fillBoard(); ensureDaily(); save();
+  const miss=pendingMissions(), free=allMastered(), dl=S.daily.item&&IT[S.daily.item];
   return h("main",null,
     h("div",{class:"sprintbar"},h("h2",null,t("sprint",{n:S.sprint.n})),pips(),h("span",{class:"note"},free?t("freePlay"):t("ticketOf",{n:S.sprint.done.length+1,m:SPRINT}))),
     h("div",{class:"board"},
@@ -208,9 +264,11 @@ function board(){
         miss.length>0&&[h("h3",null,t("missions")),h("div",{class:"tickets"},miss.map(missionCard))],
         h("h3",{class:miss.length?"gap":null},t("todo")),
         S.board.length?h("div",{class:"tickets"},S.board.map(id=>ticketCard(IT[id]))):h("p",{class:"empty"},t("todoEmpty")),
+        dl&&[h("h3",{class:"gap"},t("dailyH")),S.daily.done?h("p",{class:"empty"},t("dailyDone")):h("div",{class:"tickets"},ticketCard(dl,true))],
+        h("h3",{class:"gap"},t("bossesH")),h("div",{class:"tickets"},BOSSES.map(bossCard)),
         h("div",{class:"done"},h("h3",null,t("doneSprint")),
           S.sprint.done.length?h("div",{class:"chips"},S.sprint.done.map(d=>h("span",{class:"chip"+(d.ok?"":" bad")},"DW-"+d.item.toUpperCase()+" "+(d.ok?t("resolved"):t("toReview"))))):h("p",{class:"empty"},t("nothingDone")))),
-      h("section",{class:"col"},h("h3",null,t("map")),h("div",{class:"panel"},skillMap(),skillInfo()))));
+      h("section",{class:"col"},h("h3",null,t("modeH")),modePanel(),h("h3",null,t("map")),h("div",{class:"panel"},skillMap(),skillInfo()))));
 }
 function brief(){
   const s=SK[briefId], x=skT(briefId), first=!S.brief[briefId];
@@ -225,19 +283,54 @@ function brief(){
     h("div",{class:"row"},
       h("button",{class:"btn",onclick:()=>{S.brief[briefId]=true;fillBoard();save();go("board")}},first?t("startTickets"):t("backBoard"))));
 }
-function openTicket(id){
-  const it=IT[id];
-  cur={item:it,sel:null,hint:false,done:false,result:null,aiText:null,aiAfter:null,aiUsed:false};
+function openTicket(id,o){
+  const it=IT[id]; o=o||{};
+  cur={item:it,sel:null,hint:false,done:false,result:null,aiText:null,aiAfter:null,aiUsed:false,mode:S.mode,daily:!!o.daily,typed:isTyped(it),text:"",fifty:false,timeout:false};
   if(it.type==="mc")cur.order=shuffle(itemOpts(it).map((_,i)=>i));
   if(it.type!=="mc"){cur.lines=itemCode(it).split("\n");}
   if(it.type==="parsons"){let b;do{b=shuffle(cur.lines.map((_,i)=>i))}while(b.every((v,i)=>v===i));cur.bank=b;cur.sol=[]}
-  go("ticket");
+  go("ticket"); startTimer();
+}
+function bossView(){
+  const b=BOSSES.find(x=>x.id===boss.id), x=gt().bosses[b.id], mult=MODES[S.mode].mult;
+  if(boss.phase==="intro")return h("main",{class:"brief"},h("p",{class:"client"},t("client")+": "+x.client),h("h2",null,x.name),h("p",{class:"story"},x.story),
+    h("div",{class:"sbc"},h("b",null,t("modes")[S.mode]+" ×"+mult+". "),t("bossRules")+" "+t("reward",{x:Math.round(b.reward*mult)})),
+    h("div",{class:"row"},h("button",{class:"btn",onclick:()=>{boss.phase="fight";openTicket(b.stages[0])}},t("bossStart")),h("button",{class:"btn ghost",onclick:()=>go("board")},t("backBoard"))));
+  if(!boss.settled){boss.settled=true; if(boss.won){boss.gain=Math.round(b.reward*mult);earn(boss.gain);S.bosses[b.id]=true} else {boss.loss=Math.min(S.xp,b.fail);S.xp-=boss.loss} save();}
+  return h("main",{class:"work"},h("section",{class:"fb"+(boss.won?"":" bad")},h("h3",null,boss.won?t("bossWin"):t("bossLose")),
+    h("p",null,boss.won?t("bossWinP",{x:boss.gain,t:x.trophy}):t("bossLoseP",{x:boss.loss})),h("button",{class:"btn",onclick:()=>{boss=null;go("board")}},t("backBoard"))));
+}
+function bossAdvance(){
+  const b=BOSSES.find(x=>x.id===boss.id);
+  if(boss.errors>1){boss.phase="end";boss.won=false;cur=null;go("boss");return}
+  if(boss.stage>=b.stages.length-1){boss.phase="end";boss.won=true;cur=null;go("boss");return}
+  boss.stage++; openTicket(b.stages[boss.stage]);
+}
+function shop(){
+  const card=p=>{const x=gt().shop[p.id], has=p.kind==="title"&&S.titles.includes(p.id), n=p.id==="boost"?S.boost:S.inv[p.id];
+    return h("div",{class:"panel shopitem"},h("h3",null,x[0]),h("p",null,x[1]),p.kind==="power"&&h("p",{class:"note"},t("owned",{n})),
+      has?h("button",{class:"btn ghost small",onclick:()=>{S.title=S.title===p.id?null:p.id;save();render()}},S.title===p.id?t("equipped")+". "+t("unequip"):t("equip"))
+         :h("button",{class:"btn small",disabled:S.xp<p.cost,onclick:()=>buy(p)},t("buy",{c:p.cost})));};
+  return h("main",null,h("h2",{style:"font-size:1.9rem;font-weight:800"},t("shopH")),h("p",{style:"max-width:46em"},t("shopP")),
+    h("div",{class:"analogy",style:"background:var(--surface);max-width:46em"},h("b",null,t("analogy")),t("shopA")),
+    h("div",{class:"kpis"},h("div",null,h("b",null,S.xp+" XP"),t("balance")),h("div",null,h("b",null,String(S.xpTotal)),t("total"))),
+    h("h3",{style:"margin:22px 0 12px;font-size:1.3rem"},t("powers")),h("div",{class:"grid2",style:"margin-top:0"},SHOP.filter(p=>p.kind==="power").map(card)),
+    h("h3",{style:"margin:26px 0 12px;font-size:1.3rem"},t("titlesH")),h("div",{class:"grid2",style:"margin-top:0"},SHOP.filter(p=>p.kind==="title").map(card)));
 }
 function ticket(){
-  const it=cur.item, tx=itT(it.id), se=SK[it.skill].area==="se", r=cur.result, body=[], opts=it.type==="mc"?itemOpts(it):null;
+  const it=cur.item, tx=itT(it.id), se=SK[it.skill].area==="se", r=cur.result, body=[], opts=it.type==="mc"?itemOpts(it):null, m=MODES[cur.mode], isBoss=!!it.boss;
+  const check=()=>{
+    if(cur.typed&&!normOut(cur.text))return;
+    const ok=cur.typed?normOut(cur.text)===normOut(opts[0]):it.type==="mc"?cur.sel===0:it.type==="bug"?cur.sel===it.answer:cur.sol.map(i=>cur.lines[i]).join("\n")===cur.lines.join("\n");
+    resolve(ok); render(); const fb=document.getElementById("fb"); if(fb){fb.focus();fb.scrollIntoView({block:"nearest",behavior:"smooth"})}
+  };
   if(it.type==="mc"){
     if(itemCode(it))body.push(h("pre",{class:"code"},itemCode(it)));
-    body.push(h("div",{class:"opts",role:"group","aria-label":t("options")},cur.order.map(i=>{
+    if(cur.typed){
+      body.push(h("label",{class:"typed"},t("typedLbl"),h("input",{type:"text",id:"typed",value:cur.text,placeholder:t("typedPh"),disabled:cur.done,autocomplete:"off",spellcheck:"false",
+        oninput:e=>{cur.text=e.target.value},onkeydown:e=>{if(e.key==="Enter")check()}})));
+      if(cur.done)body.push(h("p",{class:"note"},t("yourAnswer",{a:cur.text||"-"})+"   "+t("expected",{a:opts[0]})));
+    } else body.push(h("div",{class:"opts",role:"group","aria-label":t("options")},cur.order.map(i=>{
       let cls="opt"+(it.mono?" mono":""); if(cur.done){ if(i===0)cls+=" right"; else if(i===cur.sel)cls+=" wrong"; }
       return h("button",{class:cls,"aria-pressed":String(cur.sel===i),disabled:cur.done,onclick:()=>{cur.sel=i;render()}},opts[i]);})));
   }
@@ -256,35 +349,45 @@ function ticket(){
         !cur.done&&h("button",{class:"mv","aria-label":t("down"),onclick:()=>move(pos,1)},"↓"))))));
     if(cur.done&&!r.ok)body.push(h("p",{class:"note"},t("correctOrder")),h("pre",{class:"code"},cur.lines.join("\n")));
   }
-  const ready=it.type==="parsons"?cur.sol.length===cur.lines.length:cur.sel!==null;
-  const check=()=>{
-    const ok=it.type==="mc"?cur.sel===0:it.type==="bug"?cur.sel===it.answer:cur.sol.map(i=>cur.lines[i]).join("\n")===cur.lines.join("\n");
-    resolve(ok); render(); const fb=document.getElementById("fb"); if(fb){fb.focus();fb.scrollIntoView({block:"nearest",behavior:"smooth"})}
-  };
+  const ready=cur.typed?true:it.type==="parsons"?cur.sol.length===cur.lines.length:cur.sel!==null;
   const over=S.sprint.done.length>=SPRINT, busy=cur.aiText===t("aiThinking")||cur.aiAfter===t("aiThinking");
+  const hints=isBoss?"none":m.hint, canPay=hints!=="paid"||S.xp>=HINT_COST, payHint=()=>{if(hints==="paid"){S.xp-=HINT_COST;save()}};
+  const timed=m.timer>0&&!cur.done, b=isBoss&&BOSSES.find(x=>x.id===it.boss);
+  const useFifty=()=>{const wrong=shuffle(cur.order.filter(i=>i!==0)).slice(0,2);cur.order=cur.order.filter(i=>!wrong.includes(i));if(wrong.includes(cur.sel))cur.sel=null;cur.fifty=true;S.inv.fifty--;save();render()};
   return h("main",{class:"work"},
-    h("div",{class:"meta"},h("span",{class:"tag plain"},"DW-"+it.id.toUpperCase()),h("span",{class:"tag"+(se?" se":"")},skT(it.skill).name),h("span",{class:"tag plain"},skT(it.skill).client),
-      h("span",{class:"tag plain"},t("types")[it.type]),h("span",{class:"tag plain"},t("bloom")[it.bloom-1]),it.code&&h("span",{class:"tag plain"},PLS[S.pl])),
-    h("h2",null,tx.title), h("p",{class:"prompt"},tx.prompt), body,
+    isBoss&&h("p",{class:"promo",style:"margin-bottom:8px"},gt().bosses[it.boss].name+": "+t("bossStage",{n:boss.stage+1,m:b.stages.length})+". "+t("bossLives",{n:Math.max(0,1-boss.errors)})),
+    h("div",{class:"meta"},h("span",{class:"tag plain"},"DW-"+it.id.toUpperCase()),h("span",{class:"tag"+(se?" se":"")},skT(it.skill).name),!isBoss&&h("span",{class:"tag plain"},skT(it.skill).client),
+      h("span",{class:"tag plain"},t("types")[it.type]),h("span",{class:"tag plain"},t("bloom")[it.bloom-1]),it.code&&h("span",{class:"tag plain"},PLS[S.pl]),
+      h("span",{class:"tag",style:"background:var(--gold-soft)"},t("modes")[cur.mode]+" ×"+m.mult),cur.daily&&h("span",{class:"tag",style:"background:var(--gold-soft)"},t("dailyTag"))),
+    h("h2",null,tx.title),
+    timed&&h("p",{class:"timer",id:"timer",role:"timer"},t("timeLeft",{s:Math.max(0,Math.ceil((cur.deadline-Date.now())/1000))})),
+    h("p",{class:"prompt"},tx.prompt), body,
     cur.hint&&!cur.aiUsed&&h("div",{class:"hint"},h("b",null,t("tutorHint")),tx.hint),
     cur.aiText&&h("div",{class:"ai","aria-live":"polite"},h("b",null,t("aiLabel")),cur.aiText),
     !cur.done&&h("div",{class:"row"},
       h("button",{class:"btn",disabled:!ready,onclick:check},t("check")),
-      !cur.hint&&h("button",{class:"btn ghost",onclick:()=>{cur.hint=true;render()}},t("hint")),
-      !cur.aiUsed&&AI.ready()&&h("button",{class:"btn ghost",disabled:busy,onclick:aiHint},t("aiHint")),
-      h("button",{class:"btn ghost",onclick:()=>go("board")},t("backBoard"))),
-    !cur.done&&!cur.hint&&h("p",{class:"note",style:"margin-top:10px"},t("hintNote")),
+      hints!=="none"&&!cur.hint&&h("button",{class:"btn ghost",disabled:!canPay,onclick:()=>{payHint();cur.hint=true;render()}},hints==="paid"?t("hintPaid",{c:HINT_COST}):t("hint")),
+      hints!=="none"&&!cur.aiUsed&&!cur.hint&&AI.ready()&&h("button",{class:"btn ghost",disabled:busy||!canPay,onclick:()=>{payHint();aiHint()}},t("aiHint")),
+      !isBoss&&!cur.typed&&it.type==="mc"&&!cur.fifty&&S.inv.fifty>0&&h("button",{class:"btn ghost",onclick:useFifty},t("useFifty",{n:S.inv.fifty})),
+      timed&&!isBoss&&S.inv.time>0&&h("button",{class:"btn ghost",onclick:()=>{cur.deadline+=30000;S.inv.time--;save();render()}},t("useTime",{n:S.inv.time})),
+      !timed&&!isBoss&&h("button",{class:"btn ghost",onclick:()=>go("board")},t("backBoard"))),
+    !cur.done&&h("p",{class:"note",style:"margin-top:10px"},hints==="none"?t("noHints"):!cur.hint&&hints==="free"?t("hintNote"):null),
     cur.done&&h("section",{class:"fb"+(r.ok?"":" bad"),id:"fb",tabindex:"-1","aria-live":"polite"},
-      h("h3",null,r.ok?t("solved"):t("notYet")),
+      h("h3",null,r.ok?t("solved"):cur.timeout?t("timeout"):t("notYet")),
       h("p",null,h("b",null,t("why")),tx.why),
       h("div",{class:"analogy"},h("b",null,t("analogy")),tx.analogy),
       cur.aiAfter&&h("div",{class:"ai"},h("b",null,t("aiLabel")),cur.aiAfter),
       h("p",{class:"delta"},t("delta",{s:skT(it.skill).name,a:pct(r.before),b:pct(r.after),x:r.xp})),
+      r.pen>0&&h("p",{class:"delta",style:"color:var(--bad)"},t("lost",{x:r.pen})),
+      r.shield&&h("p",{class:"delta"},t("shieldUsed")),
       !r.ok&&r.after>r.before&&h("p",{class:"note"},t("roseNote")),
+      r.bounties.map(bn=>h("p",{class:"promo"},t("bountyDone",{s:gt().bounties[bn.id],x:bn.xp}))),
       r.masteredNow&&h("p",{class:"promo"},t("masteredNow",{s:skT(it.skill).name})),
       r.newly.length>0&&h("p",{class:"promo"},t("unlockedNow",{s:r.newly.join(", ")})),
       r.promo&&h("p",{class:"promo"},t("promo",{r:r.promo})),
-      h("div",{class:"row"},h("button",{class:"btn",onclick:()=>go(over?"retro":"board")},over?t("toRetro"):t("backBoard")),
+      h("div",{class:"row"},
+        isBoss?h("button",{class:"btn",onclick:bossAdvance},boss.errors>1||boss.stage>=b.stages.length-1?t("bossResult"):t("bossNext"))
+              :h("button",{class:"btn",onclick:()=>go(over?"retro":"board")},over?t("toRetro"):t("backBoard")),
         AI.ready()&&!cur.aiAfter&&h("button",{class:"btn ghost",disabled:busy,onclick:aiExplain},t("aiExplain")))));
 }
 function weakest(){return SKILLS.filter(s=>unlocked(s.id)&&!mastered(s.id)).sort((a,b)=>S.skills[a.id].L-S.skills[b.id].L)[0]||null}
@@ -296,7 +399,7 @@ function retro(){
     h("div",{class:"panel"},h("h3",null,t("changed")),h("div",{class:"tblwrap"},h("table",null,h("thead",null,h("tr",null,h("th",null,t("colSkill")),h("th",null,t("colStart")),h("th",null,t("colNow")))),
       h("tbody",null,moved.map(s=>h("tr",null,h("td",null,skT(s.id).name),h("td",null,pct(S.sprint.start[s.id]??L0)),h("td",null,h("b",null,pct(S.skills[s.id].L))))))))),
     h("p",{style:"margin-top:18px"},w?t("suggestion",{s:skT(w.id).name,p:pct(S.skills[w.id].L)}):t("allDone")),
-    h("button",{class:"btn",onclick:()=>{S.sprint={n:S.sprint.n+1,done:[],start:snapshot(S.skills)};fillBoard();save();go("board")}},t("nextSprint",{n:S.sprint.n+1})));
+    h("button",{class:"btn",onclick:()=>{S.sprint=newSprint(S.sprint.n+1,S.skills);fillBoard();save();go("board")}},t("nextSprint",{n:S.sprint.n+1})));
 }
 function exportData(){return JSON.stringify({app:"DevWise",version:2,skills:S.skills,log:S.log},null,1)}
 function report(){
@@ -312,7 +415,7 @@ function report(){
   const status=s=>mastered(s.id)?t("stM"):!unlocked(s.id)?t("stL"):!S.brief[s.id]?t("stB"):t("stP");
   return h("main",null,h("h2",{style:"font-size:1.9rem;font-weight:800"},t("repH")),h("p",{class:"note"},t("repSub")),
     h("div",{class:"kpis"},h("div",null,h("b",null,String(n)),t("k1")),h("div",null,h("b",null,n?pct(c/n):"0%"),t("k2")),
-      h("div",null,h("b",null,t("of",{a:SKILLS.filter(s=>mastered(s.id)).length,b:SKILLS.length})),t("k3")),h("div",null,h("b",null,String(S.best)),t("k4"))),
+      h("div",null,h("b",null,t("of",{a:SKILLS.filter(s=>mastered(s.id)).length,b:SKILLS.length})),t("k3")),h("div",null,h("b",null,String(S.best)),t("k4")),h("div",null,h("b",null,String(S.xpTotal)),t("kTotal")),h("div",null,h("b",null,t("of",{a:Object.keys(S.bosses).length,b:BOSSES.length})),t("kBosses"))),
     h("div",{class:"grid2"},
       h("section",{class:"panel"},h("h3",null,t("bySkill")),h("div",{class:"tblwrap"},h("table",null,
         h("thead",null,h("tr",null,h("th",null,t("colSkill")),h("th",null,t("colMastery")),h("th",null,""),h("th",null,t("colHits")),h("th",null,t("colStatus")),h("th",null,t("colSbc")))),
@@ -321,12 +424,13 @@ function report(){
       h("section",{class:"panel"},h("h3",null,t("recs")),h("ul",{style:"margin:0;padding-left:20px"},recs.map(r=>h("li",{style:"margin-bottom:8px"},r))),
         h("h3",{style:"margin-top:20px"},t("bloomAcc")),h("div",{class:"tblwrap"},h("table",null,h("tbody",null,bloom.map(b=>h("tr",null,h("td",null,b.name),
           h("td",null,h("div",{class:"bar"},h("i",{style:"width:"+(b.n?pct(b.c/b.n):"0%")}))),h("td",null,b.n?t("of",{a:b.c,b:b.n}):t("noData")))))))),
+      h("section",{class:"panel"},h("h3",null,t("trophies")),Object.keys(S.bosses).length?h("ul",{style:"margin:0;padding-left:20px"},Object.keys(S.bosses).map(k=>h("li",null,h("b",null,gt().bosses[k].trophy),"  ("+gt().bosses[k].name+")"))):h("p",{class:"empty"},t("noTrophies"))),
       h("section",{class:"panel"},h("h3",null,t("how")),h("p",null,t("howP")),h("div",{class:"analogy",style:"background:var(--sunken)"},h("b",null,t("analogy")),t("howA")),h("p",{class:"note"},t("howParams"))),
       h("section",{class:"panel"},h("h3",null,t("data")),h("p",{class:"note"},t("dataP")),
         h("div",{class:"row"},
           h("button",{class:"btn ghost small",onclick:()=>{showJson=!showJson;render()}},showJson?t("hideJson"):t("showJson")),
           h("button",{class:"btn ghost small",onclick:()=>{try{const a=document.createElement("a");a.href=URL.createObjectURL(new Blob([exportData()],{type:"application/json"}));a.download="devwise-log.json";a.click()}catch(e){} showJson=true;render()}},t("download")),
-          h("button",{class:"btn ghost small",onclick:()=>{ if(!resetArmed){resetArmed=true;render();return;} const keep={lang:S.lang,pl:S.pl,ai:S.ai}; S=Object.assign(fresh(),keep);save();selSkill=null;cur=null;go("home") }},resetArmed?t("resetConfirm"):t("reset"))),
+          h("button",{class:"btn ghost small",onclick:()=>{ if(!resetArmed){resetArmed=true;render();return;} const keep={lang:S.lang,pl:S.pl,ai:S.ai,mode:S.mode}; S=Object.assign(fresh(),keep);save();selSkill=null;cur=null;go("home") }},resetArmed?t("resetConfirm"):t("reset"))),
         showJson&&h("textarea",{readonly:true,"aria-label":"JSON",style:"margin-top:12px",onfocus:e=>e.target.select()},exportData()))));
 }
 function settings(){
@@ -352,9 +456,10 @@ function settings(){
 function render(){
   const app=document.getElementById("app"); app.textContent="";
   if(view==="ticket"&&!cur)view="board"; if(view==="brief"&&!briefId)view="board"; if(view!=="home"&&!S.started)view="home";
-  const v={home,ticket,retro,report,settings,brief,board}[view]||board;
+  if(view==="boss"&&!boss)view="board";
+  const v={home,ticket,retro,report,settings,brief,board,shop,boss:bossView}[view]||board;
   app.append(topbar(),v());
 }
 S=load(); document.documentElement.lang=S.lang; view=S.started?"board":"home"; render();
 /* Dentro do claude.ai, o tutor IA usa a capacidade "sample"; fora dele (GitHub Pages), usa a chave informada em Ajustes. */
-if(window.claude&&typeof window.claude.use==="function"){window.claude.use("sample").then(fn=>{if(fn){AI.sample=fn;if(view==="settings"||view==="board")render()}}).catch(()=>{})}
+if(window.claude&&typeof window.claude.use==="function"){window.claude.use("sample").then(fn=>{if(fn){AI.sample=fn;if(view==="settings")render()}}).catch(()=>{})}

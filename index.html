@@ -190,6 +190,22 @@ textarea{width:100%;height:160px;font-family:var(--mono);font-size:.8rem;backgro
 .langbar button{background:none;border:1px solid var(--line);border-radius:6px;padding:2px 8px;font-size:.82rem;font-weight:700}
 .langbar button[aria-pressed="true"]{background:var(--ink);color:var(--bg);border-color:var(--ink)}
 
+/* ---- v3: economia de XP, dificuldade, chefões e loja ---- */
+.ticket.daily{border-left-color:var(--gold);background:var(--gold-soft)}
+.bosscard{display:block;width:100%;text-align:left;background:var(--ink);color:var(--bg);border:2px solid var(--ink);border-radius:12px;padding:15px 18px}
+.bosscard .tt{font-family:var(--display);font-weight:800;font-size:1.3rem;display:block;margin:2px 0 4px}
+.bosscard .who,.bosscard .note{color:inherit;opacity:.8;font-size:.9rem}
+.bosscard:disabled{background:var(--sunken);color:var(--muted);border-color:var(--line);border-style:dashed}
+.bosscard.won:disabled{border-style:solid;border-color:var(--ok);color:var(--ink);background:var(--ok-soft)}
+.bounties{list-style:none;margin:6px 0 0;padding:0;font-size:.93rem}
+.bounties li{padding:4px 0;border-top:1px solid var(--line)}
+.bounties li.ok{color:var(--ok);font-weight:700}
+.typed{display:grid;gap:6px;font-weight:700;margin-bottom:18px}
+.typed input{font-family:var(--mono);font-size:1.05rem;color:var(--ink);background:var(--surface);border:2px solid var(--ink);border-radius:10px;padding:12px 14px;width:100%}
+.timer{font-family:var(--display);font-weight:800;font-size:1.3rem;color:var(--bad);margin:0 0 6px}
+.shopitem{display:flex;flex-direction:column;gap:4px;align-items:flex-start}
+.shopitem p{margin:0 0 6px}
+
 </style>
 </head>
 <body>
@@ -924,6 +940,205 @@ void testDiscount() {
 {id:"d5",skill:"design",type:"mc",d:3,bloom:4}
 ];
 
+/* DevWise - camada de jogo: economia de XP, dificuldade, loja, desafios e chefões */
+
+/* Modos de dificuldade. mult: multiplicador de XP; pen: XP perdido por erro (x dificuldade do item);
+   hint: "free" | "paid" | "none"; typed: resposta digitada quando o item permite; timer: segundos (0 = sem relógio). */
+const MODES = {
+  normal:  {mult:1,   pen:2,  hint:"free", typed:false, timer:0},
+  medio:   {mult:1.5, pen:4,  hint:"paid", typed:false, timer:0},
+  dificil: {mult:2,   pen:6,  hint:"none", typed:true,  timer:0},
+  hardcore:{mult:3,   pen:10, hint:"none", typed:true,  timer:60}
+};
+const HINT_COST = 5;
+
+/* XP acumulado exigido para abrir cada fase (além dos pré-requisitos de domínio). */
+const GATES = {var:0, req:0, git:30, cond:60, agil:100, loop:150, func:240, test:320, col:380, rec:450, design:520};
+
+/* Loja. kind: "power" (consumível) | "title" (cosmético, compra única). */
+const SHOP = [
+  {id:"shield", kind:"power", cost:30},
+  {id:"fifty",  kind:"power", cost:25},
+  {id:"time",   kind:"power", cost:15},
+  {id:"boost",  kind:"power", cost:40},
+  {id:"tBug",   kind:"title", cost:80},
+  {id:"tArch",  kind:"title", cost:150},
+  {id:"tLegend",kind:"title", cost:300}
+];
+
+/* Desafios extras de cada sprint. */
+const BOUNTIES = [{id:"b1", xp:20}, {id:"b2", xp:25}, {id:"b3", xp:40}];
+
+/* Chefões: 3 fases, 1 erro permitido, sem dicas. need: habilidades com 60% de domínio; gate: XP acumulado. */
+const BOSSES = [
+  {id:"bossA", need:["var","cond","loop"], gate:200, reward:100, fail:20, stages:["xa1","xa2","xa3"]},
+  {id:"bossB", need:["func","col","rec"], gate:500, reward:150, fail:25, stages:["xb1","xb2","xb3"]},
+  {id:"bossC", need:["req","agil","git","test","design"], gate:700, reward:200, fail:30, stages:["xc1","xc2","xc3"]}
+];
+
+const BOSS_ITEMS = [
+{id:"xa1",skill:"loop",type:"mc",d:3,bloom:4,mono:true,boss:"bossA",opts:["115","125","120","110"],code:four(
+`sales = [12, 55, 50, 8]
+total = 0
+for s in sales:
+    if s >= 50:
+        s = s - s // 10
+    total += s
+print(total)`,
+`const sales = [12, 55, 50, 8];
+let total = 0;
+for (let s of sales) {
+  if (s >= 50) s = s - Math.floor(s / 10);
+  total += s;
+}
+console.log(total);`,
+`int[] sales = {12, 55, 50, 8};
+int total = 0;
+for (int s : sales) {
+  if (s >= 50) s = s - s / 10;
+  total += s;
+}
+System.out.println(total);`,
+`int sales[] = {12, 55, 50, 8};
+int total = 0;
+for (int i = 0; i < 4; i++) {
+  int s = sales[i];
+  if (s >= 50) s = s - s / 10;
+  total += s;
+}
+printf("%d", total);`)},
+{id:"xa2",skill:"loop",type:"bug",d:3,bloom:4,boss:"bossA",answer:3,code:four(
+`sales = [12, 55, 50, 8]
+count = 0
+for s in sales:
+    count = 0
+    if s >= 50:
+        count += 1
+print(count)`,
+`const sales = [12, 55, 50, 8];
+let count = 0;
+for (const s of sales) {
+  count = 0;
+  if (s >= 50) count += 1;
+}
+console.log(count);`,
+`int[] sales = {12, 55, 50, 8};
+int count = 0;
+for (int s : sales) {
+  count = 0;
+  if (s >= 50) count += 1;
+}
+System.out.println(count);`,
+`int sales[] = {12, 55, 50, 8};
+int count = 0;
+for (int i = 0; i < 4; i++) {
+  count = 0;
+  if (sales[i] >= 50) count += 1;
+}
+printf("%d", count);`)},
+{id:"xa3",skill:"cond",type:"parsons",d:3,bloom:3,boss:"bossA",code:four(
+`price = 64
+paid = price + 36
+if paid < price:
+    print("insufficient")
+else:
+    change = paid - price
+    print(change // 10, change % 10)`,
+`const price = 64;
+const paid = price + 36;
+if (paid < price) {
+  console.log("insufficient");
+} else {
+  const change = paid - price;
+  console.log(Math.floor(change / 10), change % 10);
+}`,
+`int price = 64;
+int paid = price + 36;
+if (paid < price) {
+  System.out.println("insufficient");
+} else {
+  int change = paid - price;
+  System.out.println(change / 10 + " " + change % 10);
+}`,
+`int price = 64;
+int paid = price + 36;
+if (paid < price) {
+  printf("insufficient");
+} else {
+  int change = paid - price;
+  printf("%d %d", change / 10, change % 10);
+}`)},
+{id:"xb1",skill:"rec",type:"mc",d:3,bloom:4,mono:true,boss:"bossB",opts:["16","20","9","@err"],code:four(
+`def total(v, i):
+    if i == len(v): return 0
+    return v[i] + total(v, i + 1)
+print(total([4, 7, 9], 1))`,
+`function total(v, i) {
+  if (i === v.length) return 0;
+  return v[i] + total(v, i + 1);
+}
+console.log(total([4, 7, 9], 1));`,
+`static int total(int[] v, int i) {
+  if (i == v.length) return 0;
+  return v[i] + total(v, i + 1);
+}
+System.out.println(total(new int[]{4, 7, 9}, 1));`,
+`int total(int v[], int n, int i) {
+  if (i == n) return 0;
+  return v[i] + total(v, n, i + 1);
+}
+printf("%d", total((int[]){4, 7, 9}, 3, 1));`)},
+{id:"xb2",skill:"rec",type:"bug",d:3,bloom:4,boss:"bossB",answer:1,code:four(
+`def count(v, i):
+    if i > len(v): return 0
+    return 1 + count(v, i + 1)
+print(count([5, 2, 8], 0))`,
+`function count(v, i) {
+  if (i > v.length) return 0;
+  return 1 + count(v, i + 1);
+}
+console.log(count([5, 2, 8], 0));`,
+`static int count(int[] v, int i) {
+  if (i > v.length) return 0;
+  return 1 + count(v, i + 1);
+}
+System.out.println(count(new int[]{5, 2, 8}, 0));`,
+`int count(int n, int i) {
+  if (i > n) return 0;
+  return 1 + count(n, i + 1);
+}
+printf("%d", count(3, 0));`)},
+{id:"xb3",skill:"func",type:"parsons",d:3,bloom:3,boss:"bossB",code:four(
+`def count_big(v, limit):
+    c = 0
+    for n in v:
+        if n > limit:
+            c += 1
+    return c
+print(count_big([3, 9, 12], 5))`,
+`function countBig(v, limit) {
+  let c = 0;
+  for (const n of v) if (n > limit) c += 1;
+  return c;
+}
+console.log(countBig([3, 9, 12], 5));`,
+`static int countBig(int[] v, int limit) {
+  int c = 0;
+  for (int n : v) if (n > limit) c += 1;
+  return c;
+}
+System.out.println(countBig(new int[]{3, 9, 12}, 5));`,
+`int count_big(int v[], int n, int limit) {
+  int c = 0;
+  for (int i = 0; i < n; i++) if (v[i] > limit) c += 1;
+  return c;
+}
+printf("%d", count_big((int[]){3, 9, 12}, 3, 5));`)},
+{id:"xc1",skill:"test",type:"mc",d:3,bloom:5,boss:"bossC"},
+{id:"xc2",skill:"git",type:"mc",d:3,bloom:5,boss:"bossC"},
+{id:"xc3",skill:"agil",type:"mc",d:3,bloom:5,boss:"bossC"}
+];
+
 LANG.pt = {
 name:"Português", llmName:"Brazilian Portuguese",
 ui:{
@@ -1110,6 +1325,55 @@ d4:{title:"Mais um \"se\" no pagamento",prompt:"Cada nova forma de pagamento exi
 d5:{title:"O banco de dados soldado na classe",prompt:"A classe Pedido cria dentro de si a conexão com um banco MySQL específico. O que isso dificulta e como resolver?",opts:["Testar e trocar o banco; receber a dependência pronta, por uma interface","Nada; criar a conexão lá dentro é o mais organizado","A velocidade; resolver com um servidor mais potente","A leitura; resolver com mais comentários"],hint:"Como você testaria Pedido sem um MySQL ligado?",why:"Criar a dependência concreta internamente acopla a classe a ela. Com injeção de dependência, a classe recebe algo que cumpre uma interface, e nos testes recebe um substituto.",analogy:"Luminária com a lâmpada soldada: queimou, joga-se tudo fora. Com soquete padrão, troca-se só a lâmpada, inclusive por uma de teste."}
 }
 };
+
+/* ---------- Camada de jogo (loja, dificuldade, desafios, chefões) ---------- */
+Object.assign(LANG.pt.ui,{
+ navShop:"Loja", balance:"Saldo", total:"XP acumulado", titleLbl:"Título",
+ modeH:"Dificuldade", modes:{normal:"Normal",medio:"Médio",dificil:"Difícil",hardcore:"Extra hardcore"},
+ modeDesc:{normal:"XP ×1. Dicas livres (acerto com dica vale metade). Cada erro custa 2 XP por nível do ticket.",
+  medio:"XP ×1,5. Cada dica custa 5 XP. Cada erro custa 4 XP por nível do ticket.",
+  dificil:"XP ×2. Sem dicas e sem opções nos tickets de saída: você digita o que o programa imprime. Cada erro custa 6 XP por nível.",
+  hardcore:"XP ×3. Sem dicas, resposta digitada e 60 segundos no relógio. Cada erro custa 10 XP por nível."},
+ typedLbl:"Digite exatamente o que o programa imprime", typedPh:"saída do programa", yourAnswer:"Sua resposta: {a}", expected:"Saída correta: {a}",
+ timeLeft:"Tempo: {s} s", timeout:"O tempo acabou.", lost:"Penalidade: -{x} XP do saldo.", shieldUsed:"Seu escudo absorveu a penalidade.",
+ boostOn:"XP em dobro: restam {n} tickets", hintPaid:"Pedir dica (custa {c} XP)", noHints:"Neste modo não há dicas.",
+ useFifty:"Usar Eliminar duas ({n})", useTime:"Usar +30 s ({n})",
+ lockedXp:"Bloqueada: requer 60% em {p} e {x} XP acumulados (você tem {y}).", lockedXpOnly:"Bloqueada: requer {x} XP acumulados (você tem {y}).",
+ bountiesH:"Desafios do sprint", bountyDone:"Desafio cumprido: {s} (+{x} XP)",
+ dailyH:"Desafio do dia", dailyTag:"XP em dobro", dailyDone:"Desafio do dia concluído. Amanhã tem outro.",
+ bossesH:"Chefões", bossLocked:"Requer 60% em {p} e {x} XP acumulados.", bossDefeated:"Derrotado", bossFight:"Enfrentar o chefão",
+ bossStage:"Fase {n} de {m}", bossLives:"Erros ainda permitidos: {n}", bossNext:"Próxima fase", bossResult:"Ver o resultado",
+ bossWin:"Chefão derrotado", bossWinP:"Você ganhou {x} XP e o troféu \"{t}\".", bossLose:"O chefão venceu desta vez", bossLoseP:"Você perdeu {x} XP do saldo. Revise as missões envolvidas e volte para a revanche.",
+ bossRules:"Três fases encadeadas, sem dicas e sem poderes. Você pode errar uma única vez. A dificuldade escolhida no quadro também vale aqui.", bossStart:"Começar o combate", reward:"Recompensa: {x} XP",
+ trophies:"Troféus", noTrophies:"Nenhum ainda. Os chefões aparecem no quadro quando você tiver domínio e XP suficientes.", review:"Revisão",
+ shopH:"Loja", shopP:"Troque seu saldo de XP por poderes e títulos. Gastar o saldo não reduz o XP acumulado, que é o que abre fases e chefões.",
+ shopA:"são as milhas de um programa de fidelidade. O saldo você gasta em passagens; a categoria do cartão depende do total voado e não cai quando você resgata.",
+ powers:"Poderes", titlesH:"Títulos", owned:"Você tem: {n}", buy:"Resgatar por {c} XP", equip:"Usar este título", equipped:"Em uso", unequip:"Deixar de usar",
+ kTotal:"XP acumulado", kBosses:"chefões derrotados"
+});
+LANG.pt.game={
+ shop:{shield:["Escudo","Absorve a penalidade de XP do seu próximo erro. É usado automaticamente."],
+  fifty:["Eliminar duas","Remove duas opções erradas de um ticket de múltipla escolha. O acerto passa a contar como evidência mais fraca de domínio."],
+  time:["Tempo extra","Soma 30 segundos ao relógio no modo Extra hardcore."],
+  boost:["XP em dobro","Dobra o XP dos seus próximos 3 tickets. Ativa no momento do resgate."],
+  tBug:["Caça-bugs","Título exibido ao lado do seu cargo."],tArch:["Mente de arquiteto","Título exibido ao lado do seu cargo."],tLegend:["Lenda do deploy","Título exibido ao lado do seu cargo."]},
+ bounties:{b1:"Acertar 3 tickets seguidos sem dica",b2:"Resolver um ticket no Difícil ou no Extra hardcore",b3:"Sprint limpo: 5 acertos em 5"},
+ bosses:{
+  bossA:{name:"O Fiscal",client:"Padaria da Dona Lúcia",trophy:"Selo do Fiscal",story:"Um fiscal da prefeitura aparece na padaria e quer ver, em uma hora, o total de vendas com desconto, a contagem de clientes beneficiados e o cálculo do troco. O programa do caixa mistura variáveis, condições e laços, e qualquer deslize vira multa. Dona Lúcia olha para você."},
+  bossB:{name:"A Grande Migração",client:"Cartório do 2º Ofício",trophy:"Chave do Arquivo",story:"O cartório vai migrar 40 anos de arquivos para um servidor novo neste fim de semana. O script usa funções recursivas sobre listas, e um relatório com a contagem errada invalida o processo inteiro. Helena precisa de cada função conferida antes de sábado."},
+  bossC:{name:"Sexta-feira, 17h",client:"Cooperativa de entregas Roda Viva",trophy:"Medalha da Sexta-feira",story:"Sexta-feira, 17h. A cooperativa exige o vale-refeição no ar ainda hoje, porque a campanha começa amanhã. O código está pronto na máquina de alguém, sem testes e sem revisão. Tudo o que você aprendeu sobre requisitos, processo, versionamento, testes e design será cobrado nas próximas horas."}}
+};
+Object.assign(LANG.pt.items,{
+xa1:{title:"O total com desconto",prompt:"Vendas a partir de 50 recebem 10% de desconto (parte inteira). O que o programa imprime?",why:"12 fica 12; 55 vira 50; 50 vira 45; 8 fica 8. O total é 115. O desconto vale também para exatamente 50, por causa do >=.",analogy:"É conferir a nota fiscal item a item: quem olha só o total não vê em que linha o desconto entrou."},
+xa2:{title:"A contagem que dá zero",prompt:"O programa deveria contar 2 vendas com desconto, mas imprime 0. Qual linha está no lugar errado?",why:"Zerar o contador dentro do laço apaga a contagem a cada volta. A inicialização pertence a antes do laço, onde já existe.",analogy:"É o porteiro que zera o contador de mão a cada pessoa que entra: no fim do dia, o visor só sabe da última."},
+xa3:{title:"O troco em notas de dez",prompt:"Monte o programa que valida o pagamento e imprime quantas notas de 10 e quantas moedas de 1 compõem o troco.",why:"O preço precisa existir antes do valor pago, que depende dele. A validação vem antes do cálculo, e o troco só é calculado no ramo em que o pagamento é suficiente.",analogy:"O caixa primeiro confere se o dinheiro cobre a conta; só depois abre a gaveta para separar o troco."},
+xb1:{title:"A soma a partir de uma posição",prompt:"O que o programa imprime?",why:"A chamada começa no índice 1, então soma 7 + 9 = 16. O valor do índice 0 fica de fora. O caso base ocorre quando i chega ao tamanho da lista.",analogy:"É entrar numa fila já na segunda posição e pedir que cada um some o seu número ao dos que vêm atrás."},
+xb2:{title:"Um arquivo a mais",prompt:"A função deveria contar 3 arquivos, mas responde 4. Qual linha está errada?",why:"Com >, a recursão só para depois de passar do fim, contando uma posição que não existe. O caso base correto compara por igualdade com o tamanho.",analogy:"É contar os degraus de uma escada e incluir o piso do andar de cima: o freio foi posto um passo tarde demais."},
+xb3:{title:"Quantos arquivos grandes",prompt:"Monte a função que conta quantos valores passam do limite e a chamada que imprime o resultado.",why:"O contador nasce antes do laço, é atualizado dentro dele e só é devolvido depois que o laço termina. A chamada vem após a definição.",analogy:"É a balança da rodovia: zera-se o contador no início do turno, conta-se cada caminhão acima do peso e o relatório só sai no fim."},
+xc1:{title:"O pedido das 17h",prompt:"A cooperativa quer o vale-refeição no ar hoje. O código existe só na máquina de um colega, sem testes. Qual é a melhor conduta?",opts:["Subir o código numa branch, testar o caminho crítico, revisar e publicar com plano de rollback; se não couber hoje, negociar o prazo","Copiar os arquivos direto para o servidor, porque o prazo manda","Recusar qualquer publicação até reescrever o módulo de pagamentos inteiro","Publicar agora e escrever os testes na segunda-feira"],why:"Prazo curto não suspende o processo: versionamento, teste do caminho crítico, revisão e plano de volta reduzem o risco. Se não couber, negocia-se escopo ou prazo, nunca a qualidade em silêncio.",analogy:"Cirurgia de emergência ainda tem checklist e assepsia: a pressa muda o ritmo, não elimina as etapas que evitam a tragédia."},
+xc2:{title:"O Pix parou",prompt:"Dez minutos após a publicação, os pagamentos por Pix começam a falhar. Qual é a primeira ação?",opts:["Reverter para a versão anterior e investigar a causa com o sistema estável","Depurar direto em produção até achar o erro","Esperar mais relatos para ter certeza","Desligar o servidor e resolver na segunda-feira"],why:"Primeiro se restaura o serviço; depois se investiga. O histórico do Git torna a volta rápida e segura.",analogy:"Com um cano estourado, primeiro se fecha o registro. Descobrir por que estourou vem depois, com o chão seco."},
+xc3:{title:"A reunião de segunda",prompt:"Na retrospectiva, descobre-se que a mudança quebrou um caso que ninguém testou. Qual encaminhamento é o melhor?",opts:["Análise sem culpados: criar o teste de regressão e ajustar o processo para que a revisão exija testes","Identificar o culpado e adverti-lo por escrito","Proibir publicações às sextas e encerrar o assunto","Aumentar em 50% o prazo de todos os projetos"],why:"Falhas são do sistema de trabalho, não de uma pessoa. O teste de regressão impede a volta do defeito, e a mudança no processo impede a volta da situação.",analogy:"Na aviação, cada incidente vira investigação e melhoria de procedimento, não caça às bruxas. Por isso voar ficou tão seguro."}
+});
 
 LANG.en = {
 name:"English", llmName:"English",
@@ -1298,6 +1562,55 @@ d5:{title:"The database welded into the class",prompt:"The Order class creates i
 }
 };
 
+/* ---------- Game layer (shop, difficulty, challenges, bosses) ---------- */
+Object.assign(LANG.en.ui,{
+ navShop:"Shop", balance:"Balance", total:"Lifetime XP", titleLbl:"Title",
+ modeH:"Difficulty", modes:{normal:"Normal",medio:"Medium",dificil:"Hard",hardcore:"Extra hardcore"},
+ modeDesc:{normal:"XP ×1. Free hints (a hinted correct answer earns half). Each mistake costs 2 XP per ticket level.",
+  medio:"XP ×1.5. Each hint costs 5 XP. Each mistake costs 4 XP per ticket level.",
+  dificil:"XP ×2. No hints and no options on output tickets: you type what the program prints. Each mistake costs 6 XP per level.",
+  hardcore:"XP ×3. No hints, typed answers and 60 seconds on the clock. Each mistake costs 10 XP per level."},
+ typedLbl:"Type exactly what the program prints", typedPh:"program output", yourAnswer:"Your answer: {a}", expected:"Correct output: {a}",
+ timeLeft:"Time: {s} s", timeout:"Time is up.", lost:"Penalty: -{x} XP from your balance.", shieldUsed:"Your shield absorbed the penalty.",
+ boostOn:"Double XP: {n} tickets left", hintPaid:"Ask for a hint (costs {c} XP)", noHints:"There are no hints in this mode.",
+ useFifty:"Use Remove two ({n})", useTime:"Use +30 s ({n})",
+ lockedXp:"Locked: needs 60% in {p} and {x} lifetime XP (you have {y}).", lockedXpOnly:"Locked: needs {x} lifetime XP (you have {y}).",
+ bountiesH:"Sprint challenges", bountyDone:"Challenge completed: {s} (+{x} XP)",
+ dailyH:"Daily challenge", dailyTag:"Double XP", dailyDone:"Daily challenge done. A new one arrives tomorrow.",
+ bossesH:"Bosses", bossLocked:"Needs 60% in {p} and {x} lifetime XP.", bossDefeated:"Defeated", bossFight:"Face the boss",
+ bossStage:"Stage {n} of {m}", bossLives:"Mistakes still allowed: {n}", bossNext:"Next stage", bossResult:"See the result",
+ bossWin:"Boss defeated", bossWinP:"You earned {x} XP and the \"{t}\" trophy.", bossLose:"The boss won this time", bossLoseP:"You lost {x} XP from your balance. Review the missions involved and come back for a rematch.",
+ bossRules:"Three chained stages, no hints and no power-ups. You may make a single mistake. The difficulty chosen on the board applies here too.", bossStart:"Start the fight", reward:"Reward: {x} XP",
+ trophies:"Trophies", noTrophies:"None yet. Bosses show up on the board once you have enough mastery and XP.", review:"Review",
+ shopH:"Shop", shopP:"Trade your XP balance for power-ups and titles. Spending the balance does not reduce lifetime XP, which is what opens stages and bosses.",
+ shopA:"these are the miles of a loyalty programme. You spend the balance on tickets; your card tier depends on total miles flown and does not drop when you redeem.",
+ powers:"Power-ups", titlesH:"Titles", owned:"You have: {n}", buy:"Redeem for {c} XP", equip:"Use this title", equipped:"In use", unequip:"Stop using",
+ kTotal:"lifetime XP", kBosses:"bosses defeated"
+});
+LANG.en.game={
+ shop:{shield:["Shield","Absorbs the XP penalty of your next mistake. Used automatically."],
+  fifty:["Remove two","Removes two wrong options from a multiple-choice ticket. A correct answer then counts as weaker evidence of mastery."],
+  time:["Extra time","Adds 30 seconds to the clock in Extra hardcore mode."],
+  boost:["Double XP","Doubles the XP of your next 3 tickets. Activates as soon as you redeem it."],
+  tBug:["Bug hunter","A title shown next to your role."],tArch:["Architect's mind","A title shown next to your role."],tLegend:["Deploy legend","A title shown next to your role."]},
+ bounties:{b1:"Get 3 tickets right in a row without hints",b2:"Solve a ticket on Hard or Extra hardcore",b3:"Clean sprint: 5 out of 5"},
+ bosses:{
+  bossA:{name:"The Inspector",client:"Dona Lúcia's bakery",trophy:"Inspector's Seal",story:"A city inspector walks into the bakery and wants to see, within the hour, total discounted sales, the count of customers who got the discount, and the change calculation. The till program mixes variables, conditions and loops, and any slip means a fine. Dona Lúcia looks at you."},
+  bossB:{name:"The Great Migration",client:"2nd District Notary Office",trophy:"Archive Key",story:"The notary office is moving 40 years of files to a new server this weekend. The script uses recursive functions over lists, and a report with the wrong count voids the whole process. Helena needs every function checked before Saturday."},
+  bossC:{name:"Friday, 5 pm",client:"Roda Viva delivery co-op",trophy:"Friday Medal",story:"Friday, 5 pm. The co-op demands meal vouchers live today, because the campaign starts tomorrow. The code sits finished on someone's machine, with no tests and no review. Everything you learned about requirements, process, versioning, testing and design will be put to the test in the next few hours."}}
+};
+Object.assign(LANG.en.items,{
+xa1:{title:"The discounted total",prompt:"Sales of 50 or more get a 10% discount (integer part). What does the program print?",why:"12 stays 12; 55 becomes 50; 50 becomes 45; 8 stays 8. The total is 115. The discount also applies to exactly 50, because of >=.",analogy:"It is checking the receipt line by line: whoever looks only at the total cannot see on which line the discount came in."},
+xa2:{title:"The count that comes out zero",prompt:"The program should count 2 discounted sales but prints 0. Which line is in the wrong place?",why:"Resetting the counter inside the loop wipes the count every round. Initialisation belongs before the loop, where it already exists.",analogy:"It is the doorman who resets his hand clicker for every person who walks in: at the end of the day, the display only knows about the last one."},
+xa3:{title:"Change in ten-notes",prompt:"Assemble the program that validates the payment and prints how many 10-notes and how many 1-coins make up the change.",why:"The price must exist before the amount paid, which depends on it. Validation comes before the calculation, and change is only computed on the branch where the payment is enough.",analogy:"The cashier first checks that the money covers the bill; only then does the drawer open to sort out the change."},
+xb1:{title:"A sum starting from a position",prompt:"What does the program print?",why:"The call starts at index 1, so it adds 7 + 9 = 16. The value at index 0 is left out. The base case happens when i reaches the size of the list.",analogy:"It is joining a queue at the second spot and asking everyone to add their number to those behind them."},
+xb2:{title:"One file too many",prompt:"The function should count 3 files but answers 4. Which line is wrong?",why:"With >, the recursion only stops after going past the end, counting a position that does not exist. The correct base case compares for equality with the size.",analogy:"It is counting the steps of a staircase and including the floor upstairs: the brake was applied one step too late."},
+xb3:{title:"How many large files",prompt:"Assemble the function that counts how many values exceed the limit and the call that prints the result.",why:"The counter is created before the loop, updated inside it, and only returned after the loop ends. The call comes after the definition.",analogy:"It is the roadside weigh station: the counter is reset at the start of the shift, each overweight truck is counted, and the report only goes out at the end."},
+xc1:{title:"The 5 pm request",prompt:"The co-op wants meal vouchers live today. The code exists only on a colleague's machine, with no tests. What is the best course of action?",opts:["Push the code to a branch, test the critical path, review and release with a rollback plan; if it does not fit today, negotiate the deadline","Copy the files straight to the server, because the deadline rules","Refuse any release until the whole payments module is rewritten","Release now and write the tests on Monday"],why:"A tight deadline does not suspend the process: versioning, testing the critical path, review and a way back reduce risk. If it does not fit, you negotiate scope or deadline, never quality in silence.",analogy:"Emergency surgery still has a checklist and sterile technique: urgency changes the pace, not the steps that prevent tragedy."},
+xc2:{title:"Pix went down",prompt:"Ten minutes after the release, Pix payments start failing. What is the first action?",opts:["Roll back to the previous version and investigate the cause with the system stable","Debug directly in production until the error is found","Wait for more reports to be sure","Shut the server down and sort it out on Monday"],why:"First you restore the service; then you investigate. Git history makes going back quick and safe.",analogy:"With a burst pipe, you shut off the water first. Finding out why it burst comes later, with a dry floor."},
+xc3:{title:"Monday's meeting",prompt:"In the retrospective, it turns out the change broke a case nobody tested. Which follow-up is best?",opts:["A blameless review: add the regression test and adjust the process so that code review requires tests","Identify the culprit and issue a written warning","Ban Friday releases and close the matter","Extend every project deadline by 50%"],why:"Failures belong to the system of work, not to one person. The regression test keeps the defect from returning, and the process change keeps the situation from returning.",analogy:"In aviation, every incident becomes an investigation and a better procedure, not a witch hunt. That is why flying became so safe."}
+});
+
 LANG.es = {
 name:"Español", llmName:"Latin American Spanish",
 ui:{
@@ -1485,24 +1798,74 @@ d5:{title:"La base de datos soldada a la clase",prompt:"La clase Pedido crea por
 }
 };
 
+/* ---------- Capa de juego (tienda, dificultad, desafíos, jefes) ---------- */
+Object.assign(LANG.es.ui,{
+ navShop:"Tienda", balance:"Saldo", total:"XP acumulado", titleLbl:"Título",
+ modeH:"Dificultad", modes:{normal:"Normal",medio:"Medio",dificil:"Difícil",hardcore:"Extra hardcore"},
+ modeDesc:{normal:"XP ×1. Pistas libres (un acierto con pista vale la mitad). Cada error cuesta 2 XP por nivel del ticket.",
+  medio:"XP ×1.5. Cada pista cuesta 5 XP. Cada error cuesta 4 XP por nivel del ticket.",
+  dificil:"XP ×2. Sin pistas y sin opciones en los tickets de salida: escribes lo que imprime el programa. Cada error cuesta 6 XP por nivel.",
+  hardcore:"XP ×3. Sin pistas, respuesta escrita y 60 segundos en el reloj. Cada error cuesta 10 XP por nivel."},
+ typedLbl:"Escribe exactamente lo que imprime el programa", typedPh:"salida del programa", yourAnswer:"Tu respuesta: {a}", expected:"Salida correcta: {a}",
+ timeLeft:"Tiempo: {s} s", timeout:"Se acabó el tiempo.", lost:"Penalización: -{x} XP de tu saldo.", shieldUsed:"Tu escudo absorbió la penalización.",
+ boostOn:"XP doble: quedan {n} tickets", hintPaid:"Pedir una pista (cuesta {c} XP)", noHints:"En este modo no hay pistas.",
+ useFifty:"Usar Eliminar dos ({n})", useTime:"Usar +30 s ({n})",
+ lockedXp:"Bloqueada: requiere 60% en {p} y {x} XP acumulados (tienes {y}).", lockedXpOnly:"Bloqueada: requiere {x} XP acumulados (tienes {y}).",
+ bountiesH:"Desafíos del sprint", bountyDone:"Desafío cumplido: {s} (+{x} XP)",
+ dailyH:"Desafío del día", dailyTag:"XP doble", dailyDone:"Desafío del día completado. Mañana hay otro.",
+ bossesH:"Jefes", bossLocked:"Requiere 60% en {p} y {x} XP acumulados.", bossDefeated:"Derrotado", bossFight:"Enfrentar al jefe",
+ bossStage:"Fase {n} de {m}", bossLives:"Errores que aún puedes cometer: {n}", bossNext:"Siguiente fase", bossResult:"Ver el resultado",
+ bossWin:"Jefe derrotado", bossWinP:"Ganaste {x} XP y el trofeo \"{t}\".", bossLose:"Esta vez ganó el jefe", bossLoseP:"Perdiste {x} XP de tu saldo. Repasa las misiones involucradas y vuelve por la revancha.",
+ bossRules:"Tres fases encadenadas, sin pistas y sin poderes. Puedes equivocarte una sola vez. La dificultad elegida en el tablero también vale aquí.", bossStart:"Empezar el combate", reward:"Recompensa: {x} XP",
+ trophies:"Trofeos", noTrophies:"Ninguno todavía. Los jefes aparecen en el tablero cuando tengas dominio y XP suficientes.", review:"Repaso",
+ shopH:"Tienda", shopP:"Cambia tu saldo de XP por poderes y títulos. Gastar el saldo no reduce el XP acumulado, que es lo que abre fases y jefes.",
+ shopA:"son las millas de un programa de viajero frecuente. El saldo lo gastas en pasajes; la categoría de la tarjeta depende del total volado y no baja cuando canjeas.",
+ powers:"Poderes", titlesH:"Títulos", owned:"Tienes: {n}", buy:"Canjear por {c} XP", equip:"Usar este título", equipped:"En uso", unequip:"Dejar de usar",
+ kTotal:"XP acumulado", kBosses:"jefes derrotados"
+});
+LANG.es.game={
+ shop:{shield:["Escudo","Absorbe la penalización de XP de tu próximo error. Se usa automáticamente."],
+  fifty:["Eliminar dos","Quita dos opciones incorrectas de un ticket de opción múltiple. El acierto pasa a contar como evidencia más débil de dominio."],
+  time:["Tiempo extra","Suma 30 segundos al reloj en el modo Extra hardcore."],
+  boost:["XP doble","Duplica el XP de tus próximos 3 tickets. Se activa al momento de canjearlo."],
+  tBug:["Cazabugs","Título que se muestra junto a tu cargo."],tArch:["Mente de arquitecto","Título que se muestra junto a tu cargo."],tLegend:["Leyenda del deploy","Título que se muestra junto a tu cargo."]},
+ bounties:{b1:"Acertar 3 tickets seguidos sin pista",b2:"Resolver un ticket en Difícil o en Extra hardcore",b3:"Sprint limpio: 5 de 5"},
+ bosses:{
+  bossA:{name:"El Inspector",client:"Panadería de doña Lúcia",trophy:"Sello del Inspector",story:"Un inspector municipal aparece en la panadería y quiere ver, en una hora, el total de ventas con descuento, el conteo de clientes beneficiados y el cálculo del vuelto. El programa de la caja mezcla variables, condiciones y bucles, y cualquier desliz termina en multa. Doña Lúcia te mira."},
+  bossB:{name:"La Gran Migración",client:"Notaría del 2.º Distrito",trophy:"Llave del Archivo",story:"La notaría va a migrar 40 años de archivos a un servidor nuevo este fin de semana. El script usa funciones recursivas sobre listas, y un informe con el conteo equivocado invalida todo el proceso. Helena necesita cada función revisada antes del sábado."},
+  bossC:{name:"Viernes, 5 de la tarde",client:"Cooperativa de reparto Roda Viva",trophy:"Medalla del Viernes",story:"Viernes, 5 de la tarde. La cooperativa exige los vales de comida en producción hoy mismo, porque la campaña empieza mañana. El código está terminado en la máquina de alguien, sin pruebas y sin revisión. Todo lo que aprendiste sobre requisitos, proceso, versionado, pruebas y diseño se pondrá a prueba en las próximas horas."}}
+};
+Object.assign(LANG.es.items,{
+xa1:{title:"El total con descuento",prompt:"Las ventas desde 50 reciben un 10% de descuento (parte entera). ¿Qué imprime el programa?",why:"12 queda en 12; 55 pasa a 50; 50 pasa a 45; 8 queda en 8. El total es 115. El descuento también vale para exactamente 50, por el >=.",analogy:"Es revisar la factura renglón por renglón: quien mira solo el total no ve en qué línea entró el descuento."},
+xa2:{title:"El conteo que da cero",prompt:"El programa debería contar 2 ventas con descuento, pero imprime 0. ¿Qué línea está en el lugar equivocado?",why:"Poner el contador en cero dentro del bucle borra el conteo en cada vuelta. La inicialización va antes del bucle, donde ya existe.",analogy:"Es el portero que pone en cero su contador de mano con cada persona que entra: al final del día, el visor solo sabe de la última."},
+xa3:{title:"El vuelto en billetes de diez",prompt:"Arma el programa que valida el pago e imprime cuántos billetes de 10 y cuántas monedas de 1 forman el vuelto.",why:"El precio tiene que existir antes que el monto pagado, que depende de él. La validación va antes del cálculo, y el vuelto solo se calcula en la rama donde el pago alcanza.",analogy:"El cajero primero comprueba que el dinero cubra la cuenta; recién después abre el cajón para separar el vuelto."},
+xb1:{title:"Una suma desde cierta posición",prompt:"¿Qué imprime el programa?",why:"La llamada empieza en el índice 1, así que suma 7 + 9 = 16. El valor del índice 0 queda afuera. El caso base ocurre cuando i llega al tamaño de la lista.",analogy:"Es entrar a una fila en el segundo lugar y pedir que cada uno sume su número al de los que vienen detrás."},
+xb2:{title:"Un archivo de más",prompt:"La función debería contar 3 archivos, pero responde 4. ¿Qué línea está mal?",why:"Con >, la recursión solo se detiene después de pasarse del final, contando una posición que no existe. El caso base correcto compara por igualdad con el tamaño.",analogy:"Es contar los escalones de una escalera e incluir el piso de arriba: el freno se puso un paso tarde."},
+xb3:{title:"Cuántos archivos grandes",prompt:"Arma la función que cuenta cuántos valores superan el límite y la llamada que imprime el resultado.",why:"El contador nace antes del bucle, se actualiza adentro y recién se devuelve cuando el bucle termina. La llamada va después de la definición.",analogy:"Es la balanza de la ruta: el contador se pone en cero al empezar el turno, se cuenta cada camión con sobrepeso y el informe sale recién al final."},
+xc1:{title:"El pedido de las 5",prompt:"La cooperativa quiere los vales de comida en producción hoy. El código existe solo en la máquina de un colega, sin pruebas. ¿Cuál es la mejor conducta?",opts:["Subir el código a una rama, probar el camino crítico, revisar y publicar con un plan de rollback; si no entra hoy, negociar el plazo","Copiar los archivos directo al servidor, porque manda el plazo","Negarse a publicar nada hasta reescribir todo el módulo de pagos","Publicar ahora y escribir las pruebas el lunes"],why:"Un plazo corto no suspende el proceso: versionado, prueba del camino crítico, revisión y un plan de vuelta reducen el riesgo. Si no entra, se negocia el alcance o el plazo, nunca la calidad en silencio.",analogy:"Una cirugía de urgencia igual tiene lista de verificación y asepsia: el apuro cambia el ritmo, no elimina los pasos que evitan la tragedia."},
+xc2:{title:"Se cayó Pix",prompt:"Diez minutos después de publicar, los pagos por Pix empiezan a fallar. ¿Cuál es la primera acción?",opts:["Volver a la versión anterior e investigar la causa con el sistema estable","Depurar directo en producción hasta encontrar el error","Esperar más reportes para estar seguros","Apagar el servidor y resolverlo el lunes"],why:"Primero se restablece el servicio; después se investiga. El historial de Git hace que volver atrás sea rápido y seguro.",analogy:"Con un caño roto, primero se cierra la llave de paso. Averiguar por qué se rompió viene después, con el piso seco."},
+xc3:{title:"La reunión del lunes",prompt:"En la retrospectiva se descubre que el cambio rompió un caso que nadie probó. ¿Qué seguimiento es el mejor?",opts:["Análisis sin culpables: crear la prueba de regresión y ajustar el proceso para que la revisión exija pruebas","Identificar al culpable y sancionarlo por escrito","Prohibir publicar los viernes y dar el tema por cerrado","Aumentar un 50% el plazo de todos los proyectos"],why:"Las fallas son del sistema de trabajo, no de una persona. La prueba de regresión impide que vuelva el defecto, y el cambio en el proceso impide que vuelva la situación.",analogy:"En la aviación, cada incidente se convierte en investigación y mejora de procedimientos, no en cacería de brujas. Por eso volar se volvió tan seguro."}
+});
+
 /* DevWise - motor do jogo */
 const SK = Object.fromEntries(SKILLS.map(s=>[s.id,s]));
-const IT = Object.fromEntries(ITEMS.map(i=>[i.id,i]));
+const IT = Object.fromEntries(ITEMS.concat(BOSS_ITEMS).map(i=>[i.id,i]));
 const KEY="devwise-v2", L0=0.15, T=0.2, SLIP=0.1, MASTER=0.95, UNLOCK=0.6, SPRINT=5;
-let S, view="home", cur=null, selSkill=null, briefId=null, resetArmed=false, showJson=false, setMsg="";
+let S, view="home", boss=null, tick=null, cur=null, selSkill=null, briefId=null, resetArmed=false, showJson=false, setMsg="";
 
 /* ---------- Estado ---------- */
 function snapshot(sk){const o={};for(const k in sk)o[k]=sk[k].L;return o}
 function guessLang(){const n=(navigator.language||"pt").slice(0,2).toLowerCase();return LANG[n]?n:"pt"}
+function newSprint(n,skills){return {n,done:[],start:snapshot(skills),b:{},run:0}}
 function fresh(){
   const skills={}; SKILLS.forEach(s=>skills[s.id]={L:L0,n:0,c:0});
-  return {v:2,started:false,lang:guessLang(),pl:"py",skills,brief:{},seen:{},log:[],xp:0,streak:0,best:0,board:[],
-    sprint:{n:1,done:[],start:snapshot(skills)},ai:{provider:"anthropic",key:"",model:"",base:""}};
+  return {v:2,started:false,lang:guessLang(),pl:"py",skills,brief:{},seen:{},log:[],xp:0,xpTotal:0,mode:"normal",inv:{shield:0,fifty:0,time:0},boost:0,titles:[],title:null,bosses:{},daily:{date:"",item:null,done:false},streak:0,best:0,board:[],
+    sprint:newSprint(1,skills),ai:{provider:"anthropic",key:"",model:"",base:""}};
 }
 function load(){
   try{const d=JSON.parse(localStorage.getItem(KEY)||"null");
     if(d&&d.v===2&&d.skills){const f=fresh();SKILLS.forEach(s=>{if(!d.skills[s.id])d.skills[s.id]=f.skills[s.id]});
-      if(!LANG[d.lang])d.lang="pt"; if(!PLS[d.pl])d.pl="py"; d.ai=d.ai||f.ai; d.brief=d.brief||{}; return d;}}catch(e){}
+      if(d.xpTotal===undefined)d.xpTotal=d.xp||0; for(const k in f)if(d[k]===undefined)d[k]=f[k]; d.sprint.b=d.sprint.b||{}; d.sprint.run=d.sprint.run||0; if(!MODES[d.mode])d.mode="normal"; if(!LANG[d.lang])d.lang="pt"; if(!PLS[d.pl])d.pl="py"; d.ai=d.ai||f.ai; d.brief=d.brief||{}; return d;}}catch(e){}
   return fresh();
 }
 function save(){try{localStorage.setItem(KEY,JSON.stringify(S))}catch(e){}}
@@ -1518,7 +1881,14 @@ function itemOpts(it){return (it.opts||itT(it.id).opts).map(o=>o==="@err"?t("err
 
 /* ---------- Motor adaptativo (BKT) ---------- */
 const mastered=id=>S.skills[id].L>=MASTER;
-const unlocked=id=>SK[id].pre.every(p=>S.skills[p].L>=UNLOCK);
+const preOk=id=>SK[id].pre.every(p=>S.skills[p].L>=UNLOCK);
+const gateOk=id=>S.xpTotal>=(GATES[id]||0)||!!S.brief[id];
+const unlocked=id=>preOk(id)&&gateOk(id);
+function earn(x){S.xp+=x;S.xpTotal+=x}
+const gt=()=>Lg().game||LANG.pt.game;
+const isTyped=it=>MODES[S.mode].typed&&it.type==="mc"&&it.mono&&!!it.code;
+const normOut=s=>String(s).replace(/,/g," ").replace(/\s+/g," ").trim();
+const bossOpen=b=>b.need.every(k=>S.skills[k].L>=UNLOCK)&&S.xpTotal>=b.gate;
 const allMastered=()=>SKILLS.every(s=>mastered(s.id));
 const avgL=()=>SKILLS.reduce((a,s)=>a+S.skills[s.id].L,0)/SKILLS.length;
 function career(){const r=t("roles"); if(allMastered())return r[4]; const a=avgL(); return a>=.8?r[3]:a>=.55?r[2]:a>=.3?r[1]:r[0]}
@@ -1535,7 +1905,7 @@ function pickItem(skillId,avoid){
 function pendingMissions(){return SKILLS.filter(s=>unlocked(s.id)&&!S.brief[s.id]&&!mastered(s.id))}
 function fillBoard(lastId){
   let eligible=SKILLS.filter(s=>unlocked(s.id)&&!mastered(s.id)&&S.brief[s.id]).map(s=>s.id);
-  if(!eligible.length&&allMastered())eligible=SKILLS.map(s=>s.id);
+  if(!eligible.length&&!pendingMissions().length)eligible=SKILLS.filter(s=>S.brief[s.id]||allMastered()).map(s=>s.id); // revisão: mantém o XP fluindo até o próximo portão
   S.board=S.board.filter(id=>IT[id]&&id!==lastId&&eligible.includes(IT[id].skill));
   const used=S.board.map(id=>IT[id].skill);
   const order=eligible.filter(k=>!used.includes(k)).sort((a,b)=>(S.skills[a].L+Math.random()*.3)-(S.skills[b].L+Math.random()*.3));
@@ -1545,18 +1915,46 @@ function fillBoard(lastId){
 function guessProb(it){return it.type==="mc"?1/itemOpts(it).length:it.type==="bug"?1/itemCode(it).split("\n").length:0.05}
 function bkt(L,ok,g){const post=ok? L*(1-SLIP)/(L*(1-SLIP)+(1-L)*g) : L*SLIP/(L*SLIP+(1-L)*(1-g)); return Math.min(.995,post+(1-post)*T)}
 function resolve(ok){
-  const it=cur.item, sk=S.skills[it.skill], before=sk.L, roleBefore=career();
+  stopTimer();
+  const it=cur.item, sk=S.skills[it.skill], before=sk.L, roleBefore=career(), m=MODES[cur.mode];
   const openBefore=SKILLS.filter(s=>unlocked(s.id)).map(s=>s.id);
-  const g=cur.hint?Math.max(.5,guessProb(it)):guessProb(it);
+  let g=guessProb(it); if(cur.typed)g=0.03; else if(cur.fifty||cur.hint)g=Math.max(.5,g);
   sk.L=bkt(before,ok,g); sk.n++; if(ok)sk.c++;
-  S.streak=ok?S.streak+1:0; S.best=Math.max(S.best,S.streak);
-  let xp=ok?it.d*10:2; if(ok&&cur.hint)xp=Math.ceil(xp/2); if(ok&&S.streak>=3)xp+=5; S.xp+=xp;
-  S.seen[it.id]={n:(S.seen[it.id]?S.seen[it.id].n:0)+1,ok};
-  S.log.push({item:it.id,skill:it.skill,bloom:it.bloom,d:it.d,ok,hint:cur.hint,ai:!!cur.aiUsed,lang:S.lang,pl:it.code?S.pl:null,before:+before.toFixed(3),after:+sk.L.toFixed(3),t:Date.now()});
-  S.sprint.done.push({item:it.id,ok});
-  const newly=SKILLS.filter(s=>unlocked(s.id)&&!openBefore.includes(s.id)).map(s=>skT(s.id).name);
-  cur.done=true; cur.result={ok,before,after:sk.L,xp,newly,promo:career()!==roleBefore?career():null,masteredNow:before<MASTER&&sk.L>=MASTER};
-  fillBoard(it.id); save();
+  const res={ok,before,after:sk.L,xp:0,pen:0,shield:false,bounties:[],newly:[],promo:null,masteredNow:before<MASTER&&sk.L>=MASTER};
+  S.log.push({item:it.id,skill:it.skill,bloom:it.bloom,d:it.d,ok,hint:cur.hint,ai:!!cur.aiUsed,mode:cur.mode,typed:!!cur.typed,timeout:!!cur.timeout,boss:it.boss||null,lang:S.lang,pl:it.code?S.pl:null,before:+before.toFixed(3),after:+sk.L.toFixed(3),t:Date.now()});
+  if(it.boss){ if(!ok)boss.errors++; }
+  else{
+    S.streak=ok?S.streak+1:0; S.best=Math.max(S.best,S.streak);
+    if(ok){ let xp=Math.round(it.d*10*m.mult); if(cur.hint)xp=Math.ceil(xp/2); if(S.streak>=3)xp+=5; if(S.boost>0)xp*=2; if(cur.daily)xp*=2; res.xp=xp; earn(xp); }
+    else{ const pen=m.pen*it.d; if(S.inv.shield>0){S.inv.shield--;res.shield=true} else {res.pen=Math.min(S.xp,pen);S.xp-=res.pen} }
+    if(S.boost>0)S.boost--;
+    if(cur.daily)S.daily.done=true;
+    S.seen[it.id]={n:(S.seen[it.id]?S.seen[it.id].n:0)+1,ok};
+    const sp=S.sprint; sp.done.push({item:it.id,ok}); sp.run=ok&&!cur.hint?sp.run+1:0;
+    const met={b1:sp.run>=3,b2:ok&&(cur.mode==="dificil"||cur.mode==="hardcore"),b3:sp.done.length>=SPRINT&&sp.done.every(d=>d.ok)};
+    BOUNTIES.forEach(b=>{if(met[b.id]&&!sp.b[b.id]){sp.b[b.id]=true;earn(b.xp);res.bounties.push(b)}});
+    res.newly=SKILLS.filter(s=>unlocked(s.id)&&!openBefore.includes(s.id)).map(s=>skT(s.id).name);
+    res.promo=career()!==roleBefore?career():null;
+    fillBoard(it.id);
+  }
+  cur.done=true; cur.result=res; save();
+}
+function stopTimer(){if(tick){clearInterval(tick);tick=null}}
+function startTimer(){
+  stopTimer(); const sec=MODES[cur.mode].timer; if(!sec)return; cur.deadline=Date.now()+sec*1000;
+  tick=setInterval(()=>{ if(view!=="ticket"||!cur||cur.done){stopTimer();return}
+    const left=Math.ceil((cur.deadline-Date.now())/1000), el=document.getElementById("timer");
+    if(left<=0){cur.timeout=true;resolve(false);render();return} if(el)el.textContent=t("timeLeft",{s:left}); },250);
+}
+function ensureDaily(){
+  const d=new Date(), today=d.getFullYear()+"-"+(d.getMonth()+1)+"-"+d.getDate(); if(S.daily.date===today)return;
+  const pool=ITEMS.filter(i=>S.brief[i.skill]&&unlocked(i.skill)); if(!pool.length)return;
+  S.daily={date:today,item:shuffle(pool)[0].id,done:false};
+}
+function buy(p){
+  if(S.xp<p.cost)return; if(p.kind==="title"&&S.titles.includes(p.id))return; S.xp-=p.cost;
+  if(p.kind==="title"){S.titles.push(p.id);S.title=p.id} else if(p.id==="boost")S.boost+=3; else S.inv[p.id]++;
+  save(); render();
 }
 
 /* ---------- Tutor com LLM ---------- */
@@ -1611,19 +2009,24 @@ function sv(tag,attrs,...kids){
   return el;
 }
 const pct=x=>Math.round(x*100)+"%";
-function go(v){view=v; resetArmed=false; setMsg=""; render(); window.scrollTo(0,0)}
+function go(v){if(v!=="ticket")stopTimer(); view=v; resetArmed=false; setMsg=""; render(); window.scrollTo(0,0)}
 function setLang(l){S.lang=l; save(); document.documentElement.lang=l; render()}
 function langBar(){return h("div",{class:"langbar",role:"group","aria-label":t("uiLang")},Object.keys(LANG).map(l=>h("button",{"aria-pressed":String(S.lang===l),title:LANG[l].name,onclick:()=>setLang(l)},l.toUpperCase())))}
 function plTabs(){return h("div",{class:"tabs",role:"group","aria-label":t("codeLang")},Object.keys(PLS).map(p=>h("button",{"aria-pressed":String(S.pl===p),onclick:()=>{S.pl=p;save();render()}},PLS[p])))}
 
 /* ---------- Telas ---------- */
 function topbar(){
-  const onBoard=["board","ticket","retro","brief"].includes(view);
+  const onBoard=["board","ticket","retro","brief","boss"].includes(view);
   return h("header",{class:"top"},
     h("button",{class:"brand",onclick:()=>go(S.started?"board":"home")},"DevWise"),
-    S.started&&h("div",{class:"stats"},h("span",null,t("role")+" ",h("b",null,career())),h("span",null,t("xp")+" ",h("b",null,String(S.xp))),h("span",null,t("streak")+" ",h("b",null,String(S.streak)))),
+    S.started&&h("div",{class:"stats"},h("span",null,t("role")+" ",h("b",null,career())),
+      S.title&&h("span",null,t("titleLbl")+" ",h("b",null,gt().shop[S.title][0])),
+      h("span",null,t("balance")+" ",h("b",null,S.xp+" XP")),h("span",null,t("total")+" ",h("b",null,String(S.xpTotal))),
+      h("span",null,t("streak")+" ",h("b",null,String(S.streak))),
+      S.boost>0&&h("span",{class:"tag",style:"background:var(--gold-soft)"},t("boostOn",{n:S.boost}))),
     h("nav",{class:"nav"},
       S.started&&h("button",{"aria-current":onBoard?"page":null,onclick:()=>go("board")},t("navBoard")),
+      S.started&&h("button",{"aria-current":view==="shop"?"page":null,onclick:()=>go("shop")},t("navShop")),
       S.started&&h("button",{"aria-current":view==="report"?"page":null,onclick:()=>go("report")},t("navReport")),
       S.started&&h("button",{"aria-current":view==="settings"?"page":null,onclick:()=>go("settings")},t("navSettings")),
       langBar()));
@@ -1634,13 +2037,27 @@ function home(){
       h("button",{class:"btn",onclick:()=>{S.started=true;fillBoard();save();go("board")}},S.log.length?t("cont"):t("start"))),
     h("ol",{class:"loop"},t("steps").map(s=>h("li",null,h("div",null,h("strong",null,s[0]),s[1])))));
 }
-function ticketCard(it){
-  const se=SK[it.skill].area==="se";
-  return h("button",{class:"ticket"+(se?" se":""),onclick:()=>openTicket(it.id)},
+function ticketCard(it,daily){
+  const se=SK[it.skill].area==="se", rev=mastered(it.skill)&&!daily;
+  return h("button",{class:"ticket"+(se?" se":"")+(daily?" daily":""),onclick:()=>openTicket(it.id,{daily})},
     h("span",{class:"id"},"DW-"+it.id.toUpperCase()+"  "+skT(it.skill).client),
     h("span",{class:"tt"},itT(it.id).title),
-    h("span",{class:"meta"},h("span",{class:"tag"+(se?" se":"")},skT(it.skill).name),h("span",{class:"tag plain"},t("types")[it.type]),h("span",{class:"tag plain"},t("bloom")[it.bloom-1]),
+    h("span",{class:"meta"},daily&&h("span",{class:"tag",style:"background:var(--gold-soft)"},t("dailyTag")),rev&&h("span",{class:"tag plain"},t("review")),
+      h("span",{class:"tag"+(se?" se":"")},skT(it.skill).name),h("span",{class:"tag plain"},t("types")[it.type]),h("span",{class:"tag plain"},t("bloom")[it.bloom-1]),
       h("span",{class:"pts",role:"img","aria-label":t("diff",{d:it.d})},"●".repeat(it.d)+"○".repeat(3-it.d))));
+}
+function bossCard(b){
+  const x=gt().bosses[b.id], won=!!S.bosses[b.id], open=bossOpen(b);
+  return h("button",{class:"bosscard"+(won?" won":""),disabled:!open||won,onclick:()=>{boss={id:b.id,stage:0,errors:0,phase:"intro"};go("boss")}},
+    h("span",{class:"who"},x.client),h("span",{class:"tt"},x.name),
+    h("span",{class:"note"},won?t("bossDefeated")+": "+x.trophy:open?t("bossFight")+". "+t("reward",{x:Math.round(b.reward*MODES[S.mode].mult)}):t("bossLocked",{p:b.need.map(k=>skT(k).name).join(", "),x:b.gate})));
+}
+function modePanel(){
+  return h("div",{class:"panel",style:"margin-bottom:18px"},
+    h("div",{class:"tabs",role:"group","aria-label":t("modeH")},Object.keys(MODES).map(k=>h("button",{"aria-pressed":String(S.mode===k),onclick:()=>{S.mode=k;save();render()}},t("modes")[k]+" ×"+String(MODES[k].mult).replace(".",S.lang==="en"?".":",")))),
+    h("p",{class:"note",style:"margin:6px 0 14px"},t("modeDesc")[S.mode]),
+    h("b",{style:"font-family:var(--display)"},t("bountiesH")),
+    h("ul",{class:"bounties"},BOUNTIES.map(b=>h("li",{class:S.sprint.b[b.id]?"ok":null},(S.sprint.b[b.id]?"✓ ":"")+gt().bounties[b.id]+"  +"+b.xp+" XP"))));
 }
 function missionCard(s){
   const x=skT(s.id);
@@ -1679,15 +2096,16 @@ function skillMap(){
 }
 function skillInfo(){
   if(!selSkill)return h("p",{class:"skillinfo empty"},t("mapHint"));
-  const s=SK[selSkill],x=skT(selSkill),st=S.skills[selSkill],un=unlocked(selSkill);
-  return h("div",{class:"skillinfo","aria-live":"polite"},h("h4",null,x.name),h("p",null,x.about),
-    h("p",{class:"note"},un?(mastered(selSkill)?t("masteredTxt"):t("estTxt",{p:pct(st.L)}))+t("hits",{c:st.c,n:st.n}):t("locked",{p:s.pre.map(p=>skT(p).name).join(t("and"))})),
+  const s=SK[selSkill],x=skT(selSkill),st=S.skills[selSkill],un=unlocked(selSkill),pre=s.pre.map(p=>skT(p).name).join(t("and")),gate=GATES[selSkill]||0;
+  const why=un?(mastered(selSkill)?t("masteredTxt"):t("estTxt",{p:pct(st.L)}))+t("hits",{c:st.c,n:st.n})
+    :preOk(selSkill)?t("lockedXpOnly",{x:gate,y:S.xpTotal}):gate?t("lockedXp",{p:pre,x:gate,y:S.xpTotal}):t("locked",{p:pre});
+  return h("div",{class:"skillinfo","aria-live":"polite"},h("h4",null,x.name),h("p",null,x.about),h("p",{class:"note"},why),
     un&&h("button",{class:"btn ghost small",onclick:()=>{briefId=selSkill;go("brief")}},t("reread")));
 }
 function board(){
   if(S.sprint.done.length>=SPRINT)return retro();
-  fillBoard(); save();
-  const miss=pendingMissions(), free=allMastered();
+  fillBoard(); ensureDaily(); save();
+  const miss=pendingMissions(), free=allMastered(), dl=S.daily.item&&IT[S.daily.item];
   return h("main",null,
     h("div",{class:"sprintbar"},h("h2",null,t("sprint",{n:S.sprint.n})),pips(),h("span",{class:"note"},free?t("freePlay"):t("ticketOf",{n:S.sprint.done.length+1,m:SPRINT}))),
     h("div",{class:"board"},
@@ -1695,9 +2113,11 @@ function board(){
         miss.length>0&&[h("h3",null,t("missions")),h("div",{class:"tickets"},miss.map(missionCard))],
         h("h3",{class:miss.length?"gap":null},t("todo")),
         S.board.length?h("div",{class:"tickets"},S.board.map(id=>ticketCard(IT[id]))):h("p",{class:"empty"},t("todoEmpty")),
+        dl&&[h("h3",{class:"gap"},t("dailyH")),S.daily.done?h("p",{class:"empty"},t("dailyDone")):h("div",{class:"tickets"},ticketCard(dl,true))],
+        h("h3",{class:"gap"},t("bossesH")),h("div",{class:"tickets"},BOSSES.map(bossCard)),
         h("div",{class:"done"},h("h3",null,t("doneSprint")),
           S.sprint.done.length?h("div",{class:"chips"},S.sprint.done.map(d=>h("span",{class:"chip"+(d.ok?"":" bad")},"DW-"+d.item.toUpperCase()+" "+(d.ok?t("resolved"):t("toReview"))))):h("p",{class:"empty"},t("nothingDone")))),
-      h("section",{class:"col"},h("h3",null,t("map")),h("div",{class:"panel"},skillMap(),skillInfo()))));
+      h("section",{class:"col"},h("h3",null,t("modeH")),modePanel(),h("h3",null,t("map")),h("div",{class:"panel"},skillMap(),skillInfo()))));
 }
 function brief(){
   const s=SK[briefId], x=skT(briefId), first=!S.brief[briefId];
@@ -1712,19 +2132,54 @@ function brief(){
     h("div",{class:"row"},
       h("button",{class:"btn",onclick:()=>{S.brief[briefId]=true;fillBoard();save();go("board")}},first?t("startTickets"):t("backBoard"))));
 }
-function openTicket(id){
-  const it=IT[id];
-  cur={item:it,sel:null,hint:false,done:false,result:null,aiText:null,aiAfter:null,aiUsed:false};
+function openTicket(id,o){
+  const it=IT[id]; o=o||{};
+  cur={item:it,sel:null,hint:false,done:false,result:null,aiText:null,aiAfter:null,aiUsed:false,mode:S.mode,daily:!!o.daily,typed:isTyped(it),text:"",fifty:false,timeout:false};
   if(it.type==="mc")cur.order=shuffle(itemOpts(it).map((_,i)=>i));
   if(it.type!=="mc"){cur.lines=itemCode(it).split("\n");}
   if(it.type==="parsons"){let b;do{b=shuffle(cur.lines.map((_,i)=>i))}while(b.every((v,i)=>v===i));cur.bank=b;cur.sol=[]}
-  go("ticket");
+  go("ticket"); startTimer();
+}
+function bossView(){
+  const b=BOSSES.find(x=>x.id===boss.id), x=gt().bosses[b.id], mult=MODES[S.mode].mult;
+  if(boss.phase==="intro")return h("main",{class:"brief"},h("p",{class:"client"},t("client")+": "+x.client),h("h2",null,x.name),h("p",{class:"story"},x.story),
+    h("div",{class:"sbc"},h("b",null,t("modes")[S.mode]+" ×"+mult+". "),t("bossRules")+" "+t("reward",{x:Math.round(b.reward*mult)})),
+    h("div",{class:"row"},h("button",{class:"btn",onclick:()=>{boss.phase="fight";openTicket(b.stages[0])}},t("bossStart")),h("button",{class:"btn ghost",onclick:()=>go("board")},t("backBoard"))));
+  if(!boss.settled){boss.settled=true; if(boss.won){boss.gain=Math.round(b.reward*mult);earn(boss.gain);S.bosses[b.id]=true} else {boss.loss=Math.min(S.xp,b.fail);S.xp-=boss.loss} save();}
+  return h("main",{class:"work"},h("section",{class:"fb"+(boss.won?"":" bad")},h("h3",null,boss.won?t("bossWin"):t("bossLose")),
+    h("p",null,boss.won?t("bossWinP",{x:boss.gain,t:x.trophy}):t("bossLoseP",{x:boss.loss})),h("button",{class:"btn",onclick:()=>{boss=null;go("board")}},t("backBoard"))));
+}
+function bossAdvance(){
+  const b=BOSSES.find(x=>x.id===boss.id);
+  if(boss.errors>1){boss.phase="end";boss.won=false;cur=null;go("boss");return}
+  if(boss.stage>=b.stages.length-1){boss.phase="end";boss.won=true;cur=null;go("boss");return}
+  boss.stage++; openTicket(b.stages[boss.stage]);
+}
+function shop(){
+  const card=p=>{const x=gt().shop[p.id], has=p.kind==="title"&&S.titles.includes(p.id), n=p.id==="boost"?S.boost:S.inv[p.id];
+    return h("div",{class:"panel shopitem"},h("h3",null,x[0]),h("p",null,x[1]),p.kind==="power"&&h("p",{class:"note"},t("owned",{n})),
+      has?h("button",{class:"btn ghost small",onclick:()=>{S.title=S.title===p.id?null:p.id;save();render()}},S.title===p.id?t("equipped")+". "+t("unequip"):t("equip"))
+         :h("button",{class:"btn small",disabled:S.xp<p.cost,onclick:()=>buy(p)},t("buy",{c:p.cost})));};
+  return h("main",null,h("h2",{style:"font-size:1.9rem;font-weight:800"},t("shopH")),h("p",{style:"max-width:46em"},t("shopP")),
+    h("div",{class:"analogy",style:"background:var(--surface);max-width:46em"},h("b",null,t("analogy")),t("shopA")),
+    h("div",{class:"kpis"},h("div",null,h("b",null,S.xp+" XP"),t("balance")),h("div",null,h("b",null,String(S.xpTotal)),t("total"))),
+    h("h3",{style:"margin:22px 0 12px;font-size:1.3rem"},t("powers")),h("div",{class:"grid2",style:"margin-top:0"},SHOP.filter(p=>p.kind==="power").map(card)),
+    h("h3",{style:"margin:26px 0 12px;font-size:1.3rem"},t("titlesH")),h("div",{class:"grid2",style:"margin-top:0"},SHOP.filter(p=>p.kind==="title").map(card)));
 }
 function ticket(){
-  const it=cur.item, tx=itT(it.id), se=SK[it.skill].area==="se", r=cur.result, body=[], opts=it.type==="mc"?itemOpts(it):null;
+  const it=cur.item, tx=itT(it.id), se=SK[it.skill].area==="se", r=cur.result, body=[], opts=it.type==="mc"?itemOpts(it):null, m=MODES[cur.mode], isBoss=!!it.boss;
+  const check=()=>{
+    if(cur.typed&&!normOut(cur.text))return;
+    const ok=cur.typed?normOut(cur.text)===normOut(opts[0]):it.type==="mc"?cur.sel===0:it.type==="bug"?cur.sel===it.answer:cur.sol.map(i=>cur.lines[i]).join("\n")===cur.lines.join("\n");
+    resolve(ok); render(); const fb=document.getElementById("fb"); if(fb){fb.focus();fb.scrollIntoView({block:"nearest",behavior:"smooth"})}
+  };
   if(it.type==="mc"){
     if(itemCode(it))body.push(h("pre",{class:"code"},itemCode(it)));
-    body.push(h("div",{class:"opts",role:"group","aria-label":t("options")},cur.order.map(i=>{
+    if(cur.typed){
+      body.push(h("label",{class:"typed"},t("typedLbl"),h("input",{type:"text",id:"typed",value:cur.text,placeholder:t("typedPh"),disabled:cur.done,autocomplete:"off",spellcheck:"false",
+        oninput:e=>{cur.text=e.target.value},onkeydown:e=>{if(e.key==="Enter")check()}})));
+      if(cur.done)body.push(h("p",{class:"note"},t("yourAnswer",{a:cur.text||"-"})+"   "+t("expected",{a:opts[0]})));
+    } else body.push(h("div",{class:"opts",role:"group","aria-label":t("options")},cur.order.map(i=>{
       let cls="opt"+(it.mono?" mono":""); if(cur.done){ if(i===0)cls+=" right"; else if(i===cur.sel)cls+=" wrong"; }
       return h("button",{class:cls,"aria-pressed":String(cur.sel===i),disabled:cur.done,onclick:()=>{cur.sel=i;render()}},opts[i]);})));
   }
@@ -1743,35 +2198,45 @@ function ticket(){
         !cur.done&&h("button",{class:"mv","aria-label":t("down"),onclick:()=>move(pos,1)},"↓"))))));
     if(cur.done&&!r.ok)body.push(h("p",{class:"note"},t("correctOrder")),h("pre",{class:"code"},cur.lines.join("\n")));
   }
-  const ready=it.type==="parsons"?cur.sol.length===cur.lines.length:cur.sel!==null;
-  const check=()=>{
-    const ok=it.type==="mc"?cur.sel===0:it.type==="bug"?cur.sel===it.answer:cur.sol.map(i=>cur.lines[i]).join("\n")===cur.lines.join("\n");
-    resolve(ok); render(); const fb=document.getElementById("fb"); if(fb){fb.focus();fb.scrollIntoView({block:"nearest",behavior:"smooth"})}
-  };
+  const ready=cur.typed?true:it.type==="parsons"?cur.sol.length===cur.lines.length:cur.sel!==null;
   const over=S.sprint.done.length>=SPRINT, busy=cur.aiText===t("aiThinking")||cur.aiAfter===t("aiThinking");
+  const hints=isBoss?"none":m.hint, canPay=hints!=="paid"||S.xp>=HINT_COST, payHint=()=>{if(hints==="paid"){S.xp-=HINT_COST;save()}};
+  const timed=m.timer>0&&!cur.done, b=isBoss&&BOSSES.find(x=>x.id===it.boss);
+  const useFifty=()=>{const wrong=shuffle(cur.order.filter(i=>i!==0)).slice(0,2);cur.order=cur.order.filter(i=>!wrong.includes(i));if(wrong.includes(cur.sel))cur.sel=null;cur.fifty=true;S.inv.fifty--;save();render()};
   return h("main",{class:"work"},
-    h("div",{class:"meta"},h("span",{class:"tag plain"},"DW-"+it.id.toUpperCase()),h("span",{class:"tag"+(se?" se":"")},skT(it.skill).name),h("span",{class:"tag plain"},skT(it.skill).client),
-      h("span",{class:"tag plain"},t("types")[it.type]),h("span",{class:"tag plain"},t("bloom")[it.bloom-1]),it.code&&h("span",{class:"tag plain"},PLS[S.pl])),
-    h("h2",null,tx.title), h("p",{class:"prompt"},tx.prompt), body,
+    isBoss&&h("p",{class:"promo",style:"margin-bottom:8px"},gt().bosses[it.boss].name+": "+t("bossStage",{n:boss.stage+1,m:b.stages.length})+". "+t("bossLives",{n:Math.max(0,1-boss.errors)})),
+    h("div",{class:"meta"},h("span",{class:"tag plain"},"DW-"+it.id.toUpperCase()),h("span",{class:"tag"+(se?" se":"")},skT(it.skill).name),!isBoss&&h("span",{class:"tag plain"},skT(it.skill).client),
+      h("span",{class:"tag plain"},t("types")[it.type]),h("span",{class:"tag plain"},t("bloom")[it.bloom-1]),it.code&&h("span",{class:"tag plain"},PLS[S.pl]),
+      h("span",{class:"tag",style:"background:var(--gold-soft)"},t("modes")[cur.mode]+" ×"+m.mult),cur.daily&&h("span",{class:"tag",style:"background:var(--gold-soft)"},t("dailyTag"))),
+    h("h2",null,tx.title),
+    timed&&h("p",{class:"timer",id:"timer",role:"timer"},t("timeLeft",{s:Math.max(0,Math.ceil((cur.deadline-Date.now())/1000))})),
+    h("p",{class:"prompt"},tx.prompt), body,
     cur.hint&&!cur.aiUsed&&h("div",{class:"hint"},h("b",null,t("tutorHint")),tx.hint),
     cur.aiText&&h("div",{class:"ai","aria-live":"polite"},h("b",null,t("aiLabel")),cur.aiText),
     !cur.done&&h("div",{class:"row"},
       h("button",{class:"btn",disabled:!ready,onclick:check},t("check")),
-      !cur.hint&&h("button",{class:"btn ghost",onclick:()=>{cur.hint=true;render()}},t("hint")),
-      !cur.aiUsed&&AI.ready()&&h("button",{class:"btn ghost",disabled:busy,onclick:aiHint},t("aiHint")),
-      h("button",{class:"btn ghost",onclick:()=>go("board")},t("backBoard"))),
-    !cur.done&&!cur.hint&&h("p",{class:"note",style:"margin-top:10px"},t("hintNote")),
+      hints!=="none"&&!cur.hint&&h("button",{class:"btn ghost",disabled:!canPay,onclick:()=>{payHint();cur.hint=true;render()}},hints==="paid"?t("hintPaid",{c:HINT_COST}):t("hint")),
+      hints!=="none"&&!cur.aiUsed&&!cur.hint&&AI.ready()&&h("button",{class:"btn ghost",disabled:busy||!canPay,onclick:()=>{payHint();aiHint()}},t("aiHint")),
+      !isBoss&&!cur.typed&&it.type==="mc"&&!cur.fifty&&S.inv.fifty>0&&h("button",{class:"btn ghost",onclick:useFifty},t("useFifty",{n:S.inv.fifty})),
+      timed&&!isBoss&&S.inv.time>0&&h("button",{class:"btn ghost",onclick:()=>{cur.deadline+=30000;S.inv.time--;save();render()}},t("useTime",{n:S.inv.time})),
+      !timed&&!isBoss&&h("button",{class:"btn ghost",onclick:()=>go("board")},t("backBoard"))),
+    !cur.done&&h("p",{class:"note",style:"margin-top:10px"},hints==="none"?t("noHints"):!cur.hint&&hints==="free"?t("hintNote"):null),
     cur.done&&h("section",{class:"fb"+(r.ok?"":" bad"),id:"fb",tabindex:"-1","aria-live":"polite"},
-      h("h3",null,r.ok?t("solved"):t("notYet")),
+      h("h3",null,r.ok?t("solved"):cur.timeout?t("timeout"):t("notYet")),
       h("p",null,h("b",null,t("why")),tx.why),
       h("div",{class:"analogy"},h("b",null,t("analogy")),tx.analogy),
       cur.aiAfter&&h("div",{class:"ai"},h("b",null,t("aiLabel")),cur.aiAfter),
       h("p",{class:"delta"},t("delta",{s:skT(it.skill).name,a:pct(r.before),b:pct(r.after),x:r.xp})),
+      r.pen>0&&h("p",{class:"delta",style:"color:var(--bad)"},t("lost",{x:r.pen})),
+      r.shield&&h("p",{class:"delta"},t("shieldUsed")),
       !r.ok&&r.after>r.before&&h("p",{class:"note"},t("roseNote")),
+      r.bounties.map(bn=>h("p",{class:"promo"},t("bountyDone",{s:gt().bounties[bn.id],x:bn.xp}))),
       r.masteredNow&&h("p",{class:"promo"},t("masteredNow",{s:skT(it.skill).name})),
       r.newly.length>0&&h("p",{class:"promo"},t("unlockedNow",{s:r.newly.join(", ")})),
       r.promo&&h("p",{class:"promo"},t("promo",{r:r.promo})),
-      h("div",{class:"row"},h("button",{class:"btn",onclick:()=>go(over?"retro":"board")},over?t("toRetro"):t("backBoard")),
+      h("div",{class:"row"},
+        isBoss?h("button",{class:"btn",onclick:bossAdvance},boss.errors>1||boss.stage>=b.stages.length-1?t("bossResult"):t("bossNext"))
+              :h("button",{class:"btn",onclick:()=>go(over?"retro":"board")},over?t("toRetro"):t("backBoard")),
         AI.ready()&&!cur.aiAfter&&h("button",{class:"btn ghost",disabled:busy,onclick:aiExplain},t("aiExplain")))));
 }
 function weakest(){return SKILLS.filter(s=>unlocked(s.id)&&!mastered(s.id)).sort((a,b)=>S.skills[a.id].L-S.skills[b.id].L)[0]||null}
@@ -1783,7 +2248,7 @@ function retro(){
     h("div",{class:"panel"},h("h3",null,t("changed")),h("div",{class:"tblwrap"},h("table",null,h("thead",null,h("tr",null,h("th",null,t("colSkill")),h("th",null,t("colStart")),h("th",null,t("colNow")))),
       h("tbody",null,moved.map(s=>h("tr",null,h("td",null,skT(s.id).name),h("td",null,pct(S.sprint.start[s.id]??L0)),h("td",null,h("b",null,pct(S.skills[s.id].L))))))))),
     h("p",{style:"margin-top:18px"},w?t("suggestion",{s:skT(w.id).name,p:pct(S.skills[w.id].L)}):t("allDone")),
-    h("button",{class:"btn",onclick:()=>{S.sprint={n:S.sprint.n+1,done:[],start:snapshot(S.skills)};fillBoard();save();go("board")}},t("nextSprint",{n:S.sprint.n+1})));
+    h("button",{class:"btn",onclick:()=>{S.sprint=newSprint(S.sprint.n+1,S.skills);fillBoard();save();go("board")}},t("nextSprint",{n:S.sprint.n+1})));
 }
 function exportData(){return JSON.stringify({app:"DevWise",version:2,skills:S.skills,log:S.log},null,1)}
 function report(){
@@ -1799,7 +2264,7 @@ function report(){
   const status=s=>mastered(s.id)?t("stM"):!unlocked(s.id)?t("stL"):!S.brief[s.id]?t("stB"):t("stP");
   return h("main",null,h("h2",{style:"font-size:1.9rem;font-weight:800"},t("repH")),h("p",{class:"note"},t("repSub")),
     h("div",{class:"kpis"},h("div",null,h("b",null,String(n)),t("k1")),h("div",null,h("b",null,n?pct(c/n):"0%"),t("k2")),
-      h("div",null,h("b",null,t("of",{a:SKILLS.filter(s=>mastered(s.id)).length,b:SKILLS.length})),t("k3")),h("div",null,h("b",null,String(S.best)),t("k4"))),
+      h("div",null,h("b",null,t("of",{a:SKILLS.filter(s=>mastered(s.id)).length,b:SKILLS.length})),t("k3")),h("div",null,h("b",null,String(S.best)),t("k4")),h("div",null,h("b",null,String(S.xpTotal)),t("kTotal")),h("div",null,h("b",null,t("of",{a:Object.keys(S.bosses).length,b:BOSSES.length})),t("kBosses"))),
     h("div",{class:"grid2"},
       h("section",{class:"panel"},h("h3",null,t("bySkill")),h("div",{class:"tblwrap"},h("table",null,
         h("thead",null,h("tr",null,h("th",null,t("colSkill")),h("th",null,t("colMastery")),h("th",null,""),h("th",null,t("colHits")),h("th",null,t("colStatus")),h("th",null,t("colSbc")))),
@@ -1808,12 +2273,13 @@ function report(){
       h("section",{class:"panel"},h("h3",null,t("recs")),h("ul",{style:"margin:0;padding-left:20px"},recs.map(r=>h("li",{style:"margin-bottom:8px"},r))),
         h("h3",{style:"margin-top:20px"},t("bloomAcc")),h("div",{class:"tblwrap"},h("table",null,h("tbody",null,bloom.map(b=>h("tr",null,h("td",null,b.name),
           h("td",null,h("div",{class:"bar"},h("i",{style:"width:"+(b.n?pct(b.c/b.n):"0%")}))),h("td",null,b.n?t("of",{a:b.c,b:b.n}):t("noData")))))))),
+      h("section",{class:"panel"},h("h3",null,t("trophies")),Object.keys(S.bosses).length?h("ul",{style:"margin:0;padding-left:20px"},Object.keys(S.bosses).map(k=>h("li",null,h("b",null,gt().bosses[k].trophy),"  ("+gt().bosses[k].name+")"))):h("p",{class:"empty"},t("noTrophies"))),
       h("section",{class:"panel"},h("h3",null,t("how")),h("p",null,t("howP")),h("div",{class:"analogy",style:"background:var(--sunken)"},h("b",null,t("analogy")),t("howA")),h("p",{class:"note"},t("howParams"))),
       h("section",{class:"panel"},h("h3",null,t("data")),h("p",{class:"note"},t("dataP")),
         h("div",{class:"row"},
           h("button",{class:"btn ghost small",onclick:()=>{showJson=!showJson;render()}},showJson?t("hideJson"):t("showJson")),
           h("button",{class:"btn ghost small",onclick:()=>{try{const a=document.createElement("a");a.href=URL.createObjectURL(new Blob([exportData()],{type:"application/json"}));a.download="devwise-log.json";a.click()}catch(e){} showJson=true;render()}},t("download")),
-          h("button",{class:"btn ghost small",onclick:()=>{ if(!resetArmed){resetArmed=true;render();return;} const keep={lang:S.lang,pl:S.pl,ai:S.ai}; S=Object.assign(fresh(),keep);save();selSkill=null;cur=null;go("home") }},resetArmed?t("resetConfirm"):t("reset"))),
+          h("button",{class:"btn ghost small",onclick:()=>{ if(!resetArmed){resetArmed=true;render();return;} const keep={lang:S.lang,pl:S.pl,ai:S.ai,mode:S.mode}; S=Object.assign(fresh(),keep);save();selSkill=null;cur=null;go("home") }},resetArmed?t("resetConfirm"):t("reset"))),
         showJson&&h("textarea",{readonly:true,"aria-label":"JSON",style:"margin-top:12px",onfocus:e=>e.target.select()},exportData()))));
 }
 function settings(){
@@ -1839,12 +2305,13 @@ function settings(){
 function render(){
   const app=document.getElementById("app"); app.textContent="";
   if(view==="ticket"&&!cur)view="board"; if(view==="brief"&&!briefId)view="board"; if(view!=="home"&&!S.started)view="home";
-  const v={home,ticket,retro,report,settings,brief,board}[view]||board;
+  if(view==="boss"&&!boss)view="board";
+  const v={home,ticket,retro,report,settings,brief,board,shop,boss:bossView}[view]||board;
   app.append(topbar(),v());
 }
 S=load(); document.documentElement.lang=S.lang; view=S.started?"board":"home"; render();
 /* Dentro do claude.ai, o tutor IA usa a capacidade "sample"; fora dele (GitHub Pages), usa a chave informada em Ajustes. */
-if(window.claude&&typeof window.claude.use==="function"){window.claude.use("sample").then(fn=>{if(fn){AI.sample=fn;if(view==="settings"||view==="board")render()}}).catch(()=>{})}
+if(window.claude&&typeof window.claude.use==="function"){window.claude.use("sample").then(fn=>{if(fn){AI.sample=fn;if(view==="settings")render()}}).catch(()=>{})}
 
 </script>
 </body>

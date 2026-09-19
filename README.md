@@ -22,6 +22,20 @@ Você entra na Ponte, uma pequena casa de software que atende a padaria, o posto
 | Tutor com IA | Dicas socráticas e novas analogias via Anthropic, qualquer API compatível com OpenAI ou servidor local (Ollama); sem IA, usa as dicas autorais |
 | Relatório | Domínio por habilidade, acerto por nível de Bloom, recomendações e exportação do registro em formato longo de KT |
 
+### Camada de jogo
+
+| Mecânica | Regra |
+|---|---|
+| Duas contas de XP | **Saldo** (gasta-se na loja e perde-se nos erros) e **XP acumulado** (nunca diminui; abre fases e chefões) |
+| Dificuldade | Normal ×1, Médio ×1,5, Difícil ×2, Extra hardcore ×3. A partir do Difícil não há dicas e os tickets de saída pedem resposta digitada; no Extra hardcore há relógio de 60 s |
+| Penalidade | Erro custa 2, 4, 6 ou 10 XP do saldo por nível do ticket, conforme o modo |
+| Fases trancadas | Cada missão exige 60% de domínio nos pré-requisitos **e** um mínimo de XP acumulado (`GATES` em `src/game.js`) |
+| Desafios extras | Três desafios por sprint e um desafio do dia com XP em dobro |
+| Chefões | Três combates de 3 fases, sem dicas, com um único erro permitido; rendem XP e troféu |
+| Loja | Poderes (Escudo, Eliminar duas, Tempo extra, XP em dobro) e títulos |
+
+A resposta digitada reduz a probabilidade de chute do BKT de 25% para 3%, então acertos nos modos difíceis são evidência mais forte de domínio. Poderes que facilitam a resposta (dica, Eliminar duas) enfraquecem a evidência.
+
 ### Mapeamento para a SBC
 
 | Habilidades | Competências |
@@ -40,6 +54,7 @@ Você entra na Ponte, uma pequena casa de software que atende a padaria, o posto
 index.html        arquivo único gerado, é o que o GitHub Pages serve
 build.py          junta src/ em index.html
 tests.js          consistência do banco (3 idiomas x 4 linguagens) e simulação do motor
+src/game.js       modos, portões de XP, loja, desafios e chefões
 src/data.js       habilidades, mapeamento SBC, exemplos e itens com código
 src/lang-pt.js    textos em português (en e es seguem o mesmo formato)
 src/app.js        motor BKT, telas, tutor com IA
