@@ -239,3 +239,11 @@ Object.assign(LANG.pt.ui,{
  keepGoing:"Este ticket volta ao quadro mais adiante para a revanche.",
  streakMsg:"{n} acertos seguidos! Bônus de sequência: +5 XP.", comeback:"Volta por cima: +{x} XP por acertar logo depois de um erro.", need:"Faltam {n} XP (custa {c})"
 });
+Object.assign(LANG.pt.ui,{
+ evoH:"Evolução do conhecimento", evoP:"Cada linha é o domínio estimado de uma habilidade ao longo dos tickets respondidos. Toque numa habilidade para destacá-la: pontos verdes são acertos e pontos âmbar são erros. As linhas tracejadas marcam o desbloqueio (60%) e o domínio (95%).",
+ evoEmpty:"Responda alguns tickets nesta linguagem para ver sua curva de aprendizagem.", evoAll:"Todas", evoX:"tickets respondidos", colFirst:"Primeira estimativa", colGain:"Ganho", colTries:"Tickets",
+ plH:"Domínio por linguagem de programação", plP:"Cada linguagem tem seu próprio rastreador de domínio; a linguagem em uso está marcada com ●. Ao estrear numa linguagem, você parte de uma estimativa de transferência: metade do caminho já percorrido na sua melhor linguagem. Valores em negrito já foram praticados.",
+ plA:"quem dirige carro manual não volta à estaca zero ao pegar um automático, mas ainda precisa de umas voltas no quarteirão para provar que se adaptou.", plAcc:"Acertos",
+ langH:"Acertos por idioma do jogo", studyH:"Idiomas do estudo multilíngue", studyP:"Os 20 idiomas da análise de tradução e tokenização. O custo em tokens por 1000 caracteres foi medido no estudo e indica quanto o tutor IA gasta em cada idioma. Pacotes pendentes são gerados com tools/gerar-idioma.js e revisados antes de entrar no jogo.",
+ available:"disponível", pending:"pacote a gerar", colLang:"Idioma", colScript:"Escrita", colTok:"Tokens por 1000 caracteres"
+});

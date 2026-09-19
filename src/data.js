@@ -4,6 +4,32 @@
 const LANG = {};
 const PLS = {py:"Python", js:"JavaScript", java:"Java", c:"C"};
 
+/* Os 20 idiomas do estudo de tradução e tokenização (matriz_traducao): código do jogo, nome nativo, nome em inglês
+   (usado nos prompts do tutor IA e do gerador de pacotes), código FLORES-200, escrita, direção e custo em tokens
+   por 1000 caracteres medido no estudo para o tokenizador do claude-fable-5. */
+const STUDY_LANGS = [
+  {code:"en",native:"English",en:"English",flores:"eng_Latn",script:"Latin",tok:342},
+  {code:"zh",native:"中文",en:"Mandarin Chinese (Simplified)",flores:"zho_Hans",script:"Han",tok:1114},
+  {code:"hi",native:"हिन्दी",en:"Hindi",flores:"hin_Deva",script:"Devanagari",tok:724},
+  {code:"es",native:"Español",en:"Latin American Spanish",flores:"spa_Latn",script:"Latin",tok:413},
+  {code:"fr",native:"Français",en:"French",flores:"fra_Latn",script:"Latin",tok:403},
+  {code:"ar",native:"العربية",en:"Modern Standard Arabic",flores:"arb_Arab",script:"Arabic",rtl:true,tok:689},
+  {code:"bn",native:"বাংলা",en:"Bengali",flores:"ben_Beng",script:"Bengali",tok:901},
+  {code:"pt",native:"Português",en:"Brazilian Portuguese",flores:"por_Latn",script:"Latin",tok:417},
+  {code:"ru",native:"Русский",en:"Russian",flores:"rus_Cyrl",script:"Cyrillic",tok:407},
+  {code:"ur",native:"اردو",en:"Urdu",flores:"urd_Arab",script:"Arabic",rtl:true,tok:774},
+  {code:"id",native:"Bahasa Indonesia",en:"Indonesian",flores:"ind_Latn",script:"Latin",tok:492},
+  {code:"de",native:"Deutsch",en:"German",flores:"deu_Latn",script:"Latin",tok:487},
+  {code:"ja",native:"日本語",en:"Japanese",flores:"jpn_Jpan",script:"Kana",tok:925},
+  {code:"mr",native:"मराठी",en:"Marathi",flores:"mar_Deva",script:"Devanagari",tok:792},
+  {code:"te",native:"తెలుగు",en:"Telugu",flores:"tel_Telu",script:"Telugu",tok:905},
+  {code:"tr",native:"Türkçe",en:"Turkish",flores:"tur_Latn",script:"Latin",tok:534},
+  {code:"ta",native:"தமிழ்",en:"Tamil",flores:"tam_Taml",script:"Tamil",tok:843},
+  {code:"vi",native:"Tiếng Việt",en:"Vietnamese",flores:"vie_Latn",script:"Latin",tok:574},
+  {code:"ko",native:"한국어",en:"Korean",flores:"kor_Hang",script:"Hangul",tok:1045},
+  {code:"pa",native:"ਪੰਜਾਬੀ",en:"Punjabi (Gurmukhi)",flores:"pan_Guru",script:"Gurmukhi",tok:2019}
+];
+
 /* Habilidades, pré-requisitos, posição no mapa e competências dos Referenciais de Formação da SBC (2017). */
 const SKILLS = [
   {id:"var",   area:"prog", pre:[],       x:60,  y:62,  sbc:["CC-C.1.3","ES-C.1.1","ES-C.6.4"]},

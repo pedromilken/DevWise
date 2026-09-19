@@ -17,7 +17,7 @@ Você entra na Ponte, uma pequena casa de software que atende a padaria, o posto
 | Modelo do estudante | Bayesian Knowledge Tracing por habilidade; chute ajustado ao tipo de item; pedido de dica enfraquece a evidência |
 | Sequenciamento | Grafo de pré-requisitos (60% libera, 95% domina); item escolhido pela dificuldade mais próxima do domínio atual |
 | Banco de itens | 55 itens, 5 por habilidade, com nível de Bloom e dificuldade |
-| Idiomas | Português, inglês e espanhol (interface, histórias, teoria e itens) |
+| Idiomas | Português, inglês e espanhol completos; registro dos 20 idiomas do estudo e gerador de pacotes para os demais |
 | Linguagens de programação | Python, JavaScript, Java e C, com o mesmo gabarito nas quatro |
 | Tutor com IA | Dicas socráticas e novas analogias via Anthropic, qualquer API compatível com OpenAI ou servidor local (Ollama); sem IA, usa as dicas autorais |
 | Relatório | Domínio por habilidade, acerto por nível de Bloom, recomendações e exportação do registro em formato longo de KT |
@@ -36,6 +36,26 @@ Você entra na Ponte, uma pequena casa de software que atende a padaria, o posto
 
 A resposta digitada reduz a probabilidade de chute do BKT de 25% para 3%, então acertos nos modos difíceis são evidência mais forte de domínio. Poderes que facilitam a resposta (dica, Eliminar duas) enfraquecem a evidência.
 
+### Evolução e linguagens de programação
+
+- **Evolução do conhecimento**: o relatório traça a curva de domínio de cada habilidade ao longo dos tickets (acertos em verde, erros em âmbar), com as linhas de desbloqueio (60%) e domínio (95%) e a tabela de ganho em pontos percentuais.
+- **Um rastreador por linguagem**: habilidades de programação têm BKT separado para Python, JavaScript, Java e C. Ao estrear numa linguagem, a estimativa inicial é uma priori de transferência: `L0 + 0,5 x (melhor domínio nas outras - L0)` (`TRANSFER` em `src/app.js`). Habilidades de engenharia de software são independentes de linguagem.
+- O registro exportado guarda `pl` (linguagem), `lang` (idioma), `mode`, `sprint` e a ordem `i` de cada interação.
+
+### Idiomas do estudo multilíngue
+
+`STUDY_LANGS` (`src/data.js`) registra os 20 idiomas da análise de tradução e tokenização, com código FLORES-200, escrita, direção (árabe e urdu são RTL) e custo em tokens por 1000 caracteres. Hoje há pacote completo para **pt, en e es**; os outros 17 são gerados por:
+
+```bash
+# PowerShell: $env:ANTHROPIC_API_KEY="..."      bash: export ANTHROPIC_API_KEY=...
+node tools/gerar-idioma.js hi          # um idioma
+node tools/gerar-idioma.js todos       # todos os pendentes
+node tools/gerar-idioma.js hi --mock   # ensaio sem API
+node tests.js && python build.py       # valida e publica
+```
+
+Também aceita `OPENAI_API_KEY` com `OPENAI_BASE_URL` (DeepSeek, Qwen, Ollama) e `DEVWISE_MODEL`. O script valida chaves, tamanhos de lista, marcadores `{x}`, ordem das opções e presença da escrita esperada; **não** valida naturalidade nem correção pedagógica, então cada pacote pede revisão de um falante antes de ir ao ar. A chave é lida só de variável de ambiente; nunca versione arquivos `.env`.
+
 ### Mapeamento para a SBC
 
 | Habilidades | Competências |
@@ -53,6 +73,7 @@ A resposta digitada reduz a probabilidade de chute do BKT de 25% para 3%, então
 ```
 index.html        arquivo único gerado, é o que o GitHub Pages serve
 build.py          junta src/ em index.html
+tools/gerar-idioma.js  gera o pacote de um idioma do estudo via LLM, com validação
 tests.js          consistência do banco (3 idiomas x 4 linguagens) e simulação do motor
 src/game.js       modos, portões de XP, loja, desafios e chefões
 src/data.js       habilidades, mapeamento SBC, exemplos e itens com código

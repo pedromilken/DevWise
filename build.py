@@ -2,7 +2,9 @@
 """Gera index.html (arquivo único, pronto para o GitHub Pages) a partir de src/."""
 import pathlib
 src = pathlib.Path(__file__).parent / "src"
-order = ["data.js", "game.js", "lang-pt.js", "lang-en.js", "lang-es.js", "app.js"]
+langs = sorted(p.name for p in src.glob("lang-*.js"))
+langs = [l for l in ("lang-pt.js", "lang-en.js", "lang-es.js") if l in langs] + [l for l in langs if l not in ("lang-pt.js", "lang-en.js", "lang-es.js")]
+order = ["data.js", "game.js"] + langs + ["app.js"]
 js = "\n".join((src / f).read_text(encoding="utf-8") for f in order)
 css = (src / "style.css").read_text(encoding="utf-8")
 html = f"""<!doctype html>

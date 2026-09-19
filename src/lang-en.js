@@ -239,3 +239,11 @@ Object.assign(LANG.en.ui,{
  keepGoing:"This ticket will return to the board later for a rematch.",
  streakMsg:"{n} in a row! Streak bonus: +5 XP.", comeback:"Bounce back: +{x} XP for getting it right straight after a mistake.", need:"{n} XP to go (costs {c})"
 });
+Object.assign(LANG.en.ui,{
+ evoH:"Knowledge growth", evoP:"Each line is the estimated mastery of one skill across the tickets you answered. Tap a skill to highlight it: green dots are correct answers and amber dots are mistakes. Dashed lines mark unlocking (60%) and mastery (95%).",
+ evoEmpty:"Answer a few tickets in this language to see your learning curve.", evoAll:"All", evoX:"tickets answered", colFirst:"First estimate", colGain:"Gain", colTries:"Tickets",
+ plH:"Mastery by programming language", plP:"Each language has its own mastery tracker; the one in use is marked with ●. When you first try a language, you start from a transfer estimate: half of the way already covered in your best language. Values in bold have been practised.",
+ plA:"someone who drives a manual car does not go back to square one in an automatic, but still needs a few laps around the block to prove they have adapted.", plAcc:"Correct",
+ langH:"Correct answers by game language", studyH:"Languages of the multilingual study", studyP:"The 20 languages of the translation and tokenisation analysis. The cost in tokens per 1000 characters was measured in the study and shows how much the AI tutor spends in each language. Pending packs are generated with tools/gerar-idioma.js and reviewed before they enter the game.",
+ available:"available", pending:"pack to be generated", colLang:"Language", colScript:"Script", colTok:"Tokens per 1000 characters"
+});

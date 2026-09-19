@@ -2,10 +2,12 @@
 const fs=require("fs");
 global.localStorage={getItem(){return null},setItem(){}};global.window={scrollTo(){}};global.navigator={language:"pt"};
 global.document={documentElement:{},getElementById(){return {append(){},set textContent(v){}}},createElement(){return {append(){},setAttribute(){},addEventListener(){},set className(v){}}},createElementNS(){return {append(){},setAttribute(){},addEventListener(){}}},createTextNode(){return {}}};
-let src=["data.js","game.js","lang-pt.js","lang-en.js","lang-es.js","app.js"].map(f=>fs.readFileSync(__dirname+"/src/"+f,"utf8")).join("\n");
+const langFiles=fs.readdirSync(__dirname+"/src").filter(f=>/^lang-.*\.js$/.test(f)).sort((a,b)=>(a==="lang-pt.js"?-1:b==="lang-pt.js"?1:a.localeCompare(b)));
+let src=["data.js","game.js",...langFiles,"app.js"].map(f=>fs.readFileSync(__dirname+"/src/"+f,"utf8")).join("\n");
 src=src.replace('"use strict";','').replace(/S=load\(\);[\s\S]*$/,"");
 src+=`
 let errs=[];
+for(const l of Object.keys(LANG)) if(!STUDY_LANGS.find(x=>x.code===l)) errs.push(l+": idioma fora do registro do estudo");
 for(const l of Object.keys(LANG)){
   const uiKeys=Object.keys(LANG.pt.ui); for(const k of uiKeys) if(LANG[l].ui[k]==null) errs.push(l+": falta ui."+k);
   for(const c of Object.keys(LANG.pt.sbc)) if(!LANG[l].sbc[c]) errs.push(l+": falta sbc "+c);
@@ -30,6 +32,7 @@ for(const l of Object.keys(LANG)){const g=LANG[l].game; if(!g){errs.push(l+": fa
 for(const s of SKILLS) if(GATES[s.id]===undefined) errs.push("portão "+s.id);
 for(const s of SKILLS) if(EX[s.id]) for(const p of Object.keys(PLS)) if(!EX[s.id][p]) errs.push("EX "+s.id+" "+p);
 const per={}; ITEMS.forEach(i=>per[i.skill]=(per[i.skill]||0)+1);
+console.log("idiomas com pacote:",Object.keys(LANG).join(", "),"de",STUDY_LANGS.length,"do estudo");
 console.log("itens:",ITEMS.length,JSON.stringify(per));
 // simulação: aluno com 75% de acerto, em cada modo
 for(const mode of Object.keys(MODES)){ let tot=0,xpT=0,bal=0,stuck=0,runs=150;
