@@ -71,13 +71,14 @@ function resolve(ok){
   const openBefore=SKILLS.filter(s=>unlocked(s.id)).map(s=>s.id);
   let g=guessProb(it); if(cur.typed)g=0.03; else if(cur.fifty||cur.hint)g=Math.max(.5,g);
   sk.L=bkt(before,ok,g); sk.n++; if(ok)sk.c++;
-  const res={ok,before,after:sk.L,xp:0,pen:0,shield:false,bounties:[],newly:[],promo:null,masteredNow:before<MASTER&&sk.L>=MASTER};
+  const res={ok,before,after:sk.L,mi:Math.floor(Math.random()*4),comeback:0,streak:0,xp:0,pen:0,shield:false,bounties:[],newly:[],promo:null,masteredNow:before<MASTER&&sk.L>=MASTER};
   S.log.push({item:it.id,skill:it.skill,bloom:it.bloom,d:it.d,ok,hint:cur.hint,ai:!!cur.aiUsed,mode:cur.mode,typed:!!cur.typed,timeout:!!cur.timeout,boss:it.boss||null,lang:S.lang,pl:it.code?S.pl:null,before:+before.toFixed(3),after:+sk.L.toFixed(3),t:Date.now()});
   if(it.boss){ if(!ok)boss.errors++; }
   else{
     S.streak=ok?S.streak+1:0; S.best=Math.max(S.best,S.streak);
-    if(ok){ let xp=Math.round(it.d*10*m.mult); if(cur.hint)xp=Math.ceil(xp/2); if(S.streak>=3)xp+=5; if(S.boost>0)xp*=2; if(cur.daily)xp*=2; res.xp=xp; earn(xp); }
+    if(ok){ let xp=Math.round(it.d*10*m.mult); if(cur.hint)xp=Math.ceil(xp/2); if(S.streak>=3){xp+=5;res.streak=S.streak} if(S.lastWrong){xp+=COMEBACK;res.comeback=COMEBACK} if(S.boost>0)xp*=2; if(cur.daily)xp*=2; res.xp=xp; earn(xp); }
     else{ const pen=m.pen*it.d; if(S.inv.shield>0){S.inv.shield--;res.shield=true} else {res.pen=Math.min(S.xp,pen);S.xp-=res.pen} }
+    S.lastWrong=!ok;
     if(S.boost>0)S.boost--;
     if(cur.daily)S.daily.done=true;
     S.seen[it.id]={n:(S.seen[it.id]?S.seen[it.id].n:0)+1,ok};
@@ -89,6 +90,21 @@ function resolve(ok){
     fillBoard(it.id);
   }
   cur.done=true; cur.result=res; save();
+}
+/* ---------- Efeitos visuais (respeitam prefers-reduced-motion) ---------- */
+const calm=()=>window.matchMedia&&window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+function burst(emojis,n){
+  if(calm())return; const box=h("div",{class:"fx","aria-hidden":"true"}), cols=["var(--gold)","var(--prog)","var(--se)","var(--ok)"];
+  for(let i=0;i<n;i++){ const e=i%3===0, p=h("span",{class:e?"em":"sq"},e?emojis[i%emojis.length]:"");
+    p.style.setProperty("--dx",(Math.random()*2-1)*46+"vw"); p.style.setProperty("--dy",-(20+Math.random()*55)+"vh"); p.style.setProperty("--r",(Math.random()*720-360)+"deg");
+    p.style.animationDelay=Math.random()*.15+"s"; if(!e)p.style.background=cols[i%4]; box.append(p); }
+  document.body.append(box); setTimeout(()=>box.remove(),2000);
+}
+function floatXp(txt){ if(calm())return; const el=h("div",{class:"xpfloat","aria-hidden":"true"},txt); document.body.append(el); setTimeout(()=>el.remove(),1500); }
+function celebrate(r,isBoss){
+  if(!r.ok)return; const big=r.masteredNow||r.promo||r.bounties.length||r.newly.length;
+  burst(big?["🏆","🎉","⭐","🚀"]:["✨","🎉","⭐"],big?48:22); if(!isBoss&&r.xp)floatXp("+"+r.xp+" XP");
+  const b=document.getElementById("bal"); if(b&&!calm()){b.classList.remove("bump");void b.offsetWidth;b.classList.add("bump")}
 }
 function stopTimer(){if(tick){clearInterval(tick);tick=null}}
 function startTimer(){
@@ -105,7 +121,7 @@ function ensureDaily(){
 function buy(p){
   if(S.xp<p.cost)return; if(p.kind==="title"&&S.titles.includes(p.id))return; S.xp-=p.cost;
   if(p.kind==="title"){S.titles.push(p.id);S.title=p.id} else if(p.id==="boost")S.boost+=3; else S.inv[p.id]++;
-  save(); render();
+  save(); render(); burst([p.icon,"✨"],18);
 }
 
 /* ---------- Tutor com LLM ---------- */
@@ -171,13 +187,13 @@ function topbar(){
   return h("header",{class:"top"},
     h("button",{class:"brand",onclick:()=>go(S.started?"board":"home")},"DevWise"),
     S.started&&h("div",{class:"stats"},h("span",null,t("role")+" ",h("b",null,career())),
-      S.title&&h("span",null,t("titleLbl")+" ",h("b",null,gt().shop[S.title][0])),
-      h("span",null,t("balance")+" ",h("b",null,S.xp+" XP")),h("span",null,t("total")+" ",h("b",null,String(S.xpTotal))),
-      h("span",null,t("streak")+" ",h("b",null,String(S.streak))),
-      S.boost>0&&h("span",{class:"tag",style:"background:var(--gold-soft)"},t("boostOn",{n:S.boost}))),
+      S.title&&h("span",null,SHOP.find(p=>p.id===S.title).icon+" ",h("b",null,gt().shop[S.title][0])),
+      h("span",null,"💰 "+t("balance")+" ",h("b",{id:"bal"},S.xp+" XP")),h("span",null,t("total")+" ",h("b",null,String(S.xpTotal))),
+      h("span",null,(S.streak>=3?"🔥 ":"")+t("streak")+" ",h("b",null,String(S.streak))),
+      S.boost>0&&h("span",{class:"tag",style:"background:var(--gold-soft)"},"⚡ "+t("boostOn",{n:S.boost}))),
     h("nav",{class:"nav"},
       S.started&&h("button",{"aria-current":onBoard?"page":null,onclick:()=>go("board")},t("navBoard")),
-      S.started&&h("button",{"aria-current":view==="shop"?"page":null,onclick:()=>go("shop")},t("navShop")),
+      S.started&&h("button",{"aria-current":view==="shop"?"page":null,onclick:()=>go("shop")},"🛍️ "+t("navShop")),
       S.started&&h("button",{"aria-current":view==="report"?"page":null,onclick:()=>go("report")},t("navReport")),
       S.started&&h("button",{"aria-current":view==="settings"?"page":null,onclick:()=>go("settings")},t("navSettings")),
       langBar()));
@@ -200,15 +216,15 @@ function ticketCard(it,daily){
 function bossCard(b){
   const x=gt().bosses[b.id], won=!!S.bosses[b.id], open=bossOpen(b);
   return h("button",{class:"bosscard"+(won?" won":""),disabled:!open||won,onclick:()=>{boss={id:b.id,stage:0,errors:0,phase:"intro"};go("boss")}},
-    h("span",{class:"who"},x.client),h("span",{class:"tt"},x.name),
+    h("span",{class:"who"},x.client),h("span",{class:"tt"},(won?"🏆":open?b.icon:"🔒")+" "+x.name),
     h("span",{class:"note"},won?t("bossDefeated")+": "+x.trophy:open?t("bossFight")+". "+t("reward",{x:Math.round(b.reward*MODES[S.mode].mult)}):t("bossLocked",{p:b.need.map(k=>skT(k).name).join(", "),x:b.gate})));
 }
 function modePanel(){
   return h("div",{class:"panel",style:"margin-bottom:18px"},
-    h("div",{class:"tabs",role:"group","aria-label":t("modeH")},Object.keys(MODES).map(k=>h("button",{"aria-pressed":String(S.mode===k),onclick:()=>{S.mode=k;save();render()}},t("modes")[k]+" ×"+String(MODES[k].mult).replace(".",S.lang==="en"?".":",")))),
+    h("div",{class:"tabs",role:"group","aria-label":t("modeH")},Object.keys(MODES).map(k=>h("button",{"aria-pressed":String(S.mode===k),onclick:()=>{S.mode=k;save();render()}},MODE_ICON[k]+" "+t("modes")[k]+" ×"+String(MODES[k].mult).replace(".",S.lang==="en"?".":",")))),
     h("p",{class:"note",style:"margin:6px 0 14px"},t("modeDesc")[S.mode]),
-    h("b",{style:"font-family:var(--display)"},t("bountiesH")),
-    h("ul",{class:"bounties"},BOUNTIES.map(b=>h("li",{class:S.sprint.b[b.id]?"ok":null},(S.sprint.b[b.id]?"✓ ":"")+gt().bounties[b.id]+"  +"+b.xp+" XP"))));
+    h("b",{style:"font-family:var(--display)"},"🎯 "+t("bountiesH")),
+    h("ul",{class:"bounties"},BOUNTIES.map(b=>h("li",{class:S.sprint.b[b.id]?"ok":null},(S.sprint.b[b.id]?"✅ ":"")+gt().bounties[b.id]+"  +"+b.xp+" XP"))));
 }
 function missionCard(s){
   const x=skT(s.id);
@@ -264,8 +280,8 @@ function board(){
         miss.length>0&&[h("h3",null,t("missions")),h("div",{class:"tickets"},miss.map(missionCard))],
         h("h3",{class:miss.length?"gap":null},t("todo")),
         S.board.length?h("div",{class:"tickets"},S.board.map(id=>ticketCard(IT[id]))):h("p",{class:"empty"},t("todoEmpty")),
-        dl&&[h("h3",{class:"gap"},t("dailyH")),S.daily.done?h("p",{class:"empty"},t("dailyDone")):h("div",{class:"tickets"},ticketCard(dl,true))],
-        h("h3",{class:"gap"},t("bossesH")),h("div",{class:"tickets"},BOSSES.map(bossCard)),
+        dl&&[h("h3",{class:"gap"},"📅 "+t("dailyH")),S.daily.done?h("p",{class:"empty"},t("dailyDone")):h("div",{class:"tickets"},ticketCard(dl,true))],
+        h("h3",{class:"gap"},"⚔️ "+t("bossesH")),h("div",{class:"tickets"},BOSSES.map(bossCard)),
         h("div",{class:"done"},h("h3",null,t("doneSprint")),
           S.sprint.done.length?h("div",{class:"chips"},S.sprint.done.map(d=>h("span",{class:"chip"+(d.ok?"":" bad")},"DW-"+d.item.toUpperCase()+" "+(d.ok?t("resolved"):t("toReview"))))):h("p",{class:"empty"},t("nothingDone")))),
       h("section",{class:"col"},h("h3",null,t("modeH")),modePanel(),h("h3",null,t("map")),h("div",{class:"panel"},skillMap(),skillInfo()))));
@@ -293,11 +309,11 @@ function openTicket(id,o){
 }
 function bossView(){
   const b=BOSSES.find(x=>x.id===boss.id), x=gt().bosses[b.id], mult=MODES[S.mode].mult;
-  if(boss.phase==="intro")return h("main",{class:"brief"},h("p",{class:"client"},t("client")+": "+x.client),h("h2",null,x.name),h("p",{class:"story"},x.story),
+  if(boss.phase==="intro")return h("main",{class:"brief"},h("p",{class:"client"},t("client")+": "+x.client),h("h2",null,b.icon+" "+x.name),h("p",{class:"story"},x.story),
     h("div",{class:"sbc"},h("b",null,t("modes")[S.mode]+" ×"+mult+". "),t("bossRules")+" "+t("reward",{x:Math.round(b.reward*mult)})),
     h("div",{class:"row"},h("button",{class:"btn",onclick:()=>{boss.phase="fight";openTicket(b.stages[0])}},t("bossStart")),h("button",{class:"btn ghost",onclick:()=>go("board")},t("backBoard"))));
-  if(!boss.settled){boss.settled=true; if(boss.won){boss.gain=Math.round(b.reward*mult);earn(boss.gain);S.bosses[b.id]=true} else {boss.loss=Math.min(S.xp,b.fail);S.xp-=boss.loss} save();}
-  return h("main",{class:"work"},h("section",{class:"fb"+(boss.won?"":" bad")},h("h3",null,boss.won?t("bossWin"):t("bossLose")),
+  if(!boss.settled){boss.settled=true; if(boss.won){boss.gain=Math.round(b.reward*mult);earn(boss.gain);S.bosses[b.id]=true;setTimeout(()=>burst(["🏆","🎉","⭐",b.icon],60),50)} else {boss.loss=Math.min(S.xp,b.fail);S.xp-=boss.loss} save();}
+  return h("main",{class:"work"},h("section",{class:"fb"+(boss.won?"":" bad")},h("h3",null,boss.won?"🏆 "+t("bossWin"):"🌱 "+t("bossLose")),
     h("p",null,boss.won?t("bossWinP",{x:boss.gain,t:x.trophy}):t("bossLoseP",{x:boss.loss})),h("button",{class:"btn",onclick:()=>{boss=null;go("board")}},t("backBoard"))));
 }
 function bossAdvance(){
@@ -307,22 +323,23 @@ function bossAdvance(){
   boss.stage++; openTicket(b.stages[boss.stage]);
 }
 function shop(){
-  const card=p=>{const x=gt().shop[p.id], has=p.kind==="title"&&S.titles.includes(p.id), n=p.id==="boost"?S.boost:S.inv[p.id];
-    return h("div",{class:"panel shopitem"},h("h3",null,x[0]),h("p",null,x[1]),p.kind==="power"&&h("p",{class:"note"},t("owned",{n})),
-      has?h("button",{class:"btn ghost small",onclick:()=>{S.title=S.title===p.id?null:p.id;save();render()}},S.title===p.id?t("equipped")+". "+t("unequip"):t("equip"))
-         :h("button",{class:"btn small",disabled:S.xp<p.cost,onclick:()=>buy(p)},t("buy",{c:p.cost})));};
-  return h("main",null,h("h2",{style:"font-size:1.9rem;font-weight:800"},t("shopH")),h("p",{style:"max-width:46em"},t("shopP")),
+  const card=p=>{const x=gt().shop[p.id], has=p.kind==="title"&&S.titles.includes(p.id), n=p.id==="boost"?S.boost:S.inv[p.id], can=S.xp>=p.cost;
+    return h("div",{class:"panel shopitem"+(can||has?"":" far")},h("div",{class:"ico","aria-hidden":"true"},p.icon),h("h3",null,x[0]),h("p",null,x[1]),
+      p.kind==="power"&&h("p",{class:"note"},(n>0?"🎒 ":"")+t("owned",{n})),
+      has?h("button",{class:"btn ghost small",onclick:()=>{S.title=S.title===p.id?null:p.id;save();render()}},S.title===p.id?"✅ "+t("equipped")+". "+t("unequip"):t("equip"))
+         :h("button",{class:"btn small",disabled:!can,onclick:()=>buy(p)},can?t("buy",{c:p.cost}):"🔒 "+t("need",{n:p.cost-S.xp,c:p.cost})));};
+  return h("main",null,h("h2",{style:"font-size:1.9rem;font-weight:800"},"🛍️ "+t("shopH")),h("p",{style:"max-width:46em"},t("shopP")),
     h("div",{class:"analogy",style:"background:var(--surface);max-width:46em"},h("b",null,t("analogy")),t("shopA")),
-    h("div",{class:"kpis"},h("div",null,h("b",null,S.xp+" XP"),t("balance")),h("div",null,h("b",null,String(S.xpTotal)),t("total"))),
-    h("h3",{style:"margin:22px 0 12px;font-size:1.3rem"},t("powers")),h("div",{class:"grid2",style:"margin-top:0"},SHOP.filter(p=>p.kind==="power").map(card)),
-    h("h3",{style:"margin:26px 0 12px;font-size:1.3rem"},t("titlesH")),h("div",{class:"grid2",style:"margin-top:0"},SHOP.filter(p=>p.kind==="title").map(card)));
+    h("div",{class:"kpis"},h("div",null,h("b",null,"💰 "+S.xp+" XP"),t("balance")),h("div",null,h("b",null,"⭐ "+S.xpTotal),t("total"))),
+    h("h3",{style:"margin:22px 0 12px;font-size:1.3rem"},"⚡ "+t("powers")),h("div",{class:"grid2",style:"margin-top:0"},SHOP.filter(p=>p.kind==="power").map(card)),
+    h("h3",{style:"margin:26px 0 12px;font-size:1.3rem"},"🎖️ "+t("titlesH")),h("div",{class:"grid2",style:"margin-top:0"},SHOP.filter(p=>p.kind==="title").map(card)));
 }
 function ticket(){
   const it=cur.item, tx=itT(it.id), se=SK[it.skill].area==="se", r=cur.result, body=[], opts=it.type==="mc"?itemOpts(it):null, m=MODES[cur.mode], isBoss=!!it.boss;
   const check=()=>{
     if(cur.typed&&!normOut(cur.text))return;
     const ok=cur.typed?normOut(cur.text)===normOut(opts[0]):it.type==="mc"?cur.sel===0:it.type==="bug"?cur.sel===it.answer:cur.sol.map(i=>cur.lines[i]).join("\n")===cur.lines.join("\n");
-    resolve(ok); render(); const fb=document.getElementById("fb"); if(fb){fb.focus();fb.scrollIntoView({block:"nearest",behavior:"smooth"})}
+    resolve(ok); render(); celebrate(cur.result,isBoss); const fb=document.getElementById("fb"); if(fb){fb.focus();fb.scrollIntoView({block:"nearest",behavior:"smooth"})}
   };
   if(it.type==="mc"){
     if(itemCode(it))body.push(h("pre",{class:"code"},itemCode(it)));
@@ -360,7 +377,7 @@ function ticket(){
       h("span",{class:"tag plain"},t("types")[it.type]),h("span",{class:"tag plain"},t("bloom")[it.bloom-1]),it.code&&h("span",{class:"tag plain"},PLS[S.pl]),
       h("span",{class:"tag",style:"background:var(--gold-soft)"},t("modes")[cur.mode]+" ×"+m.mult),cur.daily&&h("span",{class:"tag",style:"background:var(--gold-soft)"},t("dailyTag"))),
     h("h2",null,tx.title),
-    timed&&h("p",{class:"timer",id:"timer",role:"timer"},t("timeLeft",{s:Math.max(0,Math.ceil((cur.deadline-Date.now())/1000))})),
+    timed&&h("p",{class:"timer",id:"timer",role:"timer"},"⏱️ "+t("timeLeft",{s:Math.max(0,Math.ceil((cur.deadline-Date.now())/1000))})),
     h("p",{class:"prompt"},tx.prompt), body,
     cur.hint&&!cur.aiUsed&&h("div",{class:"hint"},h("b",null,t("tutorHint")),tx.hint),
     cur.aiText&&h("div",{class:"ai","aria-live":"polite"},h("b",null,t("aiLabel")),cur.aiText),
@@ -368,23 +385,26 @@ function ticket(){
       h("button",{class:"btn",disabled:!ready,onclick:check},t("check")),
       hints!=="none"&&!cur.hint&&h("button",{class:"btn ghost",disabled:!canPay,onclick:()=>{payHint();cur.hint=true;render()}},hints==="paid"?t("hintPaid",{c:HINT_COST}):t("hint")),
       hints!=="none"&&!cur.aiUsed&&!cur.hint&&AI.ready()&&h("button",{class:"btn ghost",disabled:busy||!canPay,onclick:()=>{payHint();aiHint()}},t("aiHint")),
-      !isBoss&&!cur.typed&&it.type==="mc"&&!cur.fifty&&S.inv.fifty>0&&h("button",{class:"btn ghost",onclick:useFifty},t("useFifty",{n:S.inv.fifty})),
-      timed&&!isBoss&&S.inv.time>0&&h("button",{class:"btn ghost",onclick:()=>{cur.deadline+=30000;S.inv.time--;save();render()}},t("useTime",{n:S.inv.time})),
+      !isBoss&&!cur.typed&&it.type==="mc"&&!cur.fifty&&S.inv.fifty>0&&h("button",{class:"btn ghost",onclick:useFifty},"✂️ "+t("useFifty",{n:S.inv.fifty})),
+      timed&&!isBoss&&S.inv.time>0&&h("button",{class:"btn ghost",onclick:()=>{cur.deadline+=30000;S.inv.time--;save();render()}},"⏳ "+t("useTime",{n:S.inv.time})),
       !timed&&!isBoss&&h("button",{class:"btn ghost",onclick:()=>go("board")},t("backBoard"))),
     !cur.done&&h("p",{class:"note",style:"margin-top:10px"},hints==="none"?t("noHints"):!cur.hint&&hints==="free"?t("hintNote"):null),
     cur.done&&h("section",{class:"fb"+(r.ok?"":" bad"),id:"fb",tabindex:"-1","aria-live":"polite"},
-      h("h3",null,r.ok?t("solved"):cur.timeout?t("timeout"):t("notYet")),
+      h("h3",null,r.ok?"🎉 "+t("cheers")[r.mi]:cur.timeout?"⏰ "+t("timeout"):"🌱 "+t("notYet")),
+      !r.ok&&h("p",{class:"soft"},t("oops")[r.mi]+(isBoss?"":" "+t("keepGoing"))),
       h("p",null,h("b",null,t("why")),tx.why),
       h("div",{class:"analogy"},h("b",null,t("analogy")),tx.analogy),
       cur.aiAfter&&h("div",{class:"ai"},h("b",null,t("aiLabel")),cur.aiAfter),
       h("p",{class:"delta"},t("delta",{s:skT(it.skill).name,a:pct(r.before),b:pct(r.after),x:r.xp})),
-      r.pen>0&&h("p",{class:"delta",style:"color:var(--bad)"},t("lost",{x:r.pen})),
-      r.shield&&h("p",{class:"delta"},t("shieldUsed")),
+      r.streak>0&&h("p",{class:"promo"},"🔥 "+t("streakMsg",{n:r.streak})),
+      r.comeback>0&&h("p",{class:"promo"},"💪 "+t("comeback",{x:r.comeback})),
+      r.pen>0&&h("p",{class:"note"},t("lost",{x:r.pen})),
+      r.shield&&h("p",{class:"delta"},"🛡️ "+t("shieldUsed")),
       !r.ok&&r.after>r.before&&h("p",{class:"note"},t("roseNote")),
-      r.bounties.map(bn=>h("p",{class:"promo"},t("bountyDone",{s:gt().bounties[bn.id],x:bn.xp}))),
-      r.masteredNow&&h("p",{class:"promo"},t("masteredNow",{s:skT(it.skill).name})),
-      r.newly.length>0&&h("p",{class:"promo"},t("unlockedNow",{s:r.newly.join(", ")})),
-      r.promo&&h("p",{class:"promo"},t("promo",{r:r.promo})),
+      r.bounties.map(bn=>h("p",{class:"promo"},"🎯 "+t("bountyDone",{s:gt().bounties[bn.id],x:bn.xp}))),
+      r.masteredNow&&h("p",{class:"promo"},"🏅 "+t("masteredNow",{s:skT(it.skill).name})),
+      r.newly.length>0&&h("p",{class:"promo"},"🔓 "+t("unlockedNow",{s:r.newly.join(", ")})),
+      r.promo&&h("p",{class:"promo"},"📈 "+t("promo",{r:r.promo})),
       h("div",{class:"row"},
         isBoss?h("button",{class:"btn",onclick:bossAdvance},boss.errors>1||boss.stage>=b.stages.length-1?t("bossResult"):t("bossNext"))
               :h("button",{class:"btn",onclick:()=>go(over?"retro":"board")},over?t("toRetro"):t("backBoard")),
@@ -424,7 +444,7 @@ function report(){
       h("section",{class:"panel"},h("h3",null,t("recs")),h("ul",{style:"margin:0;padding-left:20px"},recs.map(r=>h("li",{style:"margin-bottom:8px"},r))),
         h("h3",{style:"margin-top:20px"},t("bloomAcc")),h("div",{class:"tblwrap"},h("table",null,h("tbody",null,bloom.map(b=>h("tr",null,h("td",null,b.name),
           h("td",null,h("div",{class:"bar"},h("i",{style:"width:"+(b.n?pct(b.c/b.n):"0%")}))),h("td",null,b.n?t("of",{a:b.c,b:b.n}):t("noData")))))))),
-      h("section",{class:"panel"},h("h3",null,t("trophies")),Object.keys(S.bosses).length?h("ul",{style:"margin:0;padding-left:20px"},Object.keys(S.bosses).map(k=>h("li",null,h("b",null,gt().bosses[k].trophy),"  ("+gt().bosses[k].name+")"))):h("p",{class:"empty"},t("noTrophies"))),
+      h("section",{class:"panel"},h("h3",null,"🏆 "+t("trophies")),Object.keys(S.bosses).length?h("ul",{style:"margin:0;padding-left:20px"},Object.keys(S.bosses).map(k=>h("li",null,h("b",null,gt().bosses[k].trophy),"  ("+gt().bosses[k].name+")"))):h("p",{class:"empty"},t("noTrophies"))),
       h("section",{class:"panel"},h("h3",null,t("how")),h("p",null,t("howP")),h("div",{class:"analogy",style:"background:var(--sunken)"},h("b",null,t("analogy")),t("howA")),h("p",{class:"note"},t("howParams"))),
       h("section",{class:"panel"},h("h3",null,t("data")),h("p",{class:"note"},t("dataP")),
         h("div",{class:"row"},

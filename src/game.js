@@ -9,19 +9,21 @@ const MODES = {
   hardcore:{mult:3,   pen:10, hint:"none", typed:true,  timer:60}
 };
 const HINT_COST = 5;
+const MODE_ICON = {normal:"🌱", medio:"⚙️", dificil:"🔥", hardcore:"💀"};
+const COMEBACK = 5; // bônus por acertar logo depois de um erro
 
 /* XP acumulado exigido para abrir cada fase (além dos pré-requisitos de domínio). */
 const GATES = {var:0, req:0, git:30, cond:60, agil:100, loop:150, func:240, test:320, col:380, rec:450, design:520};
 
 /* Loja. kind: "power" (consumível) | "title" (cosmético, compra única). */
 const SHOP = [
-  {id:"shield", kind:"power", cost:30},
-  {id:"fifty",  kind:"power", cost:25},
-  {id:"time",   kind:"power", cost:15},
-  {id:"boost",  kind:"power", cost:40},
-  {id:"tBug",   kind:"title", cost:80},
-  {id:"tArch",  kind:"title", cost:150},
-  {id:"tLegend",kind:"title", cost:300}
+  {id:"shield", icon:"🛡️", kind:"power", cost:30},
+  {id:"fifty", icon:"✂️",  kind:"power", cost:25},
+  {id:"time", icon:"⏳",   kind:"power", cost:15},
+  {id:"boost", icon:"⚡",  kind:"power", cost:40},
+  {id:"tBug", icon:"🐛",   kind:"title", cost:80},
+  {id:"tArch", icon:"🏛️",  kind:"title", cost:150},
+  {id:"tLegend", icon:"🚀",kind:"title", cost:300}
 ];
 
 /* Desafios extras de cada sprint. */
@@ -29,9 +31,9 @@ const BOUNTIES = [{id:"b1", xp:20}, {id:"b2", xp:25}, {id:"b3", xp:40}];
 
 /* Chefões: 3 fases, 1 erro permitido, sem dicas. need: habilidades com 60% de domínio; gate: XP acumulado. */
 const BOSSES = [
-  {id:"bossA", need:["var","cond","loop"], gate:200, reward:100, fail:20, stages:["xa1","xa2","xa3"]},
-  {id:"bossB", need:["func","col","rec"], gate:500, reward:150, fail:25, stages:["xb1","xb2","xb3"]},
-  {id:"bossC", need:["req","agil","git","test","design"], gate:700, reward:200, fail:30, stages:["xc1","xc2","xc3"]}
+  {id:"bossA", icon:"🕵️", need:["var","cond","loop"], gate:200, reward:100, fail:20, stages:["xa1","xa2","xa3"]},
+  {id:"bossB", icon:"📦", need:["func","col","rec"], gate:500, reward:150, fail:25, stages:["xb1","xb2","xb3"]},
+  {id:"bossC", icon:"🚨", need:["req","agil","git","test","design"], gate:700, reward:200, fail:30, stages:["xc1","xc2","xc3"]}
 ];
 
 const BOSS_ITEMS = [

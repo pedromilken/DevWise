@@ -196,3 +196,28 @@ textarea{width:100%;height:160px;font-family:var(--mono);font-size:.8rem;backgro
 .timer{font-family:var(--display);font-weight:800;font-size:1.3rem;color:var(--bad);margin:0 0 6px}
 .shopitem{display:flex;flex-direction:column;gap:4px;align-items:flex-start}
 .shopitem p{margin:0 0 6px}
+
+/* ---- v3.1: efeitos visuais e feedback acolhedor ---- */
+.fx{position:fixed;inset:0;pointer-events:none;overflow:hidden;z-index:50}
+.fx span{position:absolute;left:50%;top:62%;opacity:0;animation:fly 1.5s cubic-bezier(.15,.7,.3,1) forwards}
+.fx .em{font-size:1.7rem;line-height:1}
+.fx .sq{width:10px;height:14px;border-radius:2px}
+@keyframes fly{0%{opacity:1;transform:translate(0,0) rotate(0) scale(.6)}70%{opacity:1}100%{opacity:0;transform:translate(var(--dx),var(--dy)) rotate(var(--r)) scale(1.1)}}
+.xpfloat{position:fixed;left:50%;top:45%;z-index:51;pointer-events:none;font-family:var(--display);font-weight:800;font-size:2.4rem;color:var(--gold);text-shadow:0 2px 0 var(--surface);animation:rise 1.4s ease-out forwards}
+@keyframes rise{0%{opacity:0;transform:translate(-50%,20px) scale(.7)}20%{opacity:1;transform:translate(-50%,0) scale(1.1)}100%{opacity:0;transform:translate(-50%,-90px) scale(1)}}
+#bal.bump{display:inline-block;animation:bump .6s ease}
+@keyframes bump{0%{transform:scale(1)}40%{transform:scale(1.5);color:var(--gold)}100%{transform:scale(1)}}
+.fb{animation:pop .35s ease-out}
+@keyframes pop{0%{transform:scale(.96);opacity:0}100%{transform:scale(1);opacity:1}}
+/* errar não é alarme: tom de aprendizado em vez de vermelho */
+.fb.bad{background:var(--se-soft);border-color:var(--se)}
+.fb .soft{font-size:1.05rem;margin-bottom:12px}
+.pip.bad{background:var(--gold);border-color:var(--gold)}
+.chip.bad{background:var(--gold-soft);border-color:var(--gold)}
+.opt.wrong{border-color:var(--gold);background:var(--gold-soft);border-style:dashed}
+.cl.wrong{border-color:var(--gold);background:rgba(240,183,63,.18);border-style:dashed}
+.shopitem .ico{font-size:2.8rem;line-height:1;margin-bottom:4px;transition:transform .2s}
+.shopitem:hover .ico{transform:scale(1.15) rotate(-6deg)}
+.shopitem.far{opacity:.75}
+.shopitem.far .ico{filter:grayscale(.6)}
+@media (prefers-reduced-motion:reduce){.fx,.xpfloat{display:none}.fb,#bal.bump{animation:none}}
