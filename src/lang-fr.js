@@ -3,190 +3,6 @@ LANG.fr = {
  "name": "Français",
  "llmName": "French",
  "ui": {
-  "setH": "Paramètres",
-  "uiLang": "Langue du jeu",
-  "codeLang": "Langage de programmation des tickets",
-  "aiH": "Tuteur IA",
-  "aiP": "Le tuteur IA écrit des indices socratiques personnalisés et des analogies inédites dans la langue du jeu, sans donner la réponse. Sans lui, le jeu utilise les indices écrits par les auteurs.",
-  "aiClaude": "Connecté via Claude : aucune clé n'est nécessaire sur cette page.",
-  "aiKeyOn": "Configuré avec votre propre clé ({m}).",
-  "aiOff": "Désactivé. Entrez un fournisseur ci-dessous pour l'activer.",
-  "provider": "Fournisseur",
-  "provAnthropic": "Anthropic (Claude)",
-  "provOpenAI": "Compatible OpenAI (OpenAI, Ollama, LM Studio, etc.)",
-  "key": "Clé API",
-  "model": "Modèle",
-  "base": "URL de base",
-  "save": "Enregistrer les paramètres du tuteur",
-  "clear": "Supprimer la clé",
-  "saved": "Paramètres enregistrés.",
-  "keyNote": "La clé est stockée uniquement dans ce navigateur (localStorage) et envoyée directement au fournisseur. Ne l'utilisez pas sur un ordinateur partagé. Pour une utilisation en classe, préférez un serveur local (par exemple, Ollama à l'adresse http://localhost:11434/v1), qui ne nécessite pas de clé.",
-  "err": "Erreur",
-  "none": "Rien",
-  "navShop": "Boutique",
-  "balance": "Solde",
-  "total": "XP cumulés",
-  "titleLbl": "Titre",
-  "modeH": "Difficulté",
-  "modes": {
-   "normal": "Normal",
-   "medio": "Moyen",
-   "dificil": "Difficile",
-   "hardcore": "Extra hardcore"
-  },
-  "modeDesc": {
-   "normal": "XP ×1. Indices gratuits (une réponse correcte avec indice rapporte la moitié). Chaque erreur coûte 2 XP par niveau de ticket.",
-   "medio": "XP ×1,5. Chaque indice coûte 5 XP. Chaque erreur coûte 4 XP par niveau de ticket.",
-   "dificil": "XP ×2. Pas d'indices ni d'options sur les tickets de sortie : vous tapez ce que le programme affiche. Chaque erreur coûte 6 XP par niveau.",
-   "hardcore": "XP ×3. Pas d'indices, réponses tapées et 60 secondes au chronomètre. Chaque erreur coûte 10 XP par niveau."
-  },
-  "typedLbl": "Tapez exactement ce que le programme affiche",
-  "typedPh": "sortie du programme",
-  "yourAnswer": "Votre réponse : {a}",
-  "expected": "Sortie correcte : {a}",
-  "timeLeft": "Temps : {s} s",
-  "timeout": "Temps écoulé.",
-  "lost": "Pénalité : -{x} XP de votre solde.",
-  "shieldUsed": "Votre bouclier a absorbé la pénalité.",
-  "boostOn": "Double XP : {n} tickets restants",
-  "hintPaid": "Demander un indice (coûte {c} XP)",
-  "noHints": "Il n'y a pas d'indices dans ce mode.",
-  "useFifty": "Utiliser Retirer deux ({n})",
-  "useTime": "Utiliser +30 s ({n})",
-  "lockedXp": "Verrouillé : nécessite 60% dans {p} et {x} XP cumulés (vous avez {y}).",
-  "lockedXpOnly": "Verrouillé : nécessite {x} XP cumulés (vous avez {y}).",
-  "bountiesH": "Défis de sprint",
-  "bountyDone": "Défi terminé : {s} (+{x} XP)",
-  "dailyH": "Défi quotidien",
-  "dailyTag": "Double XP",
-  "dailyDone": "Défi quotidien terminé. Un nouveau arrive demain.",
-  "bossesH": "Boss",
-  "bossLocked": "Nécessite 60% dans {p} et {x} XP cumulés.",
-  "bossDefeated": "Vaincu",
-  "bossFight": "Affronter le boss",
-  "bossStage": "Étape {n} sur {m}",
-  "bossLives": "Erreurs encore permises : {n}",
-  "bossNext": "Étape suivante",
-  "bossResult": "Voir le résultat",
-  "bossWin": "Boss vaincu",
-  "bossWinP": "Vous avez gagné {x} XP et le trophée « {t} ».",
-  "bossLose": "Le boss a gagné cette fois",
-  "bossLoseP": "Vous avez perdu {x} XP de votre solde. Revoyez les missions concernées et revenez pour une revanche.",
-  "bossRules": "Trois étapes enchaînées, pas d'indices ni de bonus. Vous ne pouvez faire qu'une seule erreur. La difficulté choisie sur le plateau s'applique également ici.",
-  "options": "Options",
-  "codeLines": "Lignes de code",
-  "solved": "Ticket résolu",
-  "notYet": "Pas cette fois",
-  "why": "Pourquoi : ",
-  "analogy": "Analogie : ",
-  "delta": "Maîtrise de {s} : {a} à {b}   (+{x} XP)",
-  "roseNote": "Elle a légèrement augmenté malgré l'erreur car le modèle suppose que lire l'explication enseigne aussi.",
-  "masteredNow": "Compétence maîtrisée : {s}.",
-  "unlockedNow": "Nouvelle mission débloquée : {s}.",
-  "promo": "Promotion : votre rôle est maintenant {r}.",
-  "aiExplain": "Demander au tuteur IA une autre analogie",
-  "toRetro": "Voir la rétrospective du sprint",
-  "retroH": "Rétrospective du sprint {n}",
-  "retroSum": "{c} tickets résolus sur {n}. ",
-  "retroA": "Sprint propre.",
-  "retroB": "Bon rythme ; révisez ceux laissés de côté.",
-  "retroC": "Sprint difficile. Les tickets à revoir reviendront plus tard au tableau.",
-  "changed": "Ce qui a changé dans votre maîtrise",
-  "colSkill": "Compétence",
-  "colStart": "Début du sprint",
-  "colNow": "Maintenant",
-  "suggestion": "Suggestion du tuteur pour le prochain sprint : concentrez-vous sur {s}, actuellement à {p}.",
-  "allDone": "Toutes les compétences sont maîtrisées. Les prochains sprints sont en pratique libre.",
-  "nextSprint": "Commencer le sprint {n}",
-  "repH": "Rapport d'apprentissage",
-  "repSub": "Une vue pour l'étudiant et pour ceux qui le soutiennent : ce qui est maîtrisé, où sont les erreurs et quoi pratiquer ensuite.",
-  "k1": "tickets répondus",
-  "k2": "précision",
-  "k3": "compétences maîtrisées",
-  "k4": "plus longue série correcte",
-  "of": "{a} sur {b}",
-  "bySkill": "Maîtrise par compétence",
-  "colMastery": "Maîtrise",
-  "colHits": "Correct",
-  "colStatus": "Statut",
-  "colSbc": "SBC",
-  "stM": "Maîtrisée",
-  "stP": "En cours",
-  "stL": "Verrouillée",
-  "stB": "Mission à ouvrir",
-  "recs": "Recommandations du tuteur",
-  "recNone": "Pas encore de réponses. Résolvez quelques tickets pour que le tuteur ait des preuves.",
-  "recPriority": "Priorité : {s} ({p} de maîtrise, {c} correct sur {n}).",
-  "recBloom": "Niveau cognitif avec le plus d'erreurs : {b} ({c} sur {n}). Pratiquez ce type de ticket calmement, sans indices.",
-  "recHints": "Indices utilisés dans {p} des tickets. Essayez de formuler une hypothèse avant de demander.",
-  "recLocked": "Encore verrouillée : {s}. Elles s'ouvrent quand les prérequis dépassent 60%.",
-  "bloomAcc": "Précision par niveau de Bloom",
-  "noData": "pas de données",
-  "how": "Comment la maîtrise est calculée",
-  "howP": "Le tuteur utilise le suivi bayésien des connaissances. Pour chaque compétence, il garde la probabilité que vous l'ayez maîtrisée et la met à jour après chaque réponse, en réduisant la chance d'une supposition chanceuse et d'une étourderie.",
-  "howA": "c'est un enseignant qui se fait une opinion d'un étudiant petit à petit. Une réponse correcte à choix multiple est moins convaincante que d'assembler tout un programme dans le bon ordre, car une supposition a 25% de chance dans le premier cas.",
-  "howParams": "Paramètres : maîtrise initiale 15%, apprentissage par ticket 20%, étourderie 10%, supposition par type de ticket (1 sur 4 pour les options, 1 par ligne pour les bugs, 5% pour l'ordre ; 50% quand un indice est utilisé). Déblocage à 60%, maîtrise à 95%.",
-  "data": "Vos données",
-  "dataP": "La progression est enregistrée uniquement dans ce navigateur. Le journal suit le format long des jeux de données de suivi des connaissances (item, compétence, exactitude, langue, langage de programmation, horodatage).",
-  "showJson": "Afficher le journal JSON",
-  "hideJson": "Masquer le journal JSON",
-  "download": "Télécharger le JSON",
-  "reset": "Effacer la progression",
-  "resetConfirm": "Confirmer : effacer toute la progression",
-  "bossStart": "Commencer le combat",
-  "reward": "Récompense : {x} XP",
-  "trophies": "Trophées",
-  "noTrophies": "Aucun pour l'instant. Les boss apparaissent sur le tableau une fois que vous avez suffisamment de maîtrise et d'XP.",
-  "review": "Revoir",
-  "shopH": "Boutique",
-  "shopP": "Échangez votre solde d'XP contre des bonus et des titres. Dépenser le solde ne réduit pas l'XP cumulée, qui permet de débloquer les étapes et les boss.",
-  "shopA": "Ce sont les miles d'un programme de fidélité. Vous dépensez le solde en billets ; le niveau de votre carte dépend du total de miles parcourus et ne baisse pas lorsque vous les échangez.",
-  "powers": "Bonus",
-  "titlesH": "Titres",
-  "owned": "Vous avez : {n}",
-  "buy": "Échanger contre {c} XP",
-  "equip": "Utiliser ce titre",
-  "equipped": "En cours d'utilisation",
-  "unequip": "Arrêter d'utiliser",
-  "kTotal": "XP cumulée",
-  "kBosses": "boss vaincus",
-  "cheers": [
-   "Bien joué !",
-   "Excellente lecture de code !",
-   "Exact, raisonnement affûté !",
-   "Ticket fermé avec style !"
-  ],
-  "oops": [
-   "Presque. Chaque développeur casse le build avant de le réparer.",
-   "Les erreurs font partie du chemin : maintenant vous savez où était le piège.",
-   "Vous avez trouvé un bug dans votre raisonnement, et c'est ainsi qu'on apprend à déboguer.",
-   "Pas cette fois, et ce n'est pas grave. Prenez le temps de lire l'explication."
-  ],
-  "keepGoing": "Ce ticket reviendra plus tard sur le tableau pour une revanche.",
-  "streakMsg": "{n} d'affilée ! Bonus de série : +5 XP.",
-  "comeback": "Rebondissez : +{x} XP pour avoir réussi juste après une erreur.",
-  "need": "Encore {n} XP (coût : {c})",
-  "evoH": "Progression des connaissances",
-  "evoP": "Chaque ligne est la maîtrise estimée d'une compétence sur les tickets auxquels vous avez répondu. Touchez une compétence pour la mettre en évidence : les points verts sont les réponses correctes et les points ambre sont les erreurs. Les lignes en pointillés marquent le déblocage (60%) et la maîtrise (95%).",
-  "evoEmpty": "Répondez à quelques tickets dans cette langue pour voir votre courbe d'apprentissage.",
-  "evoAll": "Tout",
-  "evoX": "tickets répondus",
-  "colFirst": "Première estimation",
-  "colGain": "Progrès",
-  "colTries": "Tickets",
-  "plH": "Maîtrise par langage de programmation",
-  "plP": "Chaque langage a son propre suivi de maîtrise ; celui en cours d'utilisation est marqué d'un ●. Lorsque vous essayez un langage pour la première fois, vous commencez avec une estimation de transfert : la moitié du chemin déjà parcouru dans votre meilleur langage. Les valeurs en gras ont été pratiquées.",
-  "plA": "Quelqu'un qui conduit une voiture manuelle ne repart pas de zéro en automatique, mais a quand même besoin de quelques tours de quartier pour prouver qu'il s'est adapté.",
-  "plAcc": "Correct",
-  "langH": "Réponses correctes par langue du jeu",
-  "studyH": "Langues de l'étude multilingue",
-  "studyP": "Les 20 langues de l'analyse de traduction et de tokenisation. Le coût en tokens pour 1000 caractères a été mesuré dans l'étude et montre combien le tuteur IA dépense dans chaque langue. Les packs en attente sont générés avec tools/gerar-idioma.js et relus avant d'entrer dans le jeu.",
-  "available": "disponible",
-  "pending": "pack à générer",
-  "colLang": "Langue",
-  "colScript": "Écriture",
-  "colTok": "Tokens pour 1000 caractères",
-  "sortHint": "Choisissez l'une des deux catégories pour chaque carte.",
   "role": "Rôle",
   "xp": "XP",
   "streak": "Série",
@@ -201,7 +17,7 @@ LANG.fr = {
    "Staff"
   ],
   "homeH": "Apprenez la programmation et le génie logiciel en résolvant les problèmes réels des gens",
-  "homeLead": "Vous venez de rejoindre Ponte, une petite entreprise de logiciels qui dessert la boulangerie du quartier, le centre de santé, l'école et la coopérative de livraison. Chaque client apporte un problème réel : vous écoutez l'histoire, étudiez la boîte à outils théorique, et seulement ensuite vous vous attaquez aux tickets.",
+  "homeLead": "Vous venez de rejoindre Ponte, une petite entreprise de logiciels qui travaille pour la boulangerie du quartier, le centre de santé, l'école et la coopérative de livraison. Chaque client apporte un problème réel : vous écoutez l'histoire, étudiez la boîte à outils théorique, et seulement ensuite vous vous attaquez aux tickets.",
   "start": "Commencer le premier sprint",
   "cont": "Reprendre où je m'étais arrêté",
   "steps": [
@@ -211,11 +27,11 @@ LANG.fr = {
    ],
    [
     "Construisez votre boîte à outils théorique",
-    "Les concepts clés, un exemple de code dans le langage que vous choisissez, et la compétence du référentiel SBC qui est entraînée."
+    "Les concepts clés, un exemple de code dans le langage que vous choisissez, et la compétence du référentiel SBC que vous travaillez."
    ],
    [
     "Résolvez les tickets",
-    "Prédisez les sorties, ordonnez le code, chassez les bogues et prenez des décisions d'ingénierie. Chaque réponse est accompagnée d'une analogie pratique, et le tuteur suit votre maîtrise."
+    "Prédisez les sorties, ordonnez le code, traquez les bugs et prenez des décisions d'ingénierie. Chaque réponse est accompagnée d'une analogie pratique, et le tuteur suit votre maîtrise."
    ]
   ],
   "sprint": "Sprint {n}",
@@ -246,13 +62,13 @@ LANG.fr = {
   "arsenal": "Boîte à outils théorique",
   "example": "Exemple de code",
   "snippetNote": "Les extraits Java et C omettent la classe et la fonction principale pour garder l'accent sur le concept.",
-  "sbcH": "Compétences du référentiel SBC (2017) entraînées ici",
+  "sbcH": "Compétences du référentiel SBC (2017) travaillées ici",
   "startTickets": "Je suis prêt : libérer les tickets de cette mission",
   "backBoard": "Retour au tableau",
   "types": {
    "mc": "Analyser et répondre",
    "parsons": "Ordonner le code",
-   "bug": "Chasser le bogue",
+   "bug": "Traquer le bug",
    "sort": "Classer"
   },
   "bloom": [
@@ -272,11 +88,195 @@ LANG.fr = {
   "aiFail": "Le tuteur IA n'a pas répondu. Vérifiez les paramètres ou utilisez l'indice normal.",
   "hintNote": "Avec un indice, une réponse correcte rapporte la moitié de l'XP et compte comme une preuve plus faible de maîtrise.",
   "bank": "Lignes disponibles (appuyez pour utiliser)",
-  "sol": "Votre programme (appuyez sur une ligne pour la renvoyer)",
+  "sol": "Votre programme (appuyez sur une ligne pour la retirer)",
   "allUsed": "Toutes les lignes ont été utilisées.",
   "correctOrder": "Ordre correct :",
   "up": "Monter",
-  "down": "Descendre"
+  "down": "Descendre",
+  "options": "Options",
+  "codeLines": "Lignes de code",
+  "solved": "Ticket résolu",
+  "notYet": "Pas cette fois",
+  "why": "Pourquoi : ",
+  "analogy": "Analogie : ",
+  "delta": "Maîtrise de {s} : de {a} à {b}   (+{x} XP)",
+  "roseNote": "Elle a légèrement augmenté malgré l'erreur car le modèle suppose que lire l'explication enseigne aussi.",
+  "masteredNow": "Compétence maîtrisée : {s}.",
+  "unlockedNow": "Nouvelle mission débloquée : {s}.",
+  "promo": "Promotion : votre rôle est maintenant {r}.",
+  "aiExplain": "Demander au tuteur IA une autre analogie",
+  "toRetro": "Voir la rétrospective du sprint",
+  "retroH": "Rétrospective du sprint {n}",
+  "retroSum": "{c} tickets résolus sur {n}. ",
+  "retroA": "Sprint propre.",
+  "retroB": "Bon rythme ; révisez ceux qui restent.",
+  "retroC": "Sprint difficile. Les tickets à revoir reviendront plus tard sur le tableau.",
+  "changed": "Ce qui a changé dans votre maîtrise",
+  "colSkill": "Compétence",
+  "colStart": "Début du sprint",
+  "colNow": "Maintenant",
+  "suggestion": "Suggestion du tuteur pour le prochain sprint : concentrez-vous sur {s}, actuellement à {p}.",
+  "allDone": "Toutes les compétences sont maîtrisées. Les prochains sprints sont en pratique libre.",
+  "nextSprint": "Commencer le sprint {n}",
+  "repH": "Rapport d'apprentissage",
+  "repSub": "Une vue pour l'étudiant et pour ceux qui le soutiennent : ce qui est maîtrisé, où sont les erreurs et quoi pratiquer ensuite.",
+  "k1": "tickets répondus",
+  "k2": "précision",
+  "k3": "compétences maîtrisées",
+  "k4": "plus longue série de bonnes réponses",
+  "bySkill": "Maîtrise par compétence",
+  "colMastery": "Maîtrise",
+  "colHits": "Correct",
+  "colStatus": "Statut",
+  "colSbc": "SBC",
+  "stM": "Maîtrisé",
+  "stP": "En cours",
+  "stL": "Verrouillé",
+  "stB": "Mission à ouvrir",
+  "recs": "Recommandations du tuteur",
+  "recNone": "Pas encore de réponses. Résolvez quelques tickets pour que le tuteur ait des preuves.",
+  "recPriority": "Priorité : {s} ({p} de maîtrise, {c} correct sur {n}).",
+  "recBloom": "Niveau cognitif avec le plus d'erreurs : {b} ({c} sur {n}). Pratiquez ce type de ticket calmement, sans indices.",
+  "recHints": "Indices utilisés dans {p} des tickets. Essayez de formuler une hypothèse avant de demander.",
+  "recLocked": "Toujours verrouillé : {s}. Ils s'ouvrent lorsque les prérequis dépassent 60 %.",
+  "bloomAcc": "Précision par niveau de Bloom",
+  "noData": "pas de données",
+  "how": "Comment la maîtrise est calculée",
+  "howP": "Le tuteur utilise le traçage bayésien des connaissances. Pour chaque compétence, il garde la probabilité que vous l'ayez maîtrisée et la met à jour après chaque réponse, en réduisant la chance d'une supposition chanceuse et d'une erreur d'inattention.",
+  "howA": "C'est un enseignant qui se fait une opinion sur un élève petit à petit. Une bonne réponse à choix multiple est moins convaincante que l'assemblage de tout un programme dans le bon ordre, car une supposition a 25 % de chance dans le premier cas.",
+  "howParams": "Paramètres : maîtrise initiale 15 %, apprentissage par ticket 20 %, erreur 10 %, supposition par type de ticket (1 sur 4 pour les options, 1 par ligne pour les bugs, 5 % pour l'ordre ; 50 % quand un indice est utilisé). Déblocage à 60 %, maîtrise à 95 %.",
+  "data": "Vos données",
+  "dataP": "La progression est sauvegardée uniquement dans ce navigateur. Le journal suit le format long des jeux de données de traçage des connaissances (élément, compétence, exactitude, langue, langage de programmation, horodatage).",
+  "showJson": "Afficher le journal JSON",
+  "hideJson": "Masquer le journal JSON",
+  "download": "Télécharger le JSON",
+  "reset": "Effacer la progression",
+  "resetConfirm": "Confirmer : effacer toute la progression",
+  "setH": "Paramètres",
+  "uiLang": "Langue du jeu",
+  "codeLang": "Langage de programmation des tickets",
+  "aiH": "Tuteur IA",
+  "aiP": "Le tuteur IA rédige des indices socratiques sur mesure et des analogies fraîches dans la langue du jeu, sans révéler la réponse. Sans lui, le jeu utilise les indices écrits par les auteurs.",
+  "aiClaude": "Connecté via Claude : aucune clé n'est nécessaire sur cette page.",
+  "aiKeyOn": "Configuré avec votre propre clé ({m}).",
+  "aiOff": "Désactivé. Entrez un fournisseur ci-dessous pour l'activer.",
+  "provider": "Fournisseur",
+  "provAnthropic": "Anthropic (Claude)",
+  "provOpenAI": "Compatible OpenAI (OpenAI, Ollama, LM Studio, etc.)",
+  "key": "Clé API",
+  "model": "Modèle",
+  "base": "URL de base",
+  "save": "Enregistrer les paramètres du tuteur",
+  "clear": "Supprimer la clé",
+  "saved": "Paramètres enregistrés.",
+  "keyNote": "La clé est stockée uniquement dans ce navigateur (localStorage) et envoyée directement au fournisseur. Ne l'utilisez pas sur un ordinateur partagé. Pour une utilisation en classe, préférez un serveur local (par exemple, Ollama à http://localhost:11434/v1), qui ne nécessite aucune clé.",
+  "err": "Erreur",
+  "none": "Rien",
+  "navShop": "Boutique",
+  "balance": "Solde",
+  "total": "XP à vie",
+  "titleLbl": "Titre",
+  "modeH": "Difficulté",
+  "modes": {
+   "normal": "Normal",
+   "medio": "Moyen",
+   "dificil": "Difficile",
+   "hardcore": "Extra hardcore"
+  },
+  "modeDesc": {
+   "normal": "XP ×1. Indices gratuits (une bonne réponse avec indice rapporte la moitié des points). Chaque erreur coûte 2 XP par niveau de ticket.",
+   "medio": "XP ×1.5. Chaque indice coûte 5 XP. Chaque erreur coûte 4 XP par niveau de ticket.",
+   "dificil": "XP ×2. Pas d'indices et pas d'options sur les tickets de sortie : vous tapez ce que le programme affiche. Chaque erreur coûte 6 XP par niveau.",
+   "hardcore": "XP ×3. Pas d'indices, réponses tapées et 60 secondes au chronomètre. Chaque erreur coûte 10 XP par niveau."
+  },
+  "typedLbl": "Tapez exactement ce que le programme affiche",
+  "typedPh": "sortie du programme",
+  "yourAnswer": "Votre réponse : {a}",
+  "expected": "Sortie correcte : {a}",
+  "timeLeft": "Temps : {s} s",
+  "timeout": "Temps écoulé.",
+  "lost": "Pénalité : -{x} XP de votre solde.",
+  "shieldUsed": "Votre bouclier a absorbé la pénalité.",
+  "boostOn": "XP double : {n} tickets restants",
+  "hintPaid": "Demander un indice (coûte {c} XP)",
+  "noHints": "Il n'y a pas d'indices dans ce mode.",
+  "useFifty": "Utiliser Éliminer deux réponses ({n})",
+  "useTime": "Utiliser +30 s ({n})",
+  "lockedXp": "Verrouillé : nécessite 60% dans {p} et {x} XP à vie (vous avez {y}).",
+  "lockedXpOnly": "Verrouillé : nécessite {x} XP à vie (vous avez {y}).",
+  "bountiesH": "Défis de sprint",
+  "bountyDone": "Défi terminé : {s} (+{x} XP)",
+  "dailyH": "Défi quotidien",
+  "dailyTag": "XP double",
+  "dailyDone": "Défi quotidien terminé. Un nouveau arrive demain.",
+  "bossesH": "Boss",
+  "bossLocked": "Nécessite 60% dans {p} et {x} XP à vie.",
+  "bossDefeated": "Vaincu",
+  "bossFight": "Affronter le boss",
+  "bossStage": "Étape {n} sur {m}",
+  "bossLives": "Erreurs encore permises : {n}",
+  "bossNext": "Étape suivante",
+  "bossResult": "Voir le résultat",
+  "bossWin": "Boss vaincu",
+  "bossWinP": "Vous avez gagné {x} XP et le trophée « {t} ».",
+  "bossLose": "Le boss a gagné cette fois",
+  "bossLoseP": "Vous avez perdu {x} XP de votre solde. Révisez les missions impliquées et revenez pour une revanche.",
+  "bossRules": "Trois étapes enchaînées, sans indices ni bonus. Vous avez droit à une seule erreur. La difficulté choisie sur le plateau s'applique aussi ici.",
+  "bossStart": "Commencer le combat",
+  "reward": "Récompense : {x} XP",
+  "trophies": "Trophées",
+  "noTrophies": "Pas encore. Les boss apparaîtront sur le tableau lorsque vous aurez assez de maîtrise et d'XP.",
+  "review": "Révision",
+  "shopH": "Boutique",
+  "shopP": "Échangez votre solde d'XP contre des bonus et des titres. Dépenser le solde ne réduit pas l'XP cumulée, qui est ce qui débloque les étapes et les boss.",
+  "shopA": "ce sont les miles d'un programme de fidélité. Vous dépensez le solde en tickets ; votre niveau de carte dépend du total de miles parcourus et ne diminue pas lorsque vous les échangez.",
+  "powers": "Bonus",
+  "titlesH": "Titres",
+  "owned": "Vous avez : {n}",
+  "buy": "Échanger pour {c} XP",
+  "equip": "Utiliser ce titre",
+  "equipped": "En cours d'utilisation",
+  "unequip": "Arrêter d'utiliser",
+  "kTotal": "XP cumulée",
+  "kBosses": "boss vaincus",
+  "cheers": [
+   "Bien joué !",
+   "Belle lecture du code !",
+   "Exact, raisonnement affûté !",
+   "Ticket clôturé avec style !"
+  ],
+  "oops": [
+   "Presque. Tout développeur casse le build avant de le réparer.",
+   "Les erreurs font partie du chemin : maintenant vous savez où était le piège.",
+   "Vous avez trouvé un bug dans votre raisonnement, et c'est comme ça qu'on apprend à déboguer.",
+   "Pas cette fois, et ce n'est pas grave. Prenez votre temps avec l'explication."
+  ],
+  "keepGoing": "Ce ticket reviendra plus tard sur le tableau pour une revanche.",
+  "streakMsg": "{n} d'affilée ! Bonus de série : +5 XP.",
+  "comeback": "Bien rattrapé : +{x} XP pour avoir réussi juste après une erreur.",
+  "need": "Il vous faut {n} XP (coût {c})",
+  "evoH": "Évolution des connaissances",
+  "evoP": "Chaque ligne est l'estimation de la maîtrise d'une compétence sur les tickets auxquels vous avez répondu. Touchez une compétence pour la mettre en évidence : les points verts sont les bonnes réponses et les points orange les erreurs. Les lignes en pointillés marquent le déblocage (60 %) et la maîtrise (95 %).",
+  "evoEmpty": "Répondez à quelques tickets dans ce langage pour voir votre courbe d'apprentissage.",
+  "evoAll": "Tout",
+  "evoX": "tickets répondus",
+  "colFirst": "Première estimation",
+  "colGain": "Progression",
+  "colTries": "Tickets",
+  "plH": "Maîtrise par langage de programmation",
+  "plP": "Chaque langage a son propre suivi de maîtrise ; celui en cours est marqué d'un ●. Lorsque vous essayez un langage pour la première fois, vous partez d'une estimation de transfert : la moitié du chemin déjà parcouru dans votre meilleur langage. Les valeurs en gras ont été pratiquées.",
+  "plA": "quelqu'un qui conduit une voiture manuelle ne repart pas de zéro en automatique, mais il doit quand même faire quelques tours du pâté de maisons pour prouver qu'il s'est adapté.",
+  "plAcc": "Correct",
+  "langH": "Bonnes réponses par langue du jeu",
+  "studyH": "Langues de l'étude multilingue",
+  "studyP": "Les 20 langues de l'analyse de traduction et de tokenisation. Le coût en tokens pour 1000 caractères a été mesuré dans l'étude et montre combien le tuteur IA dépense dans chaque langue. Les packs en attente sont générés avec tools/gerar-idioma.js et examinés avant d'entrer dans le jeu.",
+  "available": "disponible",
+  "pending": "pack à générer",
+  "colLang": "Langue",
+  "colScript": "Écriture",
+  "colTok": "Tokens pour 1000 caractères",
+  "sortHint": "Choisissez l'une des deux catégories pour chaque carte.",
+  "rom": "Afficher le texte romanisé (alphabet latin)"
  },
  "sbc": {
   "CC-C.1.3": "RF-CC C.1.3: Résoudre des problèmes en utilisant des environnements de programmation (Algorithmes, Techniques de programmation, Structures de données).",
@@ -297,27 +297,6 @@ LANG.fr = {
   "ES-C.6.5": "RF-ES C.6.5: Appliquer des techniques d'intégration des parties d'un système (environnements d'intégration, outils de build)."
  },
  "skills": {
-  "cond": {
-   "name": "Conditions",
-   "about": "Choisir le chemin du programme avec if, else if et else.",
-   "client": "Centre de santé du quartier",
-   "title": "La file qui ne peut pas être premier arrivé, premier servi",
-   "story": "Au centre de santé, l'infirmière Rosa fait le tri dans sa tête : forte fièvre passe en premier, les personnes âgées ont la priorité, tous les autres attendent. Quand elle est absente, la file devient premier arrivé, premier servi, et un cas grave attend deux heures. Le centre veut que le système applique les règles de Rosa à chaque fois, y compris les cas limites comme une fièvre d'exactement 39 degrés.",
-   "theory": [
-    [
-     "Une condition est une question oui ou non",
-     "Le programme évalue une expression booléenne et suit un seul chemin. Les opérateurs comme >, >= et == définissent exactement où se situe la limite."
-    ],
-    [
-     "L'ordre des tests compte",
-     "Dans une chaîne if / else if, le premier test vrai gagne et les autres ne sont même pas évalués. La règle la plus stricte doit venir en premier."
-    ],
-    [
-     "Combiner les conditions",
-     "AND (et, &&) exige que les deux soient vrais ; OR (ou, ||) exige qu'au moins un soit vrai. AND est évalué avant OR ; en cas de doute, utiliser des parenthèses."
-    ]
-   ]
-  },
   "var": {
    "name": "Variables",
    "about": "Stocker des valeurs, des types et des opérateurs de base.",
@@ -336,6 +315,27 @@ LANG.fr = {
     [
      "Division entière et reste",
      "La division entière supprime la partie décimale, et l'opérateur % renvoie ce qui reste. Ils sont à la base de la monnaie, de la parité et de la répartition en groupes."
+    ]
+   ]
+  },
+  "cond": {
+   "name": "Conditions",
+   "about": "Choisir le chemin du programme avec if, else if et else.",
+   "client": "Centre de santé du quartier",
+   "title": "La file qui ne peut pas être premier arrivé, premier servi",
+   "story": "Au centre de santé, l'infirmière Rosa fait le tri dans sa tête : forte fièvre passe en premier, les personnes âgées ont la priorité, tous les autres attendent. Quand elle est absente, la file devient premier arrivé, premier servi, et un cas grave attend deux heures. Le centre veut que le système applique les règles de Rosa à chaque fois, y compris les cas limites comme une fièvre d'exactement 39 degrés.",
+   "theory": [
+    [
+     "Une condition est une question oui ou non",
+     "Le programme évalue une expression booléenne et suit un seul chemin. Les opérateurs comme >, >= et == définissent exactement où se situe la limite."
+    ],
+    [
+     "L'ordre des tests compte",
+     "Dans une chaîne if / else if, le premier test vrai gagne et les autres ne sont même pas évalués. La règle la plus stricte doit venir en premier."
+    ],
+    [
+     "Combiner les conditions",
+     "AND (et, &&) exige que les deux soient vrais ; OR (ou, ||) exige qu'au moins un soit vrai. AND est évalué avant OR ; en cas de doute, utiliser des parenthèses."
     ]
    ]
   },
@@ -593,68 +593,6 @@ LANG.fr = {
   }
  },
  "items": {
-  "c4": {
-   "title": "Qui passe en premier : ET ou OU",
-   "prompt": "Le résultat de l'expression est-il vrai ou faux ?",
-   "opts": [
-    "Vrai",
-    "Faux",
-    "Erreur",
-    "Cela dépend du langage"
-   ],
-   "hint": "De même que la multiplication vient avant l'addition, un opérateur logique est évalué en premier.",
-   "why": "ET a la priorité sur OU. D'abord faux ET faux donne faux ; ensuite vrai OU faux donne vrai. Cela vaut pour les quatre langages du jeu.",
-   "analogy": "Comme 2 + 3 × 0 : on fait d'abord la multiplication. ET est la multiplication de la logique ; en cas de doute, utilisez des parenthèses."
-  },
-  "c5": {
-   "title": "Soixante ans et pas de réduction",
-   "prompt": "Les personnes de exactement 60 ans devraient payer demi-tarif mais paient plein tarif. Quelle ligne faut-il corriger ?",
-   "hint": "Testez mentalement avec 60 : la condition est-elle vraie ?",
-   "why": "60 > 60 est faux. La règle « à partir de 60 » exige >=. Les erreurs de limite sont parmi les plus courantes dans les conditionnelles.",
-   "analogy": "C'est le panneau « taille minimale 1,40 m » avec un gardien qui arrête toute personne mesurant exactement 1,40. La règle est juste ; la comparaison est fausse."
-  },
-  "l1": {
-   "title": "Où le comptage commence",
-   "prompt": "Quelles valeurs la boucle affiche-t-elle ?",
-   "hint": "Le comptage commence à 0 et s'arrête avant 3.",
-   "why": "Elle produit 0, 1 et 2 : trois valeurs, en partant de zéro et sans inclure 3.",
-   "analogy": "Comme les étages d'un bâtiment qui commence au rez-de-chaussée (0) : trois étages vont de 0 à 2."
-  },
-  "l2": {
-   "title": "Additionner les notes",
-   "prompt": "Qu'affiche le programme ?",
-   "hint": "La boucle inclut 1 et exclut 5.",
-   "why": "La boucle parcourt 1, 2, 3 et 4, et la somme vaut 10. La limite supérieure est exclue.",
-   "analogy": "total est une tirelire : à chaque tour, on y dépose une pièce de valeur i. À la fin, on compte ce qu'il y a dedans."
-  },
-  "l3": {
-   "title": "Compte à rebours sans fin",
-   "prompt": "Le code devrait afficher 3, 2, 1 puis « fin », mais ne s'arrête jamais. Quelle ligne faut-il corriger ?",
-   "hint": "Pour que la boucle s'arrête, n > 0 doit devenir faux à un moment donné.",
-   "why": "Ajouter 1 éloigne n de zéro, donc la condition est toujours vraie. Il faut soustraire 1.",
-   "analogy": "C'est comme descendre un escalier en montant une marche à chaque fois : on n'atteint jamais le sol. Toute boucle while doit avancer vers la sortie."
-  },
-  "l4": {
-   "title": "La meilleure note de la classe",
-   "prompt": "Marta veut la note la plus haute de la liste. Assemblez le programme.",
-   "hint": "Commencez par supposer que la première est la plus haute ; puis comparez avec chacune.",
-   "why": "Le schéma est : hypothèse initiale (premier élément), parcourir tout, remplacer le champion quand quelqu'un de plus haut apparaît, et n'afficher qu'après la boucle.",
-   "analogy": "C'est le « roi de la colline » : le premier monte en haut et chaque challenger ne prend la place que s'il est plus haut. Celui qui reste à la fin est le maximum."
-  },
-  "l5": {
-   "title": "Combien de fois peut-on le diviser par deux",
-   "prompt": "Qu'affiche le programme ?",
-   "hint": "Suivez n à chaque tour : 16, 8, ...",
-   "why": "n passe par 8, 4, 2 et 1 : quatre divisions jusqu'à ce que n > 1 devienne faux.",
-   "analogy": "Plier une feuille en deux encore et encore : la boucle while ne sait pas à l'avance combien de plis il y aura ; elle s'arrête juste quand ce n'est plus possible."
-  },
-  "f1": {
-   "title": "Utiliser la valeur retournée",
-   "prompt": "Qu'affiche le programme ?",
-   "hint": "return remet le résultat à celui qui a appelé la fonction.",
-   "why": "La fonction retourne 8, stocké dans r. Ensuite 8 + 1 = 9.",
-   "analogy": "Une fonction est un presse-agrumes : le fruit entre (argument) et un verre sort (valeur de retour), que vous utilisez comme bon vous semble."
-  },
   "v1": {
    "title": "L'étiquette qui a bougé",
    "prompt": "Dona Lúcia a copié l'ancien prix avant de l'augmenter. Qu'affiche le programme ?",
@@ -716,6 +654,68 @@ LANG.fr = {
    "hint": "D'abord la donnée existe ; ensuite vient le test sur le reste de la division par 2.",
    "why": "La donnée doit exister avant le test. Un reste nul en divisant par 2 signifie pair ; sinon, else couvre tout le reste.",
    "analogy": "Comme au triage : d'abord le patient arrive, puis vient la question, et chaque réponse mène à une salle."
+  },
+  "c4": {
+   "title": "Qui passe en premier : ET ou OU",
+   "prompt": "Le résultat de l'expression est-il vrai ou faux ?",
+   "opts": [
+    "Vrai",
+    "Faux",
+    "Erreur",
+    "Cela dépend du langage"
+   ],
+   "hint": "De même que la multiplication vient avant l'addition, un opérateur logique est évalué en premier.",
+   "why": "ET a la priorité sur OU. D'abord faux ET faux donne faux ; ensuite vrai OU faux donne vrai. Cela vaut pour les quatre langages du jeu.",
+   "analogy": "Comme 2 + 3 × 0 : on fait d'abord la multiplication. ET est la multiplication de la logique ; en cas de doute, utilisez des parenthèses."
+  },
+  "c5": {
+   "title": "Soixante ans et pas de réduction",
+   "prompt": "Les personnes de exactement 60 ans devraient payer demi-tarif mais paient plein tarif. Quelle ligne faut-il corriger ?",
+   "hint": "Testez mentalement avec 60 : la condition est-elle vraie ?",
+   "why": "60 > 60 est faux. La règle « à partir de 60 » exige >=. Les erreurs de limite sont parmi les plus courantes dans les conditionnelles.",
+   "analogy": "C'est le panneau « taille minimale 1,40 m » avec un gardien qui arrête toute personne mesurant exactement 1,40. La règle est juste ; la comparaison est fausse."
+  },
+  "l1": {
+   "title": "Où le comptage commence",
+   "prompt": "Quelles valeurs la boucle affiche-t-elle ?",
+   "hint": "Le comptage commence à 0 et s'arrête avant 3.",
+   "why": "Elle produit 0, 1 et 2 : trois valeurs, en partant de zéro et sans inclure 3.",
+   "analogy": "Comme les étages d'un bâtiment qui commence au rez-de-chaussée (0) : trois étages vont de 0 à 2."
+  },
+  "l2": {
+   "title": "Additionner les notes",
+   "prompt": "Qu'affiche le programme ?",
+   "hint": "La boucle inclut 1 et exclut 5.",
+   "why": "La boucle parcourt 1, 2, 3 et 4, et la somme vaut 10. La limite supérieure est exclue.",
+   "analogy": "total est une tirelire : à chaque tour, on y dépose une pièce de valeur i. À la fin, on compte ce qu'il y a dedans."
+  },
+  "l3": {
+   "title": "Compte à rebours sans fin",
+   "prompt": "Le code devrait afficher 3, 2, 1 puis « fin », mais ne s'arrête jamais. Quelle ligne faut-il corriger ?",
+   "hint": "Pour que la boucle s'arrête, n > 0 doit devenir faux à un moment donné.",
+   "why": "Ajouter 1 éloigne n de zéro, donc la condition est toujours vraie. Il faut soustraire 1.",
+   "analogy": "C'est comme descendre un escalier en montant une marche à chaque fois : on n'atteint jamais le sol. Toute boucle while doit avancer vers la sortie."
+  },
+  "l4": {
+   "title": "La meilleure note de la classe",
+   "prompt": "Marta veut la note la plus haute de la liste. Assemblez le programme.",
+   "hint": "Commencez par supposer que la première est la plus haute ; puis comparez avec chacune.",
+   "why": "Le schéma est : hypothèse initiale (premier élément), parcourir tout, remplacer le champion quand quelqu'un de plus haut apparaît, et n'afficher qu'après la boucle.",
+   "analogy": "C'est le « roi de la colline » : le premier monte en haut et chaque challenger ne prend la place que s'il est plus haut. Celui qui reste à la fin est le maximum."
+  },
+  "l5": {
+   "title": "Combien de fois peut-on le diviser par deux",
+   "prompt": "Qu'affiche le programme ?",
+   "hint": "Suivez n à chaque tour : 16, 8, ...",
+   "why": "n passe par 8, 4, 2 et 1 : quatre divisions jusqu'à ce que n > 1 devienne faux.",
+   "analogy": "Plier une feuille en deux encore et encore : la boucle while ne sait pas à l'avance combien de plis il y aura ; elle s'arrête juste quand ce n'est plus possible."
+  },
+  "f1": {
+   "title": "Utiliser la valeur retournée",
+   "prompt": "Qu'affiche le programme ?",
+   "hint": "return remet le résultat à celui qui a appelé la fonction.",
+   "why": "La fonction retourne 8, stocké dans r. Ensuite 8 + 1 = 9.",
+   "analogy": "Une fonction est un presse-agrumes : le fruit entre (argument) et un verre sort (valeur de retour), que vous utilisez comme bon vous semble."
   },
   "f2": {
    "title": "Afficher n'est pas retourner",
@@ -859,158 +859,6 @@ LANG.fr = {
    "why": "Seule la première option a un critère mesurable. « Rapide », « conviviale » et « moderne » deviennent des disputes à la livraison.",
    "analogy": "C'est la différence entre demander au maçon « un mur haut » et « un mur de 2,80 m ». Seul le second peut être vérifié avec un mètre."
   },
-  "xa2": {
-   "title": "Le compteur qui retombe à zéro",
-   "prompt": "Le programme doit compter 2 ventes avec remise mais affiche 0. Quelle ligne est au mauvais endroit ?",
-   "why": "Remettre le compteur à zéro dans la boucle efface le compte à chaque tour. L'initialisation doit être avant la boucle, où elle existe déjà.",
-   "analogy": "C'est le portier qui remet son compteur à zéro pour chaque personne qui entre : à la fin de la journée, l'écran ne connaît que le dernier."
-  },
-  "xa3": {
-   "title": "La monnaie en billets de dix",
-   "prompt": "Assemblez le programme qui valide le paiement et affiche combien de billets de 10 et combien de pièces de 1 composent la monnaie.",
-   "why": "Le prix doit exister avant le montant payé, qui en dépend. La validation vient avant le calcul, et la monnaie n'est calculée que dans la branche où le paiement est suffisant.",
-   "analogy": "Le caissier vérifie d'abord que l'argent couvre la facture ; ensuite seulement le tiroir s'ouvre pour préparer la monnaie."
-  },
-  "xb1": {
-   "title": "Une somme à partir d'une position",
-   "prompt": "Qu'affiche le programme ?",
-   "why": "L'appel commence à l'indice 1, donc il ajoute 7 + 9 = 16. La valeur à l'indice 0 est ignorée. Le cas de base se produit quand i atteint la taille de la liste.",
-   "analogy": "C'est rejoindre une file d'attente à la deuxième place et demander à chacun d'ajouter son numéro à ceux derrière lui."
-  },
-  "xb2": {
-   "title": "Un fichier de trop",
-   "prompt": "La fonction doit compter 3 fichiers mais répond 4. Quelle ligne est fausse ?",
-   "why": "Avec >, la récursion ne s'arrête qu'après avoir dépassé la fin, comptant une position qui n'existe pas. Le bon cas de base compare l'égalité avec la taille.",
-   "analogy": "C'est compter les marches d'un escalier et inclure le palier du haut : le frein a été appliqué une marche trop tard."
-  },
-  "xb3": {
-   "title": "Combien de gros fichiers",
-   "prompt": "Assemblez la fonction qui compte combien de valeurs dépassent la limite et l'appel qui affiche le résultat.",
-   "why": "Le compteur est créé avant la boucle, mis à jour à l'intérieur, et retourné seulement après la fin de la boucle. L'appel vient après la définition.",
-   "analogy": "C'est le poste de pesage routier : le compteur est remis à zéro au début du service, chaque camion en surcharge est compté, et le rapport ne sort qu'à la fin."
-  },
-  "xc1": {
-   "title": "La demande de 17 heures",
-   "prompt": "La coopérative veut des tickets restaurant en direct aujourd'hui. Le code existe seulement sur la machine d'un collègue, sans tests. Quelle est la meilleure conduite à tenir ?",
-   "opts": [
-    "Pousser le code sur une branche, tester le chemin critique, réviser et livrer avec un plan de retour en arrière ; si cela ne tient pas aujourd'hui, négocier le délai",
-    "Copier les fichiers directement sur le serveur, parce que le délai fait loi",
-    "Refuser toute livraison jusqu'à ce que tout le module de paiements soit réécrit",
-    "Livrer maintenant et écrire les tests lundi"
-   ],
-   "why": "Un délai serré ne suspend pas le processus : versionner, tester le chemin critique, réviser et prévoir un retour en arrière réduisent le risque. Si cela ne tient pas, on négocie le périmètre ou le délai, jamais la qualité en silence.",
-   "analogy": "Une opération d'urgence a quand même une check-list et une technique stérile : l'urgence change le rythme, pas les étapes qui préviennent la tragédie."
-  },
-  "xc2": {
-   "title": "Pix est tombé",
-   "prompt": "Dix minutes après la livraison, les paiements Pix commencent à échouer. Quelle est la première action ?",
-   "opts": [
-    "Revenir à la version précédente et enquêter sur la cause avec le système stable",
-    "Déboguer directement en production jusqu'à trouver l'erreur",
-    "Attendre plus de signalements pour être sûr",
-    "Éteindre le serveur et régler ça lundi"
-   ],
-   "why": "D'abord on rétablit le service ; ensuite on enquête. L'historique Git rend le retour en arrière rapide et sûr.",
-   "analogy": "Avec un tuyau éclaté, on coupe d'abord l'eau. Trouver pourquoi il a éclaté vient plus tard, avec un sol sec."
-  },
-  "xc3": {
-   "title": "La réunion du lundi",
-   "prompt": "À la rétrospective, il s'avère que le changement a cassé un cas que personne n'a testé. Quel suivi est le meilleur ?",
-   "opts": [
-    "Une revue sans blâme : ajouter le test de régression et ajuster le processus pour que la revue de code exige des tests",
-    "Identifier le coupable et émettre un avertissement écrit",
-    "Interdire les livraisons le vendredi et clore le sujet",
-    "Prolonger tous les délais de projet de 50 %"
-   ],
-   "why": "Les échecs appartiennent au système de travail, pas à une personne. Le test de régression empêche le défaut de revenir, et le changement de processus empêche la situation de revenir.",
-   "analogy": "Dans l'aviation, chaque incident devient une enquête et une meilleure procédure, pas une chasse aux sorcières. C'est pourquoi voler est devenu si sûr."
-  },
-  "g1": {
-   "title": "Qu'est-ce qu'un commit",
-   "prompt": "Un commit Git est :",
-   "opts": [
-    "Un enregistrement de l'état du projet à ce moment-là, avec un message",
-    "L'envoi des fichiers vers le serveur",
-    "Une copie de sauvegarde dans un autre dossier",
-    "La suppression des anciennes versions"
-   ],
-   "hint": "L'envoi vers le serveur est une commande différente (push).",
-   "why": "Un commit enregistre un instantané local des modifications, avec l'auteur, la date et un message. L'envoi vers le dépôt distant se fait plus tard, avec push.",
-   "analogy": "C'est un point de sauvegarde dans un jeu : si le boss vous bat, vous pouvez revenir exactement à ce moment-là."
-  },
-  "g2": {
-   "title": "Publier une correction",
-   "prompt": "Ordonnez les commandes pour créer une branche, enregistrer la modification et l'envoyer vers le dépôt distant.",
-   "hint": "D'abord l'espace de travail, puis l'index (add), l'enregistrement (commit) et l'envoi (push).",
-   "why": "Vous créez la branche avant de modifier ; add sélectionne ce qui entre dans le commit ; commit enregistre ; push publie.",
-   "analogy": "Comme envoyer un colis : prenez la boîte (branche), mettez-y les articles (add), scellez et étiquetez-la (commit), et déposez-la ensuite à la poste (push)."
-  },
-  "g3": {
-   "title": "À quoi sert une branche",
-   "prompt": "Pourquoi Bia devrait-elle créer une branche pour le nouvel écran de remises ?",
-   "opts": [
-    "Pour travailler de manière isolée sans affecter la ligne principale",
-    "Pour rendre le dépôt plus rapide",
-    "Parce que Git interdit les commits sur la branche principale",
-    "Pour effacer l'ancien historique"
-   ],
-   "hint": "Pensez à ce qui arrive si du code inachevé va directement sur la branche principale.",
-   "why": "Une branche isole le travail en cours. La branche principale reste stable jusqu'à ce que la modification soit revue et intégrée.",
-   "analogy": "C'est le brouillon d'un document : vous expérimentez librement et ne le recopiez dans l'original que lorsque le texte est bon."
-  },
-  "g4": {
-   "title": "Pourquoi le merge a échoué",
-   "prompt": "Quand un conflit de merge se produit-il ?",
-   "opts": [
-    "Quand deux branches modifient les mêmes lignes de manière différente",
-    "Chaque fois que deux personnes travaillent dans le même dépôt",
-    "Quand la branche a plus de dix commits",
-    "Quand un nouveau fichier est créé sur l'une des branches"
-   ],
-   "hint": "Git fusionne automatiquement les modifications situées à des endroits différents. Qu'est-ce qu'il ne peut pas décider ?",
-   "why": "Si les deux versions ont touché au même endroit, Git ne sait pas laquelle choisir et demande une décision humaine.",
-   "analogy": "Deux personnes ont réécrit la même phrase d'un contrat. Le notaire ne choisit pas seul : les deux sont appelées pour fixer la formulation finale."
-  },
-  "g5": {
-   "title": "Un bon message de commit",
-   "prompt": "Quel message de commit est le plus utile pour quelqu'un qui lit l'historique dans un an ?",
-   "opts": [
-    "Corrige le calcul de remise pour les achats d'exactement 50 R$",
-    "retouches",
-    "version finale cette fois pour de bon",
-    "Modifications faites par Caio vendredi"
-   ],
-   "hint": "Le message doit indiquer ce qui a changé et pourquoi, sans obliger à ouvrir le code.",
-   "why": "Un bon message décrit la modification et sa raison. « retouches » n'aide pas à localiser quand un comportement a changé.",
-   "analogy": "C'est l'étiquette sur les cartons de déménagement : « cuisine, verres fragiles » vous évite d'ouvrir vingt cartons marqués « bric-à-brac »."
-  },
-  "t1": {
-   "title": "Qu'est-ce qu'un test unitaire",
-   "prompt": "Un test unitaire vérifie :",
-   "opts": [
-    "Une petite unité isolée de code, comme une fonction",
-    "Tout le système à travers l'interface utilisateur",
-    "Si le serveur peut supporter un trafic intense",
-    "Si le client était satisfait de la livraison"
-   ],
-   "hint": "Le nom l'indique : quelle est l'« unité » ?",
-   "why": "Les tests unitaires sont petits, rapides et isolés. Le système entier relève des tests de bout en bout ; le trafic intense des tests de charge.",
-   "analogy": "C'est tester chaque ampoule avant d'assembler la guirlande lumineuse. Si l'ensemble tombe en panne plus tard, vous savez déjà que les ampoules ne sont pas en cause."
-  },
-  "t2": {
-   "title": "Choisir les valeurs de test",
-   "prompt": "La règle s'applique « à partir de 18 ans ». Quel ensemble d'entrées teste le mieux la fonction ?",
-   "hint": "Où les erreurs de comparaison (> au lieu de >=) ont-elles tendance à se cacher ?",
-   "why": "Les défauts se concentrent aux limites. Tester juste en dessous, exactement à la limite et juste au-dessus expose un remplacement de >= par >.",
-   "analogy": "Pour vérifier qu'une porte ferme bien, on inspecte le cadre, pas le milieu du mur."
-  },
-  "t3": {
-   "title": "Organiser, agir, vérifier",
-   "prompt": "Assemblez le test de remise de la boulangerie en suivant organiser, agir, vérifier.",
-   "hint": "D'abord les données, puis l'appel à la fonction à tester, et enfin la vérification.",
-   "why": "Le test met en place le scénario, exécute l'action et compare le résultat avec ce qui était attendu.",
-   "analogy": "Comme pour tester une recette : disposez les ingrédients, cuisinez, et goûtez seulement ensuite pour voir si c'est réussi."
-  },
   "q3": {
    "title": "Une user story bien formulée",
    "prompt": "Quelle option suit le format d'une user story ?",
@@ -1115,6 +963,92 @@ LANG.fr = {
    "why": "Limiter le WIP oblige à finir avant de commencer, réduit le changement de contexte et rend les blocages visibles.",
    "analogy": "Une cuisinière à quatre feux avec 12 casseroles : rien ne cuit correctement. Mieux vaut finir quatre plats et seulement ensuite mettre les suivants."
   },
+  "g1": {
+   "title": "Qu'est-ce qu'un commit",
+   "prompt": "Un commit Git est :",
+   "opts": [
+    "Un enregistrement de l'état du projet à ce moment-là, avec un message",
+    "L'envoi des fichiers vers le serveur",
+    "Une copie de sauvegarde dans un autre dossier",
+    "La suppression des anciennes versions"
+   ],
+   "hint": "L'envoi vers le serveur est une commande différente (push).",
+   "why": "Un commit enregistre un instantané local des modifications, avec l'auteur, la date et un message. L'envoi vers le dépôt distant se fait plus tard, avec push.",
+   "analogy": "C'est un point de sauvegarde dans un jeu : si le boss vous bat, vous pouvez revenir exactement à ce moment-là."
+  },
+  "g2": {
+   "title": "Publier une correction",
+   "prompt": "Ordonnez les commandes pour créer une branche, enregistrer la modification et l'envoyer vers le dépôt distant.",
+   "hint": "D'abord l'espace de travail, puis l'index (add), l'enregistrement (commit) et l'envoi (push).",
+   "why": "Vous créez la branche avant de modifier ; add sélectionne ce qui entre dans le commit ; commit enregistre ; push publie.",
+   "analogy": "Comme envoyer un colis : prenez la boîte (branche), mettez-y les articles (add), scellez et étiquetez-la (commit), et déposez-la ensuite à la poste (push)."
+  },
+  "g3": {
+   "title": "À quoi sert une branche",
+   "prompt": "Pourquoi Bia devrait-elle créer une branche pour le nouvel écran de remises ?",
+   "opts": [
+    "Pour travailler de manière isolée sans affecter la ligne principale",
+    "Pour rendre le dépôt plus rapide",
+    "Parce que Git interdit les commits sur la branche principale",
+    "Pour effacer l'ancien historique"
+   ],
+   "hint": "Pensez à ce qui arrive si du code inachevé va directement sur la branche principale.",
+   "why": "Une branche isole le travail en cours. La branche principale reste stable jusqu'à ce que la modification soit revue et intégrée.",
+   "analogy": "C'est le brouillon d'un document : vous expérimentez librement et ne le recopiez dans l'original que lorsque le texte est bon."
+  },
+  "g4": {
+   "title": "Pourquoi le merge a échoué",
+   "prompt": "Quand un conflit de merge se produit-il ?",
+   "opts": [
+    "Quand deux branches modifient les mêmes lignes de manière différente",
+    "Chaque fois que deux personnes travaillent dans le même dépôt",
+    "Quand la branche a plus de dix commits",
+    "Quand un nouveau fichier est créé sur l'une des branches"
+   ],
+   "hint": "Git fusionne automatiquement les modifications situées à des endroits différents. Qu'est-ce qu'il ne peut pas décider ?",
+   "why": "Si les deux versions ont touché au même endroit, Git ne sait pas laquelle choisir et demande une décision humaine.",
+   "analogy": "Deux personnes ont réécrit la même phrase d'un contrat. Le notaire ne choisit pas seul : les deux sont appelées pour fixer la formulation finale."
+  },
+  "g5": {
+   "title": "Un bon message de commit",
+   "prompt": "Quel message de commit est le plus utile pour quelqu'un qui lit l'historique dans un an ?",
+   "opts": [
+    "Corrige le calcul de remise pour les achats d'exactement 50 R$",
+    "retouches",
+    "version finale cette fois pour de bon",
+    "Modifications faites par Caio vendredi"
+   ],
+   "hint": "Le message doit indiquer ce qui a changé et pourquoi, sans obliger à ouvrir le code.",
+   "why": "Un bon message décrit la modification et sa raison. « retouches » n'aide pas à localiser quand un comportement a changé.",
+   "analogy": "C'est l'étiquette sur les cartons de déménagement : « cuisine, verres fragiles » vous évite d'ouvrir vingt cartons marqués « bric-à-brac »."
+  },
+  "t1": {
+   "title": "Qu'est-ce qu'un test unitaire",
+   "prompt": "Un test unitaire vérifie :",
+   "opts": [
+    "Une petite unité isolée de code, comme une fonction",
+    "Tout le système à travers l'interface utilisateur",
+    "Si le serveur peut supporter un trafic intense",
+    "Si le client était satisfait de la livraison"
+   ],
+   "hint": "Le nom l'indique : quelle est l'« unité » ?",
+   "why": "Les tests unitaires sont petits, rapides et isolés. Le système entier relève des tests de bout en bout ; le trafic intense des tests de charge.",
+   "analogy": "C'est tester chaque ampoule avant d'assembler la guirlande lumineuse. Si l'ensemble tombe en panne plus tard, vous savez déjà que les ampoules ne sont pas en cause."
+  },
+  "t2": {
+   "title": "Choisir les valeurs de test",
+   "prompt": "La règle s'applique « à partir de 18 ans ». Quel ensemble d'entrées teste le mieux la fonction ?",
+   "hint": "Où les erreurs de comparaison (> au lieu de >=) ont-elles tendance à se cacher ?",
+   "why": "Les défauts se concentrent aux limites. Tester juste en dessous, exactement à la limite et juste au-dessus expose un remplacement de >= par >.",
+   "analogy": "Pour vérifier qu'une porte ferme bien, on inspecte le cadre, pas le milieu du mur."
+  },
+  "t3": {
+   "title": "Organiser, agir, vérifier",
+   "prompt": "Assemblez le test de remise de la boulangerie en suivant organiser, agir, vérifier.",
+   "hint": "D'abord les données, puis l'appel à la fonction à tester, et enfin la vérification.",
+   "why": "Le test met en place le scénario, exécute l'action et compare le résultat avec ce qui était attendu.",
+   "analogy": "Comme pour tester une recette : disposez les ingrédients, cuisinez, et goûtez seulement ensuite pour voir si c'est réussi."
+  },
   "t4": {
    "title": "Tout est vert, zéro bug ?",
    "prompt": "Les 200 tests sont passés et la couverture est à 100 %. Peut-on affirmer que le logiciel n'a aucun défaut ?",
@@ -1212,62 +1146,71 @@ LANG.fr = {
    "why": "12 reste 12 ; 55 devient 50 ; 50 devient 45 ; 8 reste 8. Le total est 115. La remise s'applique aussi à exactement 50, à cause de >=.",
    "analogy": "C'est vérifier le ticket ligne par ligne : celui qui ne regarde que le total ne voit pas sur quelle ligne la remise est entrée."
   },
-  "o2": {
-   "title": "Le chemin vers la production",
-   "prompt": "Mettez les étapes d’un pipeline de livraison continue dans l’ordre.",
-   "lines": [
-    "Le développeur pousse le code",
-    "Le serveur CI récupère le code et installe les dépendances",
-    "Les tests automatisés s’exécutent",
-    "Le paquet de livraison est construit",
-    "La version est publiée en production"
-   ],
-   "hint": "Rien n’est empaqueté avant d’avoir réussi les tests, et rien n’est publié avant d’être empaqueté.",
-   "why": "Chaque étape est un portillon : seul ce qui a réussi les tests est empaqueté, et seul ce qui a été empaqueté de manière reproductible est publié.",
-   "analogy": "Une chaîne de montage : la pièce arrive, elle est assemblée, passe au contrôle qualité, est mise en boîte, et seulement ensuite part pour le magasin."
+  "xa2": {
+   "title": "Le compteur qui retombe à zéro",
+   "prompt": "Le programme doit compter 2 ventes avec remise mais affiche 0. Quelle ligne est au mauvais endroit ?",
+   "why": "Remettre le compteur à zéro dans la boucle efface le compte à chaque tour. L'initialisation doit être avant la boucle, où elle existe déjà.",
+   "analogy": "C'est le portier qui remet son compteur à zéro pour chaque personne qui entre : à la fin de la journée, l'écran ne connaît que le dernier."
   },
-  "o3": {
-   "title": "« Ça marche sur ma machine »",
-   "prompt": "L’application fonctionne sur l’ordinateur portable de Bia et plante sur le serveur. Quelle est la cause la plus probable et la bonne correction ?",
+  "xa3": {
+   "title": "La monnaie en billets de dix",
+   "prompt": "Assemblez le programme qui valide le paiement et affiche combien de billets de 10 et combien de pièces de 1 composent la monnaie.",
+   "why": "Le prix doit exister avant le montant payé, qui en dépend. La validation vient avant le calcul, et la monnaie n'est calculée que dans la branche où le paiement est suffisant.",
+   "analogy": "Le caissier vérifie d'abord que l'argent couvre la facture ; ensuite seulement le tiroir s'ouvre pour préparer la monnaie."
+  },
+  "xb1": {
+   "title": "Une somme à partir d'une position",
+   "prompt": "Qu'affiche le programme ?",
+   "why": "L'appel commence à l'indice 1, donc il ajoute 7 + 9 = 16. La valeur à l'indice 0 est ignorée. Le cas de base se produit quand i atteint la taille de la liste.",
+   "analogy": "C'est rejoindre une file d'attente à la deuxième place et demander à chacun d'ajouter son numéro à ceux derrière lui."
+  },
+  "xb2": {
+   "title": "Un fichier de trop",
+   "prompt": "La fonction doit compter 3 fichiers mais répond 4. Quelle ligne est fausse ?",
+   "why": "Avec >, la récursion ne s'arrête qu'après avoir dépassé la fin, comptant une position qui n'existe pas. Le bon cas de base compare l'égalité avec la taille.",
+   "analogy": "C'est compter les marches d'un escalier et inclure le palier du haut : le frein a été appliqué une marche trop tard."
+  },
+  "xb3": {
+   "title": "Combien de gros fichiers",
+   "prompt": "Assemblez la fonction qui compte combien de valeurs dépassent la limite et l'appel qui affiche le résultat.",
+   "why": "Le compteur est créé avant la boucle, mis à jour à l'intérieur, et retourné seulement après la fin de la boucle. L'appel vient après la définition.",
+   "analogy": "C'est le poste de pesage routier : le compteur est remis à zéro au début du service, chaque camion en surcharge est compté, et le rapport ne sort qu'à la fin."
+  },
+  "xc1": {
+   "title": "La demande de 17 heures",
+   "prompt": "La coopérative veut des tickets restaurant en direct aujourd'hui. Le code existe seulement sur la machine d'un collègue, sans tests. Quelle est la meilleure conduite à tenir ?",
    "opts": [
-    "Des environnements différents ; déclarez les dépendances et les versions dans un fichier et utilisez le même environnement partout",
-    "Un serveur défectueux ; achetez-en un autre",
-    "Pas de chance ; réessayez demain",
-    "Un mauvais langage ; réécrivez-le dans un autre"
+    "Pousser le code sur une branche, tester le chemin critique, réviser et livrer avec un plan de retour en arrière ; si cela ne tient pas aujourd'hui, négocier le délai",
+    "Copier les fichiers directement sur le serveur, parce que le délai fait loi",
+    "Refuser toute livraison jusqu'à ce que tout le module de paiements soit réécrit",
+    "Livrer maintenant et écrire les tests lundi"
    ],
-   "hint": "Le code est le même aux deux endroits. Qu’est-ce qui change autour de lui ?",
-   "why": "Le même code se comporte différemment quand les versions et les réglages changent. Des dépendances déclarées et des environnements standardisés rendent l’exécution reproductible.",
-   "analogy": "La recette fonctionne dans votre cuisine et échoue chez le voisin parce que son four indique une température différente. Standardisez le four ; ne blâmez pas le gâteau."
+   "why": "Un délai serré ne suspend pas le processus : versionner, tester le chemin critique, réviser et prévoir un retour en arrière réduisent le risque. Si cela ne tient pas, on négocie le périmètre ou le délai, jamais la qualité en silence.",
+   "analogy": "Une opération d'urgence a quand même une check-list et une technique stérile : l'urgence change le rythme, pas les étapes qui préviennent la tragédie."
   },
-  "o4": {
-   "title": "Risque de publication",
-   "prompt": "Classez chaque pratique selon son effet sur le risque de publication.",
-   "bins": [
-    "Réduit le risque",
-    "Augmente le risque"
-   ],
-   "cards": [
-    "Publier de petits changements plusieurs fois par semaine",
-    "Accumuler trois mois de changements dans une seule publication",
-    "Avoir une commande de retour en arrière qui a été testée",
-    "Modifier les fichiers directement sur le serveur de production"
-   ],
-   "hint": "Demandez-vous : si ça échoue, sera-t-il facile de trouver la cause et de revenir en arrière ?",
-   "why": "Un petit changement a une cause facile à trouver, et un retour en arrière testé donne un moyen rapide de revenir. Une publication géante et des modifications manuelles en production rendent l’erreur difficile à localiser et à annuler.",
-   "analogy": "Traverser la rivière pierre par pierre permet de reculer. Sauter d’une berge à l’autre, c’est tout ou rien."
-  },
-  "o5": {
-   "title": "La CI est rouge depuis trois jours",
-   "prompt": "Un test échoue dans la CI depuis trois jours et l’équipe continue de pousser du code. Quelle est la bonne conduite à tenir ?",
+  "xc2": {
+   "title": "Pix est tombé",
+   "prompt": "Dix minutes après la livraison, les paiements Pix commencent à échouer. Quelle est la première action ?",
    "opts": [
-    "S’arrêter et réparer d’abord le build : une alarme ignorée ne protège plus",
-    "Désactiver le test en échec",
-    "Continuer et tout corriger à la fin du mois",
-    "Supprimer la CI, qui ne fait que gêner"
+    "Revenir à la version précédente et enquêter sur la cause avec le système stable",
+    "Déboguer directement en production jusqu'à trouver l'erreur",
+    "Attendre plus de signalements pour être sûr",
+    "Éteindre le serveur et régler ça lundi"
    ],
-   "hint": "Que vaut une alarme une fois que tout le monde a appris à l’ignorer ?",
-   "why": "Avec un build rouge, de nouveaux défauts se glissent cachés derrière le premier. Réparer le build devient la priorité de toute l’équipe ; désactiver le test ne fait qu’éteindre le voyant du tableau de bord.",
-   "analogy": "C’est le voyant d’huile sur le tableau de bord : le recouvrir de ruban adhésif ne répare pas le moteur."
+   "why": "D'abord on rétablit le service ; ensuite on enquête. L'historique Git rend le retour en arrière rapide et sûr.",
+   "analogy": "Avec un tuyau éclaté, on coupe d'abord l'eau. Trouver pourquoi il a éclaté vient plus tard, avec un sol sec."
+  },
+  "xc3": {
+   "title": "La réunion du lundi",
+   "prompt": "À la rétrospective, il s'avère que le changement a cassé un cas que personne n'a testé. Quel suivi est le meilleur ?",
+   "opts": [
+    "Une revue sans blâme : ajouter le test de régression et ajuster le processus pour que la revue de code exige des tests",
+    "Identifier le coupable et émettre un avertissement écrit",
+    "Interdire les livraisons le vendredi et clore le sujet",
+    "Prolonger tous les délais de projet de 50 %"
+   ],
+   "why": "Les échecs appartiennent au système de travail, pas à une personne. Le test de régression empêche le défaut de revenir, et le changement de processus empêche la situation de revenir.",
+   "analogy": "Dans l'aviation, chaque incident devient une enquête et une meilleure procédure, pas une chasse aux sorcières. C'est pourquoi voler est devenu si sûr."
   },
   "q6": {
    "title": "Triage des exigences",
@@ -1494,6 +1437,63 @@ LANG.fr = {
    "hint": "Pensez à un gardien qui vérifie chaque changement dès son arrivée.",
    "why": "L'IC construit le projet à partir de zéro et exécute les tests à chaque changement. La valeur réside dans la rapidité de l'alerte : des minutes, pas des semaines.",
    "analogy": "C'est le détecteur de métaux à l'entrée : il vérifie chaque personne au passage, au lieu de fouiller tout le bâtiment à la fin du mois."
+  },
+  "o2": {
+   "title": "Le chemin vers la production",
+   "prompt": "Mettez les étapes d’un pipeline de livraison continue dans l’ordre.",
+   "lines": [
+    "Le développeur pousse le code",
+    "Le serveur CI récupère le code et installe les dépendances",
+    "Les tests automatisés s’exécutent",
+    "Le paquet de livraison est construit",
+    "La version est publiée en production"
+   ],
+   "hint": "Rien n’est empaqueté avant d’avoir réussi les tests, et rien n’est publié avant d’être empaqueté.",
+   "why": "Chaque étape est un portillon : seul ce qui a réussi les tests est empaqueté, et seul ce qui a été empaqueté de manière reproductible est publié.",
+   "analogy": "Une chaîne de montage : la pièce arrive, elle est assemblée, passe au contrôle qualité, est mise en boîte, et seulement ensuite part pour le magasin."
+  },
+  "o3": {
+   "title": "« Ça marche sur ma machine »",
+   "prompt": "L’application fonctionne sur l’ordinateur portable de Bia et plante sur le serveur. Quelle est la cause la plus probable et la bonne correction ?",
+   "opts": [
+    "Des environnements différents ; déclarez les dépendances et les versions dans un fichier et utilisez le même environnement partout",
+    "Un serveur défectueux ; achetez-en un autre",
+    "Pas de chance ; réessayez demain",
+    "Un mauvais langage ; réécrivez-le dans un autre"
+   ],
+   "hint": "Le code est le même aux deux endroits. Qu’est-ce qui change autour de lui ?",
+   "why": "Le même code se comporte différemment quand les versions et les réglages changent. Des dépendances déclarées et des environnements standardisés rendent l’exécution reproductible.",
+   "analogy": "La recette fonctionne dans votre cuisine et échoue chez le voisin parce que son four indique une température différente. Standardisez le four ; ne blâmez pas le gâteau."
+  },
+  "o4": {
+   "title": "Risque de publication",
+   "prompt": "Classez chaque pratique selon son effet sur le risque de publication.",
+   "bins": [
+    "Réduit le risque",
+    "Augmente le risque"
+   ],
+   "cards": [
+    "Publier de petits changements plusieurs fois par semaine",
+    "Accumuler trois mois de changements dans une seule publication",
+    "Avoir une commande de retour en arrière qui a été testée",
+    "Modifier les fichiers directement sur le serveur de production"
+   ],
+   "hint": "Demandez-vous : si ça échoue, sera-t-il facile de trouver la cause et de revenir en arrière ?",
+   "why": "Un petit changement a une cause facile à trouver, et un retour en arrière testé donne un moyen rapide de revenir. Une publication géante et des modifications manuelles en production rendent l’erreur difficile à localiser et à annuler.",
+   "analogy": "Traverser la rivière pierre par pierre permet de reculer. Sauter d’une berge à l’autre, c’est tout ou rien."
+  },
+  "o5": {
+   "title": "La CI est rouge depuis trois jours",
+   "prompt": "Un test échoue dans la CI depuis trois jours et l’équipe continue de pousser du code. Quelle est la bonne conduite à tenir ?",
+   "opts": [
+    "S’arrêter et réparer d’abord le build : une alarme ignorée ne protège plus",
+    "Désactiver le test en échec",
+    "Continuer et tout corriger à la fin du mois",
+    "Supprimer la CI, qui ne fait que gêner"
+   ],
+   "hint": "Que vaut une alarme une fois que tout le monde a appris à l’ignorer ?",
+   "why": "Avec un build rouge, de nouveaux défauts se glissent cachés derrière le premier. Réparer le build devient la priorité de toute l’équipe ; désactiver le test ne fait qu’éteindre le voyant du tableau de bord.",
+   "analogy": "C’est le voyant d’huile sur le tableau de bord : le recouvrir de ruban adhésif ne répare pas le moteur."
   }
  },
  "game": {
@@ -1504,11 +1504,11 @@ LANG.fr = {
    ],
    "fifty": [
     "Retirer deux options",
-    "Retire deux mauvaises options d'une question à choix multiple. Une réponse correcte compte alors comme une preuve plus faible de maîtrise."
+    "Retire deux mauvaises options d'un ticket à choix multiple. Une bonne réponse compte alors comme une preuve de maîtrise plus faible."
    ],
    "time": [
     "Temps supplémentaire",
-    "Ajoute 30 secondes à l'horloge en mode Extra hardcore."
+    "Ajoute 30 secondes au chronomètre en mode {h}."
    ],
    "boost": [
     "Double XP",
@@ -1528,28 +1528,28 @@ LANG.fr = {
    ]
   },
   "bounties": {
-   "b1": "Obtenez 3 tickets corrects d'affilée sans indices",
-   "b2": "Résolvez un ticket en mode Difficile ou Extra hardcore",
-   "b3": "Sprint propre : 5 sur 5"
+   "b1": "Réussir 3 tickets d'affilée sans indices",
+   "b2": "Résoudre un ticket en mode {d} ou {h}",
+   "b3": "Sprint impeccable : 5 sur 5"
   },
   "bosses": {
    "bossA": {
     "name": "L'Inspecteur",
-    "client": "Boulangerie de Dona Lúcia",
+    "client": "La boulangerie de Dona Lúcia",
     "trophy": "Sceau de l'Inspecteur",
-    "story": "Un inspecteur municipal entre dans la boulangerie et veut voir, dans l'heure, le total des ventes avec remise, le nombre de clients ayant bénéficié de la remise, et le calcul de la monnaie. Le programme de la caisse mélange variables, conditions et boucles, et la moindre erreur signifie une amende. Dona Lúcia vous regarde."
+    "story": "Un inspecteur de la ville entre dans la boulangerie et veut voir, dans l'heure, le total des ventes avec remise, le nombre de clients qui ont bénéficié de la remise, et le calcul de la monnaie. Le programme de la caisse mélange variables, conditions et boucles, et la moindre erreur entraîne une amende. Dona Lúcia vous regarde."
    },
    "bossB": {
     "name": "La Grande Migration",
     "client": "Étude notariale du 2e arrondissement",
-    "trophy": "Clé des archives",
-    "story": "L'étude notariale déménage 40 ans de dossiers vers un nouveau serveur ce week-end. Le script utilise des fonctions récursives sur des listes, et un rapport avec un mauvais compte invalide tout le processus. Helena a besoin que chaque fonction soit vérifiée avant samedi."
+    "trophy": "Clé des Archives",
+    "story": "L'étude notariale déménage 40 ans de dossiers vers un nouveau serveur ce week-end. Le script utilise des fonctions récursives sur des listes, et un rapport avec un compte erroné annule tout le processus. Helena a besoin que chaque fonction soit vérifiée avant samedi."
    },
    "bossC": {
     "name": "Vendredi, 17 h",
     "client": "Coopérative de livraison Roda Viva",
-    "trophy": "Médaille du vendredi",
-    "story": "Vendredi, 17 h. La coopérative exige que les tickets-restaurant soient opérationnels aujourd'hui, car la campagne commence demain. Le code est terminé sur la machine de quelqu'un, sans tests ni revue. Tout ce que vous avez appris sur les exigences, les processus, le versionnage, les tests et la conception sera mis à l'épreuve dans les prochaines heures."
+    "trophy": "Médaille du Vendredi",
+    "story": "Vendredi, 17 h. La coopérative exige que les tickets restaurant soient disponibles aujourd'hui, car la campagne commence demain. Le code est terminé sur la machine de quelqu'un, sans tests ni revue. Tout ce que vous avez appris sur les exigences, les processus, la gestion de versions, les tests et la conception sera mis à l'épreuve dans les prochaines heures."
    }
   }
  }

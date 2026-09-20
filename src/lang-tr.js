@@ -3,136 +3,6 @@ LANG.tr = {
  "name": "Türkçe",
  "llmName": "Turkish",
  "ui": {
-  "setH": "Ayarlar",
-  "uiLang": "Oyun dili",
-  "codeLang": "Biletlerin programlama dili",
-  "aiH": "AI eğitmen",
-  "aiP": "AI eğitmen, cevabı vermeden oyun dilinde kişiye özel Sokratik ipuçları ve yeni analojiler yazar. Kapalıysa oyun, yazarların hazırladığı ipuçlarını kullanır.",
-  "aiClaude": "Claude üzerinden bağlı: bu sayfada anahtar gerekmez.",
-  "aiKeyOn": "Kendi anahtarınızla yapılandırıldı ({m}).",
-  "aiOff": "Kapalı. Açmak için aşağıdan bir sağlayıcı girin.",
-  "provider": "Sağlayıcı",
-  "provAnthropic": "Anthropic (Claude)",
-  "provOpenAI": "OpenAI uyumlu (OpenAI, Ollama, LM Studio, vb.)",
-  "key": "API anahtarı",
-  "model": "Model",
-  "base": "Temel URL",
-  "save": "Eğitmen ayarlarını kaydet",
-  "clear": "Anahtarı kaldır",
-  "saved": "Ayarlar kaydedildi.",
-  "keyNote": "Anahtar yalnızca bu tarayıcıda (localStorage) saklanır ve doğrudan sağlayıcıya gönderilir. Paylaşılan bir bilgisayarda kullanmayın. Sınıf ortamı için anahtar gerektirmeyen yerel bir sunucu tercih edin (örneğin, Ollama http://localhost:11434/v1).",
-  "err": "Hata",
-  "none": "Hiçbir şey",
-  "navShop": "Mağaza",
-  "balance": "Bakiye",
-  "total": "Yaşam boyu XP",
-  "titleLbl": "Unvan",
-  "modeH": "Zorluk",
-  "modes": {
-   "normal": "Normal",
-   "medio": "Orta",
-   "dificil": "Zor",
-   "hardcore": "Ekstra hardcore"
-  },
-  "modeDesc": {
-   "normal": "XP ×1. Ücretsiz ipuçları (ipucuyla doğru cevap yarı puan kazandırır). Her hata bilet seviyesi başına 2 XP kaybettirir.",
-   "medio": "XP ×1.5. Her ipucu 5 XP tutar. Her hata bilet seviyesi başına 4 XP kaybettirir.",
-   "dificil": "XP ×2. Çıktı biletlerinde ipucu ve seçenek yok: programın çıktısını kendiniz yazarsınız. Her hata seviye başına 6 XP kaybettirir.",
-   "hardcore": "XP ×3. İpucu yok, cevapları yazarak verirsiniz ve 60 saniye süreniz vardır. Her hata seviye başına 10 XP kaybettirir."
-  },
-  "typedLbl": "Programın çıktısını tam olarak yazın",
-  "typedPh": "program çıktısı",
-  "yourAnswer": "Cevabınız: {a}",
-  "expected": "Doğru çıktı: {a}",
-  "timeLeft": "Süre: {s} sn",
-  "timeout": "Süre doldu.",
-  "lost": "Ceza: bakiyenizden -{x} XP.",
-  "shieldUsed": "Kalkanınız cezayı emdi.",
-  "boostOn": "Çifte XP: {n} bilet kaldı",
-  "hintPaid": "İpucu iste (maliyet: {c} XP)",
-  "noHints": "Bu modda ipucu yok.",
-  "useFifty": "İki seçeneği kaldır ({n})",
-  "useTime": "+30 sn kullan ({n})",
-  "lockedXp": "Kilitli: {p} bölümünde %60 ve {x} yaşam boyu XP gerekli (sizde {y} var).",
-  "lockedXpOnly": "Kilitli: {x} yaşam boyu XP gerekli (sizde {y} var).",
-  "bountiesH": "Sprint görevleri",
-  "bountyDone": "Görev tamamlandı: {s} (+{x} XP)",
-  "dailyH": "Günlük görev",
-  "dailyTag": "Çifte XP",
-  "dailyDone": "Günlük görev tamamlandı. Yenisi yarın gelir.",
-  "bossesH": "Bosslar",
-  "bossLocked": "{p} bölümünde %60 ve {x} yaşam boyu XP gerekli.",
-  "bossDefeated": "Yenildi",
-  "bossFight": "Boss ile yüzleş",
-  "bossStage": "Aşama {n}/{m}",
-  "bossLives": "Kalan hata hakkı: {n}",
-  "bossNext": "Sonraki aşama",
-  "bossResult": "Sonucu gör",
-  "bossWin": "Boss yenildi",
-  "bossWinP": "{x} XP ve \"{t}\" kupasını kazandınız.",
-  "bossLose": "Bu sefer boss kazandı",
-  "bossLoseP": "Bakiyenizden {x} XP kaybettiniz. İlgili görevleri gözden geçirip rövanş için geri dönün.",
-  "bossRules": "Zincirleme üç aşama, ipucu ve güçlendirme yok. Tek bir hata yapabilirsiniz. Panoda seçilen zorluk burada da geçerlidir.",
-  "options": "Seçenekler",
-  "codeLines": "Kod satırları",
-  "solved": "Bilet çözüldü",
-  "notYet": "Bu sefer değil",
-  "why": "Neden: ",
-  "analogy": "Benzetme: ",
-  "delta": "{s} ustalığı: {a} → {b}   (+{x} XP)",
-  "roseNote": "Hataya rağmen hafifçe yükseldi çünkü model, açıklamayı okumanın da öğrettiğini varsayar.",
-  "masteredNow": "Beceri ustalaşıldı: {s}.",
-  "unlockedNow": "Yeni görev açıldı: {s}.",
-  "promo": "Terfi: rolünüz artık {r}.",
-  "aiExplain": "Yapay zeka öğretmenden başka bir benzetme iste",
-  "toRetro": "Sprint retrospektifini gör",
-  "retroH": "Sprint {n} retrospektifi",
-  "retroSum": "{n} biletten {c} tanesi çözüldü. ",
-  "retroA": "Temiz sprint.",
-  "retroB": "İyi tempo; geride kalanları gözden geçir.",
-  "retroC": "Zorlu sprint. İncelenecek biletler daha sonra panoya geri dönecek.",
-  "changed": "Ustalığınızda ne değişti",
-  "colSkill": "Beceri",
-  "colStart": "Sprint başı",
-  "colNow": "Şimdi",
-  "suggestion": "Öğretmenin sonraki sprint için önerisi: şu anda {p} seviyesinde olan {s} üzerine odaklan.",
-  "allDone": "Tüm becerilerde ustalaşıldı. Sonraki sprintler serbest pratik.",
-  "nextSprint": "Sprint {n} başlat",
-  "repH": "Öğrenme raporu",
-  "repSub": "Öğrenci ve onu destekleyenler için bir görünüm: nelerde ustalaşıldı, hatalar nerede ve sonraki adımda ne çalışılmalı.",
-  "k1": "cevaplanan bilet",
-  "k2": "doğruluk",
-  "k3": "ustalaşılan beceri",
-  "k4": "en uzun doğru serisi",
-  "of": "{b} taneden {a}",
-  "bySkill": "Beceriye göre ustalık",
-  "colMastery": "Ustalık",
-  "colHits": "Doğru",
-  "colStatus": "Durum",
-  "colSbc": "SBC",
-  "stM": "Ustalaşıldı",
-  "stP": "Devam ediyor",
-  "stL": "Kilitli",
-  "stB": "Açılacak görev",
-  "recs": "Öğretmenin önerileri",
-  "recNone": "Henüz cevap yok. Öğretmenin kanıt elde etmesi için birkaç bilet çözün.",
-  "recPriority": "Öncelik: {s} ({p} ustalık, {n} biletten {c} doğru).",
-  "recBloom": "En çok hata yapılan bilişsel düzey: {b} ({n} biletten {c}). Bu tür biletleri sakin bir şekilde, ipucu kullanmadan çalışın.",
-  "recHints": "Biletlerin %{p} kadarında ipucu kullanıldı. Sormadan önce bir hipotez oluşturmayı deneyin.",
-  "recLocked": "Hâlâ kilitli: {s}. Ön koşullar %60'ı geçince açılır.",
-  "bloomAcc": "Bloom düzeyine göre doğruluk",
-  "noData": "veri yok",
-  "how": "Ustalık nasıl hesaplanır",
-  "howP": "Öğretmen Bayesian Bilgi İzleme kullanır. Her beceri için ustalaşma olasılığınızı tutar ve her cevaptan sonra şanslı tahmin ve dikkatsiz hata olasılığını düşerek günceller.",
-  "howA": "Bir öğretmenin öğrenci hakkında yavaş yavaş fikir oluşturması gibidir. Çoktan seçmeli doğru bir cevap, tüm programı doğru sırayla oluşturmaktan daha az ikna edicidir çünkü ilk durumda tahmin şansı %25'tir.",
-  "howParams": "Parametreler: başlangıç ustalığı %15, bilet başına öğrenme %20, hata %10, bilet türüne göre tahmin (seçeneklerde 4'te 1, hatalarda satır başına 1, sıralamada %5; ipucu kullanıldığında %50). Kilit açma %60, ustalaşma %95.",
-  "data": "Verileriniz",
-  "dataP": "İlerleme yalnızca bu tarayıcıda saklanır. Kayıt, bilgi izleme veri setlerinin uzun formatını takip eder (öğe, beceri, doğruluk, dil, programlama dili, zaman damgası).",
-  "showJson": "JSON kaydını göster",
-  "hideJson": "JSON kaydını gizle",
-  "download": "JSON'u indir",
-  "reset": "İlerlemeyi sil",
-  "resetConfirm": "Onaylayın: tüm ilerlemeyi sil",
   "role": "Rol",
   "xp": "XP",
   "streak": "Seri",
@@ -141,60 +11,60 @@ LANG.tr = {
   "navSettings": "Ayarlar",
   "roles": [
    "Stajyer",
-   "Yazılımcı",
+   "Başlangıç",
    "Orta Düzey",
    "Kıdemli",
    "Uzman"
   ],
   "homeH": "Gerçek insanların sorunlarını çözerek programlama ve yazılım mühendisliği öğren",
-  "homeLead": "Ponte'ye yeni katıldınız. Burası mahallenin fırınına, sağlık ocağına, okuluna ve dağıtım kooperatifine hizmet veren küçük bir yazılım atölyesi. Her müşteri gerçek bir sorun getirir: önce hikayeyi dinler, teori araç setini çalışır ve ancak ondan sonra iş emirlerini elinize alırsınız.",
+  "homeLead": "Az önce Ponte'ye katıldın; burası mahalledeki fırına, sağlık ocağına, okula ve dağıtım kooperatifine hizmet veren küçük bir yazılım atölyesi. Her müşteri gerçek bir sorunla gelir: hikâyeyi dinlersin, teori çantasını çalışırsın ve ancak ondan sonra görevleri üstlenirsin.",
   "start": "İlk sprinti başlat",
   "cont": "Kaldığım yerden devam et",
   "steps": [
    [
     "Müşteriyi dinle",
-    "Her görev, o sorunu yaşayan insanların anlattığı gerçek bir sorunun hikayesiyle başlar."
+    "Her görev, sorunu yaşayan insanların anlattığı gerçek bir hikâyeyle başlar."
    ],
    [
-    "Teori araç setini oluştur",
-    "Anahtar kavramlar, seçtiğin dilde bir kod örneği ve eğitilen SBC müfredat yeterliliği."
+    "Teori çantanı oluştur",
+    "Temel kavramlar, seçtiğin dilde bir kod örneği ve çalışılan SBC müfredat yetkinliği."
    ],
    [
-    "İş emirlerini çöz",
-    "Çıktıyı tahmin et, kodu sırala, hataları avla ve mühendislik kararları ver. Her cevap pratik bir benzetme ile gelir ve eğitmen ustalığını takip eder."
+    "Görevleri çöz",
+    "Çıktıları tahmin et, kodu sırala, hataları avla ve mühendislik kararları ver. Her cevabın pratik bir benzetmeyle açıklanır ve öğretmen ustalığını takip eder."
    ]
   ],
   "sprint": "Sprint {n}",
-  "ticketOf": "İş emri {n} / {m}",
-  "freePlay": "Her şeyi öğrendin. Pano artık serbest çalışma modunda.",
+  "ticketOf": "Görev {n} / {m}",
+  "freePlay": "Her şeyi ustalaştın. Pano artık serbest alıştırma.",
   "missions": "Yeni görevler",
   "todo": "Yapılacaklar",
-  "todoEmpty": "İş emirlerini almak için yukarıdan bir görev aç.",
-  "openBrief": "Hikayeyi dinle ve teoriyi çalış",
-  "doneSprint": "Bu sprintte tamamlandı",
-  "nothingDone": "Henüz bir şey yok. Sprinti başlatmak için bir iş emri seç.",
+  "todoEmpty": "Görevleri almak için yukarıdan bir görev aç.",
+  "openBrief": "Hikâyeyi dinle ve teoriyi çalış",
+  "doneSprint": "Bu sprintte yapılanlar",
+  "nothingDone": "Henüz bir şey yok. Sprinti açmak için bir görev seç.",
   "resolved": "çözüldü",
   "toReview": "incelenecek",
   "map": "Ustalık haritası",
   "areaProg": "Programlama",
   "areaSE": "Yazılım mühendisliği",
-  "mapHint": "Detayları görmek için bir beceriye dokun. Sayı, o beceriyi zaten öğrenmiş olma olasılığının tahminidir.",
-  "locked": "Kilitli: Kilit açmak için {p}'de %60'a ulaş.",
+  "mapHint": "Ayrıntılar için bir yetenek üzerine dokun. Sayı, bu yeteneği zaten ustalaşmış olma olasılığının tahminidir.",
+  "locked": "Kilitli: açmak için {p} konusunda %60'a ulaş.",
   "and": " ve ",
-  "masteredTxt": "Öğrenildi. ",
-  "estTxt": "{p} için tahmini ustalık. ",
-  "hits": "{n} iş emrinden {c} doğru. ",
-  "reread": "Hikayeyi ve teoriyi tekrar oku",
+  "masteredTxt": "Ustalaşıldı. ",
+  "estTxt": "{p} konusunda tahmini ustalık. ",
+  "hits": "{n} görevden {c} doğru.",
+  "reread": "Hikâyeyi ve teoriyi yeniden oku",
   "lockedAria": "kilitli",
   "masteryAria": "ustalık",
   "client": "Müşteri",
-  "story": "Hikaye",
-  "arsenal": "Teori araç seti",
+  "story": "Hikâye",
+  "arsenal": "Teori çantası",
   "example": "Kod örneği",
-  "snippetNote": "Java ve C kod örnekleri, odaklanmayı kavram üzerinde tutmak için sınıf ve main fonksiyonunu atlar.",
-  "sbcH": "Burada eğitilen SBC Müfredat Yönergeleri (2017) yeterlilikleri",
-  "startTickets": "Hazırım: bu görevin iş emirlerini aç",
-  "backBoard": "Panoya geri dön",
+  "snippetNote": "Java ve C parçacıkları, kavrama odaklanmak için sınıf ve ana fonksiyonu dışarıda bırakır.",
+  "sbcH": "Burada çalışılan SBC Müfredat Yönergeleri (2017) yetkinlikleri",
+  "startTickets": "Hazırım: bu görevin işlerini serbest bırak",
+  "backBoard": "Panoya dön",
   "types": {
    "mc": "Analiz et ve cevapla",
    "parsons": "Kodu sırala",
@@ -211,72 +81,202 @@ LANG.tr = {
   "diff": "Zorluk {d} / 3",
   "check": "Cevabı kontrol et",
   "hint": "İpucu iste",
-  "aiHint": "Yapay zeka eğitmeninden ipucu iste",
-  "tutorHint": "Eğitmenin ipucu: ",
-  "aiLabel": "Yapay zeka eğitmeni: ",
-  "aiThinking": "Eğitmen düşünüyor...",
-  "aiFail": "Yapay zeka eğitmeni yanıt vermedi. Ayarları kontrol et veya normal ipucunu kullan.",
-  "hintNote": "İpucu ile verilen doğru cevap XP'nin yarısını kazandırır ve ustalık kanıtı olarak daha zayıf sayılır.",
+  "aiHint": "Yapay zekâ öğretmeninden ipucu iste",
+  "tutorHint": "Öğretmenin ipucu: ",
+  "aiLabel": "Yapay zekâ öğretmeni: ",
+  "aiThinking": "Öğretmen düşünüyor...",
+  "aiFail": "Yapay zekâ öğretmeni yanıt vermedi. Ayarları kontrol et veya normal ipucunu kullan.",
+  "hintNote": "İpucu kullanıldığında doğru cevap XP'nin yarısını kazandırır ve ustalık kanıtı olarak daha zayıf sayılır.",
   "bank": "Kullanılabilir satırlar (kullanmak için dokun)",
-  "sol": "Programın (geri almak için bir satıra dokun)",
+  "sol": "Programın (geri almak için satıra dokun)",
   "allUsed": "Tüm satırlar kullanıldı.",
   "correctOrder": "Doğru sıra:",
   "up": "Yukarı taşı",
   "down": "Aşağı taşı",
-  "bossStart": "Dövüşü başlat",
   "reward": "Ödül: {x} XP",
   "trophies": "Kupalar",
-  "noTrophies": "Henüz yok. Yeterli ustalık ve XP'ye sahip olduğunuzda patronlar panoda belirir.",
-  "review": "Gözden geçir",
-  "shopH": "Mağaza",
-  "shopP": "XP bakiyenizi güçlendirmeler ve unvanlar için kullanın. Bakiyeyi harcamak, aşamaları ve patronları açan toplam XP'yi azaltmaz.",
-  "shopA": "Bunlar bir sadakat programının milleridir. Bakiyeyi biletler için harcarsınız; kart seviyeniz toplam uçulan mile bağlıdır ve ödül kullandığınızda düşmez.",
-  "powers": "Güçlendirmeler",
+  "noTrophies": "Henüz yok. Yeterli ustalık ve XP'ye ulaştığında patronlar panoda belirir.",
+  "review": "Tekrar",
+  "shopH": "Dükkân",
+  "shopP": "XP bakiyeni güçlendiriciler ve unvanlar için kullan. Harcama yapmak ömür boyu XP'ni azaltmaz; aşamaları ve patronları açan odur.",
+  "shopA": "Bunlar bir sadakat programının milleri gibidir. Bakiyeni görevler için harcarsın; kart seviyen toplam uçtuğun mile bağlıdır ve kullandığında düşmez.",
+  "powers": "Güçlendiriciler",
   "titlesH": "Unvanlar",
-  "owned": "Sizde: {n}",
-  "buy": "{c} XP karşılığında al",
+  "owned": "Sahip oldukların: {n}",
+  "buy": "{c} XP ile al",
   "equip": "Bu unvanı kullan",
   "equipped": "Kullanımda",
   "unequip": "Kullanmayı bırak",
-  "kTotal": "toplam XP",
+  "kTotal": "ömür boyu XP",
   "kBosses": "yenilen patronlar",
   "cheers": [
    "Aferin!",
    "Harika kod okuma!",
-   "Tam isabet, keskin akıl yürütme!",
-   "Görev tarzında kapatıldı!"
+   "Tam isabet, keskin muhakeme!",
+   "Görev şık bir şekilde kapatıldı!"
   ],
   "oops": [
-   "Az kaldı. Her geliştirici düzeltmeden önce derlemeyi bozar.",
+   "Neredeyse olacaktı. Her yazılımcı düzeltmeden önce derlemeyi bozar.",
    "Hatalar yolun bir parçası: artık tuzağın nerede olduğunu biliyorsun.",
-   "Akıl yürütmende bir hata buldun; hata ayıklama böyle öğrenilir.",
-   "Bu sefer olmadı, sorun değil. Açıklamayla acele etme."
+   "Muhakemende bir hata buldun, hata ayıklama böyle öğrenilir.",
+   "Bu sefer olmadı, sorun değil. Açıklamayı acele etmeden oku."
   ],
   "keepGoing": "Bu görev daha sonra rövanş için panoya geri dönecek.",
-  "streakMsg": "Üst üste {n}! Seri bonusu: +5 XP.",
-  "comeback": "Geri dönüş: Bir hatanın hemen ardından doğru cevap için +{x} XP.",
-  "need": "{n} XP kaldı (maliyet: {c})",
+  "streakMsg": "Art arda {n}! Seri bonusu: +5 XP.",
+  "comeback": "Geri dönüş: Bir hatadan hemen sonra doğru yapınca +{x} XP.",
+  "need": "{n} XP gerekiyor (maliyet: {c})",
   "evoH": "Bilgi gelişimi",
-  "evoP": "Her çizgi, cevapladığınız görevlerdeki bir becerinin tahmini ustalığıdır. Vurgulamak için bir beceriye dokunun: yeşil noktalar doğru cevaplar, kehribar noktalar hatalardır. Kesikli çizgiler açılış (%60) ve ustalığı (%95) işaretler.",
-  "evoEmpty": "Öğrenme eğrinizi görmek için bu dilde birkaç görev cevaplayın.",
+  "evoP": "Her çizgi, cevapladığın görevlerdeki bir becerinin tahmini ustalığını gösterir. Bir beceriye dokunarak vurgula: yeşil noktalar doğru cevaplar, sarı noktalar hatalardır. Kesikli çizgiler açılmayı (%60) ve ustalığı (%95) işaretler.",
+  "evoEmpty": "Bu dilde öğrenme eğrini görmek için birkaç görev cevapla.",
   "evoAll": "Tümü",
   "evoX": "cevaplanan görevler",
   "colFirst": "İlk tahmin",
   "colGain": "Kazanç",
   "colTries": "Görevler",
   "plH": "Programlama diline göre ustalık",
-  "plP": "Her dilin kendi ustalık takipçisi vardır; kullanılan ● ile işaretlenir. Bir dili ilk denediğinizde, aktarım tahminiyle başlarsınız: en iyi dilinizde kat edilen yolun yarısı. Kalın değerler pratik edilmiştir.",
-  "plA": "Düz vites araba kullanan biri otomatikte başa dönmez, ancak uyum sağladığını kanıtlamak için mahallede birkaç tur atması gerekir.",
+  "plP": "Her dilin kendi ustalık takipçisi vardır; kullanılan dil ● ile işaretlenir. Bir dili ilk denediğinde, aktarım tahminiyle başlarsın: en iyi dilinde kat ettiğin yolun yarısı. Kalın değerler pratik yapılmıştır.",
+  "plA": "Manuel araba kullanan biri otomatikte sıfırdan başlamaz, ama adapte olduğunu kanıtlamak için mahallede birkaç tur atması gerekir.",
   "plAcc": "Doğru",
   "langH": "Oyun diline göre doğru cevaplar",
   "studyH": "Çok dilli çalışmanın dilleri",
-  "studyP": "Çeviri ve simgeleştirme analizinin 20 dili. 1000 karakter başına simge maliyeti çalışmada ölçülmüştür ve yapay zeka öğretmeninin her dilde ne kadar harcadığını gösterir. Bekleyen paketler tools/gerar-idioma.js ile üretilir ve oyuna girmeden önce incelenir.",
+  "studyP": "Çeviri ve belirteçleştirme analizinin 20 dili. 1000 karakter başına belirteç maliyeti çalışmada ölçülmüştür ve yapay zekâ öğretmenin her dilde ne kadar harcadığını gösterir. Bekleyen paketler tools/gerar-idioma.js ile üretilir ve oyuna girmeden önce incelenir.",
   "available": "mevcut",
   "pending": "üretilecek paket",
   "colLang": "Dil",
   "colScript": "Alfabe",
-  "colTok": "1000 karakter başına simge",
-  "sortHint": "Her kart için iki kategoriden birini seçin."
+  "colTok": "1000 karakter başına belirteç",
+  "sortHint": "Her kart için iki kategoriden birini seç.",
+  "rom": "Latin alfabesiyle yazılmış metni göster",
+  "options": "Seçenekler",
+  "codeLines": "Kod satırları",
+  "solved": "Görev çözüldü",
+  "notYet": "Bu sefer değil",
+  "why": "Neden: ",
+  "analogy": "Analoji: ",
+  "delta": "{s} ustalığı: {a} → {b}   (+{x} XP)",
+  "roseNote": "Hata yapmana rağmen biraz yükseldi çünkü model, açıklamayı okumanın da öğrettiğini varsayar.",
+  "masteredNow": "Beceri ustalaşıldı: {s}.",
+  "unlockedNow": "Yeni görev açıldı: {s}.",
+  "promo": "Terfi: rolün artık {r}.",
+  "aiExplain": "Yapay zeka öğretmenden başka bir analoji iste",
+  "toRetro": "Sprint retrospektifini gör",
+  "retroH": "Sprint {n} retrospektifi",
+  "retroSum": "{n} görevden {c} tanesi çözüldü. ",
+  "retroA": "Temiz sprint.",
+  "retroB": "İyi tempo; geride kalanları gözden geçir.",
+  "retroC": "Zorlu sprint. İncelenecek görevler daha sonra panoya geri dönecek.",
+  "changed": "Ustalığında ne değişti",
+  "colSkill": "Beceri",
+  "colStart": "Sprint başlangıcı",
+  "colNow": "Şimdi",
+  "suggestion": "Öğretmenin sonraki sprint için önerisi: şu anda {p} seviyesinde olan {s} üzerine odaklan.",
+  "allDone": "Tüm becerilerde ustalaşıldı. Sonraki sprintler serbest alıştırmadır.",
+  "nextSprint": "Sprint {n}'i başlat",
+  "repH": "Öğrenme raporu",
+  "repSub": "Öğrenci ve onu destekleyenler için bir görünüm: nelerde ustalaşıldı, hatalar nerede ve sonra ne çalışılmalı.",
+  "k1": "cevaplanan görev",
+  "k2": "doğruluk",
+  "k3": "ustalaşılan beceri",
+  "k4": "en uzun doğru seri",
+  "bySkill": "Beceriye göre ustalık",
+  "colMastery": "Ustalık",
+  "colHits": "Doğru",
+  "colStatus": "Durum",
+  "colSbc": "SBC",
+  "stM": "Ustalaşıldı",
+  "stP": "Devam ediyor",
+  "stL": "Kilitli",
+  "stB": "Açılacak görev",
+  "recs": "Öğretmenin önerileri",
+  "recNone": "Henüz cevap yok. Öğretmenin kanıta sahip olması için birkaç görev çöz.",
+  "recPriority": "Öncelik: {s} ({p} ustalık, {n} görevden {c} doğru).",
+  "recBloom": "En çok hata yapılan bilişsel seviye: {b} ({n} görevden {c}). Bu tür görevleri sakin bir şekilde, ipucu kullanmadan çalış.",
+  "recHints": "Görevlerin %{p} kadarında ipucu kullanıldı. Sormadan önce bir hipotez oluşturmayı dene.",
+  "recLocked": "Hâlâ kilitli: {s}. Ön koşullar %60'ı geçtiğinde açılırlar.",
+  "bloomAcc": "Bloom seviyesine göre doğruluk",
+  "noData": "veri yok",
+  "how": "Ustalık nasıl hesaplanıyor",
+  "howP": "Öğretmen Bayesian Bilgi İzleme'yi kullanır. Her beceri için ustalaşma olasılığını tutar ve her cevaptan sonra şanslı tahmin ve dikkatsiz hata olasılığını düşerek günceller.",
+  "howA": "Bu, bir öğretmenin öğrenci hakkında yavaş yavaş fikir oluşturması gibidir. Doğru bir çoktan seçmeli cevap, bütün bir programı doğru sırada birleştirmekten daha az ikna edicidir çünkü ilk durumda tahminin %25 şansı vardır.",
+  "howParams": "Parametreler: başlangıç ustalığı %15, görev başına öğrenme %20, dikkatsiz hata %10, görev türüne göre tahmin (seçenekler için 4'te 1, hatalar için satır başına 1, sıralama için %5; ipucu kullanıldığında %50). Kilidi açma %60'ta, ustalık %95'te.",
+  "data": "Verilerin",
+  "dataP": "İlerleme yalnızca bu tarayıcıda kaydedilir. Kayıt, bilgi izleme veri kümelerinin uzun formatını izler (öğe, beceri, doğruluk, dil, programlama dili, zaman damgası).",
+  "showJson": "JSON kaydını göster",
+  "hideJson": "JSON kaydını gizle",
+  "download": "JSON'u indir",
+  "reset": "İlerlemeyi sil",
+  "resetConfirm": "Onayla: tüm ilerlemeyi sil",
+  "setH": "Ayarlar",
+  "uiLang": "Oyun dili",
+  "codeLang": "Görevlerin programlama dili",
+  "aiH": "Yapay zekâ öğretmen",
+  "aiP": "Yapay zekâ öğretmen, oyun dilinde, cevabı vermeden, kişiye özel Sokratik ipuçları ve yeni benzetmeler yazar. O olmadan oyun, yazarların yazdığı ipuçlarını kullanır.",
+  "aiClaude": "Claude üzerinden bağlı: bu sayfada anahtar gerekmez.",
+  "aiKeyOn": "Kendi anahtarınla yapılandırıldı ({m}).",
+  "aiOff": "Kapalı. Açmak için aşağıya bir sağlayıcı gir.",
+  "provider": "Sağlayıcı",
+  "provAnthropic": "Anthropic (Claude)",
+  "provOpenAI": "OpenAI uyumlu (OpenAI, Ollama, LM Studio vb.)",
+  "key": "API anahtarı",
+  "model": "Model",
+  "base": "Temel URL",
+  "save": "Öğretmen ayarlarını kaydet",
+  "clear": "Anahtarı kaldır",
+  "saved": "Ayarlar kaydedildi.",
+  "keyNote": "Anahtar yalnızca bu tarayıcıda (localStorage) saklanır ve doğrudan sağlayıcıya gönderilir. Paylaşılan bir bilgisayarda kullanma. Sınıf kullanımı için anahtar gerektirmeyen yerel bir sunucuyu tercih et (örneğin, Ollama http://localhost:11434/v1).",
+  "err": "Hata",
+  "none": "Hiçbir şey",
+  "navShop": "Dükkân",
+  "balance": "Bakiye",
+  "total": "Toplam XP",
+  "titleLbl": "Unvan",
+  "modeH": "Zorluk",
+  "modes": {
+   "normal": "Normal",
+   "medio": "Orta",
+   "dificil": "Zor",
+   "hardcore": "Ekstra zor"
+  },
+  "modeDesc": {
+   "normal": "XP ×1. İpuçları ücretsiz (ipucuyla doğru cevap yarı puan kazandırır). Her hata, görev seviyesi başına 2 XP kaybettirir.",
+   "medio": "XP ×1.5. Her ipucu 5 XP tutar. Her hata, görev seviyesi başına 4 XP kaybettirir.",
+   "dificil": "XP ×2. Çıktı görevlerinde ipucu ve seçenek yok: programın ne yazdırdığını sen yaz. Her hata, seviye başına 6 XP kaybettirir.",
+   "hardcore": "XP ×3. İpucu yok, yazarak cevap ve 60 saniye süre. Her hata, seviye başına 10 XP kaybettirir."
+  },
+  "typedLbl": "Programın yazdırdığını aynen yaz",
+  "typedPh": "program çıktısı",
+  "yourAnswer": "Senin cevabın: {a}",
+  "expected": "Doğru çıktı: {a}",
+  "timeLeft": "Süre: {s} sn",
+  "timeout": "Süre doldu.",
+  "lost": "Ceza: bakiyenden -{x} XP.",
+  "shieldUsed": "Kalkanın cezayı emdi.",
+  "boostOn": "Çift XP: {n} görev kaldı",
+  "hintPaid": "İpucu iste ({c} XP tutar)",
+  "noHints": "Bu modda ipucu yok.",
+  "useFifty": "İkisini ele ({n})",
+  "useTime": "+30 sn kullan ({n})",
+  "lockedXp": "Kilitli: {p} bölümünde %60 ve {x} toplam XP gerekiyor (sende {y} var).",
+  "lockedXpOnly": "Kilitli: {x} toplam XP gerekiyor (sende {y} var).",
+  "bountiesH": "Sprint görevleri",
+  "bountyDone": "Görev tamamlandı: {s} (+{x} XP)",
+  "dailyH": "Günlük görev",
+  "dailyTag": "Çift XP",
+  "dailyDone": "Günlük görev bitti. Yarın yenisi geliyor.",
+  "bossesH": "Bosslar",
+  "bossLocked": "{p} bölümünde %60 ve {x} toplam XP gerekiyor.",
+  "bossDefeated": "Yenildi",
+  "bossFight": "Bossla yüzleş",
+  "bossStage": "Aşama {n}/{m}",
+  "bossLives": "Kalan hata hakkı: {n}",
+  "bossNext": "Sonraki aşama",
+  "bossResult": "Sonucu gör",
+  "bossWin": "Boss yenildi",
+  "bossWinP": "{x} XP ve \"{t}\" kupasını kazandın.",
+  "bossLose": "Bu sefer boss kazandı",
+  "bossLoseP": "Bakiyenden {x} XP kaybettin. İlgili görevleri tekrar et ve rövanş için geri gel.",
+  "bossRules": "Üç zincirleme aşama, ipucu ve güçlendirme yok. Tek bir hata yapabilirsin. Tahtada seçilen zorluk burada da geçerli.",
+  "bossStart": "Savaşı başlat"
  },
  "sbc": {
   "CC-C.1.3": "RF-CC C.1.3: Programlama ortamlarını kullanarak problemleri çözme (Algoritmalar, Programlama Teknikleri, Veri Yapıları).",
@@ -528,27 +528,6 @@ LANG.tr = {
     ]
    ]
   },
-  "qual": {
-   "name": "Kalite",
-   "about": "Kalite nitelikleri, kod incelemesi, metrikler ve teknik borç.",
-   "client": "Ponte ekibi",
-   "title": "Sadece Caio'nun anladığı kod",
-   "story": "Caio tatile çıktı ve fırın sistemi çöktü. Bia kodu açtı: x1 ve x2 adında değişkenler, 400 satırlık bir fonksiyon, kararların neden alındığına dair hiçbir ipucu yok. Tek bir satırı düzeltmesi iki gününü aldı. Kod çalışıyordu ama sadece onu yazan kişi için. Ponte karar verdi: başka biri okumadan hiçbir değişiklik ana hatta ulaşmayacak.",
-   "theory": [
-    [
-     "Kalitenin birçok niteliği vardır",
-     "Yazılım çalışmanın ötesinde okunabilir, test edilebilir, güvenli, verimli ve değiştirilmesi kolay olmalıdır. ISO/IEC 25010 bu nitelikleri düzenler; yıllar içinde maliyete en çok etki eden bakım yapılabilirliktir."
-    ],
-    [
-     "Kod incelemesi",
-     "Değişiklik birleştirilmeden önce başka biri kodu okur (pull request). Küçük ve sık incelemeler hataları erken yakalar, bilgiyi yayar ve sistemin tek bir kişiye bağımlı kalmasını önler. Hedef koddur, asla yazar değil."
-    ],
-    [
-     "Teknik borç ve ölçüm",
-     "Bugünün kestirmeleri yarın faiz öder: her değişiklik yavaşlar. Statik analizle toplanan döngüsel karmaşıklık, tekrarlama ve kapsama gibi metrikler borcun nerede biriktiğini gösterir."
-    ]
-   ]
-  },
   "model": {
    "name": "Modelleme",
    "about": "Kod yazılmadan önce ekibi aynı çizgide buluşturan diyagramlar: kullanım senaryoları, sınıflar ve sıralamalar.",
@@ -567,6 +546,27 @@ LANG.tr = {
     [
      "İlişkiler ve çokluk",
      "Bir Kitap'ın birden çok Kopyası vardır; bir Kopya tek bir Kitap'a aittir. Çizginin uçlarına 1 ve * yazmak, bir sistemdeki en pahalı yanlış anlaşılmayı önler: veri modelindeki yanlış anlaşılmayı."
+    ]
+   ]
+  },
+  "qual": {
+   "name": "Kalite",
+   "about": "Kalite nitelikleri, kod incelemesi, metrikler ve teknik borç.",
+   "client": "Ponte ekibi",
+   "title": "Sadece Caio'nun anladığı kod",
+   "story": "Caio tatile çıktı ve fırın sistemi çöktü. Bia kodu açtı: x1 ve x2 adında değişkenler, 400 satırlık bir fonksiyon, kararların neden alındığına dair hiçbir ipucu yok. Tek bir satırı düzeltmesi iki gününü aldı. Kod çalışıyordu ama sadece onu yazan kişi için. Ponte karar verdi: başka biri okumadan hiçbir değişiklik ana hatta ulaşmayacak.",
+   "theory": [
+    [
+     "Kalitenin birçok niteliği vardır",
+     "Yazılım çalışmanın ötesinde okunabilir, test edilebilir, güvenli, verimli ve değiştirilmesi kolay olmalıdır. ISO/IEC 25010 bu nitelikleri düzenler; yıllar içinde maliyete en çok etki eden bakım yapılabilirliktir."
+    ],
+    [
+     "Kod incelemesi",
+     "Değişiklik birleştirilmeden önce başka biri kodu okur (pull request). Küçük ve sık incelemeler hataları erken yakalar, bilgiyi yayar ve sistemin tek bir kişiye bağımlı kalmasını önler. Hedef koddur, asla yazar değil."
+    ],
+    [
+     "Teknik borç ve ölçüm",
+     "Bugünün kestirmeleri yarın faiz öder: her değişiklik yavaşlar. Statik analizle toplanan döngüsel karmaşıklık, tekrarlama ve kapsama gibi metrikler borcun nerede biriktiğini gösterir."
     ]
    ]
   },
@@ -593,198 +593,6 @@ LANG.tr = {
   }
  },
  "items": {
-  "v1": {
-   "title": "Yer değiştiren etiket",
-   "prompt": "Dona Lúcia zam yapmadan önce eski fiyatı kopyaladı. Program ne yazdırır?",
-   "hint": "Satır satır git: y aldığı anda x'in değeri neydi?",
-   "why": "y, x'in o andaki değerinin (5) bir kopyasını alır. Daha sonra x'i değiştirmek y'yi etkilemez.",
-   "analogy": "Değişken, bir değerin üzerindeki etikettir. y, 5'in üzerine kendi etiketini aldı; x etiketini 8'e taşımak y'ninkine dokunmaz."
-  },
-  "v2": {
-   "title": "Toplanmayan toplam",
-   "prompt": "Bu, yeğenin elektronik tablo hatasıydı. Program ne yazdırır?",
-   "hint": "Tırnak işaretlerine bak: bu değerler sayı mı yoksa metin mi?",
-   "why": "Tırnak içinde 3 ve 4 metindir. Metinle işlem toplamak yerine birleştirir.",
-   "analogy": "Dizeler boncuk kolyelerdir: iki kolyeyi birleştirmek toplam değil, daha uzun bir kolye verir. Toplamak için önce sayıya dönüştürün."
-  },
-  "v3": {
-   "title": "Değer kaybettiren takas",
-   "prompt": "Kod a ile b'yi takas etmeli, ancak 2 2 yazdırıyor. a'nın orijinal değeri hangi satırda kayboluyor?",
-   "hint": "Hangi satırdan sonra 1 sayısı hiçbir değişkende artık yok?",
-   "why": "a, b'yi aldığında 1 kaydedilmeden üzerine yazılır. Doğru bir takas geçici bir değişken kullanır.",
-   "analogy": "İki bardağın içeriğini takas etmek için üçüncü bir bardak gerekir. Birini doğrudan diğerine boşaltmak içeceklerden birini kaybettirir."
-  },
-  "v4": {
-   "title": "Parayı bölüştürmek",
-   "prompt": "Yedi madeni para iki kasa arasında bölüştürülüyor. Program ne yazdırır?",
-   "hint": "Tam sayı bölmesi ondalık kısmı atar; % kalanı döndürür.",
-   "why": "7'nin 2'ye tam sayı bölümü 3'tür ve kalan 1'dir.",
-   "analogy": "7 şekeri 2 çocuk arasında paylaştırmak: her biri 3 alır ve 1 masada kalır."
-  },
-  "v5": {
-   "title": "Bir fiyat için doğru tür",
-   "prompt": "Bir ekmeğin 4.50 fiyatını saklamak için en uygun veri türü hangisidir?",
-   "opts": [
-    "Ondalık sayı (kayan nokta)",
-    "Tam sayı",
-    "Metin",
-    "Mantıksal"
-   ],
-   "hint": "Değerin kuruşları var ve hesaplamalarda kullanılacak.",
-   "why": "Fiyat ondalık içerir ve aritmetik işlemlere girer, bu yüzden ondalık sayısal bir tür gerektirir. Metin olarak toplanamazdı; tam sayı olarak kuruşları kaybederdi.",
-   "analogy": "Doğru kabı seçmek gibidir: su şişeye girer, süzgece değil. Her veri türü bir tür içerik için yapılmıştır."
-  },
-  "c1": {
-   "title": "Tam 39 derece ateş",
-   "prompt": "Bir triyaj sınır kuralı. Program ne yazdırır?",
-   "hint": ">= büyüktür VEYA eşittir anlamına gelir.",
-   "why": "7 >= 7 doğrudur, bu yüzden yalnızca ilk blok çalışır ve else atlanır.",
-   "analogy": "if/else yolda bir çataldır: araba yalnızca bir tarafı seçer, asla ikisini birden değil."
-  },
-  "c2": {
-   "title": "Rosa'nın kurallarının sırası",
-   "prompt": "Kurallar bu sırayla yazılmıştı. Program ne yazdırır?",
-   "hint": "Zincirdeki bir test doğru olduğunda, sonrakiler değerlendirilmez bile.",
-   "why": "30 > 20 zaten doğrudur, bu yüzden yalnızca A yazdırılır. Daha katı koşul (t > 28) önce gelmeliydi.",
-   "analogy": "Bu bir sıra turnike gibidir: İlkinden geçen, diğerlerini denemez. En zorlu turnike önde durmalıdır."
-  },
-  "c3": {
-   "title": "Çift veya tek bilet numarası",
-   "prompt": "Klinik çift numaraları 1. masaya, tek numaraları 2. masaya çağırıyor. Sayıyı sınıflandıran programı kurun.",
-   "hint": "Önce veri var olur; sonra 2'ye bölümden kalan üzerinde test gelir.",
-   "why": "Veri, testten önce var olmalıdır. 2'ye bölündüğünde kalan sıfırsa çifttir; else diğer her şeyi kapsar.",
-   "analogy": "Tıpkı triyaj gibi: önce hasta gelir, sonra soru gelir ve her cevap bir odaya yönlendirir."
-  },
-  "c4": {
-   "title": "Önce kim gelir: AND mi OR mu",
-   "prompt": "İfadenin sonucu doğru mu yanlış mı?",
-   "opts": [
-    "Doğru",
-    "Yanlış",
-    "Hata",
-    "Dile bağlı"
-   ],
-   "hint": "Çarpmanın toplamadan önce gelmesi gibi, bir mantıksal operatör önce değerlendirilir.",
-   "why": "AND, OR'dan önce gelir. Önce false AND false false verir; sonra true OR false true verir. Bu, oyundaki dört dilin hepsinde geçerlidir.",
-   "analogy": "Tıpkı 2 + 3 × 0: önce çarpmayı yaparsınız. AND mantığın çarpmasıdır; şüphede kalınca parantez kullanın."
-  },
-  "c5": {
-   "title": "Altmış ve indirim yok",
-   "prompt": "Tam 60 yaşındakiler yarı fiyat ödemeli ama tam ödüyor. Hangi satırın düzeltilmesi gerekiyor?",
-   "hint": "60 ile kafanızda test edin: koşul doğru mu?",
-   "why": "60 > 60 yanlıştır. \"60'tan itibaren\" kuralı >= gerektirir. Sınır hataları koşullarda en yaygın olanlardandır.",
-   "analogy": "Bu, \"minimum boy 1,40 m\" tabelasıyla tam 1,40 olanları durduran bir görevli gibidir. Kural doğru; karşılaştırma yanlış."
-  },
-  "l1": {
-   "title": "Saymanın başladığı yer",
-   "prompt": "Döngü hangi değerleri yazdırır?",
-   "hint": "Sayma 0'dan başlar ve 3'ten önce durur.",
-   "why": "0, 1 ve 2 üretir: üç değer, sıfırdan başlayıp 3'ü içermez.",
-   "analogy": "Zemin kattan (0) başlayan bir binadaki katlar gibi: üç kat 0'dan 2'ye kadar gider."
-  },
-  "l2": {
-   "title": "Notları toplama",
-   "prompt": "Program ne yazdırır?",
-   "hint": "Döngü 1'i içerir ve 5'i dışlar.",
-   "why": "Döngü 1, 2, 3 ve 4'ten geçer ve toplam 10 olur. Üst sınır dışarıda bırakılır.",
-   "analogy": "total bir kumbaradır: her turda i değerinde bir bozuk para atılır. Sonunda içindekini sayarsınız."
-  },
-  "l3": {
-   "title": "Sonsuz geri sayım",
-   "prompt": "Kod 3, 2, 1 ve sonra \"end\" yazdırmalı, ama asla durmuyor. Hangi satırın düzeltilmesi gerekiyor?",
-   "hint": "Döngünün durması için n > 0 bir noktada false olmalı.",
-   "why": "1 eklemek n'yi sıfırdan uzaklaştırır, bu yüzden koşul her zaman doğrudur. Düzeltme 1 çıkarmaktır.",
-   "analogy": "Her seferinde bir basamak çıkarak merdivenden inmeye çalışmak gibidir: asla zemine ulaşmazsınız. Her while çıkışa doğru ilerlemelidir."
-  },
-  "l4": {
-   "title": "Sınıftaki en yüksek not",
-   "prompt": "Marta listedeki en yüksek notu istiyor. Programı birleştirin.",
-   "hint": "İlkini en yüksek varsayarak başlayın; sonra her biriyle karşılaştırın.",
-   "why": "Desen şudur: ilk tahmin (ilk eleman), hepsini gez, daha yüksek biri çıkınca şampiyonu değiştir ve yalnızca döngüden sonra yazdır.",
-   "analogy": "Bu \"tepenin kralı\" oyunudur: ilk çıkan tepeye çıkar ve her rakip yalnızca daha yüksekse yerini alır. Sonda orada olan maksimumdur."
-  },
-  "l5": {
-   "title": "Kaç kez yarıya bölebilirsin",
-   "prompt": "Program ne yazdırır?",
-   "hint": "Her turda n'yi izleyin: 16, 8, ...",
-   "why": "n 8, 4, 2 ve 1'den geçer: n > 1 false olana kadar dört bölme.",
-   "analogy": "Bir kağıdı tekrar tekrar ikiye katlamak: while önceden kaç katlama olacağını bilmez; sadece daha fazla mümkün olmayınca durur."
-  },
-  "f1": {
-   "title": "Döndürülen değeri kullanma",
-   "prompt": "Program ne yazdırır?",
-   "hint": "return sonucu fonksiyonu çağırana verir.",
-   "why": "Fonksiyon 8 döndürür, r'de saklanır. Sonra 8 + 1 = 9.",
-   "analogy": "Fonksiyon bir meyve sıkacağıdır: meyve girer (argüman) ve bir bardak çıkar (dönüş değeri), onu istediğiniz gibi kullanırsınız."
-  },
-  "f2": {
-   "title": "Yazdırmak geri döndürmek değildir",
-   "prompt": "Bir fonksiyon kargo ücretini hesaplayıp sadece ekrana yazdırıyor, değeri geri döndürmüyor. Bunun sonucu nedir?",
-   "opts": [
-    "Çağıran kod bu değeri başka hesaplamalarda kullanamaz",
-    "Hiçbir şey: yazdırmak ve geri döndürmek eşdeğerdir",
-    "Fonksiyon daha hızlı çalışır",
-    "Değer otomatik olarak global olur"
-   ],
-   "hint": "Yazdırılan değer nereye gider? Peki geri döndürülen?",
-   "why": "Yazdırma, değeri ekrana gönderir, hepsi bu. Geri döndürme ise değeri çağıran koda verir; bu kod onu toplayabilir, saklayabilir veya başka yere aktarabilir.",
-   "analogy": "Yazdırmak, yemeği vitrinde göstermektir; geri döndürmek ise müşteriye teslim etmektir. Sadece vitrini gören kişi eli boş ayrılır."
-  },
-  "f3": {
-   "title": "İçerideki x ve dışarıdaki x",
-   "prompt": "Program ne yazdırır?",
-   "hint": "Fonksiyon içinde oluşturulan değişken, dışarıdakiyle aynı mı?",
-   "why": "x = 99, yalnızca çağrı sırasında var olan yerel bir değişkendir. Dışarıdaki x hala 10'dur.",
-   "analogy": "Fonksiyon, kendi beyaz tahtası olan bir odadır. İçeriye yazılanlar çıkarken silinir ve koridordaki tahtayı değiştirmez."
-  },
-  "f4": {
-   "title": "Ortalama için bir fonksiyon",
-   "prompt": "Bir listenin ortalamasını hesaplayan fonksiyonu ve sonucu yazdıran çağrıyı oluşturun.",
-   "hint": "Fonksiyon içinde: toplamı sıfırla, döngüde biriktir ve ancak ondan sonra bölmeyi döndür.",
-   "why": "return, döngüden sonra gelir; aksi halde fonksiyon ilk turda çıkardı. Çağrı, tanımdan sonra gelir.",
-   "analogy": "Bir pasta tarifi: önce tarifin adı, sonra sırayla adımlar ve en sonunda servis edersin. Karıştırmanın ortasında servis edemezsin."
-  },
-  "f5": {
-   "title": "Argüman bir kopyadır",
-   "prompt": "Program ne yazdırır?",
-   "hint": "Fonksiyon, x değişkeninin kendisini mi yoksa değerinin bir kopyasını mı alır?",
-   "why": "Sayılar değer ile aktarılır: n, x'in bir kopyasıdır. Fonksiyon içinde n'yi değiştirmek x'i değiştirmez; x hala 5'tir.",
-   "analogy": "Belgenin fotokopisini veriyorsun. Kopyanın üzerine istedikleri gibi karalayabilirler: çekmecedeki orijinal bozulmadan kalır."
-  },
-  "k1": {
-   "title": "İndeksler sıfırdan başlar",
-   "prompt": "Program ne yazdırır?",
-   "hint": "İlk eleman 0 indeksindedir.",
-   "why": "İndeksler 0 (10), 1 (20) ve 2 (30).",
-   "analogy": "İndeks, kuyruğun önüne olan mesafedir: ilk kişi 0 adım ötede, ikinci kişi 1 adım ötededir."
-  },
-  "k2": {
-   "title": "İki değişken, tek bir liste",
-   "prompt": "Program ne yazdırır?",
-   "hint": "İkinci değişken yeni bir koleksiyon mu yoksa aynısının başka bir adı mı?",
-   "why": "Atama, koleksiyonu kopyalamaz: her iki ad da aynı veriye işaret eder. b üzerinden yapılan bir değişiklik a'da görünür.",
-   "analogy": "a ve b aynı çekmecenin iki anahtarıdır. Biri b anahtarını kullanarak bir şey koyarsa, a anahtarının bulacağı şeyi değiştirir."
-  },
-  "k3": {
-   "title": "Liste mi sözlük mü",
-   "prompt": "Bay Antônio, başlığını yazarak bir kitaptan kaç kopya olduğunu sorgulamak istiyor. Hangi yapı en uygun?",
-   "opts": [
-    "Başlıktan miktara bir sözlük (map)",
-    "Geliş sırasına göre miktarların bir listesi",
-    "Her kitap için ayrı bir değişken",
-    "Her şeyi virgülle ayıran tek bir metin"
-   ],
-   "hint": "Sorgulama konuma göre mi yoksa isme göre mi yapılacak?",
-   "why": "Sözlük, anahtarı değere bağlar ve doğrudan anahtarla arama yapar. Listede konumu bilmeniz veya her şeyi taramanız gerekirdi.",
-   "analogy": "Sözlük bir telefon rehberidir: isimle arama yapar ve tüm listeyi okumadan telefon numarasını bulursunuz."
-  },
-  "k4": {
-   "title": "Sonun bir adım ötesi",
-   "prompt": "Döngü, var olmayan bir konuma erişmeye çalışıyor. Soruna hangi satır neden oluyor?",
-   "hint": "3 elemanla, en büyük geçerli indeks nedir?",
-   "why": "Döngü 0, 1, 2 ve 3 indekslerini üretir, ancak 3 mevcut değildir. Doğru sınır, koleksiyonun boyutudur, bu dahil değildir.",
-   "analogy": "Bu bir çit direği hatasıdır: 3 tahtalı bir çitte 4'e kadar sayan kişi, orada olmayan bir tahtayı çakmaya çalışır."
-  },
   "k5": {
    "title": "Dört kopyadan fazla olan kaç kitap var",
    "prompt": "Program ne yazdırır?",
@@ -859,195 +667,197 @@ LANG.tr = {
    "why": "Yalnızca ilk seçenek ölçülebilir bir kritere sahiptir. \"Hızlı\", \"dostu\" ve \"modern\" teslimat zamanında tartışmaya dönüşür.",
    "analogy": "Duvarcıya \"uzun bir duvar\" demekle \"2,80 m'lik bir duvar\" demek arasındaki fark gibidir. Sadece ikincisi mezura ile kontrol edilebilir."
   },
-  "g1": {
-   "title": "Commit nedir",
-   "prompt": "Bir Git commit'i:",
+  "c4": {
+   "title": "Önce kim gelir: VE mi VEYA mı",
+   "prompt": "İfadenin sonucu doğru mu yanlış mı?",
    "opts": [
-    "Projenin o andaki durumunun, bir mesajla birlikte kaydıdır",
-    "Dosyaları sunucuya yüklemektir",
-    "Başka bir klasöre yedek kopyadır",
-    "Eski sürümleri silmektir"
+    "Doğru",
+    "Yanlış",
+    "Hata",
+    "Dile göre değişir"
    ],
-   "hint": "Sunucuya göndermek farklı bir komuttur (push).",
-   "why": "Commit, değişikliklerin yerel bir anlık görüntüsünü kaydeder; yazar, tarih ve mesajla birlikte. Remote'a gönderme daha sonra push ile yapılır.",
-   "analogy": "Oyunlardaki kayıt noktası gibidir: boss sizi yense bile tam o ana geri dönebilirsiniz."
+   "hint": "Çarpma toplamadan önce geldiği gibi, bir mantıksal operatör de diğerinden önce değerlendirilir.",
+   "why": "VE, VEYA'ya göre önceliklidir. Önce yanlış VE yanlış yanlış verir; sonra doğru VEYA yanlış doğru verir. Bu, oyundaki dört dilin hepsinde geçerlidir.",
+   "analogy": "2 + 3 × 0 gibi: önce çarpmayı yaparsın. VE, mantığın çarpmasıdır; şüphede kalırsan parantez kullan."
   },
-  "g2": {
-   "title": "Bir düzeltmeyi yayınlamak",
-   "prompt": "Bir dal oluşturmak, değişikliği kaydetmek ve uzak depoya göndermek için komutları sıralayın.",
-   "hint": "Önce çalışma alanı, sonra stage (add), kayıt (commit) ve gönderme (push).",
-   "why": "Değişiklik yapmadan önce dalı oluşturursunuz; add neyin dahil edileceğini seçer; commit kaydeder; push yayınlar.",
-   "analogy": "Paket göndermek gibidir: kutuyu al (branch), eşyaları içine koy (add), kapat ve etiketle (commit), ve ancak o zaman postaneye götür (push)."
+  "c5": {
+   "title": "Altmış yaş ve indirim yok",
+   "prompt": "Tam 60 yaşındakiler yarı fiyat ödemeli ama tam ödüyor. Hangi satırın düzeltilmesi gerekiyor?",
+   "hint": "Kafanda 60 ile test et: koşul doğru mu?",
+   "why": "60 > 60 yanlıştır. \"60'tan itibaren\" kuralı >= gerektirir. Sınır hataları, koşullu ifadelerde en yaygın olanlardandır.",
+   "analogy": "Bu, \"minimum boy 1.40 m\" tabelası olan ama tam 1.40 boyundakini durduran bir görevli gibidir. Kural doğru; karşılaştırma yanlış."
   },
-  "g3": {
-   "title": "Branch ne işe yarar",
-   "prompt": "Bia neden yeni indirim ekranı için bir branch oluşturmalı?",
+  "l1": {
+   "title": "Saymanın başladığı yer",
+   "prompt": "Döngü hangi değerleri yazdırır?",
+   "hint": "Sayma 0'dan başlar ve 3'ten önce durur.",
+   "why": "0, 1 ve 2 üretir: sıfırdan başlayan ve 3'ü içermeyen üç değer.",
+   "analogy": "Zemin kattan (0) başlayan bir binadaki katlar gibi: üç kat 0'dan 2'ye kadar gider."
+  },
+  "l2": {
+   "title": "Notları toplamak",
+   "prompt": "Program ne yazdırır?",
+   "hint": "Döngü 1'i içerir ve 5'i dışarıda bırakır.",
+   "why": "Döngü 1, 2, 3 ve 4'ten geçer ve toplam 10'dur. Üst sınır dahil edilmez.",
+   "analogy": "total bir kumbaradır: her turda i değerinde bir bozuk para atar. Sonunda içinde ne olduğunu sayarsın."
+  },
+  "l3": {
+   "title": "Sonsuz geri sayım",
+   "prompt": "Kod 3, 2, 1 yazdırıp sonra \"bitti\" demeli, ama hiç durmuyor. Hangi satırın düzeltilmesi gerekiyor?",
+   "hint": "Döngünün durması için n > 0'ın bir noktada yanlış olması gerekir.",
+   "why": "1 eklemek n'yi sıfırdan uzaklaştırır, bu yüzden koşul her zaman doğrudur. Çözüm 1 çıkarmaktır.",
+   "analogy": "Her seferinde bir basamak yukarı çıkarak merdivenden inmeye çalışmak gibidir: asla zemine ulaşamazsın. Her while çıkışa doğru ilerlemelidir."
+  },
+  "l4": {
+   "title": "Sınıfın en yüksek notu",
+   "prompt": "Marta listedeki en yüksek notu istiyor. Programı kur.",
+   "hint": "İlkini en yüksek varsayarak başla; sonra her biriyle karşılaştır.",
+   "why": "Kalıp şudur: ilk tahmin (ilk eleman), hepsini dolaş, daha yüksek biri çıkınca şampiyonu değiştir ve sadece döngüden sonra yazdır.",
+   "analogy": "Bu bir \"tepenin kralı\" gibidir: ilki tepeye tırmanır ve her rakip sadece daha yüksekse yerini alır. Sonunda orada olan maksimumdur."
+  },
+  "l5": {
+   "title": "Kaç kez yarıya bölebilirsin",
+   "prompt": "Program ne yazdırır?",
+   "hint": "Her turda n'yi takip et: 16, 8, ...",
+   "why": "n 8, 4, 2 ve 1'den geçer: n > 1 yanlış olana kadar dört bölme.",
+   "analogy": "Bir kağıdı tekrar tekrar ikiye katlamak gibidir: while kaç katlama olacağını önceden bilmez; sadece daha fazla mümkün olmadığında durur."
+  },
+  "f1": {
+   "title": "Dönen değeri kullanmak",
+   "prompt": "Program ne yazdırır?",
+   "hint": "return, sonucu fonksiyonu çağırana verir.",
+   "why": "Fonksiyon 8 döndürür ve r'ye kaydedilir. Sonra 8 + 1 = 9.",
+   "analogy": "Bir fonksiyon meyve sıkacağı gibidir: meyve girer (argüman) ve bir bardak çıkar (dönüş değeri), onu istediğin gibi kullanırsın."
+  },
+  "v1": {
+   "title": "Yer değiştiren etiket",
+   "prompt": "Dona Lúcia zam yapmadan önce eski fiyatı kopyaladı. Program ne yazdırır?",
+   "hint": "Satır satır ilerle: y'nin aldığı anda x'in değeri neydi?",
+   "why": "y, o anda x'in sahip olduğu değerin (5) bir kopyasını alır. Sonradan x'i değiştirmek y'yi etkilemez.",
+   "analogy": "Değişken, bir değerin üzerindeki etikettir. y, 5'in üzerine kendi etiketini aldı; x etiketini 8'e taşımak y'ninkine dokunmaz."
+  },
+  "v2": {
+   "title": "Toplanmayan toplam",
+   "prompt": "Bu, yeğenin elektronik tablo hatasıydı. Program ne yazdırır?",
+   "hint": "Tırnak işaretlerine bak: bu değerler sayı mı, metin mi?",
+   "why": "Tırnak içinde 3 ve 4 metindir. Metinle işlem, toplama yerine birleştirme yapar.",
+   "analogy": "Dizeler boncuk kolyelerdir: iki kolyeyi birleştirmek daha uzun bir kolye verir, toplam değil. Toplamak için önce sayılara dönüştür."
+  },
+  "v3": {
+   "title": "Bir değeri kaybeden takas",
+   "prompt": "Kod a ile b'yi takas etmeli, ancak 2 2 yazdırıyor. a'nın orijinal değeri hangi satırda kaybolur?",
+   "hint": "Hangi satırdan sonra 1 sayısı artık hiçbir değişkende yok?",
+   "why": "a, b'yi aldığında 1 kaydedilmeden üzerine yazılır. Doğru takas geçici bir değişken kullanır.",
+   "analogy": "İki bardağın içindekileri takas etmek için üçüncü bir bardak gerekir. Birini doğrudan diğerine boşaltmak içeceklerden birini kaybettirir."
+  },
+  "v4": {
+   "title": "Üstü bölüştürmek",
+   "prompt": "Yedi madeni para iki kasaya bölünüyor. Program ne yazdırır?",
+   "hint": "Tamsayı bölmesi ondalık kısmı atar; % kalanı döndürür.",
+   "why": "7'nin 2'ye tamsayı bölümü 3, kalan 1'dir.",
+   "analogy": "7 şekeri 2 çocuğa paylaştırmak: her biri 3 alır ve masada 1 kalır."
+  },
+  "v5": {
+   "title": "Bir fiyat için doğru tür",
+   "prompt": "Bir ekmeğin 4.50 fiyatını en iyi hangi veri türü saklar?",
    "opts": [
-    "Ana hattı etkilemeden izole çalışmak için",
-    "Depoyu hızlandırmak için",
-    "Çünkü Git ana dala commit atmayı yasaklar",
-    "Eski geçmişi silmek için"
+    "Ondalık sayı (kayan nokta)",
+    "Tamsayı",
+    "Metin",
+    "Mantıksal"
    ],
-   "hint": "Bitmemiş kod doğrudan ana dala giderse ne olacağını düşünün.",
-   "why": "Branch, devam eden işi izole eder. Ana dal, değişiklik incelenip entegre edilene kadar kararlı kalır.",
-   "analogy": "Bir belgenin taslağı gibidir: özgürce denersiniz ve yalnızca metin iyi olduğunda orijinaline kopyalarsınız."
+   "hint": "Değerin kuruşları var ve hesaplamalarda kullanılacak.",
+   "why": "Bir fiyatın ondalıkları vardır ve aritmetik işlemlere girer, bu yüzden ondalık sayısal bir tür gerekir. Metin olarak toplanamaz; tamsayı olarak kuruşlar kaybolur.",
+   "analogy": "Doğru kabı seçmektir: su şişeye konur, süzgece değil. Her veri türü bir tür içerik için yapılmıştır."
   },
-  "g4": {
-   "title": "Merge neden çakıştı",
-   "prompt": "Merge conflict ne zaman olur?",
+  "c1": {
+   "title": "Tam olarak 39 ateş",
+   "prompt": "Bir triyaj sınır kuralı. Program ne yazdırır?",
+   "hint": ">=, büyüktür VEYA eşittir demektir.",
+   "why": "7 >= 7 doğrudur, bu yüzden yalnızca ilk blok çalışır ve else atlanır.",
+   "analogy": "if/else yolda bir çataldır: araba yalnızca bir taraftan gider, asla ikisinden birden."
+  },
+  "c2": {
+   "title": "Rosa'nın kurallarının sırası",
+   "prompt": "Kurallar bu sırayla yazıldı. Program ne yazdırır?",
+   "hint": "Zincirdeki bir test doğru olduğunda, sonrakiler değerlendirilmez bile.",
+   "why": "30 > 20 zaten doğrudur, bu yüzden yalnızca A yazdırılır. Daha katı koşul (t > 28) önce gelmeliydi.",
+   "analogy": "Bir sıra turnikedir: ilkinden geçen diğerlerini denemez. En zorlu turnike en önde durmalıdır."
+  },
+  "c3": {
+   "title": "Çift veya tek görev numarası",
+   "prompt": "Klinik çift numaraları 1. masaya, tek numaraları 2. masaya çağırıyor. Numarayı sınıflandıran programı oluştur.",
+   "hint": "Önce veri vardır; sonra 2'ye bölümden kalan üzerine test gelir.",
+   "why": "Veri, testten önce var olmalıdır. 2'ye bölündüğünde sıfır kalan çift demektir; else diğer her şeyi kapsar.",
+   "analogy": "Tıpkı triyaj gibi: önce hasta gelir, sonra soru gelir ve her cevap bir odaya götürür."
+  },
+  "f2": {
+   "title": "Yazdırmak, döndürmek değildir",
+   "prompt": "Bir fonksiyon kargo ücretini hesaplıyor ve sadece yazdırıyor, döndürmüyor. Sonucu ne olur?",
    "opts": [
-    "İki branch aynı satırları farklı şekilde değiştirdiğinde",
-    "Aynı depoda iki kişi çalıştığında her zaman",
-    "Branch ondan fazla commit içerdiğinde",
-    "Branch'lerden birinde yeni bir dosya oluşturulduğunda"
+    "Çağıran kod bu değeri başka hesaplamalarda kullanamaz",
+    "Hiçbir şey olmaz: yazdırmak ve döndürmek aynıdır",
+    "Fonksiyon daha hızlı olur",
+    "Değer otomatik olarak global olur"
    ],
-   "hint": "Git farklı yerlerdeki değişiklikleri kendisi birleştirir. Karar veremeyeceği şey nedir?",
-   "why": "Her iki sürüm de aynı yere dokunduysa Git hangisini seçeceğini bilemez ve insan kararı ister.",
-   "analogy": "İki kişi bir sözleşmenin aynı cümlesini yeniden yazdı. Noter tek başına seçmez: son ifadeyi belirlemek için her ikisi de çağrılır."
+   "hint": "Yazdırılan değer nereye gider? Döndürülen değer nereye gider?",
+   "why": "Yazdırmak, değeri ekrana gönderir ve başka bir şey yapmaz. Döndürmek ise değeri çağıran koda teslim eder; o kod bu değeri toplayabilir, saklayabilir veya başka yere aktarabilir.",
+   "analogy": "Yazdırmak, yemeği vitrinde göstermektir; döndürmek ise müşteriye teslim etmektir. Sadece vitrini gören kişi eli boş döner."
   },
-  "g5": {
-   "title": "İyi bir commit mesajı",
-   "prompt": "Bir yıl sonra geçmişi okuyan biri için en yararlı commit mesajı hangisidir?",
+  "f3": {
+   "title": "İçerideki x ve dışarıdaki x",
+   "prompt": "Program ne yazdırır?",
+   "hint": "Fonksiyon içinde oluşturulan değişken, dışarıdakiyle aynı mı?",
+   "why": "x = 99, sadece çağrı sırasında var olan yerel bir değişkendir. Dışarıdaki x hâlâ 10'dur.",
+   "analogy": "Fonksiyon, kendi yazı tahtası olan bir odadır. İçeriye yazılan, çıkarken silinir ve koridordaki tahtayı değiştirmez."
+  },
+  "f4": {
+   "title": "Ortalama için bir fonksiyon",
+   "prompt": "Listenin ortalamasını hesaplayan fonksiyonu ve sonucu yazdıran çağrıyı oluşturun.",
+   "hint": "Fonksiyonun içinde: toplamı sıfırla, döngüde biriktir ve ancak ondan sonra bölmeyi döndür.",
+   "why": "return, döngüden sonra gelir; aksi takdirde fonksiyon ilk turda çıkardı. Çağrı, tanımdan sonra gelir.",
+   "analogy": "Bir kek tarifi: önce tarifin adı, sonra adımlar sırayla ve servisi sadece en sonda yaparsın. Karıştırmanın ortasında servis edemezsin."
+  },
+  "f5": {
+   "title": "Argüman bir kopyadır",
+   "prompt": "Program ne yazdırır?",
+   "hint": "Fonksiyon, x değişkeninin kendisini mi yoksa değerinin bir kopyasını mı alır?",
+   "why": "Sayılar değer olarak geçirilir: n, x'in bir kopyasıdır. Fonksiyon içinde n'yi değiştirmek, hâlâ 5 olan x'i değiştirmez.",
+   "analogy": "Belgenin fotokopisini veriyorsun. Kopyanın üzerine istedikleri gibi karalayabilirler: çekmecedeki orijinal olduğu gibi kalır."
+  },
+  "k1": {
+   "title": "İndeksler sıfırdan başlar",
+   "prompt": "Program ne yazdırır?",
+   "hint": "İlk eleman 0 indeksindedir.",
+   "why": "İndeksler 0 (10), 1 (20) ve 2 (30).",
+   "analogy": "İndeks, kuyruğun önüne olan mesafedir: ilk kişi 0 adım uzakta, ikinci kişi 1 adım uzakta."
+  },
+  "k2": {
+   "title": "İki değişken, tek liste",
+   "prompt": "Program ne yazdırır?",
+   "hint": "İkinci değişken yeni bir koleksiyon mu, yoksa aynı koleksiyonun başka bir adı mı?",
+   "why": "Atama, koleksiyonu kopyalamaz: her iki isim de aynı veriyi gösterir. b üzerinden yapılan bir değişiklik a'da da görünür.",
+   "analogy": "a ve b aynı çekmecenin iki anahtarıdır. Kim b anahtarıyla bir şey koyarsa, a anahtarının bulacağını değiştirmiş olur."
+  },
+  "k3": {
+   "title": "Liste mi, sözlük mü",
+   "prompt": "Bay Antônio, bir kitabın kaç kopyası olduğunu başlığını yazarak öğrenmek istiyor. Hangi yapı en uygundur?",
    "opts": [
-    "Tam olarak R$ 50 tutarındaki alışverişlerde indirim hesaplamasını düzelt",
-    "ince ayarlar",
-    "bu sefer gerçekten son sürüm",
-    "Caio tarafından Cuma günü yapılan değişiklikler"
+    "Başlıktan miktara bir sözlük (eşleme)",
+    "Geliş sırasına göre miktarların listesi",
+    "Her kitap için bir değişken",
+    "Her şeyi virgülle ayrılmış tek bir metin"
    ],
-   "hint": "Mesaj, kodu açmaya gerek kalmadan neyin değiştiğini ve nedenini söylemelidir.",
-   "why": "İyi bir mesaj değişikliği ve nedenini açıklar. \"ince ayarlar\" bir davranışın ne zaman değiştiğini bulmaya yardımcı olmaz.",
-   "analogy": "Taşınma kutularındaki etiket gibidir: \"mutfak, kırılacak bardaklar\" sizi \"eşya\" yazan yirmi kutuyu açmaktan kurtarır."
+   "hint": "Arama konuma göre mi, isme göre mi yapılacak?",
+   "why": "Sözlük, anahtarı değere bağlar ve doğrudan anahtara göre arama yapar. Listede konumu bilmeniz veya her şeyi taramanız gerekirdi.",
+   "analogy": "Sözlük bir rehberdir: isme göre ararsın ve tüm listeyi okumadan telefon numarasını bulursun."
   },
-  "t1": {
-   "title": "Birim testi nedir",
-   "prompt": "Birim testi şunları kontrol eder:",
-   "opts": [
-    "Fonksiyon gibi küçük, izole bir kod birimini",
-    "Kullanıcı arayüzü üzerinden tüm sistemi",
-    "Sunucunun yoğun trafiği kaldırıp kaldıramayacağını",
-    "Müşterinin teslimattan memnun olup olmadığını"
-   ],
-   "hint": "İsmi ipucu veriyor: \"birim\" nedir?",
-   "why": "Birim testleri küçük, hızlı ve izoledir. Tüm sistem uçtan uca testtir; yoğun trafik yük testidir.",
-   "analogy": "Işık dizisini monte etmeden önce her ampulü test etmek gibidir. Daha sonra set arızalanırsa, ampullerin sorun olmadığını zaten bilirsiniz."
-  },
-  "t2": {
-   "title": "Test değerlerini seçmek",
-   "prompt": "Kural \"18'den itibaren\" geçerlidir. Fonksiyonu en iyi hangi girdi kümesi test eder?",
-   "hint": "Karşılaştırma hataları (> yerine >=) nerede saklanma eğilimindedir?",
-   "why": "Hatalar sınırlarda kümelenir. Sınırın hemen altını, tam sınırı ve hemen üstünü test etmek >= yerine > takasını ortaya çıkarır.",
-   "analogy": "Bir kapının iyi kapanıp kapanmadığını kontrol etmek için çerçeveye bakarsınız, duvarın ortasına değil."
-  },
-  "t3": {
-   "title": "Arrange, act, assert",
-   "prompt": "Fırın indirim testini arrange, act, assert'e göre kurun.",
-   "hint": "Önce veri, sonra test edilen fonksiyonun çağrısı ve en son kontrol.",
-   "why": "Test senaryoyu kurar, eylemi gerçekleştirir ve sonucu beklenenle karşılaştırır.",
-   "analogy": "Bir tarifi denemek gibidir: malzemeleri yerleştirin, pişirin ve ancak o zaman doğru olup olmadığını görmek için tadın."
-  },
-  "q3": {
-   "title": "İyi biçimlendirilmiş bir kullanıcı hikayesi",
-   "prompt": "Hangi seçenek kullanıcı hikayesi formatına uyar?",
-   "opts": [
-    "Bir hasta olarak, randevumu kaçırmamak için bir gün önce hatırlatma istiyorum",
-    "Hasta tablosunu hasta için yabancı anahtarla oluştur",
-    "Sistem ön uçta React kullanmalı",
-    "Randevu ekranı, sürüm 2"
-   ],
-   "hint": "Format şudur: Bir [rol] olarak, [eylem] istiyorum, böylece [fayda].",
-   "why": "Hikaye, teknik çözümü dikte etmeden kimin ihtiyaç duyduğunu, neye ihtiyaç duyduğunu ve nedenini söyler.",
-   "analogy": "Bir restoranda sipariş gibidir: müşteri, şefin hangi marka tavayı kullanması gerektiğini değil, doyurulacak yemeği ve açlığı belirtir."
-  },
-  "q4": {
-   "title": "\"Tıpkı bankanınki gibi\"",
-   "prompt": "Yönetici \"tıpkı bankanınki gibi bir uygulama\" istiyor. İlk adım ne olmalı?",
-   "opts": [
-    "Hangi günlük sorunu çözmek istediğini sormak",
-    "Hemen uygulamayı geliştirmeye başlamak",
-    "Reddetmek, çünkü uygulamalar pahalıdır",
-    "Teslim tarihini tahmin edip sonra konuşmak"
-   ],
-   "hint": "Bir çözüm tanımladı. Arkasındaki ihtiyaç ne?",
-   "why": "İstekler genellikle çözüm olarak gelir. Gerçek ihtiyacı (kaçırılan randevular) anlamak daha basit ve daha kullanışlı bir şeyi ortaya çıkarabilir.",
-   "analogy": "Hasta antibiyotik isteyerek gelir; iyi bir doktor önce ne hissettiğini sorar."
-  },
-  "q5": {
-   "title": "Kodlamadan önce doğrula",
-   "prompt": "Hangi teknik, kodlama yapılmadan önce klinik ön bürosuyla gereksinimleri doğrular?",
-   "opts": [
-    "Ekranların kağıt prototipini gösterip onları kullanırken izlemek",
-    "Bitmiş sistemi teslim edip şikayetleri toplamak",
-    "Gereksinim belgesini e-postayla gönderip beklemek",
-    "Sadece müdüre her şeyin yolunda olup olmadığını sormak"
-   ],
-   "hint": "Gerçek kullanıcıyı fikrin önüne koyan en ucuz seçeneği arayın.",
-   "why": "Düşük kaliteli prototipler dakikalar alır ve yanlış anlaşılmaları erken ortaya çıkarır, düzeltmek hala ucuzken.",
-   "analogy": "Bir terzi, dikişten önce iğnelerle prova yapar. Bir iğneyi oynatmak saniyeler alır; bir dikişi sökmek takım elbiseye mal olur."
-  },
-  "a1": {
-   "title": "Sprint nedir",
-   "prompt": "Scrum'da sprint:",
-   "opts": [
-    "Kullanılabilir bir artış sağlayan kısa, sabit uzunluklu döngü",
-    "Lansmandan önceki son test aşaması",
-    "15 dakikalık günlük toplantı",
-    "Tüm proje gereksinimlerini içeren belge"
-   ],
-   "hint": "Ritmi düşünün: sonunda teslimat olan tekrarlanan döngüler.",
-   "why": "Sprintler sabit bir uzunluğa sahiptir (genellikle 1 ila 4 hafta) ve çalışan ve değerlendirilebilen bir şeyle sona erer.",
-   "analogy": "Tıpkı bu oyun gibi: her 5 bilette bir durup teslim ettiğinize bakar ve rotayı ayarlarsınız, her şeyi sadece sonunda yargılamak yerine."
-  },
-  "a2": {
-   "title": "Daily ne içindir",
-   "prompt": "Günlük toplantının amacı nedir?",
-   "opts": [
-    "Ekibi senkronize etmek ve engelleri ortaya çıkarmak",
-    "Yönetime bireysel rapor vermek",
-    "Her görevin teknik çözümünü detaylandırmak",
-    "Tüm ürün iş listesini yeniden planlamak"
-   ],
-   "hint": "Yaklaşık 15 dakika sürer. Bu süreye ne sığar?",
-   "why": "Daily, ekibi sprint hedefine doğru hizalar ve engelleri erken ortaya çıkarır. Uzun tartışmalar daha sonra, sadece ilgililerle devam eder.",
-   "analogy": "Takımın devre arasında hızlı toplanmasıdır: kim kimi marke ediyor ve sorun nerede. Tüm takım konuşması başka bir an içindir."
-  },
-  "a3": {
-   "title": "Kayıt MVP'si",
-   "prompt": "Okul için iyi bir MVP ne olurdu?",
-   "opts": [
-    "Uçtan uca çalışan çevrimiçi kayıt, karne ve yemek olmadan",
-    "Tüm ekranlar tasarlandı ancak hiçbiri çalışmıyor",
-    "Altı ayda teslim edilen eksiksiz sistem",
-    "Sadece veritabanı, hiç ekran yok"
-   ],
-   "hint": "MVP, gerçek kullanıcılar için temel sorunu zaten çözen en küçük sürümdür.",
-   "why": "MVP, küçük ölçekte uçtan uca değer sağlar ve geri kalanına yatırım yapmadan önce gerçek kullanımdan öğrenmenizi sağlar.",
-   "analogy": "A'dan B'ye gitmek isteyen biri önce bir tekerlek sonra bir şasi almaz. Önce kaykay, sonra bisiklet, sonra araba alır: her aşama onları zaten hareket ettirir."
-  },
-  "a4": {
-   "title": "Sprint'e sığmayacak",
-   "prompt": "Sprint bitimine iki gün kala ekip her şeyi teslim edemeyeceğini fark eder. En iyi hamle nedir?",
-   "opts": [
-    "Kaliteyi koruyarak kapsamı Ürün Sahibi ile yeniden müzakere etmek",
-    "Her şeyi teslim etmek için testleri atlamak",
-    "Kimseye söylemeden sprint'i uzatmak",
-    "Sığana kadar sessizce fazla mesai yapmak"
-   ],
-   "hint": "Çevikte son tarih ve kalite sabittir. Esnek olan nedir?",
-   "why": "Kapsam ayar değişkenidir. Kaliteyi düşürmek teknik borç yaratır ve sorunu gizlemek şeffaflığı bozar.",
-   "analogy": "Dolu bir restoran: her masaya çiğ tavuk servis etmektense bu akşam menüden bir yemeği çıkarmak daha iyidir."
-  },
-  "a5": {
-   "title": "Her şey başladı, hiçbir şey bitmedi",
-   "prompt": "Ekip panosunda 3 kişi için 12 görev \"devam ediyor\" durumda ve hiçbir şey bitmiyor. Hangi Kanban uygulaması bunu ele alır?",
-   "opts": [
-    "Devam eden işi sınırlamak (WIP)",
-    "Panoya daha fazla sütun eklemek",
-    "Daha uzun toplantılar yapmak",
-    "Sprint'i daha uzun yapmak"
-   ],
-   "hint": "Darboğaz başlamak değil; bitirmektir.",
-   "why": "WIP'i sınırlamak, bitirmeden başlamayı zorlar, bağlam değiştirmeyi azaltır ve darboğazları görünür kılar.",
-   "analogy": "Dört gözlü ocakta 12 tencere: hiçbir şey düzgün pişmez. Dört yemeği bitirip sonra sonrakileri koymak daha iyidir."
+  "k4": {
+   "title": "Sondan bir sonrası",
+   "prompt": "Döngü, var olmayan bir konuma erişmeye çalışıyor. Hangi satır soruna neden olur?",
+   "hint": "3 elemanla en büyük geçerli indeks nedir?",
+   "why": "Döngü 0, 1, 2 ve 3 indekslerini üretir, ancak 3 yoktur. Doğru sınır, koleksiyonun boyutudur, bu sınıra dahil değildir.",
+   "analogy": "Bu, çit direği hatasıdır: 3 tahtalı bir çitte 4'e kadar sayan kişi, orada olmayan bir tahtayı çakmaya çalışır."
   },
   "xa2": {
    "title": "Sonucu sıfır çıkan sayım",
@@ -1115,102 +925,195 @@ LANG.tr = {
    "why": "Başarısızlıklar çalışma sistemine aittir, tek bir kişiye değil. Regresyon testi hatanın geri dönmesini engeller ve süreç değişikliği durumun tekrarlanmasını engeller.",
    "analogy": "Havacılıkta her olay bir soruşturmaya ve daha iyi bir prosedüre dönüşür, cadı avına değil. Bu yüzden uçmak bu kadar güvenli hale geldi."
   },
-  "t4": {
-   "title": "Her şey yeşil, sıfır hata mı?",
-   "prompt": "200 testin tamamı geçti ve kapsama %100. Yazılımın hatasız olduğunu iddia edebilir misiniz?",
+  "g1": {
+   "title": "Commit nedir?",
+   "prompt": "Bir Git commit'i:",
    "opts": [
-    "Hayır: testler hataların varlığını ortaya çıkarır, yokluğunu kanıtlamaz",
-    "Evet: %100 kapsama bunu garanti eder",
-    "Evet, testler birim testi olduğu sürece",
-    "Hayır, çünkü 200 test çok az; 1000 test yeterli olurdu"
+    "Projenin o andaki durumunun bir mesajla birlikte kaydıdır",
+    "Dosyaları sunucuya yüklemektir",
+    "Başka bir klasöre alınan yedek kopyadır",
+    "Eski sürümleri silmektir"
    ],
-   "hint": "Kapsama, çalıştırılan satırları ölçer, doğrulanan durumları değil.",
-   "why": "Kapsama satırların çalıştığını söyler, her girdi kombinasyonunun ve gereksinimin kontrol edildiğini değil. Dijkstra'nın klasik sözüdür.",
-   "analogy": "Sessiz bir duman alarmı şu anda duman olmadığı anlamına gelir, tüm evin kablolamasının sağlam olduğu anlamına değil."
+   "hint": "Sunucuya göndermek farklı bir komuttur (push).",
+   "why": "Bir commit, değişikliklerin yazar, tarih ve mesaj bilgisiyle yerel bir anlık görüntüsünü kaydeder. Uzak sunucuya gönderme işlemi daha sonra push ile yapılır.",
+   "analogy": "Oyundaki bir kayıt noktasıdır: patron seni yense bile tam o ana geri dönebilirsin."
   },
-  "t5": {
-   "title": "İndirim hatası geri dönmemeli",
-   "prompt": "R$ 50 hatasının nedenini buldunuz. En iyi sıralama nedir?",
+  "g2": {
+   "title": "Bir düzeltmeyi yayınlamak",
+   "prompt": "Bir dal oluşturmak, değişikliği kaydetmek ve uzak depoya göndermek için komutları sıralayın.",
+   "hint": "Önce çalışma alanı, sonra hazırlama (add), kaydetme (commit) ve gönderme (push).",
+   "why": "Dalı değişiklikten önce oluşturursun; add neyin dahil edileceğini seçer; commit kaydeder; push yayınlar.",
+   "analogy": "Paket göndermek gibidir: kutu alın (branch), eşyaları içine koyun (add), mühürleyip etiketleyin (commit) ve ancak ondan sonra postaneye götürün (push)."
+  },
+  "g3": {
+   "title": "Bir dalın amacı nedir?",
+   "prompt": "Bia neden yeni indirim ekranı için bir dal oluşturmalı?",
    "opts": [
-    "Hatası yeniden üreten bir test yaz, düzelt ve testi sakla",
-    "Doğrudan üretimde düzelt ve Dona Lúcia'ya söyle",
-    "Düzelt ve bir kez elle test et",
-    "Sonra hatırlamak için hatayı bir belgeye yaz"
+    "Ana hattı etkilemeden yalıtılmış şekilde çalışmak için",
+    "Depoyu daha hızlı yapmak için",
+    "Git, main üzerinde commit yapmayı yasakladığı için",
+    "Eski geçmişi silmek için"
    ],
-   "hint": "Altı ay sonra kimsenin aynı hatayı yeniden eklemeyeceğinden nasıl emin olursunuz?",
-   "why": "Bir regresyon testi düzeltmeden önce başarısız olur, sonra geçer ve sonsuza dek nöbet tutar.",
-   "analogy": "Bir aşı gibidir: sistem istilacıyla bir kez karşılaşır ve geri gelmeye çalıştığı her seferde onu tanır."
+   "hint": "Bitmemiş kod doğrudan main'e giderse ne olacağını düşünün.",
+   "why": "Bir dal, devam eden çalışmayı yalıtır. Değişiklik gözden geçirilip entegre edilene kadar main kararlı kalır.",
+   "analogy": "Bir belgenin taslağı gibidir: serbestçe denersin ve yalnızca metin iyi olduğunda orijinaline kopyalarsın."
   },
-  "d1": {
-   "title": "Her şeyi yapan sınıf",
-   "prompt": "Report sınıfı toplamları hesaplıyor, PDF'i oluşturuyor ve e-postayı gönderiyor. Hangi prensibi ihlal ediyor?",
+  "g4": {
+   "title": "Birleştirme neden çakıştı?",
+   "prompt": "Birleştirme çakışması ne zaman gerçekleşir?",
    "opts": [
-    "Tek sorumluluk (SRP)",
-    "Liskov yerine geçme (LSP)",
-    "Bağımlılık tersine çevirme (DIP)",
-    "Hiçbiri: her şeyi bir arada tutmak bakımı kolaylaştırır"
+    "İki dal aynı satırları farklı şekillerde değiştirdiğinde",
+    "Aynı depoda iki kişi çalıştığında her zaman",
+    "Dalda ondan fazla commit olduğunda",
+    "Dallardan birinde yeni bir dosya oluşturulduğunda"
    ],
-   "hint": "Bu sınıfı değiştirmek için kaç farklı neden var?",
-   "why": "Hesaplama kuralı, PDF düzeni veya posta sunucusu değişirse sınıf değişir. Üç neden üç sorumluluğa işaret eder.",
-   "analogy": "İsviçre çakısı kamp yaparken kullanışlıdır, ancak profesyonel bir mutfakta her bıçağın bir işi vardır ve birini bilemek diğerlerini bozmaz."
+   "hint": "Farklı yerlerdeki değişiklikleri Git kendisi birleştirir. Ne zaman karar veremez?",
+   "why": "Her iki sürüm de aynı noktaya dokunduysa Git hangisini seçeceğini bilemez ve insan kararı ister.",
+   "analogy": "Bir sözleşmenin aynı cümlesini iki kişi yeniden yazmıştır. Noter tek başına seçim yapmaz; son ifadeyi kararlaştırmak için ikisi de çağrılır."
   },
-  "d2": {
-   "title": "300 satırlık bir fonksiyon",
-   "prompt": "Ücretlendirme fonksiyonu aynı doğrulama bloğunu üç yerde tekrarlıyor. En iyi yeniden düzenleme nedir?",
+  "g5": {
+   "title": "İyi bir commit mesajı",
+   "prompt": "Bir yıl sonra geçmişi okuyan biri için en yararlı commit mesajı hangisidir?",
    "opts": [
-    "Tekrarlanan bloğu açıkça adlandırılmış bir fonksiyona çıkar",
-    "Her tekrarlamayı açıklayan yorumlar ekle",
-    "Dosyayı ikiye böl, fonksiyonu koru",
-    "Olduğu gibi bırak, çünkü çalışıyor"
+    "Tam olarak 50 R$ tutarındaki satın alımlarda indirim hesaplamasını düzelt",
+    "ince ayarlar",
+    "bu sefer gerçekten son sürüm",
+    "Caio tarafından Cuma günü yapılan değişiklikler"
    ],
-   "hint": "DRY prensibini düşünün: kendini tekrarlama.",
-   "why": "Bir fonksiyon çıkarmak tekrarı ortadan kaldırır: düzeltme yalnızca bir yerde yapılır ve ad niyeti belgeler.",
-   "analogy": "Her mektuba adresi yeniden yazmak yerine bir kaşe yaparsınız. Adres değişti mi? Tüm mektupları değil, kaşeyi değiştirin."
+   "hint": "Mesaj, kodu açmayı gerektirmeden neyin ve neden değiştiğini söylemelidir.",
+   "why": "İyi bir mesaj değişikliği ve nedenini açıklar. \"ince ayarlar\" davranışın ne zaman değiştiğini bulmayı kolaylaştırmaz.",
+   "analogy": "Taşınma kutularındaki etiket gibidir: \"mutfak, kırılabilir bardaklar\" size \"ıvır zıvır\" yazan yirmi kutuyu açtırmaz."
   },
-  "d3": {
-   "title": "Uyum ve bağlaşım",
-   "prompt": "İyi bir modül tasarımında hedefiniz:",
+  "t1": {
+   "title": "Birim testi nedir?",
+   "prompt": "Birim testi şunu kontrol eder:",
    "opts": [
-    "Yüksek uyum ve düşük bağlaşım",
-    "Düşük uyum ve yüksek bağlaşım",
-    "Yüksek uyum ve yüksek bağlaşım",
-    "Testler geçtiği sürece fark etmez"
+    "Fonksiyon gibi küçük, yalıtılmış bir kod birimini",
+    "Kullanıcı arayüzü üzerinden tüm sistemi",
+    "Sunucunun ağır trafiği kaldırıp kaldıramayacağını",
+    "Müşterinin teslimattan memnun olup olmadığını"
    ],
-   "hint": "Uyum modülün iç odağıdır; bağlaşım başkalarına ne kadar bağımlı olduğudur.",
-   "why": "Birbirine az bağımlı odaklanmış modüller tek başına anlaşılabilir, test edilebilir ve değiştirilebilir.",
-   "analogy": "LEGO tuğlaları: her birinin iyi tanımlanmış bir şekli (uyum) ve basit, standart bir bağlantı noktası vardır (düşük bağlaşım)."
+   "hint": "İpucu isminde gizli: \"birim\" nedir?",
+   "why": "Birim testleri küçük, hızlı ve yalıtılmıştır. Tüm sistem uçtan uca testtir; ağır trafik yük testidir.",
+   "analogy": "Işık zincirini monte etmeden önce her ampulü tek tek test etmek gibidir. Daha sonra set arızalanırsa, ampullerin sorun olmadığını zaten bilirsin."
   },
-  "d4": {
-   "title": "Ödemelerde bir \"if\" daha",
-   "prompt": "Her yeni ödeme yöntemi bu fonksiyonu düzenlemek anlamına geliyor. Hangi tasarım değişikliği bunu en iyi çözer?",
+  "t2": {
+   "title": "Test değerlerini seçmek",
+   "prompt": "Kural \"18'den itibaren\" geçerlidir. Fonksiyonu en iyi test eden girdi kümesi hangisidir?",
+   "hint": "Karşılaştırma hataları (> yerine >= gibi) nerede saklanır?",
+   "why": "Hatalar genellikle sınır değerlerde kümelenir. Sınırın hemen altını, tam sınırı ve hemen üstünü test etmek >= yerine > kullanımını ortaya çıkarır.",
+   "analogy": "Bir kapının iyi kapanıp kapanmadığını kontrol etmek için duvarın ortasına değil, çerçevesine bakarsın."
+  },
+  "t3": {
+   "title": "Düzenle, eyleme geç, doğrula",
+   "prompt": "Fırın indirimi testini düzenle-eyleme geç-doğrula mantığına göre kurun.",
+   "hint": "Önce veriler, sonra test edilen fonksiyonun çağrısı ve en sonunda kontrol.",
+   "why": "Test senaryoyu kurar, eylemi gerçekleştirir ve sonucu beklenenle karşılaştırır.",
+   "analogy": "Bir tarifi denemek gibidir: malzemeleri dizin, pişirin ve ancak ondan sonra doğru olup olmadığını görmek için tadın."
+  },
+  "q3": {
+   "title": "İyi yazılmış bir kullanıcı hikayesi",
+   "prompt": "Hangi seçenek kullanıcı hikayesi formatına uyuyor?",
    "opts": [
-    "Bir Payment arayüzü ve her yöntem için bir uygulama oluştur",
-    "Yeni \"if\"i ve bir yorum ekle",
-    "Her ödeme yöntemi için fonksiyonun tamamını kopyala",
-    "Koşullar zincirini bir while döngüsüyle değiştir"
+    "Bir hasta olarak, randevumdan bir gün önce hatırlatma istiyorum, böylece randevumu kaçırmam",
+    "Hasta tablosunu, hastaya yabancı anahtar ile oluştur",
+    "Sistem ön yüzde React kullanmalı",
+    "Randevu ekranı, sürüm 2"
    ],
-   "hint": "Açık/kapalı prensibi: genişletmeye açık, değişikliğe kapalı.",
-   "why": "Çok biçimlilikle (Strateji deseni), yeni bir ödeme yöntemi yeni bir modül olur, zaten çalışan ve test edilmiş koda dokunmadan.",
-   "analogy": "Standart priz gibidir: her yeni cihaz duvarı kırıp kablolamayı yeniden yapmadan takılır."
+   "hint": "Format şudur: Bir [rol] olarak, [eylem] istiyorum, böylece [fayda].",
+   "why": "Hikaye, teknik çözümü dikte etmeden kimin ihtiyacı olduğunu, neye ihtiyaç duyduğunu ve nedenini söyler.",
+   "analogy": "Bu, restoranda verilen bir sipariştir: müşteri, aşçının kullanması gereken tava markasını değil, yemeği ve gidermek istediği açlığı söyler."
   },
-  "d5": {
-   "title": "Sınıfa kaynaklanmış veritabanı",
-   "prompt": "Order sınıfı belirli bir MySQL veritabanına kendi bağlantısını oluşturuyor. Bu neyi zorlaştırır ve nasıl düzeltirsiniz?",
+  "q4": {
+   "title": "\"Bankanınki gibi\"",
+   "prompt": "Müdür, \"bankanınki gibi bir uygulama\" istiyor. En iyi ilk adım nedir?",
    "opts": [
-    "Test etmeyi ve veritabanını değiştirmeyi; bağımlılığı hazır olarak, bir arayüz aracılığıyla al",
-    "Hiçbir şey; bağlantıyı içeride oluşturmak en derli toplu yoldur",
-    "Hızı; daha güçlü bir sunucuyla düzelt",
-    "Okunabilirliği; daha fazla yorumla düzelt"
+    "Hangi günlük sorunu çözmek istediğini sormak",
+    "Hemen uygulamayı geliştirmeye başlamak",
+    "Reddetmek, çünkü uygulamalar pahalıdır",
+    "Teslim tarihini tahmin etmek ve sonra konuşmak"
    ],
-   "hint": "Order'ı çalışan bir MySQL olmadan nasıl test edersiniz?",
-   "why": "Somut bağımlılığı içeride oluşturmak sınıfı ona bağlar. Bağımlılık enjeksiyonuyla sınıf bir arayüzü karşılayan bir şey alır ve testlerde bir vekil alır.",
-   "analogy": "Ampulü kaynaklanmış bir lamba: yandığında her şeyi atarsınız. Standart bir duy ile yalnızca ampulü değiştirirsiniz, hatta bir test ampulüyle bile."
+   "hint": "Bir çözüm tanımladı. Arkasındaki ihtiyaç ne?",
+   "why": "İstekler genellikle çözüm olarak gelir. Gerçek ihtiyacı (kaçırılan randevular) anlamak, daha basit ve daha kullanışlı bir şey ortaya çıkarabilir.",
+   "analogy": "Hasta antibiyotik isteyerek gelir; iyi bir doktor önce ne hissettiğini sorar."
   },
-  "xa1": {
-   "title": "İndirimli toplam",
-   "prompt": "50 veya daha fazla satışa %10 indirim uygulanıyor (tam sayı kısmı). Program ne yazdırır?",
-   "why": "12, 12 kalır; 55, 50 olur; 50, 45 olur; 8, 8 kalır. Toplam 115'tir. İndirim >= nedeniyle tam olarak 50'ye de uygulanır.",
-   "analogy": "Fişi satır satır kontrol etmek gibidir: yalnızca toplama bakan, indirimin hangi satırda geldiğini göremez."
+  "q5": {
+   "title": "Kodlamadan önce doğrula",
+   "prompt": "Hangi teknik, klinikteki ön büro ile kodlamadan önce gereksinimleri doğrular?",
+   "opts": [
+    "Ekranların kağıt prototipini gösterip onları kullanırken izlemek",
+    "Bitmiş sistemi teslim edip şikayetleri toplamak",
+    "Gereksinim belgesini e-posta ile gönderip beklemek",
+    "Sadece müdüre her şeyin yolunda olup olmadığını sormak"
+   ],
+   "hint": "Gerçek kullanıcıyı fikrin önüne koyan en ucuz seçeneği ara.",
+   "why": "Düşük kaliteli prototipler dakikalar alır ve yanlış anlamaları düzeltmek hâlâ ucuzken erken ortaya çıkarır.",
+   "analogy": "Terzi, provayı dikişten önce iğnelerle yapar. Bir iğneyi hareket ettirmek saniyeler alır; dikişi sökmek takım elbiseye mal olur."
+  },
+  "a1": {
+   "title": "Sprint nedir",
+   "prompt": "Scrum'da sprint:",
+   "opts": [
+    "Kullanılabilir bir artış sağlayan kısa, sabit uzunluklu döngü",
+    "Yayınlanmadan önceki son test aşaması",
+    "15 dakikalık günlük toplantı",
+    "Tüm proje gereksinimlerinin olduğu belge"
+   ],
+   "hint": "Ritim düşün: sonunda teslimat olan tekrarlanan döngüler.",
+   "why": "Sprintler sabit uzunluktadır (genellikle 1 ila 4 hafta) ve çalışan, değerlendirilebilen bir şeyle biter.",
+   "analogy": "Tıpkı bu oyun gibi: her 5 görevde durur, ne teslim ettiğine bakar ve rotayı düzeltirsin, her şeyi sadece sonda yargılamak yerine."
+  },
+  "a2": {
+   "title": "Günlük toplantı ne işe yarar",
+   "prompt": "Günlük toplantının amacı nedir?",
+   "opts": [
+    "Takımı senkronize etmek ve engelleri ortaya çıkarmak",
+    "Yönetime bireysel rapor vermek",
+    "Her görevin teknik çözümünü detaylandırmak",
+    "Tüm ürün birikimini yeniden planlamak"
+   ],
+   "hint": "Yaklaşık 15 dakika sürer. Bu süreye ne sığar?",
+   "why": "Günlük toplantı, takımı sprint hedefine hizalar ve engelleri erken ortaya çıkarır. Uzun tartışmalar daha sonra, sadece ilgililerle devam eder.",
+   "analogy": "Bu, takımın devre arasındaki hızlı toplantısıdır: kim kimi marke ediyor ve sorun nerede. Tüm takımın konuşması başka bir an içindir."
+  },
+  "a3": {
+   "title": "Kayıt MVP'si",
+   "prompt": "Okul için iyi bir MVP ne olurdu?",
+   "opts": [
+    "Uçtan uca çalışan çevrimiçi kayıt, karne veya yemek olmadan",
+    "Tüm ekranlar tasarlanmış ama hiçbiri çalışmıyor",
+    "Altı ayda teslim edilecek komple sistem",
+    "Sadece veritabanı, hiç ekran yok"
+   ],
+   "hint": "MVP, gerçek kullanıcılar için temel sorunu zaten çözen en küçük sürümdür.",
+   "why": "MVP, küçük ölçekte uçtan uca değer sağlar ve geri kalanına yatırım yapmadan önce gerçek kullanımdan öğrenmenizi sağlar.",
+   "analogy": "A noktasından B noktasına gitmek isteyen birine önce tekerlek, sonra şasi verilmez. Önce kaykay, sonra bisiklet, sonra araba alır: her aşamada zaten hareket eder."
+  },
+  "a4": {
+   "title": "Sprint'e sığmayacak",
+   "prompt": "Sprint bitmeden iki gün önce ekip her şeyi teslim edemeyeceğini fark ediyor. En iyi hamle nedir?",
+   "opts": [
+    "Ürün Sahibi ile kapsamı yeniden müzakere etmek, kaliteyi koruyarak",
+    "Her şeyi teslim etmek için testleri atlamak",
+    "Kimseye söylemeden sprinti uzatmak",
+    "Sığana kadar sessizce fazla mesai yapmak"
+   ],
+   "hint": "Çevikte son tarih ve kalite sabittir. Esnek olan nedir?",
+   "why": "Kapsam, ayar değişkenidir. Kaliteyi düşürmek teknik borç yaratır ve sorunu gizlemek şeffaflığı bozar.",
+   "analogy": "Dolu bir restoran: her masaya çiğ tavuk servis etmektense bu gece menüden bir yemeği çıkarmak daha iyidir."
+  },
+  "a5": {
+   "title": "Her şey başladı, hiçbir şey bitmedi",
+   "prompt": "Ekip panosunda 3 kişi için 12 görev \"devam ediyor\" durumunda ve hiçbir şey bitmiyor. Hangi Kanban uygulaması bunu çözer?",
+   "opts": [
+    "Devam eden işi sınırlamak (WIP)",
+    "Panoya daha fazla sütun eklemek",
+    "Daha uzun toplantılar yapmak",
+    "Sprinti daha uzun yapmak"
+   ],
+   "hint": "Darboğaz başlamakta değil; bitirmekte.",
+   "why": "WIP'i sınırlamak, başlamadan önce bitirmeyi zorlar, bağlam değiştirmeyi azaltır ve darboğazları görünür yapar.",
+   "analogy": "Dört gözlü ocakta 12 tencere: hiçbir şey düzgün pişmez. Dört yemeği bitirip sonra sonrakileri koymak daha iyidir."
   },
   "o2": {
    "title": "Üretime giden yol",
@@ -1269,231 +1172,328 @@ LANG.tr = {
    "why": "Kırmızı bir derlemede yeni kusurlar ilk hatanın arkasına gizlenerek sızar. Derlemeyi düzeltmek tüm ekibin önceliği haline gelir; testi devre dışı bırakmak yalnızca gösterge panelindeki ışığı kapatır.",
    "analogy": "Gösterge panelindeki yağ lambasıdır: üzerini bantlamak motoru tamir etmez."
   },
-  "q6": {
-   "title": "Gereksinim triyajı",
-   "prompt": "Sağlık ocağı sisteminin her gereksinimini sınıflandırın.",
-   "bins": [
-    "Fonksiyonel",
-    "Fonksiyonel olmayan"
-   ],
-   "cards": [
-    "Randevudan bir gün önce hastaya hatırlatma gider",
-    "Sistem zamanın %99'unda kullanılabilir",
-    "Resepsiyonist randevuları yeniden planlar",
-    "Hasta verileri şifreli saklanır"
-   ],
-   "hint": "Her karta sorun: Bu, sistemin YAPTIĞI bir şey mi, yoksa bunu yaparken sahip olduğu bir nitelik mi?",
-   "why": "Hatırlatma ve yeniden planlama davranıştır (fonksiyonel). Kullanılabilirlik ve şifreleme hizmetin niteliğidir (fonksiyonel olmayan) ve sorun olana kadar unutulma eğilimindedir.",
-   "analogy": "Menüde yemekler fonksiyonel kısımdır. Sıcak gelmesi, yirmi dakika içinde gelmesi ve temiz mutfaktan gelmesi fonksiyonel olmayan kısımdır: kimse sipariş etmez, herkes bekler."
-  },
-  "a6": {
-   "title": "Sprint ritmi",
-   "prompt": "Scrum sprint etkinliklerini sıraya koyun.",
-   "lines": [
-    "Planlama: Ekip sprinte sığacak işleri seçer",
-    "Günlük toplantılar ilerlemeyi izler",
-    "İnceleme: Artım kullanan kişilere gösterilir",
-    "Retrospektif: Ekip kendi sürecini iyileştirir"
-   ],
-   "hint": "Önce ne yapacağınıza karar verirsiniz; sonunda ürüne, sonra sürece bakarsınız.",
-   "why": "Sprint planlamayla açılır, günlüklerle devam eder, sonucu incelemede gösterir ve bir sonraki döngüyü besleyen retrospektifle kapanır.",
-   "analogy": "Bir yolculuk gibidir: rotayı planla, her gün haritayı kontrol et, varınca fotoğrafları göster ve bir dahaki sefere farklı yapacaklarınız konusunda anlaşın."
-  },
-  "g6": {
-   "title": "Çakışmayı çözmek",
-   "prompt": "Birleştirme çakışmasını güvenle çözme adımlarını sıraya koyun.",
-   "lines": [
-    "Güncellenmiş main'i dalınıza getirin",
-    "Çakışma olarak işaretlenen dosyaları açın",
-    "Bölüm bölüm hangi sürümün kalacağına karar verin",
-    "Bir şey bozulmadı mı diye testleri çalıştırın",
-    "Birleştirmeyi tamamlayan commit'i kaydedin"
-   ],
-   "hint": "Çakışma ancak iki sürüm karşılaşınca ortaya çıkar; commit ancak kontrol ettikten sonra gelir.",
-   "why": "Birleştirme çakışmaları ortaya çıkarır, karar insanidir ve bölüm bölüm verilir, testler son commit'ten önce kombinasyonun çalıştığını doğrular.",
-   "analogy": "İki editör aynı paragrafı değiştirdi: sürümler bir araya getirilir, sakin sakin okunur, bir ifade seçilir, tüm metin baştan sona okunur ve ancak ondan sonra baskıya gider."
-  },
-  "t6": {
-   "title": "TDD döngüsü",
-   "prompt": "Test güdümlü geliştirme döngüsünü sıraya koyun.",
-   "lines": [
-    "Başarısız olan bir test yazın",
-    "Testi geçiren minimum kodu yazın",
-    "Tüm testleri çalıştırıp her şeyin yeşil olduğunu görün",
-    "Testlerin koruması altında yeniden düzenleyin"
-   ],
-   "hint": "Kırmızı, yeşil, yeniden düzenle.",
-   "why": "Önce test gelir ve başarısız olur (kırmızı), minimum kod onu geçirir (yeşil), ancak ondan sonra yapı iyileştirilir, altta testlerin güvenlik ağı vardır.",
-   "analogy": "Terzi önce ölçüyü işaretler, sonra kumaşı ölçüye uyana kadar keser ve en son bitirme işini yapar, her ayarlamadan sonra ölçüyü kontrol eder."
-  },
-  "d6": {
-   "title": "Bağımlılık belirtileri",
-   "prompt": "Kooperatifin sisteminde gözlemlenen her durumu sınıflandırın.",
-   "bins": [
-    "Düşük bağımlılık",
-    "Yüksek bağımlılık"
-   ],
-   "cards": [
-    "Kargo hesaplaması fiyat tablosunu parametre olarak alır",
-    "Ekran doğrudan veritabanına erişir",
-    "Faturalama ödemelerle bir arayüz üzerinden konuşur",
-    "Kayıt formunu değiştirmek altı başka dosyada değişiklik gerektirir"
-   ],
-   "hint": "Sorun: Bu kısım değişirse, onunla birlikte kaç kısım daha değişmek zorunda kalır?",
-   "why": "Bağımlılıkları dışarıdan almak ve arayüzler üzerinden konuşmak parçaları izole eder. Doğrudan veritabanına konuşan ekran ve basamaklı değişiklikler parçaların birbirine bağlı olduğunu gösterir.",
-   "analogy": "Prizlere takılan cihazlar tek tek değiştirilir. Kabloları birbirine lehimlenmiş cihazlar, televizyonu değiştirmek için odayı sökmeye zorlar."
-  },
-  "m1": {
-   "title": "Kim, ne için kullanıyor",
-   "prompt": "Hangi diyagram sistemi kimin kullandığını ve her kişinin onunla ne yapabileceğini gösterir?",
+  "t4": {
+   "title": "Her şey yeşil, sıfır hata mı?",
+   "prompt": "200 testin tümü geçti ve kapsama %100. Yazılımın hatasız olduğunu iddia edebilir misin?",
    "opts": [
-    "Kullanım senaryosu diyagramı",
-    "Sınıf diyagramı",
-    "Dizi diyagramı",
-    "Dağıtım diyagramı"
+    "Hayır: testler hataların varlığını gösterir, yokluğunu kanıtlamaz",
+    "Evet: %100 kapsama bunu garanti eder",
+    "Evet, testler birim testi olduğu sürece",
+    "Hayır, çünkü 200 test çok az; 1000 test yeterli olurdu"
    ],
-   "hint": "İnsanlara (aktörler) ve hedeflere odaklanan görünümü arayın.",
-   "why": "Kullanım senaryoları aktörleri hedeflere bağlar: okur ödünç alır, gönüllü kaydeder. Sınıflar kavramları gösterir; diziler mesajların sırasını gösterir.",
-   "analogy": "Restoran menüsünün yemek salonundan görünüşüdür: mutfağı göstermeden, kimin ne sipariş edebileceğini gösterir."
+   "hint": "Kapsama, çalıştırılan satırları ölçer, doğrulanan durumları değil.",
+   "why": "Kapsama, satırların çalıştığını söyler; her girdi ve gereksinim kombinasyonunun kontrol edildiğini değil. Bu, Dijkstra'nın klasik sözüdür.",
+   "analogy": "Sessiz bir duman alarmı, şu anda duman olmadığını gösterir; tüm evin elektrik tesisatının sağlam olduğunu değil."
   },
-  "m2": {
-   "title": "Kitap ve kopya",
-   "prompt": "Kitap ile Kopya arasındaki ilişki nasıl modellenmelidir?",
+  "t5": {
+   "title": "İndirim hatası geri dönmemeli",
+   "prompt": "50 R$'lık hatanın nedenini buldun. En iyi sıra nedir?",
    "opts": [
-    "Bir Kitabın birden çok Kopyası vardır; her Kopya tek bir Kitaba aittir",
-    "Bir Kitabın tam olarak bir Kopyası vardır",
-    "Çok sayıda Kitap, çok sayıda Kopyaya",
-    "İlişki yok: aynı şeydirler"
+    "Hatayı yeniden oluşturan bir test yaz, düzelt ve testi sakla",
+    "Doğrudan üretim ortamında düzelt ve Dona Lúcia'ya söyle",
+    "Düzelt ve bir kez elle test et",
+    "Hatayı daha sonra hatırlamak için bir belgeye yaz"
    ],
-   "hint": "Kütüphanede Dom Casmurro'dan üç kopya var. Kaç başlık, kaç fiziksel nesne?",
-   "why": "Tek bir başlık vardır; raftaki nesneler birden fazladır. Ödünç alınan kitap değil, kopyadır. Bu çokluğu yanlış anlamak tüm veritabanını kirletir.",
-   "analogy": "Tarif tektir; ondan yapılan kekler çoktur. Tarifi değil, keki yersiniz."
+   "hint": "Altı ay sonra kimsenin aynı hatayı yeniden yapmayacağını nasıl sağlarsın?",
+   "why": "Regresyon testi düzeltmeden önce başarısız olur, sonra geçer ve sonsuza dek nöbet tutar.",
+   "analogy": "Aşı gibidir: sistem istilacıyla bir kez karşılaşır ve geri gelmeye her çalıştığında onu tanır."
   },
-  "m3": {
-   "title": "Yapı mı, davranış mı",
-   "prompt": "Her cümleyi sınıflandırın: modelin hangi görünümüne aittir?",
-   "bins": [
-    "Statik görünüm (sınıflar)",
-    "Dinamik görünüm (dizi)"
+  "d1": {
+   "title": "Her şeyi yapan sınıf",
+   "prompt": "Rapor sınıfı toplamları hesaplıyor, PDF'i oluşturuyor ve e-postayı gönderiyor. Hangi prensibi ihlal ediyor?",
+   "opts": [
+    "Tek sorumluluk (SRP)",
+    "Liskov ikamesi (LSP)",
+    "Bağımlılık tersine çevirme (DIP)",
+    "Hiçbiri: her şeyi bir arada tutmak bakımı kolaylaştırır"
    ],
-   "cards": [
-    "Okuyucunun adı ve telefon numarası vardır",
-    "Sistem bir kopyanın müsait olup olmadığını kontrol eder ve ardından ödüncü kaydeder",
-    "Bir Ödünç bir Kopyaya başvurur",
-    "Bir iade, bekleme listesindeki bir sonraki kişiye bildirim tetikler"
+   "hint": "Bu sınıfı değiştirmek için kaç farklı neden var?",
+   "why": "Hesaplama kuralı, PDF düzeni veya posta sunucusu değişirse sınıf değişir. Üç neden, üç sorumluluğa işaret eder.",
+   "analogy": "İsviçre çakısı kamp yaparken kullanışlıdır, ama profesyonel bir mutfakta her bıçağın kendi işi vardır; birini bilemek diğerlerini bozmaz."
+  },
+  "d2": {
+   "title": "300 satırlık bir fonksiyon",
+   "prompt": "Ücretlendirme fonksiyonu aynı doğrulama bloğunu üç yerde tekrarlıyor. En iyi yeniden düzenleme nedir?",
+   "opts": [
+    "Tekrarlanan bloğu açıkça adlandırılmış bir fonksiyona çıkar",
+    "Her tekrarı açıklayan yorumlar ekle",
+    "Dosyayı ikiye böl, fonksiyonu koru",
+    "Çalıştığı için olduğu gibi bırak"
    ],
-   "hint": "Statik ne var olduğunu tanımlar; dinamik ne olduğunu ve hangi sırada olduğunu tanımlar.",
-   "why": "Nitelikler ve ilişkiler yapıdır ve her zaman geçerlidir. Kontrol etme, kaydetme ve bildirme zaman içinde zincirlenmiş olaylardır.",
-   "analogy": "Kat planı odaları gösterir (statik); ziyaret senaryosu kişinin nerede ve hangi sırada yürüdüğünü gösterir (dinamik)."
+   "hint": "DRY prensibini düşün: kendini tekrar etme.",
+   "why": "Fonksiyon çıkarmak tekrarı giderir: düzeltme yalnızca bir yerde yapılır ve ad, amacı belgeler.",
+   "analogy": "Her mektuba adresi yeniden yazmak yerine kaşe yaparsın. Adres mi değişti? Kaşeyi değiştir, tüm mektupları değil."
+  },
+  "d3": {
+   "title": "Uyum ve bağlantı",
+   "prompt": "İyi bir modül tasarımında hedeflersin:",
+   "opts": [
+    "Yüksek uyum ve düşük bağlantı",
+    "Düşük uyum ve yüksek bağlantı",
+    "Yüksek uyum ve yüksek bağlantı",
+    "Testler geçtiği sürece önemi yok"
+   ],
+   "hint": "Uyum, modülün iç odağıdır; bağlantı, başkalarına ne kadar bağımlı olduğudur.",
+   "why": "Odaklanmış ve birbirine az bağımlı modüller tek başına anlaşılabilir, test edilebilir ve değiştirilebilir.",
+   "analogy": "LEGO parçaları: her birinin iyi tanımlanmış bir şekli (uyum) ve basit, standart bir bağlantısı (düşük bağlantı) vardır."
+  },
+  "d4": {
+   "title": "Ödemelerde bir \"if\" daha",
+   "prompt": "Her yeni ödeme yöntemi bu fonksiyonu düzenlemek anlamına geliyor. Hangi tasarım değişikliği bunu en iyi çözer?",
+   "opts": [
+    "Bir Ödeme arayüzü ve her yöntem için bir uygulama oluştur",
+    "Yeni \"if\"i ve bir yorum ekle",
+    "Her ödeme yöntemi için tüm fonksiyonu kopyala",
+    "Koşullar zincirini bir while döngüsüyle değiştir"
+   ],
+   "hint": "Açık/kapalı prensibi: genişlemeye açık, değişikliğe kapalı.",
+   "why": "Çok biçimlilikle (Strateji deseni), yeni ödeme yöntemi yeni bir modül olur; zaten çalışan ve test edilmiş koda dokunmadan.",
+   "analogy": "Standart elektrik prizidir: her yeni cihaz, duvarı kırıp tesisatı yeniden yapmadan takılır."
+  },
+  "d5": {
+   "title": "Sınıfa kaynaklanmış veritabanı",
+   "prompt": "Sipariş sınıfı belirli bir MySQL veritabanına kendi bağlantısını oluşturuyor. Bu neyi zorlaştırır ve nasıl düzeltirsin?",
+   "opts": [
+    "Test etmeyi ve veritabanını değiştirmeyi; bağımlılığı hazır olarak, bir arayüz üzerinden al",
+    "Hiçbir şey; bağlantıyı içeride oluşturmak en derli toplu yoldur",
+    "Hızı; daha güçlü bir sunucuyla düzelt",
+    "Okunabilirliği; daha fazla yorumla düzelt"
+   ],
+   "hint": "Sipariş'i çalışan bir MySQL olmadan nasıl test edersin?",
+   "why": "Somut bağımlılığı içeride oluşturmak sınıfı ona bağlar. Bağımlılık enjeksiyonuyla sınıf, bir arayüzü karşılayan bir şey alır; testlerde ise bir vekil alır.",
+   "analogy": "Ampulü kaynaklanmış bir lamba: ampul patlayınca her şeyi atarsın. Standart bir duy ile sadece ampulü değiştirirsin, hatta bir test ampulüyle."
+  },
+  "xa1": {
+   "title": "İndirimli toplam",
+   "prompt": "50 veya daha fazla satış %10 indirim alır (tamsayı kısmı). Program ne yazdırır?",
+   "why": "12, 12 olarak kalır; 55, 50 olur; 50, 45 olur; 8, 8 olarak kalır. Toplam 115'tir. >= nedeniyle indirim tam olarak 50'ye de uygulanır.",
+   "analogy": "Fişi satır satır kontrol etmektir: sadece toplama bakan, indirimin hangi satırda olduğunu göremez."
   },
   "m4": {
    "title": "Ödünç alma sırası",
-   "prompt": "\"Kitap ödünç alma\" sıra diyagramındaki mesajları sıraya koyun.",
+   "prompt": "\"Kitap ödünç alma\" sıralama diyagramındaki mesajları sıraya koy.",
    "lines": [
     "Okuyucu kitabı masada ister",
-    "Gönüllü başlığı sistemde arar",
+    "Görevli başlığı sistemde arar",
     "Sistem bir kopyanın müsait olup olmadığını kontrol eder",
     "Sistem ödünç almayı ve iade tarihini kaydeder",
-    "Gönüllü kopyayı okuyucuya verir"
+    "Görevli kopyayı okuyucuya verir"
    ],
-   "hint": "Her mesaj, bir önceki cevaplanmadan anlam kazanmaz.",
-   "why": "Sıra aktörle başlar, arama ve kontrolden geçer ve ancak müsaitlik doğrulandıktan sonra kayıt yapar. Fiziksel teslim akışı kapatır.",
-   "analogy": "Bu bir koreografidir: her adım bir öncekine cevap verir ve sıra değişirse dansçılar çarpışır."
+   "hint": "Her mesaj, bir önceki mesaj yanıtlandıktan sonra anlam kazanır.",
+   "why": "Sıralama aktörle başlar, arama ve kontrol üzerinden ilerler ve ancak müsaitlik onaylandıktan sonra kayıt yapılır. Fiziksel teslim akışı kapatır.",
+   "analogy": "Bu bir koreografidir: her adım bir öncekini yanıtlar ve sırayı değiştirmek dansçıların çarpışmasına neden olur."
   },
   "m5": {
-   "title": "Ne kadar modellemeli",
-   "prompt": "Ekip ilk satır kodu yazmadan önce 40 sınıfın tamamını ayrıntılı çizmek istiyor. En iyi yönlendirme nedir?",
+   "title": "Neyi modellemeli",
+   "prompt": "Ekip ilk kod satırını yazmadan önce 40 sınıfın tamamını ayrıntılı olarak çizmek istiyor. En iyi yönlendirme nedir?",
    "opts": [
-    "Ekibi hizalamak ve en riskli kısmı netleştirmek için gerekeni modelleyin; modeli kodla birlikte geliştirin",
-    "Her şeyi önce ayrıntılı modelleyin ki yeniden iş çıkmasın",
-    "Hiçbir şey modellemeyin: kod belgelemenin ta kendisidir",
-    "Herkes kendi modelini çizsin, sonra hepsi birleştirilir"
+    "Ekibi hizalamak için gerekeni ve en riskli kısmı modelle, modeli kodla birlikte geliştir",
+    "Yeniden iş olmaması için önce her şeyi ayrıntılı modelle",
+    "Hiçbir şey modelleme: kod belgelemenin kendisidir",
+    "Herkes kendi modelini çizsin, sonra hepsi birleştirilsin"
    ],
-   "hint": "Bir model, önlediği yanlış anlaşılma kadar değerlidir; kutu sayısı kadar değil.",
-   "why": "Fazla modelleme kullanılmadan bayatlar; az modelleme ise yanlış anlaşılmanın koda ulaşmasına izin verir. Doğru miktar, bir sonraki adımı güvenle kararlaştıracak kadardır.",
-   "analogy": "Bir yolculuk için rotayı planlar ve ilk oteli ayırtırsınız; onuncu gün öğle yemeğinde hangi masada oturacağınıza karar vermezsiniz."
+   "hint": "Bir model, önlediği yanlış anlama kadar değerlidir; kutu sayısı kadar değil.",
+   "why": "Çok fazla modelleme, kullanılmadan önce bayatlar; çok az modelleme ise yanlış anlamanın koda ulaşmasına izin verir. Doğru miktar, bir sonraki adıma güvenle karar vermeye yetecek kadardır.",
+   "analogy": "Bir yolculuk için rotayı planlar ve ilk oteli ayırtırsın; onuncu gün öğle yemeğini hangi masada yiyeceğine karar vermezsin."
   },
   "u1": {
-   "title": "Bir satır değiştirmek için iki gün",
-   "prompt": "Bia'nın, Caio'nun kodundaki bir satırı düzeltmesi iki gün sürdü. Hangi kalite özelliği eksiktir?",
+   "title": "Bir satırı değiştirmek için iki gün",
+   "prompt": "Bia'nın Caio'nun kodundaki bir satırı düzeltmesi iki gün sürdü. Hangi kalite özelliği eksik?",
    "opts": [
-    "Sürdürülebilirlik",
+    "Bakım yapılabilirlik",
     "Performans",
     "Kullanılabilirlik",
     "Taşınabilirlik"
    ],
-   "hint": "Program kullanıcı için çalışıyordu. Kimin için çalışmıyordu?",
-   "why": "Sürdürülebilirlik, yazılımı anlamanın, düzeltmenin ve geliştirmenin ne kadar kolay olduğudur. Kullanıcı için görünmezdir ve maliyet açısından belirleyicidir.",
-   "analogy": "Bir araba iyi çalışabilir ama yine de ampul değiştirmek için motoru sökmek gerekebilir. Tamirci çeker, fatura sahibine kalır."
+   "hint": "Program kullanıcı için çalışıyordu. Kimin için çalışmadı?",
+   "why": "Bakım yapılabilirlik, yazılımı anlamanın, düzeltmenin ve geliştirmenin ne kadar kolay olduğudur. Kullanıcıya görünmez ve maliyet açısından belirleyicidir.",
+   "analogy": "Bir araba iyi çalışabilir, ancak bir ampulü değiştirmek için motoru sökmek gerekebilir. Tamirci çeker, faturayı araç sahibi öder."
   },
   "u2": {
    "title": "İncelemede nasıl yorum yapılır",
    "prompt": "Hangi kod inceleme yorumu en faydalıdır?",
    "opts": [
-    "Bu döngü listede iki kez geçiyor; tek döngüde birleştirilebilir mi? Yardımcı olmaktan memnuniyet duyarım",
-    "Berbat kod, baştan yaz",
+    "Bu döngü listeyi iki kez geziyor; tek bir döngüde birleştirilebilir mi? İstersen yardımcı olabilirim",
+    "Berbat kod, yeniden yap",
     "Onaylandı (okumadan)",
     "Ben farklı yapardım"
    ],
-   "hint": "İyi bir yorum bir noktaya işaret eder, nedenini açıklar ve bir konuşma başlatır.",
-   "why": "Etkili bir inceleme spesifiktir, kişi yerine koddan bahseder ve ileriye dönük bir yol önerir. Okumadan onaylamak hiç incelememekten kötüdür: sahte güven yaratır.",
-   "analogy": "İyi bir editör cümleyi daire içine alır ve alternatif önerir; el yazmasını kapağına \"bu kötü\" yazarak geri vermez."
+   "hint": "İyi bir yorum, bir noktaya işaret eder, nedenini açıklar ve bir konuşma başlatır.",
+   "why": "Etkili bir inceleme spesifiktir, kişi yerine kod hakkında konuşur ve ileriye dönük bir yol önerir. Okumadan onaylamak, incelememekten daha kötüdür: sahte güvenlik yaratır.",
+   "analogy": "İyi bir metin editörü cümleyi daire içine alır ve başka bir öneride bulunur; el yazmasını kapağına \"bu kötü\" yazıp geri vermez."
   },
   "u3": {
-   "title": "Borcu ödemek mi, artırmak mı",
-   "prompt": "Her eylemi teknik borç açısından sınıflandırın.",
+   "title": "Borcu ödemek mi, borca eklemek mi",
+   "prompt": "Her eylemi teknik borç açısından sınıflandır.",
    "bins": [
     "Borcu öder",
-    "Borcu artırır"
+    "Borca ekler"
    ],
    "cards": [
-    "x1'i toplam_satis olarak yeniden adlandırmak",
+    "x1 değişkenini total_sales olarak yeniden adlandırmak",
     "Zaman kazanmak için bir fonksiyonu kopyalayıp yapıştırmak",
-    "Eski koda dokunmadan önce test yazmak",
+    "Eski koda dokunmadan önce testler yazmak",
     "Derleme geçsin diye statik analizör uyarısını kapatmak"
    ],
-   "hint": "Şunu sorun: Bu, bir sonraki değişikliği kolaylaştırır mı yoksa zorlaştırır mı?",
-   "why": "Açık isimler ve testler gelecekteki değişikliklerin maliyetini düşürür. Tekrarlama ve susturulmuş uyarılar, daha büyük geri dönecek sorunları gizler.",
-   "analogy": "Bu bir kredi kartıdır: taksit ödemek bu ayı çözer, ancak ileri atılan her taksit faiz ekler. Yeniden adlandırmak ve test etmek faturayı ödemektir."
+   "hint": "Kendine sor: bu, bir sonraki değişikliği kolaylaştırıyor mu, zorlaştırıyor mu?",
+   "why": "Açık isimler ve testler, gelecekteki değişikliklerin maliyetini düşürür. Kopyalama ve susturulan uyarılar, daha büyük geri dönen sorunları gizler.",
+   "analogy": "Bu bir kredi kartıdır: taksitli ödemek bu ayı çözer, ancak ileriye atılan her taksit faiz ekler. Yeniden adlandırmak ve test etmek faturayı ödemektir."
   },
   "u4": {
-   "title": "2.000 satırlık pull request",
-   "prompt": "İncelenmek üzere 2.000 değiştirilmiş satır içeren bir değişiklik geliyor. En iyi hareket tarzı nedir?",
+   "title": "2.000 satırlık çekme isteği",
+   "prompt": "İnceleme için 2.000 değiştirilmiş satırlık bir değişiklik geliyor. En iyi eylem nedir?",
    "opts": [
-    "Daha küçük, bağımsız değişikliklere ayrılmasını istemek",
-    "Hepsini tek seferde, aceleyle incelemek",
-    "Yazara güvenerek onaylamak",
-    "Nedenini açıklamadan reddetmek"
+    "Daha küçük, bağımsız değişikliklere bölünmesini iste",
+    "Hepsini aceleyle tek seferde incele",
+    "Yazara güvenerek onayla",
+    "Açıklama yapmadan reddet"
    ],
-   "hint": "İnceleyicinin dikkati birkaç yüz satırdan sonra keskin biçimde düşer.",
-   "why": "Küçük değişiklikler incelemede gerçek ilgi görür, daha erken birleştirilir ve geri almak kolaydır. Dev bir değişiklik okunmadan geçer.",
-   "analogy": "Kimse kapalı kamyona bakarak koca bir ev taşınmasını kontrol etmez. Kutu kutu bakarsanız neyin kırıldığını görürsünüz."
+   "hint": "İnceleyicinin dikkati birkaç yüz satırdan sonra keskin bir şekilde düşer.",
+   "why": "Küçük değişiklikler incelemede gerçek ilgi görür, daha erken birleştirilir ve geri alınması kolaydır. Dev bir değişiklik okunmadan geçer.",
+   "analogy": "Kimse kapalı kamyona bakarak bütün ev taşınmasını kontrol etmez. Kutu kutu bakarsan neyin kırıldığını görürsün."
   },
   "u5": {
    "title": "İlk nereye müdahale etmeli",
    "prompt": "Bir fonksiyonun döngüsel karmaşıklığı 35, test kapsamı yok ve her hafta değiştiriliyor. Öncelik nedir?",
    "opts": [
-    "Yüksek: önce testlerle kapsayın, sonra küçük parçalara bölün",
-    "Düşük: çalışıyorsa dokunmayın",
-    "Tüm sistemi sıfırdan yeniden yazın",
-    "Hiçbiri: metrikler bir anlam ifade etmez"
+    "Yüksek: önce testlerle kapla, sonra daha küçük parçalara böl",
+    "Düşük: çalışıyorsa dokunma",
+    "Bütün sistemi sıfırdan yeniden yaz",
+    "Hiçbiri: metrikler bir şey ifade etmez"
    ],
-   "hint": "Üç sinyali birleştirin: çok yol, hiç test, sık değişiklik.",
-   "why": "Risk, karmaşıklık çarpı kodun ne sıklıkta değiştiğidir. Önce test güvenlik ağı, sonra küçük adımlarla yeniden düzenleme; her şeyi yeniden yazmak bilinen bir riski birkaç bilinmeyen riskle takas eder.",
-   "analogy": "Tehlike, trafik ışığı olmayan kavşağın var olması değil, günde kaç kez birinin oradan geçtiğidir: herkesin yoğun saatte geçtiği o kavşaktır."
+   "hint": "Üç sinyali birleştir: çok sayıda yol, test yok, sık değişiklik.",
+   "why": "Risk, karmaşıklık ile kodun ne sıklıkta değiştiğinin çarpımıdır. Önce testlerin güvenlik ağı, sonra küçük adımlarla yeniden düzenleme; her şeyi yeniden yazmak bilinen bir riski birkaç bilinmeyen riskle değiştirir.",
+   "analogy": "Trafik ışığı olmayan ve herkesin yoğun saatte geçtiği kavşaktır: tehlike orada olmasında değil, günde kaç kez birinin oradan geçtiğindedir."
   },
   "o1": {
    "title": "CI ne yapar",
-   "prompt": "Sürekli entegrasyon her push'ta ne yapar?",
+   "prompt": "Sürekli entegrasyon her itmede ne yapar?",
    "opts": [
-    "Projeyi derler ve testleri otomatik çalıştırır; bir şey bozulursa uyarır",
+    "Projeyi sıfırdan derler ve testleri otomatik çalıştırır, bir şey bozuksa uyarır",
     "Test etmeden üretime dağıtır",
     "Sadece kodun yedek kopyasını alır",
     "Eski dalları siler"
    ],
-   "hint": "Her değişikliği gelir gelmez kontrol eden bir bekçi düşünün.",
-   "why": "CI projeyi sıfırdan derler ve her değişiklikte testleri çalıştırır. Değer, uyarının ne kadar hızlı geldiğindedir: haftalar değil dakikalar.",
-   "analogy": "Kapıdaki metal dedektörüdür: ay sonunda tüm binayı aramak yerine, içeri girerken herkesi kontrol eder."
+   "hint": "Her değişikliği gelir gelmez kontrol eden bir bekçi düşün.",
+   "why": "CI projeyi sıfırdan derler ve her değişiklikte testleri çalıştırır. Değer, uyarının ne kadar hızlı geldiğindedir: dakikalar, haftalar değil.",
+   "analogy": "Kapıdaki metal dedektörüdür: ay sonunda bütün binayı aramak yerine, içeri giren herkesi kontrol eder."
+  },
+  "q6": {
+   "title": "Gereksinim önceliklendirme",
+   "prompt": "Sağlık kliniği sisteminin her gereksinimini sınıflandır.",
+   "bins": [
+    "İşlevsel",
+    "İşlevsel olmayan"
+   ],
+   "cards": [
+    "Hasta randevudan bir gün önce hatırlatma alır",
+    "Sistem %99 oranında kullanılabilir durumdadır",
+    "Resepsiyonist randevuları yeniden planlar",
+    "Hasta verileri şifreli olarak saklanır"
+   ],
+   "hint": "Her karta sor: Bu sistemin YAPTIĞI bir şey mi, yoksa yapma biçimindeki bir kalite mi?",
+   "why": "Hatırlatma ve yeniden planlama davranışlardır (işlevsel). Kullanılabilirlik ve şifreleme hizmetin kaliteleridir (işlevsel olmayan) ve sorun haline gelene kadar unutulma eğilimindedirler.",
+   "analogy": "Bir menüde yemekler işlevsel kısımdır. Sıcak gelmesi, yirmi dakika içinde ve temiz bir mutfaktan gelmesi işlevsel olmayan kısımdır: kimse sipariş etmez, herkes bekler."
+  },
+  "a6": {
+   "title": "Bir sprintin ritmi",
+   "prompt": "Scrum sprint etkinliklerini sıraya koy.",
+   "lines": [
+    "Planlama: Ekip sprint'e sığacak işleri seçer",
+    "Günlük toplantılar ilerlemeyi takip eder",
+    "İnceleme: Artış, onu kullanan kişilere gösterilir",
+    "Retrospektif: Ekip kendi sürecini iyileştirir"
+   ],
+   "hint": "Önce ne yapacağına karar verirsin; sonunda önce ürüne, sonra sürece bakarsın.",
+   "why": "Sprint planlama ile açılır, günlüklerle devam eder, sonucu incelemede gösterir ve bir sonraki döngüyü besleyen retrospektif ile kapanır.",
+   "analogy": "Bir yolculuk gibidir: rotayı planla, her gün haritayı kontrol et, varınca fotoğrafları göster ve bir dahaki sefere neyi farklı yapacağın konusunda anlaş."
+  },
+  "g6": {
+   "title": "Bir çakışmayı çözme",
+   "prompt": "Bir birleştirme çakışmasını güvenle çözmek için adımları sıraya koy.",
+   "lines": [
+    "Güncellenmiş main dalını kendi dalına getir",
+    "Çakışma işaretli dosyaları aç",
+    "Bölüm bölüm hangi sürümün kalacağına karar ver",
+    "Bir şeyin bozulmadığını kontrol etmek için testleri çalıştır",
+    "Birleştirmeyi tamamlayan commit'i kaydet"
+   ],
+   "hint": "Çakışma yalnızca iki sürüm karşılaştığında ortaya çıkar; commit yalnızca kontrol ettikten sonra gelir.",
+   "why": "Birleştirme çakışmaları ortaya çıkarır, karar insanidir ve bölüm bölüm verilir ve testler son commit'ten önce birleşimin çalıştığını doğrular.",
+   "analogy": "İki editör aynı paragrafı değiştirdi: sürümler bir araya getirilir, sakince okunur, bir ifade seçilir, tüm metin düzeltilir ve ancak o zaman baskıya gönderilir."
+  },
+  "t6": {
+   "title": "TDD döngüsü",
+   "prompt": "Test güdümlü geliştirme döngüsünü sıraya koy.",
+   "lines": [
+    "Başarısız olan bir test yaz",
+    "Testi geçirecek minimum kodu yaz",
+    "Tüm testleri çalıştır ve her şeyin yeşil olduğunu gör",
+    "Testlerin koruması altında yeniden düzenle"
+   ],
+   "hint": "Kırmızı, yeşil, yeniden düzenle.",
+   "why": "Test önce gelir ve başarısız olur (kırmızı), minimum kod onu geçirir (yeşil) ve ancak ondan sonra yapı iyileştirilir, altta testlerin güvenlik ağı vardır.",
+   "analogy": "Bir terzi önce ölçüyü işaretler, sonra kumaşı uyana kadar keser ve en sonunda bitirir, her ayarlamadan sonra ölçüyü kontrol eder."
+  },
+  "d6": {
+   "title": "Bağlaşıklık belirtileri",
+   "prompt": "Kooperatifin sisteminde gözlemlenen her durumu sınıflandır.",
+   "bins": [
+    "Düşük bağlaşıklık",
+    "Yüksek bağlaşıklık"
+   ],
+   "cards": [
+    "Kargo hesaplama, fiyat tablosunu parametre olarak alır",
+    "Ekran doğrudan veritabanına erişir",
+    "Faturalama, ödemelerle bir arayüz üzerinden konuşur",
+    "Kayıt formunu değiştirmek altı başka dosyada değişiklik yapmayı zorunlu kılar"
+   ],
+   "hint": "Sor: Bu parça değişirse, onunla birlikte kaç parça daha değişmek zorunda kalır?",
+   "why": "Bağımlılıkları dışardan almak ve arayüzler üzerinden konuşmak parçaları yalıtır. Doğrudan veritabanına konuşan bir ekran ve zincirleme değişiklikler, birbirine bağlanmış parçaları ortaya çıkarır.",
+   "analogy": "Prizlere takılan aletler teker teker değiştirilir. Kabloları birbirine lehimlenmiş aletler, televizyonu değiştirmek için odayı sökmenizi gerektirir."
+  },
+  "m1": {
+   "title": "Kim kullanıyor ve ne için",
+   "prompt": "Hangi diyagram, sistemi kimin kullandığını ve her kişinin onunla neler yapabileceğini gösterir?",
+   "opts": [
+    "Kullanım senaryosu diyagramı",
+    "Sınıf diyagramı",
+    "Sıra diyagramı",
+    "Dağıtım diyagramı"
+   ],
+   "hint": "İnsanlara (aktörlere) ve hedeflere odaklanan görünümü ara.",
+   "why": "Kullanım senaryoları aktörleri hedeflere bağlar: okuyucu ödünç alır, gönüllü kaydeder. Sınıflar kavramları gösterir; sıralar mesajların sırasını gösterir.",
+   "analogy": "Yemek salonundan görünen restoran menüsüdür: mutfağı göstermeden kimin ne sipariş edebileceği."
+  },
+  "m2": {
+   "title": "Kitap ve nüsha",
+   "prompt": "Kitap ile Nüsha arasındaki ilişki nasıl modellenmelidir?",
+   "opts": [
+    "Bir Kitap'ın birden çok Nüshası vardır; her Nüsha tek bir Kitaba aittir",
+    "Bir Kitap'ın tam olarak bir Nüshası vardır",
+    "Çoktan çoğa Kitap - Nüsha",
+    "İlişki yok: onlar aynı şeydir"
+   ],
+   "hint": "Kütüphanede Dom Casmurro'nun üç nüshası var. Kaç başlık ve kaç fiziksel nesne?",
+   "why": "Tek bir başlık vardır; raftaki nesneler birkaç tanedir. Ödünç alınan kitap değil, nüshadır. Bu çokluğu yanlış yapmak tüm veritabanını kirletir.",
+   "analogy": "Tarif birdir; ondan yapılan kekler çoktur. Tarifi değil, keki yersin."
+  },
+  "m3": {
+   "title": "Yapı mı, davranış mı",
+   "prompt": "Her cümleyi sınıflandır: modelin hangi görünümüne aittir?",
+   "bins": [
+    "Statik görünüm (sınıflar)",
+    "Dinamik görünüm (sıra)"
+   ],
+   "cards": [
+    "Bir Okuyucu'nun adı ve telefon numarası vardır",
+    "Sistem bir nüshanın müsait olup olmadığını kontrol eder ve ardından ödünç alma kaydını oluşturur",
+    "Bir Ödünç Alma, bir Nüsha'ya atıfta bulunur",
+    "Bir iade, bekleme listesindeki bir sonraki kişiye bildirim tetikler"
+   ],
+   "hint": "Statik neyin var olduğunu tanımlar; dinamik ne olduğunu ve hangi sırada olduğunu tanımlar.",
+   "why": "Nitelikler ve ilişkiler yapıdır ve her zaman geçerlidir. Kontrol, kaydetme ve bildirme zamanda zincirlenmiş olaylardır.",
+   "analogy": "Kat planı odaları gösterir (statik); bir ziyaretin senaryosu, kişinin nerede yürüdüğünü ve hangi sırada olduğunu gösterir (dinamik)."
   }
  },
  "game": {
@@ -1504,22 +1504,22 @@ LANG.tr = {
    ],
    "fifty": [
     "İki seçeneği kaldır",
-    "Çoktan seçmeli bir sorudan iki yanlış seçeneği kaldırır. Doğru cevap daha sonra ustalığın daha zayıf kanıtı sayılır."
+    "Çoktan seçmeli bir görevden iki yanlış seçeneği kaldırır. Doğru cevap daha sonra daha zayıf bir ustalık kanıtı sayılır."
    ],
    "time": [
-    "Ek süre",
-    "Ekstra zorlu modda saate 30 saniye ekler."
+    "Ekstra süre",
+    "{h} modunda saate 30 saniye ekler."
    ],
    "boost": [
     "Çifte XP",
-    "Sonraki 3 sorunun XP'sini ikiye katlar. Kullanır kullanmaz etkinleşir."
+    "Sonraki 3 görevin XP'sini ikiye katlar. Kullanır kullanmaz etkinleşir."
    ],
    "tBug": [
-    "Böcek avcısı",
+    "Hata avcısı",
     "Rolünün yanında gösterilen bir unvan."
    ],
    "tArch": [
-    "Mimarın zihni",
+    "Mimarın aklı",
     "Rolünün yanında gösterilen bir unvan."
    ],
    "tLegend": [
@@ -1528,8 +1528,8 @@ LANG.tr = {
    ]
   },
   "bounties": {
-   "b1": "İpucu kullanmadan art arda 3 soruyu doğru cevapla",
-   "b2": "Zor veya Ekstra zorlu modda bir soruyu çöz",
+   "b1": "İpucu kullanmadan art arda 3 görevi doğru yap",
+   "b2": "{d} veya {h} modunda bir görev çöz",
    "b3": "Temiz sprint: 5 üzerinden 5"
   },
   "bosses": {
@@ -1537,19 +1537,19 @@ LANG.tr = {
     "name": "Müfettiş",
     "client": "Dona Lúcia'nın fırını",
     "trophy": "Müfettiş Mührü",
-    "story": "Bir şehir müfettişi fırına girer ve bir saat içinde toplam indirimli satışları, indirim alan müşteri sayısını ve para üstü hesaplamasını görmek ister. Kasa programı değişkenleri, koşulları ve döngüleri karıştırıyor ve herhangi bir hata para cezası anlamına geliyor. Dona Lúcia sana bakıyor."
+    "story": "Bir belediye müfettişi fırına girer ve bir saat içinde toplam indirimli satışları, indirimden yararlanan müşteri sayısını ve para üstü hesaplamasını görmek ister. Kasa programı değişkenleri, koşulları ve döngüleri karıştırıyor ve herhangi bir hata para cezası demek. Dona Lúcia sana bakıyor."
    },
    "bossB": {
-    "name": "Büyük Göç",
-    "client": "2. Bölge Noter Ofisi",
+    "name": "Büyük Taşınma",
+    "client": "2. Bölge Noterliği",
     "trophy": "Arşiv Anahtarı",
-    "story": "Noter ofisi bu hafta sonu 40 yıllık dosyaları yeni bir sunucuya taşıyor. Betik listeler üzerinde özyinelemeli fonksiyonlar kullanıyor ve yanlış sayım içeren bir rapor tüm süreci geçersiz kılıyor. Helena'nın Cumartesi'den önce her fonksiyonun kontrol edilmesi gerekiyor."
+    "story": "Noterlik bu hafta sonu 40 yıllık dosyaları yeni bir sunucuya taşıyor. Betik, listeler üzerinde özyinelemeli fonksiyonlar kullanıyor ve yanlış sayıma sahip bir rapor tüm süreci geçersiz kılıyor. Helena'nın cumartesiye kadar her fonksiyonun kontrol edilmesine ihtiyacı var."
    },
    "bossC": {
     "name": "Cuma, 17:00",
     "client": "Roda Viva teslimat kooperatifi",
     "trophy": "Cuma Madalyası",
-    "story": "Cuma, 17:00. Kooperatif yemek kuponlarının bugün yayında olmasını talep ediyor, çünkü kampanya yarın başlıyor. Kod birinin makinesinde bitmiş durumda, testler ve inceleme olmadan. Gereksinimler, süreç, sürümleme, test ve tasarım hakkında öğrendiğin her şey önümüzdeki birkaç saat içinde sınanacak."
+    "story": "Cuma, 17:00. Kooperatif, yemek kuponlarının bugün yayında olmasını şart koşuyor çünkü kampanya yarın başlıyor. Kod birinin makinesinde bitmiş durumda, testler ve inceleme olmadan. Gereksinimler, süreç, sürümleme, test ve tasarım hakkında öğrendiğin her şey önümüzdeki birkaç saat içinde sınanacak."
    }
   }
  }

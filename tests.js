@@ -3,7 +3,8 @@ const fs=require("fs");
 global.localStorage={getItem(){return null},setItem(){}};global.window={scrollTo(){}};global.navigator={language:"pt"};
 global.document={documentElement:{},getElementById(){return {append(){},set textContent(v){}}},createElement(){return {append(){},setAttribute(){},addEventListener(){},set className(v){}}},createElementNS(){return {append(){},setAttribute(){},addEventListener(){}}},createTextNode(){return {}}};
 const langFiles=fs.readdirSync(__dirname+"/src").filter(f=>/^lang-.*\.js$/.test(f)&&!f.includes(".mock.")).sort((a,b)=>(a==="lang-pt.js"?-1:b==="lang-pt.js"?1:a.localeCompare(b)));
-let src=["data.js","game.js",...langFiles,"app.js"].map(f=>fs.readFileSync(__dirname+"/src/"+f,"utf8")).join("\n");
+const romFiles=fs.readdirSync(__dirname+"/src").filter(f=>/^rom-.*\.js$/.test(f));
+let src=["data.js","game.js","rom.js",...langFiles,...romFiles,"app.js"].map(f=>fs.readFileSync(__dirname+"/src/"+f,"utf8")).join("\n");
 src=src.replace('"use strict";','').replace(/S=load\(\);[\s\S]*$/,"");
 src+=`
 let errs=[];
@@ -17,7 +18,7 @@ for(const l of Object.keys(LANG)){
     if(it.type==="mc"&&!it.opts&&(!x.opts||x.opts.length!==4)) errs.push(l+": opts "+it.id);
     if(it.type==="sort"&&(!x.bins||x.bins.length!==2||!x.cards||x.cards.length!==it.key.length)) errs.push(l+": cartões "+it.id);
     if(it.type==="parsons"&&!it.code&&!it.shared){ if(!x.lines||x.lines.length<3||new Set(x.lines).size!==x.lines.length||x.lines.length!==LANG.pt.items[it.id].lines.length) errs.push(l+": etapas "+it.id); }
-    if(/\\u2014/.test(JSON.stringify(x))) errs.push(l+": travessão em "+it.id);}
+    if(["pt","en","es"].includes(l)&&/\\u2014/.test(JSON.stringify(x))) errs.push(l+": travessão em "+it.id);} // em russo e outros idiomas o travessão é ortografia, não estilo
   for(const id of Object.keys(LANG[l].items)) if(!IT[id]) errs.push(l+": item órfão "+id);
 }
 for(const it of ITEMS.concat(BOSS_ITEMS)){
@@ -28,6 +29,10 @@ for(const it of ITEMS.concat(BOSS_ITEMS)){
   if(it.type==="sort"&&it.key.filter(k=>k===0).length===0) errs.push(it.id+": chave");
   if(it.opts&&new Set(it.opts).size!==it.opts.length) errs.push(it.id+": opções repetidas");
 }
+const flatT=(o,p,out)=>{if(typeof o==="string")out[p]=o;else for(const k in o)flatT(o[k],p+"."+k,out);return out};
+{const enF=flatT(LANG.en,"",{}); for(const l of Object.keys(LANG)){ if(["pt","en","es"].includes(l))continue; const meta=STUDY_LANGS.find(x=>x.code===l)||{}, f=flatT(LANG[l],"",{}), latin=meta.script==="Latin";
+  const same=Object.keys(enF).filter(k=>enF[k]===f[k]&&enF[k].length>(latin?40:12)&&!/provAnthropic|provOpenAI|t3\.title|hardcore/.test(k));
+  if(same.length) errs.push(l+": "+same.length+" textos ficaram em inglês (ex.: "+same[0]+"). Rode: node tools/gerar-idioma.js "+l); }}
 for(const l of Object.keys(LANG)){const g=LANG[l].game; if(!g){errs.push(l+": falta game");continue}
   SHOP.forEach(p=>{if(!g.shop[p.id])errs.push(l+": loja "+p.id)}); BOUNTIES.forEach(b=>{if(!g.bounties[b.id])errs.push(l+": desafio "+b.id)});
   BOSSES.forEach(b=>{const x=g.bosses[b.id]; if(!x||!x.story||!x.trophy)errs.push(l+": chefão "+b.id); b.stages.forEach(st=>{if(!IT[st]||IT[st].boss!==b.id)errs.push("fase "+st)})});

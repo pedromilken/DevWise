@@ -56,6 +56,16 @@ node tests.js && python build.py       # valida e publica
 
 Também aceita `OPENAI_API_KEY` com `OPENAI_BASE_URL` (DeepSeek, Qwen, Ollama) e `DEVWISE_MODEL`. O script valida chaves, tamanhos de lista, marcadores `{x}`, ordem das opções e presença da escrita esperada; **não** valida naturalidade nem correção pedagógica, então cada pacote pede revisão de um falante antes de ir ao ar. A chave é lida só de variável de ambiente; nunca versione arquivos `.env`.
 
+### Qualidade dos pacotes gerados e romanização
+
+- `tools/estilo.json` fixa a **forma de tratamento** de cada idioma (du, kamu, sen, вы, আপনি, 你...) e notas sobre expressões idiomáticas. O gerador reprova blocos fora do padrão, tenta de novo e fica com a melhor tentativa.
+- `tools/pos-edicao.json` guarda correções manuais, reaplicadas ao fim de cada geração. `node tools/gerar-idioma.js revisar` repassa os 17 pacotes pagando só pelos blocos reprovados; `node tools/gerar-idioma.js pos-edicao` reaplica as correções sem usar API.
+- **Romanização** (botão `Aa` ao lado do seletor de idiomas): russo, coreano, hindi, marata, bengali, punjabi, tâmil e télugo são convertidos por regra no navegador (`src/rom.js`, ISO 15919 para as escritas brâmicas e Romanização Revisada para o coreano). Chinês, japonês, árabe e urdu dependem de dicionário ou de vogais que a escrita não registra, então usam mapas gerados por `node tools/gerar-idioma.js romanizar` (`src/rom-xx.js`).
+- **Glossário por idioma** em `tools/estilo.json`: fixa o termo de palavras-chave (por exemplo, ticket = 工单 em chinês, görev em turco, задача em russo) e lista os termos a evitar (bilet, билет, 任务单). Nomes de modo citados em outros textos entram por marcador (`{d}`, `{h}`), então nunca ficam em inglês no meio da frase.
+- **Revisão de qualidade** (`node tools/gerar-idioma.js avaliar`): um "editor nativo" (LLM) julga coesão, compreensão e naturalidade de cada texto contra a fonte, reescreve só o que reprova e explica o motivo em português em `tools/relatorio-qualidade.md`. As mudanças ficam em cache próprio e sobrevivem a novas gerações. Para independência, vale usar na avaliação um modelo diferente do que traduziu (basta trocar as variáveis de ambiente).
+- **Furigana** (botão `ふ`, só em japonês): leitura em hiragana sobre cada kanji, gerada junto com o romaji e validada automaticamente: remover as leituras precisa devolver o texto original, caractere por caractere.
+- O seletor mostra cada idioma no alfabeto original e em inglês, por exemplo `한국어 (Korean)`.
+
 ### Mapeamento para a SBC
 
 | Habilidades | Competências |

@@ -3,190 +3,6 @@ LANG.de = {
  "name": "Deutsch",
  "llmName": "German",
  "ui": {
-  "setH": "Einstellungen",
-  "uiLang": "Sprache des Spiels",
-  "codeLang": "Programmiersprache der Tickets",
-  "aiH": "KI-Tutor",
-  "aiP": "Der KI-Tutor verfasst maßgeschneiderte sokratische Hinweise und neue Analogien in der Spielsprache, ohne die Lösung zu verraten. Ohne ihn nutzt das Spiel die von den Autoren verfassten Hinweise.",
-  "aiClaude": "Über Claude verbunden: Auf dieser Seite ist kein Schlüssel erforderlich.",
-  "aiKeyOn": "Mit eigenem Schlüssel konfiguriert ({m}).",
-  "aiOff": "Aus. Geben Sie unten einen Anbieter ein, um ihn einzuschalten.",
-  "provider": "Anbieter",
-  "provAnthropic": "Anthropic (Claude)",
-  "provOpenAI": "OpenAI-kompatibel (OpenAI, Ollama, LM Studio usw.)",
-  "key": "API-Schlüssel",
-  "model": "Modell",
-  "base": "Basis-URL",
-  "save": "Tutoreinstellungen speichern",
-  "clear": "Schlüssel entfernen",
-  "saved": "Einstellungen gespeichert.",
-  "keyNote": "Der Schlüssel wird nur in diesem Browser (localStorage) gespeichert und direkt an den Anbieter gesendet. Verwenden Sie ihn nicht auf einem gemeinsam genutzten Computer. Für den Unterricht ist ein lokaler Server vorzuziehen (z. B. Ollama unter http://localhost:11434/v1), der keinen Schlüssel benötigt.",
-  "err": "Fehler",
-  "none": "Nichts",
-  "navShop": "Shop",
-  "balance": "Guthaben",
-  "total": "Lebenszeit-XP",
-  "titleLbl": "Titel",
-  "modeH": "Schwierigkeitsgrad",
-  "modes": {
-   "normal": "Normal",
-   "medio": "Mittel",
-   "dificil": "Schwer",
-   "hardcore": "Extrem schwer"
-  },
-  "modeDesc": {
-   "normal": "XP ×1. Kostenlose Hinweise (ein genutzter Hinweis ergibt halbe Punkte für eine richtige Antwort). Jeder Fehler kostet 2 XP pro Ticket-Stufe.",
-   "medio": "XP ×1,5. Jeder Hinweis kostet 5 XP. Jeder Fehler kostet 4 XP pro Ticket-Stufe.",
-   "dificil": "XP ×2. Keine Hinweise und keine Auswahlmöglichkeiten bei Ausgabe-Tickets: Sie tippen, was das Programm ausgibt. Jeder Fehler kostet 6 XP pro Stufe.",
-   "hardcore": "XP ×3. Keine Hinweise, getippte Antworten und 60 Sekunden auf der Uhr. Jeder Fehler kostet 10 XP pro Stufe."
-  },
-  "typedLbl": "Tippen Sie genau das, was das Programm ausgibt",
-  "typedPh": "Programmausgabe",
-  "yourAnswer": "Ihre Antwort: {a}",
-  "expected": "Richtige Ausgabe: {a}",
-  "timeLeft": "Zeit: {s} s",
-  "timeout": "Die Zeit ist abgelaufen.",
-  "lost": "Strafe: -{x} XP von Ihrem Guthaben.",
-  "shieldUsed": "Ihr Schild hat die Strafe abgefangen.",
-  "boostOn": "Doppelte XP: noch {n} Tickets",
-  "hintPaid": "Hinweis anfordern (kostet {c} XP)",
-  "noHints": "In diesem Modus gibt es keine Hinweise.",
-  "useFifty": "Zwei entfernen ({n})",
-  "useTime": "+30 s nutzen ({n})",
-  "lockedXp": "Gesperrt: Erfordert 60 % in {p} und {x} Lebenszeit-XP (Sie haben {y}).",
-  "lockedXpOnly": "Gesperrt: Erfordert {x} Lebenszeit-XP (Sie haben {y}).",
-  "bountiesH": "Sprint-Herausforderungen",
-  "bountyDone": "Herausforderung abgeschlossen: {s} (+{x} XP)",
-  "dailyH": "Tägliche Herausforderung",
-  "dailyTag": "Doppelte XP",
-  "dailyDone": "Tägliche Herausforderung abgeschlossen. Morgen gibt es eine neue.",
-  "bossesH": "Bosse",
-  "bossLocked": "Erfordert 60 % in {p} und {x} Lebenszeit-XP.",
-  "bossDefeated": "Besiegt",
-  "bossFight": "Gegen den Boss antreten",
-  "bossStage": "Stufe {n} von {m}",
-  "bossLives": "Noch erlaubte Fehler: {n}",
-  "bossNext": "Nächste Stufe",
-  "bossResult": "Ergebnis ansehen",
-  "bossWin": "Boss besiegt",
-  "bossWinP": "Sie haben {x} XP und die Trophäe „{t}“ verdient.",
-  "bossLose": "Der Boss hat diesmal gewonnen",
-  "bossLoseP": "Sie haben {x} XP von Ihrem Guthaben verloren. Wiederholen Sie die beteiligten Missionen und kommen Sie für eine Revanche zurück.",
-  "bossRules": "Drei verkettete Stufen, keine Hinweise und keine Power-ups. Sie dürfen sich einen einzigen Fehler erlauben. Der auf dem Brett gewählte Schwierigkeitsgrad gilt auch hier.",
-  "bossStart": "Kampf starten",
-  "reward": "Belohnung: {x} XP",
-  "trophies": "Trophäen",
-  "noTrophies": "Noch keine. Bosse erscheinen auf dem Brett, sobald du genug Meisterschaft und XP hast.",
-  "review": "Wiederholen",
-  "shopH": "Shop",
-  "shopP": "Tausche dein XP-Guthaben gegen Power-ups und Titel. Das ausgegebene Guthaben reduziert nicht deine Lebenszeit-XP, die für das Freischalten von Etappen und Bossen zählt.",
-  "shopA": "Das sind die Meilen eines Treueprogramms. Du gibst das Guthaben für Tickets aus; dein Kartenstatus hängt von den insgesamt geflogenen Meilen ab und sinkt nicht, wenn du Punkte einlöst.",
-  "powers": "Power-ups",
-  "titlesH": "Titel",
-  "owned": "Du hast: {n}",
-  "buy": "Einlösen für {c} XP",
-  "equip": "Diesen Titel verwenden",
-  "equipped": "In Verwendung",
-  "unequip": "Nicht mehr verwenden",
-  "kTotal": "Lebenszeit-XP",
-  "kBosses": "besiegte Bosse",
-  "cheers": [
-   "Gut gemacht!",
-   "Tolles Code-Lesen!",
-   "Genau richtig, scharfsinnig gedacht!",
-   "Ticket mit Stil geschlossen!"
-  ],
-  "oops": [
-   "Fast geschafft. Jeder Entwickler bricht den Build, bevor er ihn repariert.",
-   "Fehler gehören zum Weg: Jetzt weißt du, wo die Falle war.",
-   "Du hast einen Denkfehler gefunden, und so lernt man Debuggen.",
-   "Diesmal nicht, und das ist in Ordnung. Nimm dir Zeit für die Erklärung."
-  ],
-  "keepGoing": "Dieses Ticket kommt später für eine Revanche auf das Brett zurück.",
-  "streakMsg": "{n} in Folge! Serienbonus: +5 XP.",
-  "comeback": "Zurückgekämpft: +{x} XP für die richtige Antwort direkt nach einem Fehler.",
-  "need": "Noch {n} XP (kostet {c})",
-  "evoH": "Wissenswachstum",
-  "evoP": "Jede Linie ist die geschätzte Beherrschung einer Fähigkeit über die von dir beantworteten Tickets. Tippe auf eine Fähigkeit, um sie hervorzuheben: Grüne Punkte sind richtige Antworten und gelbe Punkte sind Fehler. Gestrichelte Linien markieren das Freischalten (60 %) und die Meisterschaft (95 %).",
-  "evoEmpty": "Beantworte ein paar Tickets in dieser Sprache, um deine Lernkurve zu sehen.",
-  "evoAll": "Alle",
-  "evoX": "beantwortete Tickets",
-  "colFirst": "Erste Schätzung",
-  "colGain": "Zuwachs",
-  "colTries": "Tickets",
-  "plH": "Meisterschaft nach Programmiersprache",
-  "plP": "Jede Sprache hat ihre eigene Meisterschaftsverfolgung; die aktuell verwendete ist mit ● markiert. Wenn du eine Sprache zum ersten Mal ausprobierst, beginnst du mit einer Übertragungsschätzung: die Hälfte des bereits in deiner besten Sprache zurückgelegten Weges. Fettgedruckte Werte wurden geübt.",
-  "plA": "Wer ein Auto mit Schaltgetriebe fährt, fängt bei einem Automatikauto nicht bei null an, braucht aber trotzdem ein paar Runden um den Block, um zu zeigen, dass er sich angepasst hat.",
-  "plAcc": "Richtig",
-  "langH": "Richtige Antworten nach Spielsprache",
-  "studyH": "Sprachen der mehrsprachigen Studie",
-  "studyP": "Die 20 Sprachen der Übersetzungs- und Tokenisierungsanalyse. Der Token-Verbrauch pro 1000 Zeichen wurde in der Studie gemessen und zeigt, wie viel der KI-Tutor in jeder Sprache ausgibt. Ausstehende Pakete werden mit tools/gerar-idioma.js generiert und geprüft, bevor sie ins Spiel gelangen.",
-  "available": "verfügbar",
-  "pending": "Paket zu generieren",
-  "colLang": "Sprache",
-  "colScript": "Schriftsystem",
-  "colTok": "Token pro 1000 Zeichen",
-  "sortHint": "Wähle für jede Karte eine der beiden Kategorien.",
-  "options": "Optionen",
-  "codeLines": "Codezeilen",
-  "solved": "Ticket gelöst",
-  "notYet": "Diesmal nicht",
-  "why": "Warum: ",
-  "analogy": "Analogie: ",
-  "delta": "Beherrschung von {s}: {a} zu {b}   (+{x} XP)",
-  "roseNote": "Es stieg trotz des Fehlers leicht an, weil das Modell annimmt, dass das Lesen der Erklärung ebenfalls lehrt.",
-  "masteredNow": "Fähigkeit gemeistert: {s}.",
-  "unlockedNow": "Neue Mission freigeschaltet: {s}.",
-  "promo": "Beförderung: Ihre Rolle ist jetzt {r}.",
-  "aiExplain": "Den KI-Tutor um eine andere Analogie bitten",
-  "toRetro": "Sprint-Retrospektive ansehen",
-  "retroH": "Sprint {n} Retrospektive",
-  "retroSum": "{c} von {n} Tickets gelöst. ",
-  "retroA": "Sauberer Sprint.",
-  "retroB": "Gutes Tempo; die zurückgelassenen durchsehen.",
-  "retroC": "Harter Sprint. Zu überprüfende Tickets kommen später zurück aufs Board.",
-  "changed": "Was sich bei Ihrer Beherrschung geändert hat",
-  "colSkill": "Fähigkeit",
-  "colStart": "Sprintbeginn",
-  "colNow": "Jetzt",
-  "suggestion": "Vorschlag des Tutors für den nächsten Sprint: konzentrieren Sie sich auf {s}, derzeit bei {p}.",
-  "allDone": "Jede Fähigkeit ist gemeistert. Die nächsten Sprints sind freies Üben.",
-  "nextSprint": "Sprint {n} starten",
-  "repH": "Lernbericht",
-  "repSub": "Eine Ansicht für den Lernenden und alle, die ihn unterstützen: was gemeistert ist, wo die Fehler liegen und was als Nächstes zu üben ist.",
-  "k1": "beantwortete Tickets",
-  "k2": "Genauigkeit",
-  "k3": "gemeisterte Fähigkeiten",
-  "k4": "längste korrekte Serie",
-  "of": "{a} von {b}",
-  "bySkill": "Beherrschung nach Fähigkeit",
-  "colMastery": "Beherrschung",
-  "colHits": "Korrekt",
-  "colStatus": "Status",
-  "colSbc": "SBC",
-  "stM": "Gemeistert",
-  "stP": "In Bearbeitung",
-  "stL": "Gesperrt",
-  "stB": "Mission zu öffnen",
-  "recs": "Empfehlungen des Tutors",
-  "recNone": "Noch keine Antworten. Lösen Sie ein paar Tickets, damit der Tutor Belege hat.",
-  "recPriority": "Priorität: {s} ({p} Beherrschung, {c} korrekt von {n}).",
-  "recBloom": "Kognitive Stufe mit den meisten Fehlern: {b} ({c} von {n}). Üben Sie diese Art von Ticket ruhig, ohne Hinweise.",
-  "recHints": "Hinweise verwendet in {p} der Tickets. Versuchen Sie, eine Hypothese zu bilden, bevor Sie fragen.",
-  "recLocked": "Noch gesperrt: {s}. Sie werden geöffnet, wenn Voraussetzungen über 60% liegen.",
-  "bloomAcc": "Genauigkeit nach Bloom-Stufe",
-  "noData": "keine Daten",
-  "how": "Wie die Beherrschung berechnet wird",
-  "howP": "Der Tutor verwendet Bayesian Knowledge Tracing. Für jede Fähigkeit hält er die Wahrscheinlichkeit, dass Sie sie gemeistert haben, und aktualisiert sie nach jeder Antwort, wobei er die Chance eines glücklichen Ratens und eines versehentlichen Ausrutschers abzieht.",
-  "howA": "Es ist ein Lehrer, der sich nach und nach eine Meinung über einen Schüler bildet. Eine korrekte Multiple-Choice-Antwort ist weniger überzeugend als das Zusammensetzen eines ganzen Programms in der richtigen Reihenfolge, denn ein Raten hat im ersten Fall eine Chance von 25%.",
-  "howParams": "Parameter: anfängliche Beherrschung 15%, Lernen pro Ticket 20%, Ausrutscher 10%, Raten nach Tickettyp (1 von 4 bei Optionen, 1 pro Zeile bei Bugs, 5% bei Reihenfolge; 50%, wenn ein Hinweis verwendet wird). Freischaltung bei 60%, Beherrschung bei 95%.",
-  "data": "Ihre Daten",
-  "dataP": "Der Fortschritt wird nur in diesem Browser gespeichert. Das Protokoll folgt dem Langformat von Knowledge-Tracing-Datensätzen (Item, Fähigkeit, Korrektheit, Sprache, Programmiersprache, Zeitstempel).",
-  "showJson": "Das JSON-Protokoll anzeigen",
-  "hideJson": "Das JSON-Protokoll ausblenden",
-  "download": "Das JSON herunterladen",
-  "reset": "Fortschritt löschen",
-  "resetConfirm": "Bestätigen: gesamten Fortschritt löschen",
   "role": "Rolle",
   "xp": "XP",
   "streak": "Serie",
@@ -276,7 +92,191 @@ LANG.de = {
   "allUsed": "Alle Zeilen wurden verwendet.",
   "correctOrder": "Richtige Reihenfolge:",
   "up": "Nach oben",
-  "down": "Nach unten"
+  "down": "Nach unten",
+  "options": "Optionen",
+  "codeLines": "Codezeilen",
+  "solved": "Ticket gelöst",
+  "notYet": "Diesmal nicht",
+  "why": "Warum: ",
+  "analogy": "Analogie: ",
+  "delta": "Beherrschung von {s}: {a} auf {b}   (+{x} XP)",
+  "roseNote": "Sie ist trotz des Fehlers leicht gestiegen, weil das Modell annimmt, dass auch das Lesen der Erklärung lehrreich ist.",
+  "masteredNow": "Fähigkeit gemeistert: {s}.",
+  "unlockedNow": "Neue Mission freigeschaltet: {s}.",
+  "promo": "Beförderung: Deine Rolle ist jetzt {r}.",
+  "aiExplain": "Den KI-Tutor um eine andere Analogie bitten",
+  "toRetro": "Zur Sprint-Retrospektive",
+  "retroH": "Retrospektive zu Sprint {n}",
+  "retroSum": "{c} von {n} Tickets gelöst. ",
+  "retroA": "Sauberer Sprint.",
+  "retroB": "Gutes Tempo; sieh dir die offenen Tickets an.",
+  "retroC": "Harter Sprint. Zu wiederholende Tickets kommen später zurück aufs Board.",
+  "changed": "Was sich in deiner Beherrschung geändert hat",
+  "colSkill": "Fähigkeit",
+  "colStart": "Sprintbeginn",
+  "colNow": "Jetzt",
+  "suggestion": "Vorschlag des Tutors für den nächsten Sprint: Konzentriere dich auf {s}, aktuell bei {p}.",
+  "allDone": "Alle Fähigkeiten sind gemeistert. Die nächsten Sprints sind freies Üben.",
+  "nextSprint": "Sprint {n} starten",
+  "repH": "Lernbericht",
+  "repSub": "Eine Ansicht für den Lernenden und alle, die ihn unterstützen: was gemeistert ist, wo die Fehler liegen und was als Nächstes geübt werden sollte.",
+  "k1": "beantwortete Tickets",
+  "k2": "Genauigkeit",
+  "k3": "gemeisterte Fähigkeiten",
+  "k4": "längste korrekte Serie",
+  "bySkill": "Beherrschung nach Fähigkeit",
+  "colMastery": "Beherrschung",
+  "colHits": "Korrekt",
+  "colStatus": "Status",
+  "colSbc": "SBC",
+  "stM": "Gemeistert",
+  "stP": "In Arbeit",
+  "stL": "Gesperrt",
+  "stB": "Mission zum Freischalten",
+  "recs": "Empfehlungen des Tutors",
+  "recNone": "Noch keine Antworten. Löse ein paar Tickets, damit der Tutor eine Grundlage hat.",
+  "recPriority": "Priorität: {s} ({p} Beherrschung, {c} korrekt von {n}).",
+  "recBloom": "Kognitives Niveau mit den meisten Fehlern: {b} ({c} von {n}). Übe diese Art von Ticket in Ruhe, ohne Hinweise.",
+  "recHints": "Hinweise wurden bei {p} der Tickets verwendet. Versuche, zuerst eine Hypothese zu bilden, bevor du fragst.",
+  "recLocked": "Noch gesperrt: {s}. Sie werden freigeschaltet, wenn die Voraussetzungen über 60% liegen.",
+  "bloomAcc": "Genauigkeit nach Bloom-Niveau",
+  "noData": "keine Daten",
+  "how": "Wie die Beherrschung berechnet wird",
+  "howP": "Der Tutor verwendet Bayesian Knowledge Tracing. Für jede Fähigkeit hält er die Wahrscheinlichkeit, dass du sie beherrschst, und aktualisiert sie nach jeder Antwort, wobei er die Chance auf einen glücklichen Zufall und auf einen Flüchtigkeitsfehler herausrechnet.",
+  "howA": "Es ist wie ein Lehrer, der sich nach und nach eine Meinung über einen Schüler bildet. Eine korrekte Multiple-Choice-Antwort ist weniger überzeugend als das Zusammensetzen eines ganzen Programms in der richtigen Reihenfolge, denn beim Ersten liegt die Ratewahrscheinlichkeit bei 25%.",
+  "howParams": "Parameter: anfängliche Beherrschung 15%, Lernen pro Ticket 20%, Flüchtigkeitsfehler 10%, Raten nach Tickettyp (1 zu 4 bei Optionen, 1 pro Zeile bei Fehlern, 5% bei Reihenfolge; 50% bei Verwendung eines Hinweises). Freischaltung bei 60%, Meisterschaft bei 95%.",
+  "data": "Deine Daten",
+  "dataP": "Der Fortschritt wird nur in diesem Browser gespeichert. Das Protokoll folgt dem Langformat von Knowledge-Tracing-Datensätzen (Item, Fähigkeit, Korrektheit, Sprache, Programmiersprache, Zeitstempel).",
+  "showJson": "Das JSON-Protokoll anzeigen",
+  "hideJson": "Das JSON-Protokoll ausblenden",
+  "download": "Das JSON herunterladen",
+  "reset": "Fortschritt löschen",
+  "resetConfirm": "Bestätigen: gesamten Fortschritt löschen",
+  "setH": "Einstellungen",
+  "uiLang": "Sprache des Spiels",
+  "codeLang": "Programmiersprache der Tickets",
+  "aiH": "KI-Tutor",
+  "aiP": "Der KI-Tutor schreibt maßgeschneiderte sokratische Hinweise und frische Analogien in der Spielsprache, ohne die Antwort zu verraten. Ohne ihn verwendet das Spiel die von den Autoren geschriebenen Hinweise.",
+  "aiClaude": "Verbunden über Claude: Auf dieser Seite ist kein Schlüssel erforderlich.",
+  "aiKeyOn": "Konfiguriert mit deinem eigenen Schlüssel ({m}).",
+  "aiOff": "Aus. Gib unten einen Anbieter ein, um ihn einzuschalten.",
+  "provider": "Anbieter",
+  "provAnthropic": "Anthropic (Claude)",
+  "provOpenAI": "OpenAI-kompatibel (OpenAI, Ollama, LM Studio usw.)",
+  "key": "API-Schlüssel",
+  "model": "Modell",
+  "base": "Basis-URL",
+  "save": "Tutor-Einstellungen speichern",
+  "clear": "Schlüssel entfernen",
+  "saved": "Einstellungen gespeichert.",
+  "keyNote": "Der Schlüssel wird nur in diesem Browser gespeichert (localStorage) und direkt an den Anbieter gesendet. Verwende ihn nicht auf einem gemeinsam genutzten Computer. Für den Einsatz im Klassenzimmer bevorzuge einen lokalen Server (zum Beispiel Ollama unter http://localhost:11434/v1), der keinen Schlüssel benötigt.",
+  "err": "Fehler",
+  "none": "Nichts",
+  "navShop": "Shop",
+  "balance": "Guthaben",
+  "total": "Lebenszeit-XP",
+  "titleLbl": "Titel",
+  "modeH": "Schwierigkeit",
+  "modes": {
+   "normal": "Normal",
+   "medio": "Mittel",
+   "dificil": "Schwer",
+   "hardcore": "Extra Hardcore"
+  },
+  "modeDesc": {
+   "normal": "XP ×1. Kostenlose Hinweise (eine korrekte Antwort mit Hinweis bringt die Hälfte). Jeder Fehler kostet 2 XP pro Ticket-Stufe.",
+   "medio": "XP ×1,5. Jeder Hinweis kostet 5 XP. Jeder Fehler kostet 4 XP pro Ticket-Stufe.",
+   "dificil": "XP ×2. Keine Hinweise und keine Optionen bei Ausgabe-Tickets: Du tippst, was das Programm ausgibt. Jeder Fehler kostet 6 XP pro Stufe.",
+   "hardcore": "XP ×3. Keine Hinweise, getippte Antworten und 60 Sekunden auf der Uhr. Jeder Fehler kostet 10 XP pro Stufe."
+  },
+  "typedLbl": "Tippe genau, was das Programm ausgibt",
+  "typedPh": "Programmausgabe",
+  "yourAnswer": "Deine Antwort: {a}",
+  "expected": "Korrekte Ausgabe: {a}",
+  "timeLeft": "Zeit: {s} s",
+  "timeout": "Die Zeit ist um.",
+  "lost": "Strafe: -{x} XP von deinem Guthaben.",
+  "shieldUsed": "Dein Schild hat die Strafe absorbiert.",
+  "boostOn": "Doppelte XP: Noch {n} Tickets",
+  "hintPaid": "Frage nach einem Hinweis (kostet {c} XP)",
+  "noHints": "In diesem Modus gibt es keine Hinweise.",
+  "useFifty": "Verwende Zwei entfernen ({n})",
+  "useTime": "Verwende +30 s ({n})",
+  "lockedXp": "Gesperrt: Erfordert 60% in {p} und {x} Lebenszeit-XP (du hast {y}).",
+  "lockedXpOnly": "Gesperrt: Erfordert {x} Lebenszeit-XP (du hast {y}).",
+  "bountiesH": "Sprint-Herausforderungen",
+  "bountyDone": "Herausforderung abgeschlossen: {s} (+{x} XP)",
+  "dailyH": "Tägliche Herausforderung",
+  "dailyTag": "Doppelte XP",
+  "dailyDone": "Tägliche Herausforderung geschafft. Morgen kommt eine neue.",
+  "bossesH": "Bosse",
+  "bossLocked": "Erfordert 60% in {p} und {x} Lebenszeit-XP.",
+  "bossDefeated": "Besiegt",
+  "bossFight": "Stelle dich dem Boss",
+  "bossStage": "Stufe {n} von {m}",
+  "bossLives": "Noch erlaubte Fehler: {n}",
+  "bossNext": "Nächste Stufe",
+  "bossResult": "Ergebnis ansehen",
+  "bossWin": "Boss besiegt",
+  "bossWinP": "Du hast {x} XP und die Trophäe \"{t}\" verdient.",
+  "bossLose": "Der Boss hat dieses Mal gewonnen",
+  "bossLoseP": "Du hast {x} XP von deinem Guthaben verloren. Wiederhole die beteiligten Missionen und komm für eine Revanche zurück.",
+  "bossRules": "Drei verkettete Stufen, keine Hinweise und keine Power-ups. Du darfst einen einzigen Fehler machen. Die auf dem Brett gewählte Schwierigkeit gilt auch hier.",
+  "bossStart": "Kampf starten",
+  "reward": "Belohnung: {x} XP",
+  "trophies": "Trophäen",
+  "noTrophies": "Noch keine. Bosse erscheinen auf dem Brett, sobald du genug Meisterschaft und XP hast.",
+  "review": "Wiederholung",
+  "shopH": "Shop",
+  "shopP": "Tausche dein XP-Guthaben gegen Power-ups und Titel. Ausgeben verringert nicht deine Lebenszeit-XP, die Stufen und Bosse freischaltet.",
+  "shopA": "Das sind die Meilen eines Bonusprogramms. Du gibst das Guthaben für Tickets aus; deine Kartenstufe hängt von den insgesamt geflogenen Meilen ab und sinkt nicht, wenn du sie einlöst.",
+  "powers": "Power-ups",
+  "titlesH": "Titel",
+  "owned": "Du hast: {n}",
+  "buy": "Einlösen für {c} XP",
+  "equip": "Diesen Titel verwenden",
+  "equipped": "In Verwendung",
+  "unequip": "Nicht mehr verwenden",
+  "kTotal": "Lebenszeit-XP",
+  "kBosses": "besiegte Bosse",
+  "cheers": [
+   "Gut gemacht!",
+   "Tolles Code-Lesen!",
+   "Volltreffer, scharfsinnige Überlegung!",
+   "Ticket stilvoll geschlossen!"
+  ],
+  "oops": [
+   "Fast geschafft. Jeder Entwickler macht den Build kaputt, bevor er ihn repariert.",
+   "Fehler gehören zum Weg: Jetzt weißt du, wo die Falle war.",
+   "Du hast einen Denkfehler gefunden, und so lernt man Debuggen.",
+   "Diesmal nicht, und das ist in Ordnung. Nimm dir Zeit für die Erklärung."
+  ],
+  "keepGoing": "Dieses Ticket kommt später für eine Revanche auf das Brett zurück.",
+  "streakMsg": "{n} in Folge! Serienbonus: +5 XP.",
+  "comeback": "Wiedergutmachung: +{x} XP für die richtige Antwort direkt nach einem Fehler.",
+  "need": "Noch {n} XP (kostet {c})",
+  "evoH": "Wissenswachstum",
+  "evoP": "Jede Linie ist die geschätzte Meisterschaft einer Fähigkeit über die beantworteten Tickets. Tippe auf eine Fähigkeit, um sie hervorzuheben: Grüne Punkte sind richtige Antworten, gelbe Punkte sind Fehler. Gestrichelte Linien markieren Freischaltung (60%) und Meisterschaft (95%).",
+  "evoEmpty": "Beantworte ein paar Tickets in dieser Sprache, um deine Lernkurve zu sehen.",
+  "evoAll": "Alle",
+  "evoX": "beantwortete Tickets",
+  "colFirst": "Erste Schätzung",
+  "colGain": "Zuwachs",
+  "colTries": "Tickets",
+  "plH": "Meisterschaft nach Programmiersprache",
+  "plP": "Jede Sprache hat ihren eigenen Meisterschafts-Tracker; die verwendete ist mit ● markiert. Wenn du eine Sprache zum ersten Mal ausprobierst, beginnst du mit einer Übertragungsschätzung: die Hälfte des bereits in deiner besten Sprache zurückgelegten Weges. Fettgedruckte Werte wurden geübt.",
+  "plA": "Wer ein Auto mit Schaltgetriebe fährt, fängt bei einem Automatik nicht bei null an, braucht aber ein paar Runden um den Block, um zu beweisen, dass er sich angepasst hat.",
+  "plAcc": "Richtig",
+  "langH": "Richtige Antworten nach Spielsprache",
+  "studyH": "Sprachen der mehrsprachigen Studie",
+  "studyP": "Die 20 Sprachen der Übersetzungs- und Tokenisierungsanalyse. Die Kosten in Tokens pro 1000 Zeichen wurden in der Studie gemessen und zeigen, wie viel der KI-Tutor in jeder Sprache ausgibt. Ausstehende Pakete werden mit tools/gerar-idioma.js generiert und überprüft, bevor sie ins Spiel kommen.",
+  "available": "verfügbar",
+  "pending": "Paket zu generieren",
+  "colLang": "Sprache",
+  "colScript": "Schriftsystem",
+  "colTok": "Tokens pro 1000 Zeichen",
+  "sortHint": "Wähle für jede Karte eine der beiden Kategorien.",
+  "rom": "Romanisierten Text anzeigen (lateinisches Alphabet)"
  },
  "sbc": {
   "CC-C.1.3": "RF-CC C.1.3: Probleme mithilfe von Programmierumgebungen lösen (Algorithmen, Programmiertechniken, Datenstrukturen).",
@@ -297,27 +297,6 @@ LANG.de = {
   "ES-C.6.5": "RF-ES C.6.5: Techniken zur Integration der Systemteile anwenden (Integrationsumgebungen, Build-Werkzeuge)."
  },
  "skills": {
-  "cond": {
-   "name": "Bedingungen",
-   "about": "Den Programmweg mit if, else if und else wählen.",
-   "client": "Gesundheitsstation im Viertel",
-   "title": "Die Schlange, die nicht nach Ankunft bedient werden kann",
-   "story": "In der Gesundheitsstation macht Krankenschwester Rosa die Triage im Kopf: Hohes Fieber kommt zuerst dran, ältere Menschen haben Vorrang, alle anderen warten. Wenn sie nicht da ist, wird die Schlange nach Ankunft bedient, und ein ernster Fall wartet zwei Stunden. Die Klinik möchte, dass das System Rosas Regeln jedes Mal anwendet, einschließlich Grenzfällen wie Fieber von genau 39 Grad.",
-   "theory": [
-    [
-     "Eine Bedingung ist eine Ja-oder-Nein-Frage",
-     "Das Programm wertet einen booleschen Ausdruck aus und folgt einem einzigen Pfad. Operatoren wie >, >= und == legen genau fest, wo die Grenze liegt."
-    ],
-    [
-     "Die Reihenfolge der Tests ist wichtig",
-     "In einer if / else if-Kette gewinnt der erste wahre Test, und der Rest wird nicht einmal ausgewertet. Die strengste Regel muss zuerst kommen."
-    ],
-    [
-     "Bedingungen kombinieren",
-     "UND (and, &&) erfordert, dass beide wahr sind; ODER (or, ||) erfordert mindestens eines. UND wird vor ODER ausgewertet; im Zweifelsfall Klammern verwenden."
-    ]
-   ]
-  },
   "var": {
    "name": "Variablen",
    "about": "Werte speichern, Typen und grundlegende Operatoren.",
@@ -339,24 +318,24 @@ LANG.de = {
     ]
    ]
   },
-  "func": {
-   "name": "Funktionen",
-   "about": "Logik verpacken: Parameter, Rückgabe und Gültigkeitsbereich.",
-   "client": "Lieferkooperative Roda Viva",
-   "title": "Versandkosten an drei Stellen berechnet",
-   "story": "Die Kurierkooperative berechnet den Versand auf der Website, in der App und in der Finanztabelle. Als der Kilometerpreis stieg, hat jemand nur zwei der drei Stellen aktualisiert, und eine Woche lang wurden die Kuriere unterbezahlt. Es gibt eine Regel; sie muss an einem Ort leben und von allen aufgerufen werden.",
+  "cond": {
+   "name": "Bedingungen",
+   "about": "Den Programmweg mit if, else if und else wählen.",
+   "client": "Gesundheitsstation im Viertel",
+   "title": "Die Schlange, die nicht nach Ankunft bedient werden kann",
+   "story": "In der Gesundheitsstation macht Krankenschwester Rosa die Triage im Kopf: Hohes Fieber kommt zuerst dran, ältere Menschen haben Vorrang, alle anderen warten. Wenn sie nicht da ist, wird die Schlange nach Ankunft bedient, und ein ernster Fall wartet zwei Stunden. Die Klinik möchte, dass das System Rosas Regeln jedes Mal anwendet, einschließlich Grenzfällen wie Fieber von genau 39 Grad.",
    "theory": [
     [
-     "Eine Funktion ist eine Regel mit einem Namen",
-     "Sie nimmt Parameter entgegen, führt Schritte aus und gibt ein Ergebnis mit return zurück. Einmal definieren und überall aufrufen beseitigt abweichende Kopien."
+     "Eine Bedingung ist eine Ja-oder-Nein-Frage",
+     "Das Programm wertet einen booleschen Ausdruck aus und folgt einem einzigen Pfad. Operatoren wie >, >= und == legen genau fest, wo die Grenze liegt."
     ],
     [
-     "Zurückgeben ist nicht Ausgeben",
-     "Ausgeben zeigt den Wert auf dem Bildschirm; Zurückgeben übergibt den Wert an den Aufrufer, der ihn in weiteren Berechnungen verwenden kann."
+     "Die Reihenfolge der Tests ist wichtig",
+     "In einer if / else if-Kette gewinnt der erste wahre Test, und der Rest wird nicht einmal ausgewertet. Die strengste Regel muss zuerst kommen."
     ],
     [
-     "Gültigkeitsbereich und Wertübergabe",
-     "Variablen, die innerhalb einer Funktion erstellt werden, sind lokal und verschwinden am Ende. Zahlen, die als Argumente übergeben werden, kommen als Kopien an: Sie innerhalb der Funktion zu ändern, ändert nicht das Original."
+     "Bedingungen kombinieren",
+     "UND (and, &&) erfordert, dass beide wahr sind; ODER (or, ||) erfordert mindestens eines. UND wird vor ODER ausgewertet; im Zweifelsfall Klammern verwenden."
     ]
    ]
   },
@@ -378,6 +357,27 @@ LANG.de = {
     [
      "Das Akkumulator-Muster",
      "Eine Variable beginnt mit einem neutralen Wert (0, leer, erstes Element) und wird in jeder Runde aktualisiert: Summe, Anzahl, größter Wert."
+    ]
+   ]
+  },
+  "func": {
+   "name": "Funktionen",
+   "about": "Logik verpacken: Parameter, Rückgabe und Gültigkeitsbereich.",
+   "client": "Lieferkooperative Roda Viva",
+   "title": "Versandkosten an drei Stellen berechnet",
+   "story": "Die Kurierkooperative berechnet den Versand auf der Website, in der App und in der Finanztabelle. Als der Kilometerpreis stieg, hat jemand nur zwei der drei Stellen aktualisiert, und eine Woche lang wurden die Kuriere unterbezahlt. Es gibt eine Regel; sie muss an einem Ort leben und von allen aufgerufen werden.",
+   "theory": [
+    [
+     "Eine Funktion ist eine Regel mit einem Namen",
+     "Sie nimmt Parameter entgegen, führt Schritte aus und gibt ein Ergebnis mit return zurück. Einmal definieren und überall aufrufen beseitigt abweichende Kopien."
+    ],
+    [
+     "Zurückgeben ist nicht Ausgeben",
+     "Ausgeben zeigt den Wert auf dem Bildschirm; Zurückgeben übergibt den Wert an den Aufrufer, der ihn in weiteren Berechnungen verwenden kann."
+    ],
+    [
+     "Gültigkeitsbereich und Wertübergabe",
+     "Variablen, die innerhalb einer Funktion erstellt werden, sind lokal und verschwinden am Ende. Zahlen, die als Argumente übergeben werden, kommen als Kopien an: Sie innerhalb der Funktion zu ändern, ändert nicht das Original."
     ]
    ]
   },
@@ -423,6 +423,27 @@ LANG.de = {
     ]
    ]
   },
+  "req": {
+   "name": "Anforderungen",
+   "about": "Herausfinden und Festhalten, was die Software tun muss.",
+   "client": "Gesundheitszentrum im Viertel",
+   "title": "\"Ich will eine App\"",
+   "story": "Die Leiterin des Gesundheitszentrums kommt entschlossen zum Meeting: \"Ich will eine App wie die von meiner Bank\". Nach einer halben Stunde Gespräch zeigt sich das eigentliche Problem: Patientinnen und Patienten verpassen Termine, weil sie das Datum vergessen, und 30% der Slots bleiben ungenutzt. Vielleicht ist die Lösung eine einfache SMS-Erinnerung. Wer das baut, was bestellt wurde, ohne zu verstehen, was gebraucht wird, liefert pünktlich die falsche Software.",
+   "theory": [
+    [
+     "Bedürfnisse vor Lösungen",
+     "Kundinnen und Kunden beschreiben Lösungen; die Entwicklerin untersucht das Problem dahinter mit Interviews, Beobachtung und Prototypen (Anforderungsermittlung)."
+    ],
+    [
+     "Funktional und nicht-funktional",
+     "Funktional ist, was das System tut (Termin planen, erinnern). Nicht-funktional ist, wie gut es das tut (Antwortzeit, Sicherheit, Verfügbarkeit)."
+    ],
+    [
+     "Eine gute Anforderung ist überprüfbar",
+     "\"Schnell\" und \"benutzerfreundlich\" kann man nicht testen. \"Antwortet innerhalb von 2 s bei 95% der Anfragen\" schon. User Stories folgen dem Muster: Als [Rolle] möchte ich [Aktion], damit [Nutzen]."
+    ]
+   ]
+  },
   "agil": {
    "name": "Agile",
    "about": "Sprints, MVP und inkrementelle Auslieferung.",
@@ -462,27 +483,6 @@ LANG.de = {
     [
      "Ein Konflikt ist eine Bitte um Entscheidung",
      "Wenn zwei Branches dieselben Zeilen ändern, entscheidet Git nicht allein: Es zeigt beide Versionen und bittet jemanden, zu entscheiden."
-    ]
-   ]
-  },
-  "req": {
-   "name": "Anforderungen",
-   "about": "Herausfinden und Festhalten, was die Software tun muss.",
-   "client": "Gesundheitszentrum im Viertel",
-   "title": "\"Ich will eine App\"",
-   "story": "Die Leiterin des Gesundheitszentrums kommt entschlossen zum Meeting: \"Ich will eine App wie die von meiner Bank\". Nach einer halben Stunde Gespräch zeigt sich das eigentliche Problem: Patientinnen und Patienten verpassen Termine, weil sie das Datum vergessen, und 30% der Slots bleiben ungenutzt. Vielleicht ist die Lösung eine einfache SMS-Erinnerung. Wer das baut, was bestellt wurde, ohne zu verstehen, was gebraucht wird, liefert pünktlich die falsche Software.",
-   "theory": [
-    [
-     "Bedürfnisse vor Lösungen",
-     "Kundinnen und Kunden beschreiben Lösungen; die Entwicklerin untersucht das Problem dahinter mit Interviews, Beobachtung und Prototypen (Anforderungsermittlung)."
-    ],
-    [
-     "Funktional und nicht-funktional",
-     "Funktional ist, was das System tut (Termin planen, erinnern). Nicht-funktional ist, wie gut es das tut (Antwortzeit, Sicherheit, Verfügbarkeit)."
-    ],
-    [
-     "Eine gute Anforderung ist überprüfbar",
-     "\"Schnell\" und \"benutzerfreundlich\" kann man nicht testen. \"Antwortet innerhalb von 2 s bei 95% der Anfragen\" schon. User Stories folgen dem Muster: Als [Rolle] möchte ich [Aktion], damit [Nutzen]."
     ]
    ]
   },
@@ -655,6 +655,68 @@ LANG.de = {
    "why": "Die Daten müssen existieren, bevor der Test kommt. Ein Rest von null bei Division durch 2 bedeutet gerade; else deckt alles andere ab.",
    "analogy": "Wie bei der Triage: Zuerst kommt der Patient an, dann kommt die Frage, und jede Antwort führt zu einem Raum."
   },
+  "c4": {
+   "title": "Wer zuerst kommt: UND oder ODER",
+   "prompt": "Ist das Ergebnis des Ausdrucks wahr oder falsch?",
+   "opts": [
+    "Wahr",
+    "Falsch",
+    "Fehler",
+    "Es hängt von der Sprache ab"
+   ],
+   "hint": "So wie die Multiplikation vor der Addition kommt, wird ein logischer Operator zuerst ausgewertet.",
+   "why": "UND hat Vorrang vor ODER. Zuerst ergibt falsch UND falsch falsch; dann ergibt wahr ODER falsch wahr. Das gilt in allen vier Sprachen des Spiels.",
+   "analogy": "Wie bei 2 + 3 × 0: Zuerst wird die Multiplikation ausgeführt. UND ist die Multiplikation der Logik; im Zweifel setze Klammern."
+  },
+  "c5": {
+   "title": "Sechzig und kein Rabatt",
+   "prompt": "Personen, die genau 60 Jahre alt sind, sollten den halben Preis zahlen, zahlen aber den vollen. Welche Zeile muss korrigiert werden?",
+   "hint": "Teste es im Kopf mit 60: Ist die Bedingung wahr?",
+   "why": "60 > 60 ist falsch. Die Regel „ab 60“ verlangt >=. Grenzfehler gehören zu den häufigsten Fehlern in Bedingungen.",
+   "analogy": "Es ist das Schild „Mindestgröße 1,40 m“ mit einem Wächter, der alle anhält, die genau 1,40 m groß sind. Die Regel ist richtig; der Vergleich ist falsch."
+  },
+  "l1": {
+   "title": "Wo das Zählen beginnt",
+   "prompt": "Welche Werte gibt die Schleife aus?",
+   "hint": "Das Zählen beginnt bei 0 und endet vor 3.",
+   "why": "Sie erzeugt 0, 1 und 2: drei Werte, beginnend bei null und ohne die 3.",
+   "analogy": "Wie Stockwerke in einem Gebäude, das auf Erdgeschossniveau (0) beginnt: Drei Stockwerke gehen von 0 bis 2."
+  },
+  "l2": {
+   "title": "Die Noten zusammenzählen",
+   "prompt": "Was gibt das Programm aus?",
+   "hint": "Die Schleife schließt 1 ein und lässt 5 weg.",
+   "why": "Die Schleife durchläuft 1, 2, 3 und 4, und die Summe ist 10. Die Obergrenze wird ausgelassen.",
+   "analogy": "total ist ein Sparschwein: In jeder Runde wird eine Münze im Wert von i hineingeworfen. Am Ende zählst du, was drin ist."
+  },
+  "l3": {
+   "title": "Countdown ohne Ende",
+   "prompt": "Der Code soll 3, 2, 1 und dann „Ende“ ausgeben, aber er hört nie auf. Welche Zeile muss korrigiert werden?",
+   "hint": "Damit die Schleife stoppt, muss n > 0 irgendwann falsch werden.",
+   "why": "Das Addieren von 1 entfernt n von null, daher ist die Bedingung immer wahr. Die Lösung ist, 1 zu subtrahieren.",
+   "analogy": "Es ist, als ob man eine Treppe hinuntergeht, aber bei jedem Schritt eine Stufe hinaufsteigt: Man erreicht nie das Erdgeschoss. Jede while-Schleife muss sich auf den Ausgang zubewegen."
+  },
+  "l4": {
+   "title": "Die höchste Note der Klasse",
+   "prompt": "Marta möchte die höchste Note in der Liste. Baue das Programm zusammen.",
+   "hint": "Beginne mit der Annahme, die erste sei die höchste; vergleiche dann mit jeder.",
+   "why": "Das Muster ist: anfängliche Vermutung (erstes Element), alles durchgehen, den Champion ersetzen, wenn jemand höher auftaucht, und erst nach der Schleife ausgeben.",
+   "analogy": "Es ist „König des Hügels“: Der erste klettert auf den Hügel und jeder Herausforderer übernimmt nur, wenn er höher ist. Wer am Ende dort ist, ist das Maximum."
+  },
+  "l5": {
+   "title": "Wie oft kann man es halbieren",
+   "prompt": "Was gibt das Programm aus?",
+   "hint": "Verfolge n in jeder Runde: 16, 8, ...",
+   "why": "n durchläuft 8, 4, 2 und 1: vier Divisionen, bis n > 1 falsch wird.",
+   "analogy": "Ein Blatt Papier immer wieder in der Mitte falten: Die while-Schleife weiß nicht im Voraus, wie viele Faltungen es geben wird; sie hört einfach auf, wenn keine mehr möglich sind."
+  },
+  "f1": {
+   "title": "Den zurückgegebenen Wert verwenden",
+   "prompt": "Was gibt das Programm aus?",
+   "hint": "return übergibt das Ergebnis an denjenigen, der die Funktion aufgerufen hat.",
+   "why": "Die Funktion gibt 8 zurück, die in r gespeichert wird. Dann ist 8 + 1 = 9.",
+   "analogy": "Eine Funktion ist ein Entsafter: Obst geht hinein (Argument) und ein Glas kommt heraus (Rückgabewert), das du nach Belieben verwendest."
+  },
   "f2": {
    "title": "Drucken ist nicht Zurückgeben",
    "prompt": "Eine Funktion berechnet die Versandkosten und gibt sie nur aus, ohne sie zurückzugeben. Was ist die Folge?",
@@ -723,227 +785,79 @@ LANG.de = {
    "why": "Die Schleife erzeugt die Indizes 0, 1, 2 und 3, aber 3 existiert nicht. Die korrekte Grenze ist die Größe der Sammlung, ohne sie einzuschließen.",
    "analogy": "Das ist der Zaunpfahl-Fehler: Bei einem Zaun mit 3 Brettern versucht jemand, der bis 4 zählt, ein Brett anzunageln, das es nicht gibt."
   },
-  "c4": {
-   "title": "Wer zuerst kommt: UND oder ODER",
-   "prompt": "Ist das Ergebnis des Ausdrucks wahr oder falsch?",
-   "opts": [
-    "Wahr",
-    "Falsch",
-    "Fehler",
-    "Es hängt von der Sprache ab"
-   ],
-   "hint": "So wie die Multiplikation vor der Addition kommt, wird ein logischer Operator zuerst ausgewertet.",
-   "why": "UND hat Vorrang vor ODER. Zuerst ergibt falsch UND falsch falsch; dann ergibt wahr ODER falsch wahr. Das gilt in allen vier Sprachen des Spiels.",
-   "analogy": "Wie bei 2 + 3 × 0: Zuerst wird die Multiplikation ausgeführt. UND ist die Multiplikation der Logik; im Zweifel setze Klammern."
-  },
-  "c5": {
-   "title": "Sechzig und kein Rabatt",
-   "prompt": "Personen, die genau 60 Jahre alt sind, sollten den halben Preis zahlen, zahlen aber den vollen. Welche Zeile muss korrigiert werden?",
-   "hint": "Teste es im Kopf mit 60: Ist die Bedingung wahr?",
-   "why": "60 > 60 ist falsch. Die Regel „ab 60“ verlangt >=. Grenzfehler gehören zu den häufigsten Fehlern in Bedingungen.",
-   "analogy": "Es ist das Schild „Mindestgröße 1,40 m“ mit einem Wächter, der alle anhält, die genau 1,40 m groß sind. Die Regel ist richtig; der Vergleich ist falsch."
-  },
-  "l1": {
-   "title": "Wo das Zählen beginnt",
-   "prompt": "Welche Werte gibt die Schleife aus?",
-   "hint": "Das Zählen beginnt bei 0 und endet vor 3.",
-   "why": "Sie erzeugt 0, 1 und 2: drei Werte, beginnend bei null und ohne die 3.",
-   "analogy": "Wie Stockwerke in einem Gebäude, das auf Erdgeschossniveau (0) beginnt: Drei Stockwerke gehen von 0 bis 2."
-  },
-  "l2": {
-   "title": "Die Noten zusammenzählen",
-   "prompt": "Was gibt das Programm aus?",
-   "hint": "Die Schleife schließt 1 ein und lässt 5 weg.",
-   "why": "Die Schleife durchläuft 1, 2, 3 und 4, und die Summe ist 10. Die Obergrenze wird ausgelassen.",
-   "analogy": "total ist ein Sparschwein: In jeder Runde wird eine Münze im Wert von i hineingeworfen. Am Ende zählst du, was drin ist."
-  },
-  "l3": {
-   "title": "Countdown ohne Ende",
-   "prompt": "Der Code soll 3, 2, 1 und dann „Ende“ ausgeben, aber er hört nie auf. Welche Zeile muss korrigiert werden?",
-   "hint": "Damit die Schleife stoppt, muss n > 0 irgendwann falsch werden.",
-   "why": "Das Addieren von 1 entfernt n von null, daher ist die Bedingung immer wahr. Die Lösung ist, 1 zu subtrahieren.",
-   "analogy": "Es ist, als ob man eine Treppe hinuntergeht, aber bei jedem Schritt eine Stufe hinaufsteigt: Man erreicht nie das Erdgeschoss. Jede while-Schleife muss sich auf den Ausgang zubewegen."
-  },
-  "l4": {
-   "title": "Die höchste Note der Klasse",
-   "prompt": "Marta möchte die höchste Note in der Liste. Baue das Programm zusammen.",
-   "hint": "Beginne mit der Annahme, die erste sei die höchste; vergleiche dann mit jeder.",
-   "why": "Das Muster ist: anfängliche Vermutung (erstes Element), alles durchgehen, den Champion ersetzen, wenn jemand höher auftaucht, und erst nach der Schleife ausgeben.",
-   "analogy": "Es ist „König des Hügels“: Der erste klettert auf den Hügel und jeder Herausforderer übernimmt nur, wenn er höher ist. Wer am Ende dort ist, ist das Maximum."
-  },
-  "l5": {
-   "title": "Wie oft kann man es halbieren",
-   "prompt": "Was gibt das Programm aus?",
-   "hint": "Verfolge n in jeder Runde: 16, 8, ...",
-   "why": "n durchläuft 8, 4, 2 und 1: vier Divisionen, bis n > 1 falsch wird.",
-   "analogy": "Ein Blatt Papier immer wieder in der Mitte falten: Die while-Schleife weiß nicht im Voraus, wie viele Faltungen es geben wird; sie hört einfach auf, wenn keine mehr möglich sind."
-  },
-  "f1": {
-   "title": "Den zurückgegebenen Wert verwenden",
-   "prompt": "Was gibt das Programm aus?",
-   "hint": "return übergibt das Ergebnis an denjenigen, der die Funktion aufgerufen hat.",
-   "why": "Die Funktion gibt 8 zurück, die in r gespeichert wird. Dann ist 8 + 1 = 9.",
-   "analogy": "Eine Funktion ist ein Entsafter: Obst geht hinein (Argument) und ein Glas kommt heraus (Rückgabewert), das du nach Belieben verwendest."
-  },
   "k5": {
    "title": "Wie viele Bücher mit mehr als vier Exemplaren",
    "prompt": "Was gibt das Programm aus?",
    "hint": "c zählt Elemente; es addiert keine Werte.",
    "why": "Nur 5 und 8 sind größer als 4, also endet der Zähler bei 2.",
-   "analogy": "Es ist der Türsteher mit einem Handzähler: ein Klick pro Person, die die Regel erfüllt, unabhängig davon, wie groß jede ist."
+   "analogy": "Es ist der Türsteher mit einem Handzähler: ein Klick pro Person, die die Regel erfüllt, egal wie groß jeder Einzelne ist."
   },
   "r1": {
    "title": "Die Bremse der Rekursion",
-   "prompt": "Was muss jede rekursive Funktion haben, damit sie sich nicht unendlich selbst aufruft?",
+   "prompt": "Was muss jede rekursive Funktion haben, damit sie sich nicht unendlich oft selbst aufruft?",
    "opts": [
     "Einen Basisfall, der ohne neuen Aufruf antwortet",
     "Eine innere while-Schleife",
     "Eine globale Steuervariable",
     "Mindestens zwei Parameter"
    ],
-   "hint": "Denken Sie daran, was die Aufrufe stoppt.",
-   "why": "Der Basisfall ist die einfache Situation, die direkt gelöst wird. Jeder rekursive Aufruf muss sich darauf zubewegen.",
-   "analogy": "Russische Puppen: Sie öffnen eine, finden eine kleinere und hören bei der massiven Puppe auf. Ohne sie würden Sie ewig Puppen öffnen."
+   "hint": "Denke darüber nach, was die Aufrufe stoppt.",
+   "why": "Der Basisfall ist die einfache Situation, die direkt gelöst wird. Jeder rekursive Aufruf muss sich ihm nähern.",
+   "analogy": "Matrjoschka-Puppen: Du öffnest eine, findest eine kleinere und hörst bei der massiven Puppe auf. Ohne sie würdest du endlos Puppen öffnen."
   },
   "r2": {
    "title": "Fakultät Schritt für Schritt",
    "prompt": "Was gibt das Programm aus?",
-   "hint": "Erweitern: fact(4) = 4 × fact(3) = ...",
+   "hint": "Erweitere: fact(4) = 4 × fact(3) = ...",
    "why": "4 × 3 × 2 × 1 = 24. Jeder Aufruf wartet auf die Antwort des kleineren Aufrufs und multipliziert dann.",
-   "analogy": "Eine Schlange von Leuten, die den Vordermann fragen: „Was ist deine Zahl?“. Der erste antwortet 1, und die Antwort wandert multipliziert zurück durch die Schlange."
+   "analogy": "Eine Schlange von Leuten, die den Vordermann fragen: „Was ist deine Zahl?“. Der Erste antwortet 1, und die Antwort wandert zurück durch die Schlange und wird multipliziert."
   },
   "r3": {
    "title": "Rekursion, die sich nicht bewegt",
-   "prompt": "Die Funktion sollte n, n-1, ..., 1 ausgeben, aber der Call-Stack läuft über. Welche Zeile ist falsch?",
+   "prompt": "Die Funktion soll n, n-1, ..., 1 ausgeben, aber der Aufrufstapel läuft über. Welche Zeile ist falsch?",
    "hint": "Bewegt sich der rekursive Aufruf auf den Basisfall zu?",
-   "why": "Der Aufruf count(n) wiederholt dasselbe Problem endlos. Die Korrektur ist count(n - 1), das bis null herunterzählt.",
-   "analogy": "Es ist, als würde man jemanden bitten, die Treppe hinunterzugehen, während er immer auf derselben Stufe tritt. Der Basisfall existiert; er wird nur nie erreicht."
+   "why": "Der Aufruf von count(n) wiederholt dasselbe Problem endlos. Die Lösung ist count(n - 1), das bis auf null heruntergeht.",
+   "analogy": "Es ist, als würde man jemanden bitten, die Treppe hinunterzugehen, während er auf derselben Stufe stehen bleibt. Der Basisfall existiert; er wird nur nie erreicht."
   },
   "r4": {
-   "title": "Drucken auf dem Rückweg",
+   "title": "Ausgabe auf dem Rückweg",
    "prompt": "Was gibt das Programm aus?",
-   "hint": "Die Ausgabe kommt nach dem rekursiven Aufruf. Wann wird sie schließlich ausgeführt?",
-   "why": "Jeder Aufruf geht zuerst bis zum Basisfall hinunter; die Ausgabe erfolgt erst bei der Rückkehr, vom innersten (1) zum äußersten (3).",
-   "analogy": "Ein Stapel Teller: Sie stapeln 3, 2, 1 und spülen erst beim Abtragen. Der zuletzt Hinzugelegte wird zuerst gespült."
+   "hint": "Die Ausgabe kommt nach dem rekursiven Aufruf. Wann wird sie endlich ausgeführt?",
+   "why": "Jeder Aufruf geht zuerst zum Basisfall hinunter; die Ausgabe erfolgt erst bei der Rückkehr, vom innersten (1) zum äußersten (3).",
+   "analogy": "Ein Stapel Teller: Du stapelst 3, 2, 1 und spülst erst beim Abtragen. Der letzte wird zuerst gespült."
   },
   "r5": {
-   "title": "Zwei Aufrufe gleichzeitig",
+   "title": "Zwei Aufrufe auf einmal",
    "prompt": "Was gibt das Programm aus?",
-   "hint": "Arbeiten Sie von unten nach oben: f(0), f(1), f(2)...",
-   "why": "Es ist die Fibonacci-Folge: 0, 1, 1, 2, 3, 5. Also f(5) = 5.",
-   "analogy": "Ein umgekehrter Stammbaum: Jede Antwort hängt von den beiden vorherigen ab, bis man die bekannten Vorfahren erreicht (die Basisfälle)."
+   "hint": "Arbeite von unten nach oben: f(0), f(1), f(2)...",
+   "why": "Es ist die Fibonacci-Folge: 0, 1, 1, 2, 3, 5. Also ist f(5) = 5.",
+   "analogy": "Ein umgekehrter Stammbaum: Jede Antwort hängt von den beiden vorherigen ab, bis du die bekannten Vorfahren (die Basisfälle) erreichst."
   },
   "q1": {
    "title": "Funktional oder nicht-funktional",
-   "prompt": "Welche dieser Anforderungen ist eine NICHT-funktionale Anforderung des Kliniksystems?",
+   "prompt": "Welche dieser Anforderungen ist eine NICHT-funktionale Anforderung an das Kliniksystem?",
    "opts": [
-    "Das System muss innerhalb von 2 Sekunden reagieren",
+    "Das System muss innerhalb von 2 Sekunden antworten",
     "Der Patient kann einen Termin umbuchen",
     "Das System sendet eine SMS-Erinnerung",
     "Die Rezeptionistin registriert Patienten"
    ],
-   "hint": "Nicht-funktional beschreibt Qualität (wie gut), nicht Verhalten (was es tut).",
+   "hint": "Nicht-funktional beschreibt die Qualität (wie gut), nicht das Verhalten (was es tut).",
    "why": "Die Antwortzeit ist ein Qualitätsmerkmal. Die anderen drei beschreiben Funktionen, die das System ausführt.",
-   "analogy": "Bei einem Auto ist funktional: Fahren, Bremsen und Licht einschalten. Nicht-funktional ist der Kraftstoffverbrauch, Komfort und die Sicherheit, mit der es das tut."
+   "analogy": "Bei einem Auto ist funktional: fahren, bremsen und das Licht einschalten. Nicht-funktional ist der Kraftstoffverbrauch, der Komfort und die Sicherheit, mit der es das tut."
   },
   "q2": {
    "title": "Eine Anforderung, die man testen kann",
-   "prompt": "Welche Anforderung ist verifizierbar formuliert?",
+   "prompt": "Welche Anforderung ist überprüfbar formuliert?",
    "opts": [
     "Die Suche liefert Ergebnisse in unter 1 s für 95 % der Anfragen",
     "Das System muss schnell sein",
-    "Die Benutzeroberfläche muss freundlich sein",
+    "Die Oberfläche muss freundlich sein",
     "Das System muss modern und robust sein"
    ],
-   "hint": "Fragen Sie sich: Wie würde ich nachweisen, dass dies erfüllt ist?",
+   "hint": "Frage dich: Wie würde ich nachweisen, dass dies erfüllt ist?",
    "why": "Nur die erste Option hat ein messbares Kriterium. „Schnell“, „freundlich“ und „modern“ führen bei der Abnahme zu Diskussionen.",
    "analogy": "Es ist der Unterschied, ob man den Maurer um „eine hohe Mauer“ oder um „eine 2,80 m hohe Mauer“ bittet. Nur die zweite kann mit einem Maßband überprüft werden."
-  },
-  "g1": {
-   "title": "Was ein Commit ist",
-   "prompt": "Ein Git-Commit ist:",
-   "opts": [
-    "Eine Aufzeichnung des Projektzustands zu diesem Zeitpunkt, mit einer Nachricht",
-    "Das Hochladen der Dateien auf den Server",
-    "Eine Sicherungskopie in einem anderen Ordner",
-    "Das Löschen alter Versionen"
-   ],
-   "hint": "Das Senden an den Server ist ein anderer Befehl (push).",
-   "why": "Ein Commit speichert einen lokalen Schnappschuss der Änderungen, mit Autor, Datum und Nachricht. Das Senden an das Remote-Repository erfolgt später mit push.",
-   "analogy": "Es ist ein Speicherpunkt in einem Spiel: Wenn der Boss dich besiegt, kannst du genau zu diesem Moment zurückkehren."
-  },
-  "g2": {
-   "title": "Einen Fix veröffentlichen",
-   "prompt": "Ordne die Befehle, um einen Branch zu erstellen, die Änderung aufzuzeichnen und sie an das Remote-Repository zu senden.",
-   "hint": "Zuerst der Arbeitsbereich, dann stage (add), aufzeichnen (commit) und senden (push).",
-   "why": "Du erstellst den Branch vor der Änderung; add wählt aus, was hineinkommt; commit zeichnet auf; push veröffentlicht.",
-   "analogy": "Ein Paket verschicken: Hol die Kiste (Branch), leg die Gegenstände hinein (add), verschließe und beschrifte sie (commit), und erst dann bring sie zur Post (push)."
-  },
-  "g3": {
-   "title": "Wozu ein Branch dient",
-   "prompt": "Warum sollte Bia einen Branch für den neuen Rabattbildschirm erstellen?",
-   "opts": [
-    "Um isoliert zu arbeiten, ohne die Hauptlinie zu beeinflussen",
-    "Um das Repository schneller zu machen",
-    "Weil Git Commits auf main verbietet",
-    "Um die alte Historie zu löschen"
-   ],
-   "hint": "Denk daran, was passiert, wenn unfertiger Code direkt in main landet.",
-   "why": "Ein Branch isoliert die laufende Arbeit. Main bleibt stabil, bis die Änderung überprüft und integriert ist.",
-   "analogy": "Es ist der Entwurf eines Dokuments: Du experimentierst frei und kopierst es erst in das Original, wenn der Text gut ist."
-  },
-  "g4": {
-   "title": "Warum der Merge kollidiert ist",
-   "prompt": "Wann passiert ein Merge-Konflikt?",
-   "opts": [
-    "Wenn zwei Branches dieselben Zeilen unterschiedlich ändern",
-    "Immer wenn zwei Personen im selben Repository arbeiten",
-    "Wenn der Branch mehr als zehn Commits hat",
-    "Wenn auf einem der Branches eine neue Datei erstellt wird"
-   ],
-   "hint": "Git merged Änderungen an verschiedenen Stellen selbstständig. Was kann es nicht entscheiden?",
-   "why": "Wenn beide Versionen dieselbe Stelle berührt haben, weiß Git nicht, welche es wählen soll, und verlangt eine menschliche Entscheidung.",
-   "analogy": "Zwei Personen haben denselben Satz eines Vertrags umgeschrieben. Der Notar entscheidet nicht allein: Beide werden hinzugezogen, um den endgültigen Wortlaut festzulegen."
-  },
-  "g5": {
-   "title": "Eine gute Commit-Nachricht",
-   "prompt": "Welche Commit-Nachricht ist für jemanden, der die Historie in einem Jahr liest, am nützlichsten?",
-   "opts": [
-    "Fix Rabattberechnung für Käufe von genau R$ 50",
-    "tweaks",
-    "endgültige Version diesmal wirklich",
-    "Änderungen von Caio am Freitag"
-   ],
-   "hint": "Die Nachricht sollte sagen, was geändert wurde und warum, ohne jemanden zu zwingen, den Code zu öffnen.",
-   "why": "Eine gute Nachricht beschreibt die Änderung und ihren Grund. „tweaks“ hilft nicht, zu finden, wann sich ein Verhalten geändert hat.",
-   "analogy": "Es ist das Etikett auf Umzugskartons: „Küche, zerbrechliche Gläser“ erspart dir, zwanzig Kartons mit der Aufschrift „Kram“ zu öffnen."
-  },
-  "t1": {
-   "title": "Was ein Unit-Test ist",
-   "prompt": "Ein Unit-Test überprüft:",
-   "opts": [
-    "Eine kleine isolierte Code-Einheit, wie eine Funktion",
-    "Das gesamte System über die Benutzeroberfläche",
-    "Ob der Server hohen Datenverkehr bewältigen kann",
-    "Ob der Kunde mit der Lieferung zufrieden war"
-   ],
-   "hint": "Der Name verrät es: Was ist die „Unit“?",
-   "why": "Unit-Tests sind klein, schnell und isoliert. Das gesamte System ist End-to-End-Testing; hoher Datenverkehr ist Lasttest.",
-   "analogy": "Es ist das Testen jeder Glühbirne, bevor die Lichterkette zusammengesetzt wird. Wenn das Set später ausfällt, weißt du bereits, dass die Glühbirnen nicht das Problem sind."
-  },
-  "t2": {
-   "title": "Testwerte auswählen",
-   "prompt": "Die Regel gilt „ab 18“. Welche Eingabemenge testet die Funktion am besten?",
-   "hint": "Wo verstecken sich Vergleichsfehler (> statt >=) am ehesten?",
-   "why": "Defekte häufen sich an Grenzen. Das Testen knapp unter, genau an und knapp über dem Limit deckt ein >= auf, das mit > vertauscht wurde.",
-   "analogy": "Um zu prüfen, ob eine Tür gut schließt, untersuchst du den Rahmen, nicht die Mitte der Wand."
-  },
-  "t3": {
-   "title": "Arrange, act, assert",
-   "prompt": "Baue den Bäckerei-Rabatt-Test nach arrange, act, assert zusammen.",
-   "hint": "Zuerst die Daten, dann der Aufruf der zu testenden Funktion und zuletzt die Überprüfung.",
-   "why": "Der Test richtet das Szenario ein, führt die Aktion aus und vergleicht das Ergebnis mit dem Erwarteten.",
-   "analogy": "Wie beim Ausprobieren eines Rezepts: Lege die Zutaten zurecht, koche und probiere erst dann, ob es gelungen ist."
   },
   "q3": {
    "title": "Eine wohlgeformte User Story",
@@ -1048,6 +962,92 @@ LANG.de = {
    "hint": "Der Engpass ist nicht das Anfangen, sondern das Beenden.",
    "why": "Ein WIP-Limit erzwingt das Beenden vor dem Anfangen, reduziert Kontextwechsel und macht Engpässe sichtbar.",
    "analogy": "Ein Herd mit vier Flammen und 12 Töpfen: Nichts wird richtig gar. Besser vier Gerichte fertigstellen und erst dann die nächsten aufsetzen."
+  },
+  "g1": {
+   "title": "Was ein Commit ist",
+   "prompt": "Ein Git-Commit ist:",
+   "opts": [
+    "Eine Aufzeichnung des Projektzustands zu diesem Zeitpunkt, mit einer Nachricht",
+    "Das Hochladen der Dateien auf den Server",
+    "Eine Sicherungskopie in einem anderen Ordner",
+    "Das Löschen alter Versionen"
+   ],
+   "hint": "Das Senden an den Server ist ein anderer Befehl (push).",
+   "why": "Ein Commit speichert einen lokalen Schnappschuss der Änderungen, mit Autor, Datum und Nachricht. Das Senden an das Remote-Repository erfolgt später mit push.",
+   "analogy": "Es ist ein Speicherpunkt in einem Spiel: Wenn der Boss dich besiegt, kannst du genau zu diesem Moment zurückkehren."
+  },
+  "g2": {
+   "title": "Einen Fix veröffentlichen",
+   "prompt": "Ordne die Befehle, um einen Branch zu erstellen, die Änderung aufzuzeichnen und sie an das Remote-Repository zu senden.",
+   "hint": "Zuerst der Arbeitsbereich, dann stage (add), aufzeichnen (commit) und senden (push).",
+   "why": "Du erstellst den Branch vor der Änderung; add wählt aus, was hineinkommt; commit zeichnet auf; push veröffentlicht.",
+   "analogy": "Ein Paket verschicken: Hol die Kiste (Branch), leg die Gegenstände hinein (add), verschließe und beschrifte sie (commit), und erst dann bring sie zur Post (push)."
+  },
+  "g3": {
+   "title": "Wozu ein Branch dient",
+   "prompt": "Warum sollte Bia einen Branch für den neuen Rabattbildschirm erstellen?",
+   "opts": [
+    "Um isoliert zu arbeiten, ohne die Hauptlinie zu beeinflussen",
+    "Um das Repository schneller zu machen",
+    "Weil Git Commits auf main verbietet",
+    "Um die alte Historie zu löschen"
+   ],
+   "hint": "Denk daran, was passiert, wenn unfertiger Code direkt in main landet.",
+   "why": "Ein Branch isoliert die laufende Arbeit. Main bleibt stabil, bis die Änderung überprüft und integriert ist.",
+   "analogy": "Es ist der Entwurf eines Dokuments: Du experimentierst frei und kopierst es erst in das Original, wenn der Text gut ist."
+  },
+  "g4": {
+   "title": "Warum der Merge kollidiert ist",
+   "prompt": "Wann passiert ein Merge-Konflikt?",
+   "opts": [
+    "Wenn zwei Branches dieselben Zeilen unterschiedlich ändern",
+    "Immer wenn zwei Personen im selben Repository arbeiten",
+    "Wenn der Branch mehr als zehn Commits hat",
+    "Wenn auf einem der Branches eine neue Datei erstellt wird"
+   ],
+   "hint": "Git merged Änderungen an verschiedenen Stellen selbstständig. Was kann es nicht entscheiden?",
+   "why": "Wenn beide Versionen dieselbe Stelle berührt haben, weiß Git nicht, welche es wählen soll, und verlangt eine menschliche Entscheidung.",
+   "analogy": "Zwei Personen haben denselben Satz eines Vertrags umgeschrieben. Der Notar entscheidet nicht allein: Beide werden hinzugezogen, um den endgültigen Wortlaut festzulegen."
+  },
+  "g5": {
+   "title": "Eine gute Commit-Nachricht",
+   "prompt": "Welche Commit-Nachricht ist für jemanden, der die Historie in einem Jahr liest, am nützlichsten?",
+   "opts": [
+    "Fix Rabattberechnung für Käufe von genau R$ 50",
+    "tweaks",
+    "endgültige Version diesmal wirklich",
+    "Änderungen von Caio am Freitag"
+   ],
+   "hint": "Die Nachricht sollte sagen, was geändert wurde und warum, ohne jemanden zu zwingen, den Code zu öffnen.",
+   "why": "Eine gute Nachricht beschreibt die Änderung und ihren Grund. „tweaks“ hilft nicht, zu finden, wann sich ein Verhalten geändert hat.",
+   "analogy": "Es ist das Etikett auf Umzugskartons: „Küche, zerbrechliche Gläser“ erspart dir, zwanzig Kartons mit der Aufschrift „Kram“ zu öffnen."
+  },
+  "t1": {
+   "title": "Was ein Unit-Test ist",
+   "prompt": "Ein Unit-Test überprüft:",
+   "opts": [
+    "Eine kleine isolierte Code-Einheit, wie eine Funktion",
+    "Das gesamte System über die Benutzeroberfläche",
+    "Ob der Server hohen Datenverkehr bewältigen kann",
+    "Ob der Kunde mit der Lieferung zufrieden war"
+   ],
+   "hint": "Der Name verrät es: Was ist die „Unit“?",
+   "why": "Unit-Tests sind klein, schnell und isoliert. Das gesamte System ist End-to-End-Testing; hoher Datenverkehr ist Lasttest.",
+   "analogy": "Es ist das Testen jeder Glühbirne, bevor die Lichterkette zusammengesetzt wird. Wenn das Set später ausfällt, weißt du bereits, dass die Glühbirnen nicht das Problem sind."
+  },
+  "t2": {
+   "title": "Testwerte auswählen",
+   "prompt": "Die Regel gilt „ab 18“. Welche Eingabemenge testet die Funktion am besten?",
+   "hint": "Wo verstecken sich Vergleichsfehler (> statt >=) am ehesten?",
+   "why": "Defekte häufen sich an Grenzen. Das Testen knapp unter, genau an und knapp über dem Limit deckt ein >= auf, das mit > vertauscht wurde.",
+   "analogy": "Um zu prüfen, ob eine Tür gut schließt, untersuchst du den Rahmen, nicht die Mitte der Wand."
+  },
+  "t3": {
+   "title": "Arrange, act, assert",
+   "prompt": "Baue den Bäckerei-Rabatt-Test nach arrange, act, assert zusammen.",
+   "hint": "Zuerst die Daten, dann der Aufruf der zu testenden Funktion und zuletzt die Überprüfung.",
+   "why": "Der Test richtet das Szenario ein, führt die Aktion aus und vergleicht das Ergebnis mit dem Erwarteten.",
+   "analogy": "Wie beim Ausprobieren eines Rezepts: Lege die Zutaten zurecht, koche und probiere erst dann, ob es gelungen ist."
   },
   "t4": {
    "title": "Alles grün, null Bugs?",
@@ -1212,166 +1212,109 @@ LANG.de = {
    "why": "Fehler gehören zum Arbeitssystem, nicht zu einer einzelnen Person. Der Regressionstest verhindert, dass der Defekt zurückkehrt, und die Prozessänderung verhindert, dass die Situation zurückkehrt.",
    "analogy": "In der Luftfahrt wird jeder Vorfall zur Untersuchung und zu einem besseren Verfahren, nicht zur Hexenjagd. Deshalb ist das Fliegen so sicher geworden."
   },
-  "o2": {
-   "title": "Der Weg in die Produktion",
-   "prompt": "Ordne die Phasen einer Continuous-Delivery-Pipeline in die richtige Reihenfolge.",
-   "lines": [
-    "Der Entwickler pusht den Code",
-    "Der CI-Server holt den Code und installiert die Abhängigkeiten",
-    "Die automatisierten Tests laufen",
-    "Das Release-Paket wird gebaut",
-    "Die Version wird in Produktion freigegeben"
-   ],
-   "hint": "Nichts wird paketiert, bevor die Tests bestanden sind, und nichts wird freigegeben, bevor es paketiert wurde.",
-   "why": "Jede Phase ist ein Tor: Nur was die Tests bestanden hat, wird paketiert, und nur was reproduzierbar paketiert wurde, wird freigegeben.",
-   "analogy": "Ein Fließband: Das Teil kommt an, wird montiert, durchläuft die Qualitätskontrolle, wird verpackt und verlässt erst dann das Werk für den Laden."
-  },
-  "o3": {
-   "title": "\"Bei mir läuft es\"",
-   "prompt": "Die App läuft auf Bias Laptop und stürzt auf dem Server ab. Was ist die wahrscheinlichste Ursache und die richtige Lösung?",
-   "opts": [
-    "Unterschiedliche Umgebungen; Abhängigkeiten und Versionen in einer Datei festlegen und überall dieselbe Umgebung verwenden",
-    "Ein fehlerhafter Server; einen neuen kaufen",
-    "Pech; morgen noch einmal versuchen",
-    "Eine schlechte Sprache; in einer anderen neu schreiben"
-   ],
-   "hint": "Der Code ist an beiden Orten derselbe. Was ändert sich um ihn herum?",
-   "why": "Derselbe Code verhält sich anders, wenn sich Versionen und Einstellungen ändern. Festgelegte Abhängigkeiten und standardisierte Umgebungen machen die Ausführung reproduzierbar.",
-   "analogy": "Das Rezept funktioniert in deiner Küche und misslingt beim Nachbarn, weil dessen Ofen eine andere Temperatur anzeigt. Standardisiere den Ofen; gib nicht dem Kuchen die Schuld."
-  },
-  "o4": {
-   "title": "Release-Risiko",
-   "prompt": "Ordne jede Praxis nach ihrer Wirkung auf das Release-Risiko ein.",
-   "bins": [
-    "Senkt das Risiko",
-    "Erhöht das Risiko"
-   ],
-   "cards": [
-    "Kleine Änderungen mehrmals pro Woche freigeben",
-    "Drei Monate Änderungen in einem einzigen Release anhäufen",
-    "Einen getesteten Rollback-Befehl bereithalten",
-    "Dateien direkt auf dem Produktionsserver bearbeiten"
-   ],
-   "hint": "Frage dich: Wenn etwas schiefgeht, lässt sich die Ursache leicht finden und zurückgehen?",
-   "why": "Eine kleine Änderung hat eine leicht zu findende Ursache, und ein getesteter Rollback bietet einen schnellen Weg zurück. Ein riesiges Release und manuelle Änderungen in Produktion machen den Fehler schwer auffindbar und schwer rückgängig.",
-   "analogy": "Den Fluss Stein für Stein zu überqueren erlaubt dir, einen Schritt zurückzutreten. Von einem Ufer zum anderen zu springen ist alles oder nichts."
-  },
-  "o5": {
-   "title": "CI ist seit drei Tagen rot",
-   "prompt": "Ein Test schlägt in CI seit drei Tagen fehl und das Team pusht weiter Code. Was ist das richtige Vorgehen?",
-   "opts": [
-    "Anhalten und zuerst den Build reparieren: Ein ignorierter Alarm schützt nicht mehr",
-    "Den fehlschlagenden Test deaktivieren",
-    "Weitermachen und alles am Monatsende reparieren",
-    "CI entfernen, das nur stört"
-   ],
-   "hint": "Was ist ein Alarm wert, wenn alle gelernt haben, ihn zu ignorieren?",
-   "why": "Bei einem roten Build schleichen sich neue Fehler ein, versteckt hinter dem ersten. Den Build zu reparieren wird zur Priorität des ganzen Teams; den Test zu deaktivieren schaltet nur das Kontrolllämpchen aus.",
-   "analogy": "Es ist die Öllampe am Armaturenbrett: Sie zuzukleben repariert nicht den Motor."
-  },
   "q6": {
-   "title": "Anforderungen triagieren",
-   "prompt": "Ordnen Sie jede Anforderung des Gesundheitszentrum-Systems ein.",
+   "title": "Anforderungen sortieren",
+   "prompt": "Ordne jede Anforderung des Systems der Gesundheitsklinik zu.",
    "bins": [
     "Funktional",
     "Nicht-funktional"
    ],
    "cards": [
     "Der Patient erhält am Tag vor dem Termin eine Erinnerung",
-    "Das System ist zu 99% der Zeit verfügbar",
-    "Die Rezeptionistin verschiebt Termine",
+    "Das System ist zu 99 % der Zeit verfügbar",
+    "Die Empfangskraft verschiebt Termine",
     "Patientendaten werden verschlüsselt gespeichert"
    ],
-   "hint": "Fragen Sie bei jeder Karte: Ist das etwas, was das System TUT, oder eine Qualität, mit der es das tut?",
-   "why": "Erinnern und Verschieben sind Verhaltensweisen (funktional). Verfügbarkeit und Verschlüsselung sind Qualitäten des Dienstes (nicht-funktional) und werden oft vergessen, bis sie zum Problem werden.",
-   "analogy": "Auf einer Speisekarte sind die Gerichte der funktionale Teil. Heiß, innerhalb von zwanzig Minuten und aus einer sauberen Küche zu kommen, ist der nicht-funktionale Teil: Niemand bestellt es, jeder erwartet es."
+   "hint": "Frage bei jeder Karte: Ist das etwas, das das System TUT, oder eine Eigenschaft, mit der es das tut?",
+   "why": "Erinnern und Verschieben sind Verhalten (funktional). Verfügbarkeit und Verschlüsselung sind Eigenschaften des Dienstes (nicht-funktional), und sie werden oft erst bemerkt, wenn sie zum Problem werden.",
+   "analogy": "Auf einer Speisekarte sind die Gerichte der funktionale Teil. Heiß ankommen, innerhalb von zwanzig Minuten und aus einer sauberen Küche ist der nicht-funktionale Teil: Niemand bestellt ihn, jeder erwartet ihn."
   },
   "a6": {
    "title": "Der Rhythmus eines Sprints",
-   "prompt": "Bringen Sie die Scrum-Sprint-Ereignisse in die richtige Reihenfolge.",
+   "prompt": "Bringe die Scrum-Sprint-Ereignisse in die richtige Reihenfolge.",
    "lines": [
     "Planung: Das Team wählt aus, was in den Sprint passt",
     "Tägliche Meetings verfolgen den Fortschritt",
     "Review: Das Inkrement wird den Nutzern gezeigt",
     "Retrospektive: Das Team verbessert seinen eigenen Prozess"
    ],
-   "hint": "Zuerst entscheidet man, was zu tun ist; am Ende schaut man auf das Produkt und dann auf den Prozess.",
-   "why": "Der Sprint beginnt mit der Planung, geht weiter mit den Dailies, zeigt das Ergebnis im Review und schließt mit der Retrospektive, die den nächsten Zyklus speist.",
-   "analogy": "Es ist wie eine Reise: die Route planen, jeden Tag die Karte prüfen, bei der Ankunft die Fotos zeigen und sich einigen, was man beim nächsten Mal anders macht."
+   "hint": "Zuerst entscheidest du, was zu tun ist; am Ende schaust du dir das Produkt an und dann den Prozess.",
+   "why": "Der Sprint beginnt mit der Planung, läuft mit den Dailies weiter, zeigt beim Review das Ergebnis und schließt mit der Retrospektive ab, die den nächsten Zyklus speist.",
+   "analogy": "Es ist wie eine Reise: Route planen, jeden Tag die Karte prüfen, bei der Ankunft die Fotos zeigen und vereinbaren, was beim nächsten Mal anders gemacht wird."
   },
   "g6": {
    "title": "Einen Konflikt entwirren",
-   "prompt": "Bringen Sie die Schritte zum sicheren Auflösen eines Merge-Konflikts in die richtige Reihenfolge.",
+   "prompt": "Bringe die Schritte zum sicheren Auflösen eines Merge-Konflikts in die richtige Reihenfolge.",
    "lines": [
-    "Den aktualisierten Hauptbranch in Ihren Branch holen",
-    "Die als konfliktbehaftet markierten Dateien öffnen",
-    "Abschnitt für Abschnitt entscheiden, welche Version bleibt",
-    "Die Tests ausführen, um zu prüfen, dass nichts kaputt gegangen ist",
-    "Den Commit aufzeichnen, der den Merge abschließt"
+    "Hole den aktualisierten main in deinen Branch",
+    "Öffne die als konfliktbehaftet markierten Dateien",
+    "Entscheide abschnittsweise, welche Version bleibt",
+    "Führe die Tests aus, um zu prüfen, ob etwas kaputtgegangen ist",
+    "Erfasse den Commit, der den Merge abschließt"
    ],
    "hint": "Der Konflikt zeigt sich erst, wenn die beiden Versionen aufeinandertreffen; der Commit kommt erst nach der Prüfung.",
-   "why": "Das Mergen deckt die Konflikte auf, die Entscheidung ist menschlich und erfolgt Abschnitt für Abschnitt, und die Tests bestätigen, dass die Kombination funktioniert, bevor der endgültige Commit erfolgt.",
-   "analogy": "Zwei Redakteure haben denselben Absatz geändert: Die Versionen werden zusammengeführt, in Ruhe gelesen, ein Wortlaut gewählt, der gesamte Text Korrektur gelesen, und erst dann geht er in den Druck."
+   "why": "Der Merge deckt die Konflikte auf, die Entscheidung trifft ein Mensch abschnittsweise, und die Tests bestätigen, dass die Kombination funktioniert, bevor der endgültige Commit gemacht wird.",
+   "analogy": "Zwei Lektoren haben denselben Absatz geändert: Die Versionen werden zusammengeführt, ruhig gelesen, eine Formulierung gewählt, der ganze Text Korrektur gelesen, und erst dann geht er in den Druck."
   },
   "t6": {
    "title": "Der TDD-Zyklus",
-   "prompt": "Bringen Sie den testgetriebenen Entwicklungszyklus in die richtige Reihenfolge.",
+   "prompt": "Bringe den testgetriebenen Entwicklungszyklus in die richtige Reihenfolge.",
    "lines": [
-    "Einen Test schreiben, der fehlschlägt",
-    "Den minimalen Code schreiben, um den Test bestehen zu lassen",
-    "Alle Tests ausführen und alles grün sehen",
-    "Unter dem Schutz der Tests refaktorieren"
+    "Schreibe einen Test, der fehlschlägt",
+    "Schreibe den minimalen Code, um den Test bestehen zu lassen",
+    "Führe alle Tests aus und sieh zu, dass alles grün ist",
+    "Refaktoriere unter dem Schutz der Tests"
    ],
    "hint": "Rot, grün, refaktorieren.",
    "why": "Der Test kommt zuerst und schlägt fehl (rot), der minimale Code lässt ihn bestehen (grün), und erst dann wird die Struktur verbessert, mit dem Sicherheitsnetz der Tests darunter.",
-   "analogy": "Ein Schneider nimmt zuerst das Maß, schneidet dann den Stoff, bis er passt, und macht erst am Ende die Feinarbeit, wobei er nach jeder Anpassung das Maß überprüft."
+   "analogy": "Ein Schneider nimmt zuerst das Maß, schneidet dann den Stoff, bis er passt, und macht erst am Ende die Feinarbeit, wobei er nach jeder Anpassung das Maß prüft."
   },
   "d6": {
    "title": "Anzeichen von Kopplung",
-   "prompt": "Ordnen Sie jede im System der Genossenschaft beobachtete Situation ein.",
+   "prompt": "Ordne jede im System der Genossenschaft beobachtete Situation zu.",
    "bins": [
     "Niedrige Kopplung",
     "Hohe Kopplung"
    ],
    "cards": [
     "Die Versandberechnung erhält die Preistabelle als Parameter",
-    "Der Bildschirm greift direkt auf die Datenbank zu",
-    "Die Abrechnung kommuniziert mit Zahlungen über eine Schnittstelle",
-    "Die Änderung des Anmeldeformulars erzwingt Änderungen in sechs weiteren Dateien"
+    "Die Oberfläche greift direkt auf die Datenbank zu",
+    "Die Abrechnung kommuniziert mit dem Zahlungsverkehr über eine Schnittstelle",
+    "Eine Änderung am Anmeldeformular erzwingt Änderungen in sechs anderen Dateien"
    ],
-   "hint": "Fragen Sie: Wenn sich dieser Teil ändert, wie viele andere müssen sich mit ihm ändern?",
-   "why": "Abhängigkeiten von außen zu erhalten und über Schnittstellen zu kommunizieren, isoliert die Teile. Ein Bildschirm, der direkt mit der Datenbank spricht, und kaskadierende Änderungen offenbaren Teile, die aneinander gebunden sind.",
-   "analogy": "Geräte, die in Steckdosen gesteckt werden, werden einzeln ersetzt. Geräte, deren Kabel zusammengelötet sind, zwingen Sie, das Zimmer zu zerlegen, um den Fernseher zu wechseln."
+   "hint": "Frage: Wenn sich dieser Teil ändert, wie viele andere müssen sich dann mitändern?",
+   "why": "Abhängigkeiten von außen zu erhalten und über Schnittstellen zu kommunizieren isoliert die Teile. Eine Oberfläche, die direkt mit der Datenbank spricht, und kaskadierende Änderungen zeigen Teile, die aneinandergebunden sind.",
+   "analogy": "Geräte, die an Steckdosen angeschlossen sind, werden einzeln ersetzt. Geräte, deren Kabel zusammengelötet sind, zwingen dich, das Zimmer auseinanderzunehmen, um den Fernseher zu wechseln."
   },
   "m1": {
-   "title": "Wer nutzt es und wofür",
+   "title": "Wer nutzt es und wozu",
    "prompt": "Welches Diagramm zeigt, wer das System nutzt und was jede Person damit tun kann?",
    "opts": [
-    "Anwendungsfalldiagramm",
+    "Use-Case-Diagramm",
     "Klassendiagramm",
     "Sequenzdiagramm",
     "Verteilungsdiagramm"
    ],
-   "hint": "Suchen Sie nach der Sicht, die sich auf Personen (Akteure) und Ziele konzentriert.",
-   "why": "Anwendungsfälle verbinden Akteure mit Zielen: Der Leser leiht aus, der Freiwillige registriert. Klassen zeigen Konzepte; Sequenzen zeigen die Reihenfolge der Nachrichten.",
-   "analogy": "Es ist die Speisekarte aus Sicht des Speisesaals: Wer kann was bestellen, ohne die Küche zu zeigen."
+   "hint": "Suche die Sicht, die auf Personen (Akteure) und Ziele ausgerichtet ist.",
+   "why": "Use Cases verbinden Akteure mit Zielen: Der Leser leiht aus, der Freiwillige registriert. Klassen zeigen Konzepte; Sequenzen zeigen die Reihenfolge der Nachrichten.",
+   "analogy": "Es ist die Speisekarte aus Sicht des Gastraums: Wer kann was bestellen, ohne die Küche zu zeigen."
   },
   "m2": {
    "title": "Buch und Exemplar",
    "prompt": "Wie sollte die Beziehung zwischen Buch und Exemplar modelliert werden?",
    "opts": [
-    "Ein Buch hat viele Exemplare; jedes Exemplar gehört zu einem einzigen Buch",
+    "Ein Buch hat viele Exemplare; jedes Exemplar gehört zu genau einem Buch",
     "Ein Buch hat genau ein Exemplar",
     "Viele Bücher zu vielen Exemplaren",
     "Keine Beziehung: Sie sind dasselbe"
    ],
    "hint": "Die Bibliothek hat drei Exemplare von Dom Casmurro. Wie viele Titel und wie viele physische Objekte?",
-   "why": "Es gibt einen Titel; die Objekte im Regal sind mehrere. Es ist das Exemplar, das ausgeliehen wird, nicht das Buch. Wenn diese Multiplizität falsch ist, kontaminiert das die gesamte Datenbank.",
-   "analogy": "Das Rezept ist eines; die daraus gebackenen Kuchen sind viele. Sie essen einen Kuchen, nicht das Rezept."
+   "why": "Es gibt einen Titel; die Objekte im Regal sind mehrere. Es ist das Exemplar, das ausgeliehen wird, nicht das Buch. Diese Multiplizität falsch zu machen, verunreinigt die ganze Datenbank.",
+   "analogy": "Das Rezept ist eines; die daraus gebackenen Kuchen sind viele. Du isst einen Kuchen, nicht das Rezept."
   },
   "m3": {
    "title": "Struktur oder Verhalten",
-   "prompt": "Ordnen Sie jeden Satz ein: Zu welcher Sicht des Modells gehört er?",
+   "prompt": "Ordne jeden Satz zu: Zu welcher Sicht des Modells gehört er?",
    "bins": [
     "Statische Sicht (Klassen)",
     "Dynamische Sicht (Sequenz)"
@@ -1379,12 +1322,12 @@ LANG.de = {
    "cards": [
     "Ein Leser hat einen Namen und eine Telefonnummer",
     "Das System prüft, ob ein Exemplar verfügbar ist, und erfasst dann die Ausleihe",
-    "Eine Ausleihe bezieht sich auf ein Exemplar",
+    "Eine Ausleihe verweist auf ein Exemplar",
     "Eine Rückgabe löst eine Benachrichtigung an die nächste Person auf der Warteliste aus"
    ],
    "hint": "Statisch beschreibt, was existiert; dynamisch beschreibt, was passiert und in welcher Reihenfolge.",
-   "why": "Attribute und Beziehungen sind Struktur und gelten ständig. Prüfen, Erfassen und Benachrichtigen sind Ereignisse, die zeitlich verkettet sind.",
-   "analogy": "Der Grundriss zeigt die Räume (statisch); das Drehbuch eines Besuchs zeigt, wohin die Person geht und in welcher Reihenfolge (dynamisch)."
+   "why": "Attribute und Beziehungen sind Struktur und gelten immer. Prüfen, Erfassen und Benachrichtigen sind Ereignisse, die zeitlich verkettet sind.",
+   "analogy": "Der Grundriss zeigt die Räume (statisch); das Drehbuch eines Besuchs zeigt, wo die Person entlanggeht und in welcher Reihenfolge (dynamisch)."
   },
   "m4": {
    "title": "Die Ausleih-Sequenz",
@@ -1494,6 +1437,63 @@ LANG.de = {
    "hint": "Denk an einen Wächter, der jede Änderung prüft, sobald sie ankommt.",
    "why": "CI baut das Projekt von Grund auf und führt die Tests bei jeder Änderung aus. Der Wert liegt in der Geschwindigkeit der Warnung: Minuten, nicht Wochen.",
    "analogy": "Es ist der Metalldetektor an der Tür: Er prüft jede Person beim Eintreten, statt am Monatsende das ganze Gebäude zu durchsuchen."
+  },
+  "o2": {
+   "title": "Der Weg in die Produktion",
+   "prompt": "Ordne die Phasen einer Continuous-Delivery-Pipeline in die richtige Reihenfolge.",
+   "lines": [
+    "Der Entwickler pusht den Code",
+    "Der CI-Server holt den Code und installiert die Abhängigkeiten",
+    "Die automatisierten Tests laufen",
+    "Das Release-Paket wird gebaut",
+    "Die Version wird in Produktion freigegeben"
+   ],
+   "hint": "Nichts wird paketiert, bevor die Tests bestanden sind, und nichts wird freigegeben, bevor es paketiert wurde.",
+   "why": "Jede Phase ist ein Tor: Nur was die Tests bestanden hat, wird paketiert, und nur was reproduzierbar paketiert wurde, wird freigegeben.",
+   "analogy": "Ein Fließband: Das Teil kommt an, wird montiert, durchläuft die Qualitätskontrolle, wird verpackt und verlässt erst dann das Werk für den Laden."
+  },
+  "o3": {
+   "title": "\"Bei mir läuft es\"",
+   "prompt": "Die App läuft auf Bias Laptop und stürzt auf dem Server ab. Was ist die wahrscheinlichste Ursache und die richtige Lösung?",
+   "opts": [
+    "Unterschiedliche Umgebungen; Abhängigkeiten und Versionen in einer Datei festlegen und überall dieselbe Umgebung verwenden",
+    "Ein fehlerhafter Server; einen neuen kaufen",
+    "Pech; morgen noch einmal versuchen",
+    "Eine schlechte Sprache; in einer anderen neu schreiben"
+   ],
+   "hint": "Der Code ist an beiden Orten derselbe. Was ändert sich um ihn herum?",
+   "why": "Derselbe Code verhält sich anders, wenn sich Versionen und Einstellungen ändern. Festgelegte Abhängigkeiten und standardisierte Umgebungen machen die Ausführung reproduzierbar.",
+   "analogy": "Das Rezept funktioniert in deiner Küche und misslingt beim Nachbarn, weil dessen Ofen eine andere Temperatur anzeigt. Standardisiere den Ofen; gib nicht dem Kuchen die Schuld."
+  },
+  "o4": {
+   "title": "Release-Risiko",
+   "prompt": "Ordne jede Praxis nach ihrer Wirkung auf das Release-Risiko ein.",
+   "bins": [
+    "Senkt das Risiko",
+    "Erhöht das Risiko"
+   ],
+   "cards": [
+    "Kleine Änderungen mehrmals pro Woche freigeben",
+    "Drei Monate Änderungen in einem einzigen Release anhäufen",
+    "Einen getesteten Rollback-Befehl bereithalten",
+    "Dateien direkt auf dem Produktionsserver bearbeiten"
+   ],
+   "hint": "Frage dich: Wenn etwas schiefgeht, lässt sich die Ursache leicht finden und zurückgehen?",
+   "why": "Eine kleine Änderung hat eine leicht zu findende Ursache, und ein getesteter Rollback bietet einen schnellen Weg zurück. Ein riesiges Release und manuelle Änderungen in Produktion machen den Fehler schwer auffindbar und schwer rückgängig.",
+   "analogy": "Den Fluss Stein für Stein zu überqueren erlaubt dir, einen Schritt zurückzutreten. Von einem Ufer zum anderen zu springen ist alles oder nichts."
+  },
+  "o5": {
+   "title": "CI ist seit drei Tagen rot",
+   "prompt": "Ein Test schlägt in CI seit drei Tagen fehl und das Team pusht weiter Code. Was ist das richtige Vorgehen?",
+   "opts": [
+    "Anhalten und zuerst den Build reparieren: Ein ignorierter Alarm schützt nicht mehr",
+    "Den fehlschlagenden Test deaktivieren",
+    "Weitermachen und alles am Monatsende reparieren",
+    "CI entfernen, das nur stört"
+   ],
+   "hint": "Was ist ein Alarm wert, wenn alle gelernt haben, ihn zu ignorieren?",
+   "why": "Bei einem roten Build schleichen sich neue Fehler ein, versteckt hinter dem ersten. Den Build zu reparieren wird zur Priorität des ganzen Teams; den Test zu deaktivieren schaltet nur das Kontrolllämpchen aus.",
+   "analogy": "Es ist die Öllampe am Armaturenbrett: Sie zuzukleben repariert nicht den Motor."
   }
  },
  "game": {
@@ -1504,15 +1504,15 @@ LANG.de = {
    ],
    "fifty": [
     "Zwei entfernen",
-    "Entfernt zwei falsche Antworten aus einer Multiple-Choice-Aufgabe. Eine richtige Antwort zählt dann als schwächerer Beleg für die Beherrschung des Stoffs."
+    "Entfernt zwei falsche Optionen aus einer Multiple-Choice-Aufgabe. Eine richtige Antwort zählt dann als schwächerer Beleg für die Beherrschung."
    ],
    "time": [
-    "Extra Zeit",
-    "Fügt im Extra-Hardcore-Modus 30 Sekunden zur Uhr hinzu."
+    "Zusätzliche Zeit",
+    "Fügt im {h}-Modus 30 Sekunden zur Uhr hinzu."
    ],
    "boost": [
     "Doppelte XP",
-    "Verdoppelt die XP deiner nächsten 3 Aufgaben. Aktiviert sich, sobald du sie einlöst."
+    "Verdoppelt die XP deiner nächsten 3 Aufgaben. Wird aktiviert, sobald du sie einlöst."
    ],
    "tBug": [
     "Bugjäger",
@@ -1523,33 +1523,33 @@ LANG.de = {
     "Ein Titel, der neben deiner Rolle angezeigt wird."
    ],
    "tLegend": [
-    "Deploy-Legende",
+    "Deployment-Legende",
     "Ein Titel, der neben deiner Rolle angezeigt wird."
    ]
   },
   "bounties": {
-   "b1": "Löse 3 Aufgaben hintereinander ohne Hinweise",
-   "b2": "Löse eine Aufgabe auf Schwer oder Extra Hardcore",
+   "b1": "Löse 3 Aufgaben in Folge richtig ohne Hinweise",
+   "b2": "Löse eine Aufgabe im {d}- oder {h}-Modus",
    "b3": "Sauberer Sprint: 5 von 5"
   },
   "bosses": {
    "bossA": {
     "name": "Der Inspektor",
     "client": "Dona Lúcias Bäckerei",
-    "trophy": "Siegel des Inspektors",
-    "story": "Ein städtischer Inspektor betritt die Bäckerei und möchte innerhalb einer Stunde den gesamten rabattierten Umsatz, die Anzahl der Kunden, die den Rabatt erhalten haben, und die Wechselgeldberechnung sehen. Das Kassenprogramm vermischt Variablen, Bedingungen und Schleifen, und jeder Fehler bedeutet ein Bußgeld. Dona Lúcia sieht dich an."
+    "trophy": "Inspektorensiegel",
+    "story": "Ein Stadtinspektor betritt die Bäckerei und möchte innerhalb einer Stunde den gesamten rabattierten Umsatz, die Anzahl der Kunden mit Rabatt und die Wechselgeldberechnung sehen. Das Kassenprogramm mischt Variablen, Bedingungen und Schleifen, und jeder Fehler bedeutet ein Bußgeld. Dona Lúcia schaut dich an."
    },
    "bossB": {
     "name": "Die große Migration",
     "client": "Notariat des 2. Bezirks",
     "trophy": "Archivschlüssel",
-    "story": "Das Notariat zieht am Wochenende 40 Jahre alte Akten auf einen neuen Server um. Das Skript verwendet rekursive Funktionen über Listen, und ein Bericht mit falscher Anzahl macht den gesamten Vorgang zunichte. Helena braucht jede Funktion bis Samstag geprüft."
+    "story": "Das Notariat zieht dieses Wochenende 40 Jahre Akten auf einen neuen Server um. Das Skript verwendet rekursive Funktionen über Listen, und ein Bericht mit falscher Anzahl macht den ganzen Prozess ungültig. Helena braucht jede Funktion bis Samstag geprüft."
    },
    "bossC": {
     "name": "Freitag, 17 Uhr",
-    "client": "Liefergenossenschaft Roda Viva",
+    "client": "Lieferkooperative Roda Viva",
     "trophy": "Freitagsmedaille",
-    "story": "Freitag, 17 Uhr. Die Genossenschaft verlangt, dass die Essensgutscheine noch heute live gehen, denn die Kampagne startet morgen. Der Code steht fertig auf irgendjemandes Rechner, ohne Tests und ohne Review. Alles, was du über Anforderungen, Prozesse, Versionierung, Testen und Design gelernt hast, wird in den nächsten Stunden auf die Probe gestellt."
+    "story": "Freitag, 17 Uhr. Die Kooperative verlangt, dass die Essensgutscheine heute live gehen, weil die Kampagne morgen startet. Der Code steht fertig auf dem Rechner von jemandem, ohne Tests und ohne Review. Alles, was du über Anforderungen, Prozess, Versionierung, Testen und Design gelernt hast, wird in den nächsten Stunden auf die Probe gestellt."
    }
   }
  }

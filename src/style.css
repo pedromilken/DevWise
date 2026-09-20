@@ -240,3 +240,15 @@ textarea{width:100%;height:160px;font-family:var(--mono);font-size:.8rem;backgro
 .sortcard .tabs button.goal{outline:3px solid var(--ok);outline-offset:1px}
 .parsons.prose .pline{font-family:var(--body);font-size:1rem;white-space:normal;line-height:1.4}
 ol.steps{margin:0 0 18px;padding-left:22px}
+
+/* ---- v6: texto justificado, seletor de idiomas e romanização ---- */
+.lead,.story,.theory div,.prompt,.fb p,.analogy,.hint,.ai,.panel p,.note,.loop li div,.sbc li,.sortcard p,.shopitem p,.skillinfo p,.soft{text-align:justify;hyphens:auto;-webkit-hyphens:auto;text-wrap:pretty}
+.fb .delta,.fb .promo,.timer,.kpis div,.empty{text-align:start}
+.langbar{align-items:center;gap:6px}
+.langsel{max-width:210px}
+.langbar button[aria-pressed]{font-family:var(--display);font-weight:800;padding:3px 9px}
+.form label.chk{display:flex;flex-direction:row;align-items:center;gap:10px;font-weight:400}
+.form label.chk input{width:auto}
+ruby{ruby-position:over}
+rt{font-size:.55em;color:var(--muted);font-weight:400;letter-spacing:0}
+[lang="ja"] .story,[lang="ja"] .theory div,[lang="ja"] .prompt,[lang="ja"] .fb p{line-height:2}

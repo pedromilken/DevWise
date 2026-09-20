@@ -4,7 +4,8 @@ import pathlib
 src = pathlib.Path(__file__).parent / "src"
 langs = sorted(p.name for p in src.glob("lang-*.js") if ".mock." not in p.name)
 langs = [l for l in ("lang-pt.js", "lang-en.js", "lang-es.js") if l in langs] + [l for l in langs if l not in ("lang-pt.js", "lang-en.js", "lang-es.js")]
-order = ["data.js", "game.js"] + langs + ["app.js"]
+roms = sorted(p.name for p in src.glob("rom-*.js"))
+order = ["data.js", "game.js", "rom.js"] + langs + roms + ["app.js"]
 js = "\n".join((src / f).read_text(encoding="utf-8") for f in order)
 css = (src / "style.css").read_text(encoding="utf-8")
 html = f"""<!doctype html>

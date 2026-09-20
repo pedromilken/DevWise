@@ -17,7 +17,7 @@ LANG.vi = {
    "Staff"
   ],
   "homeH": "Học lập trình và kỹ thuật phần mềm bằng cách giải quyết vấn đề thực tế của mọi người",
-  "homeLead": "Bạn vừa gia nhập Ponte, một cửa hàng phần mềm nhỏ phục vụ tiệm bánh, phòng khám, trường học và hợp tác xã giao hàng trong khu phố. Mỗi khách hàng mang đến một vấn đề thực tế: bạn nghe câu chuyện, nghiên cứu bộ công cụ lý thuyết, sau đó mới nhận các ticket.",
+  "homeLead": "Bạn vừa gia nhập Ponte, một công ty phần mềm nhỏ phục vụ tiệm bánh, phòng khám, trường học và hợp tác xã giao hàng trong khu phố. Mỗi khách hàng mang đến một vấn đề thực tế: bạn nghe câu chuyện, nghiên cứu bộ công cụ lý thuyết, sau đó mới nhận các ticket.",
   "start": "Bắt đầu sprint đầu tiên",
   "cont": "Tiếp tục từ chỗ tôi đã dừng",
   "steps": [
@@ -93,12 +93,11 @@ LANG.vi = {
   "correctOrder": "Thứ tự đúng:",
   "up": "Di chuyển lên",
   "down": "Di chuyển xuống",
-  "setH": "Cài đặt",
   "uiLang": "Ngôn ngữ trò chơi",
-  "codeLang": "Ngôn ngữ lập trình của các phiếu yêu cầu",
-  "aiH": "Trợ giảng AI",
-  "aiP": "Trợ giảng AI viết các gợi ý Socrate được cá nhân hóa và các phép so sánh mới bằng ngôn ngữ trò chơi, mà không tiết lộ đáp án. Nếu không có nó, trò chơi sử dụng các gợi ý do tác giả viết.",
-  "aiClaude": "Đã kết nối qua Claude: không cần khóa trên trang này.",
+  "codeLang": "Ngôn ngữ lập trình của ticket",
+  "aiH": "Trợ lý AI",
+  "aiP": "Trợ lý AI viết các gợi ý Socrates và ví von mới phù hợp với từng người học bằng ngôn ngữ trò chơi, không tiết lộ đáp án. Nếu tắt, trò chơi dùng gợi ý do tác giả viết sẵn.",
+  "aiClaude": "Kết nối qua Claude: không cần khóa trên trang này.",
   "aiKeyOn": "Đã cấu hình bằng khóa riêng của bạn ({m}).",
   "aiOff": "Tắt. Nhập nhà cung cấp bên dưới để bật.",
   "provider": "Nhà cung cấp",
@@ -107,10 +106,10 @@ LANG.vi = {
   "key": "Khóa API",
   "model": "Mô hình",
   "base": "URL cơ sở",
-  "save": "Lưu cài đặt trợ giảng",
+  "save": "Lưu cài đặt trợ lý",
   "clear": "Xóa khóa",
   "saved": "Đã lưu cài đặt.",
-  "keyNote": "Khóa chỉ được lưu trong trình duyệt này (localStorage) và được gửi trực tiếp đến nhà cung cấp. Không sử dụng trên máy tính dùng chung. Đối với lớp học, nên dùng máy chủ cục bộ (ví dụ: Ollama tại http://localhost:11434/v1), không cần khóa.",
+  "keyNote": "Khóa chỉ được lưu trong trình duyệt này (localStorage) và gửi thẳng đến nhà cung cấp. Đừng dùng trên máy tính dùng chung. Với lớp học, nên dùng máy chủ nội bộ (ví dụ Ollama tại http://localhost:11434/v1), không cần khóa.",
   "err": "Lỗi",
   "none": "Không có gì",
   "navShop": "Cửa hàng",
@@ -125,10 +124,10 @@ LANG.vi = {
    "hardcore": "Cực khó"
   },
   "modeDesc": {
-   "normal": "XP ×1. Gợi ý miễn phí (trả lời đúng có gợi ý chỉ được nửa điểm). Mỗi lỗi sai trừ 2 XP cho mỗi cấp độ phiếu.",
-   "medio": "XP ×1.5. Mỗi gợi ý tốn 5 XP. Mỗi lỗi sai trừ 4 XP cho mỗi cấp độ phiếu.",
-   "dificil": "XP ×2. Không có gợi ý và không có lựa chọn trên phiếu đầu ra: bạn gõ chính xác những gì chương trình in ra. Mỗi lỗi sai trừ 6 XP cho mỗi cấp độ.",
-   "hardcore": "XP ×3. Không gợi ý, phải gõ đáp án và có 60 giây đồng hồ. Mỗi lỗi sai trừ 10 XP cho mỗi cấp độ."
+   "normal": "XP ×1. Gợi ý miễn phí (trả lời đúng nhờ gợi ý được nửa điểm). Mỗi lỗi sai trừ 2 XP theo cấp ticket.",
+   "medio": "XP ×1.5. Mỗi gợi ý tốn 5 XP. Mỗi lỗi sai trừ 4 XP theo cấp ticket.",
+   "dificil": "XP ×2. Không có gợi ý và không có lựa chọn ở ticket xuất: bạn gõ chính xác những gì chương trình in ra. Mỗi lỗi sai trừ 6 XP theo cấp.",
+   "hardcore": "XP ×3. Không gợi ý, phải gõ câu trả lời và có 60 giây. Mỗi lỗi sai trừ 10 XP theo cấp."
   },
   "typedLbl": "Gõ chính xác những gì chương trình in ra",
   "typedPh": "kết quả chương trình",
@@ -138,145 +137,146 @@ LANG.vi = {
   "timeout": "Hết giờ.",
   "lost": "Phạt: -{x} XP từ số dư của bạn.",
   "shieldUsed": "Khiên của bạn đã hấp thụ hình phạt.",
-  "boostOn": "Nhân đôi XP: còn {n} phiếu",
-  "hintPaid": "Yêu cầu gợi ý (tốn {c} XP)",
-  "noHints": "Không có gợi ý trong chế độ này.",
+  "boostOn": "Nhân đôi XP: còn {n} ticket",
+  "hintPaid": "Xin gợi ý (tốn {c} XP)",
+  "noHints": "Chế độ này không có gợi ý.",
   "useFifty": "Dùng Loại bỏ hai ({n})",
   "useTime": "Dùng +30 giây ({n})",
-  "lockedXp": "Bị khóa: cần 60% trong {p} và {x} XP trọn đời (bạn có {y}).",
+  "lockedXp": "Bị khóa: cần đạt 60% ở {p} và {x} XP trọn đời (bạn có {y}).",
   "lockedXpOnly": "Bị khóa: cần {x} XP trọn đời (bạn có {y}).",
   "bountiesH": "Thử thách sprint",
   "bountyDone": "Hoàn thành thử thách: {s} (+{x} XP)",
   "dailyH": "Thử thách hàng ngày",
   "dailyTag": "Nhân đôi XP",
-  "dailyDone": "Đã xong thử thách hàng ngày. Ngày mai sẽ có thử thách mới.",
+  "dailyDone": "Đã hoàn thành thử thách hàng ngày. Ngày mai sẽ có thử thách mới.",
   "bossesH": "Trùm",
-  "bossLocked": "Cần 60% trong {p} và {x} XP trọn đời.",
+  "bossLocked": "Cần đạt 60% ở {p} và {x} XP trọn đời.",
   "bossDefeated": "Đã đánh bại",
   "bossFight": "Đối mặt trùm",
-  "bossStage": "Màn {n} / {m}",
+  "bossStage": "Vòng {n}/{m}",
   "bossLives": "Số lỗi còn được phép: {n}",
-  "bossNext": "Màn tiếp theo",
+  "bossNext": "Vòng tiếp theo",
   "bossResult": "Xem kết quả",
   "bossWin": "Đã đánh bại trùm",
   "bossWinP": "Bạn nhận được {x} XP và cúp \"{t}\".",
-  "bossLose": "Lần này trùm đã thắng",
-  "bossLoseP": "Bạn bị trừ {x} XP từ số dư. Hãy xem lại các nhiệm vụ liên quan và quay lại tái đấu.",
-  "bossRules": "Ba màn liên tiếp, không gợi ý và không vật phẩm hỗ trợ. Bạn chỉ được phép mắc một lỗi. Độ khó đã chọn trên bảng cũng áp dụng ở đây.",
+  "bossLose": "Lần này trùm thắng",
+  "bossLoseP": "Bạn bị trừ {x} XP từ số dư. Hãy ôn lại các nhiệm vụ liên quan và quay lại tái đấu.",
+  "bossRules": "Ba vòng liên tiếp, không gợi ý và không vật phẩm hỗ trợ. Bạn chỉ được phép sai một lần. Độ khó đã chọn trên bảng cũng áp dụng ở đây.",
   "bossStart": "Bắt đầu trận đấu",
   "reward": "Phần thưởng: {x} XP",
   "trophies": "Danh hiệu",
   "noTrophies": "Chưa có. Trùm sẽ xuất hiện trên bảng khi bạn có đủ mức thành thạo và XP.",
   "review": "Ôn tập",
   "shopH": "Cửa hàng",
-  "shopP": "Đổi số dư XP của bạn để lấy vật phẩm tăng sức mạnh và danh hiệu. Việc tiêu số dư không làm giảm XP trọn đời, vốn là thứ mở khóa các màn chơi và trùm.",
-  "shopA": "giống như số dặm bay trong chương trình khách hàng thân thiết. Bạn tiêu số dư để đổi vé; hạng thẻ phụ thuộc vào tổng số dặm đã bay và không bị tụt hạng khi bạn đổi quà.",
+  "shopP": "Đổi số dư XP của bạn lấy vật phẩm tăng sức mạnh và danh hiệu. Việc tiêu số dư không làm giảm XP trọn đời, vốn là thứ mở khóa các màn chơi và trùm.",
+  "shopA": "Đây giống như số dặm bay của chương trình khách hàng thân thiết. Bạn tiêu số dư để lấy ticket; hạng thẻ của bạn dựa trên tổng số dặm đã bay và không bị giảm khi bạn đổi quà.",
   "powers": "Vật phẩm tăng sức mạnh",
   "titlesH": "Danh hiệu",
   "owned": "Bạn có: {n}",
-  "buy": "Đổi bằng {c} XP",
+  "buy": "Đổi lấy {c} XP",
   "equip": "Dùng danh hiệu này",
   "equipped": "Đang dùng",
   "unequip": "Ngừng dùng",
   "kTotal": "XP trọn đời",
-  "kBosses": "trùm đã đánh bại",
+  "kBosses": "số trùm đã đánh bại",
   "cheers": [
    "Làm tốt lắm!",
    "Đọc code giỏi quá!",
    "Chính xác, suy luận sắc bén!",
-   "Đã đóng ticket một cách đầy phong cách!"
+   "Ticket đã được đóng một cách phong cách!"
   ],
   "oops": [
-   "Gần đúng rồi. Dev nào cũng từng làm hỏng build trước khi sửa được.",
+   "Gần đúng rồi. Mọi lập trình viên đều làm hỏng bản build trước khi sửa nó.",
    "Sai lầm là một phần của con đường: giờ bạn đã biết cái bẫy nằm ở đâu.",
-   "Bạn đã tìm ra lỗi trong suy luận của mình, và đó là cách chúng ta học debug.",
-   "Lần này chưa được, nhưng không sao. Hãy dành thời gian đọc kỹ phần giải thích nhé."
+   "Bạn đã tìm ra một lỗi trong lập luận của mình, và đó là cách học gỡ lỗi.",
+   "Lần này chưa đúng, không sao. Hãy dành thời gian đọc phần giải thích nhé."
   ],
-  "keepGoing": "Ticket này sẽ quay lại bảng sau để bạn đấu lại.",
+  "keepGoing": "Ticket này sẽ quay lại bảng sau để bạn làm lại.",
   "streakMsg": "{n} lần liên tiếp! Thưởng chuỗi: +5 XP.",
-  "comeback": "Phục hồi phong độ: +{x} XP vì đã trả lời đúng ngay sau khi sai.",
-  "need": "Cần {n} XP nữa (tốn {c})",
-  "evoH": "Sự phát triển kiến thức",
-  "evoP": "Mỗi dòng là ước tính mức thành thạo của một kỹ năng qua các ticket bạn đã trả lời. Chạm vào một kỹ năng để làm nổi bật: chấm xanh là câu trả lời đúng, chấm vàng là câu sai. Đường nét đứt đánh dấu mức mở khóa (60%) và thành thạo (95%).",
-  "evoEmpty": "Hãy trả lời một vài ticket bằng ngôn ngữ này để thấy đường cong học tập của bạn.",
+  "comeback": "Lấy lại phong độ: +{x} XP vì trả lời đúng ngay sau một lần sai.",
+  "need": "Còn thiếu {n} XP (cần {c})",
+  "evoH": "Tiến bộ kiến thức",
+  "evoP": "Mỗi đường là ước tính mức thành thạo của một kỹ năng qua các ticket bạn đã trả lời. Chạm vào một kỹ năng để làm nổi bật: chấm xanh là câu trả lời đúng và chấm vàng là lỗi. Đường đứt nét đánh dấu mức mở khóa (60%) và mức thành thạo (95%).",
+  "evoEmpty": "Trả lời một vài ticket trong ngôn ngữ này để xem đường cong học tập của bạn.",
   "evoAll": "Tất cả",
   "evoX": "ticket đã trả lời",
   "colFirst": "Ước tính ban đầu",
-  "colGain": "Tăng thêm",
+  "colGain": "Mức tăng",
   "colTries": "Ticket",
   "plH": "Mức thành thạo theo ngôn ngữ lập trình",
-  "plP": "Mỗi ngôn ngữ có một bộ theo dõi mức thành thạo riêng; ngôn ngữ đang dùng được đánh dấu bằng ●. Khi bạn lần đầu thử một ngôn ngữ, bạn bắt đầu từ ước tính chuyển giao: một nửa quãng đường đã đạt được ở ngôn ngữ tốt nhất của bạn. Giá trị in đậm là những gì đã được luyện tập.",
-  "plA": "như người đã quen lái xe số sàn thì không phải bắt đầu lại từ đầu khi chuyển sang xe số tự động, nhưng vẫn cần chạy vài vòng quanh khu phố để chứng tỏ mình đã thích nghi.",
+  "plP": "Mỗi ngôn ngữ có bộ theo dõi mức thành thạo riêng; ngôn ngữ đang dùng được đánh dấu bằng ●. Khi bạn thử một ngôn ngữ lần đầu, bạn bắt đầu từ ước tính chuyển giao: một nửa chặng đường đã được hoàn thành trong ngôn ngữ tốt nhất của bạn. Các giá trị in đậm đã được luyện tập.",
+  "plA": "Người lái xe số sàn không phải bắt đầu lại từ đầu khi lái xe số tự động, nhưng vẫn cần vài vòng quanh khu phố để chứng minh họ đã thích nghi.",
   "plAcc": "Đúng",
-  "langH": "Số câu trả lời đúng theo ngôn ngữ trò chơi",
-  "studyH": "Các ngôn ngữ trong nghiên cứu đa ngôn ngữ",
-  "studyP": "20 ngôn ngữ trong phân tích dịch thuật và token hóa. Chi phí token trên 1000 ký tự được đo trong nghiên cứu cho thấy trợ lý AI tiêu tốn bao nhiêu cho mỗi ngôn ngữ. Các gói ngôn ngữ chưa hoàn thành được tạo bằng tools/gerar-idioma.js và được xem xét trước khi đưa vào trò chơi.",
+  "langH": "Câu trả lời đúng theo ngôn ngữ trò chơi",
+  "studyH": "Các ngôn ngữ của nghiên cứu đa ngôn ngữ",
+  "studyP": "20 ngôn ngữ của phân tích dịch thuật và token hoá. Chi phí token trên 1000 ký tự được đo trong nghiên cứu và cho thấy gia sư AI tiêu tốn bao nhiêu trong mỗi ngôn ngữ. Các gói đang chờ xử lý được tạo bằng tools/gerar-idioma.js và được xem xét trước khi đưa vào trò chơi.",
   "available": "có sẵn",
   "pending": "gói cần được tạo",
   "colLang": "Ngôn ngữ",
-  "colScript": "Hệ chữ viết",
+  "colScript": "Hệ chữ",
   "colTok": "Token trên 1000 ký tự",
   "sortHint": "Chọn một trong hai loại cho mỗi thẻ.",
+  "rom": "Hiển thị văn bản Latin hoá (bảng chữ cái Latin)",
   "options": "Các lựa chọn",
   "codeLines": "Dòng mã",
   "solved": "Đã giải quyết ticket",
   "notYet": "Chưa phải lúc này",
-  "why": "Vì sao: ",
+  "why": "Tại sao: ",
   "analogy": "Phép so sánh: ",
-  "delta": "Mức độ thành thạo {s}: {a} đến {b}   (+{x} XP)",
-  "roseNote": "Điểm vẫn tăng nhẹ dù có sai vì mô hình cho rằng việc đọc lời giải thích cũng giúp học.",
+  "delta": "Mức thành thạo {s}: {a} đến {b}   (+{x} XP)",
+  "roseNote": "Nó tăng nhẹ dù có lỗi vì mô hình giả định rằng việc đọc giải thích cũng giúp học.",
   "masteredNow": "Đã thành thạo kỹ năng: {s}.",
-  "unlockedNow": "Đã mở khóa nhiệm vụ mới: {s}.",
+  "unlockedNow": "Nhiệm vụ mới đã mở khóa: {s}.",
   "promo": "Thăng chức: vai trò của bạn giờ là {r}.",
   "aiExplain": "Hỏi gia sư AI cho một phép so sánh khác",
   "toRetro": "Xem hồi tưởng sprint",
   "retroH": "Hồi tưởng sprint {n}",
-  "retroSum": "Đã giải quyết {c} trong số {n} ticket. ",
+  "retroSum": "Đã giải quyết {c} trong {n} ticket. ",
   "retroA": "Sprint sạch sẽ.",
-  "retroB": "Tiến độ tốt; hãy xem lại những ticket còn lại.",
+  "retroB": "Tốc độ tốt; hãy xem lại những cái còn bỏ lại.",
   "retroC": "Sprint khó khăn. Các ticket cần xem lại sẽ quay lại bảng sau.",
-  "changed": "Điều gì đã thay đổi trong mức độ thành thạo của bạn",
+  "changed": "Điều gì đã thay đổi trong mức thành thạo của bạn",
   "colSkill": "Kỹ năng",
   "colStart": "Đầu sprint",
   "colNow": "Bây giờ",
-  "suggestion": "Gợi ý của gia sư cho sprint tới: tập trung vào {s}, hiện đang ở {p}.",
+  "suggestion": "Gợi ý của gia sư cho sprint tiếp theo: tập trung vào {s}, hiện đang ở mức {p}.",
   "allDone": "Mọi kỹ năng đều đã thành thạo. Các sprint tiếp theo là luyện tập tự do.",
   "nextSprint": "Bắt đầu sprint {n}",
   "repH": "Báo cáo học tập",
-  "repSub": "Góc nhìn cho học viên và người hỗ trợ: kỹ năng nào đã thành thạo, sai ở đâu và nên luyện gì tiếp theo.",
+  "repSub": "Một cái nhìn cho học viên và cho người hỗ trợ họ: cái gì đã thành thạo, lỗi ở đâu, và nên luyện tập gì tiếp theo.",
   "k1": "ticket đã trả lời",
   "k2": "độ chính xác",
   "k3": "kỹ năng đã thành thạo",
   "k4": "chuỗi đúng dài nhất",
-  "of": "{a} trong {b}",
-  "bySkill": "Mức độ thành thạo theo kỹ năng",
-  "colMastery": "Mức độ thành thạo",
+  "bySkill": "Mức thành thạo theo kỹ năng",
+  "colMastery": "Mức thành thạo",
   "colHits": "Đúng",
   "colStatus": "Trạng thái",
   "colSbc": "SBC",
   "stM": "Đã thành thạo",
-  "stP": "Đang tiến hành",
+  "stP": "Đang tiến triển",
   "stL": "Bị khóa",
   "stB": "Nhiệm vụ cần mở",
-  "recs": "Gợi ý của gia sư",
-  "recNone": "Chưa có câu trả lời. Hãy giải một vài ticket để gia sư có dữ liệu.",
-  "recPriority": "Ưu tiên: {s} (độ thành thạo {p}, đúng {c} trong tổng {n}).",
-  "recBloom": "Mức nhận thức có nhiều lỗi nhất: {b} ({c} trong {n}). Hãy luyện loại ticket này một cách bình tĩnh, không dùng gợi ý.",
+  "recs": "Đề xuất của gia sư",
+  "recNone": "Chưa có câu trả lời. Hãy giải quyết vài ticket để gia sư có bằng chứng.",
+  "recPriority": "Ưu tiên: {s} (mức thành thạo {p}, đúng {c} trong {n}).",
+  "recBloom": "Mức nhận thức có nhiều lỗi nhất: {b} ({c} trong {n}). Hãy luyện tập loại ticket này một cách bình tĩnh, không dùng gợi ý.",
   "recHints": "Đã dùng gợi ý trong {p} số ticket. Hãy thử hình thành giả thuyết trước khi hỏi.",
-  "recLocked": "Vẫn bị khóa: {s}. Chúng mở ra khi điều kiện tiên quyết vượt 60%.",
+  "recLocked": "Vẫn bị khóa: {s}. Chúng sẽ mở khi các kỹ năng tiên quyết vượt qua 60%.",
   "bloomAcc": "Độ chính xác theo mức Bloom",
   "noData": "không có dữ liệu",
-  "how": "Cách tính mức độ thành thạo",
-  "howP": "Gia sư sử dụng Mô hình theo dõi kiến thức Bayesian. Với mỗi kỹ năng, nó giữ xác suất bạn đã thành thạo và cập nhật sau mỗi câu trả lời, loại trừ khả năng đoán may và trượt do bất cẩn.",
-  "howA": "điều đó giống như một giáo viên dần hình thành nhận định về học sinh. Một câu trả lời trắc nghiệm đúng ít thuyết phục hơn việc sắp xếp đúng thứ tự cả một chương trình, vì khả năng đoán đúng của trắc nghiệm là 25%.",
-  "howParams": "Tham số: thành thạo ban đầu 15%, mỗi ticket học được 20%, trượt 10%, đoán theo loại ticket (1 trên 4 với câu hỏi lựa chọn, 1 trên mỗi dòng với bài bắt lỗi, 5% với bài sắp xếp; 50% khi dùng gợi ý). Mở khóa ở 60%, thành thạo ở 95%.",
+  "how": "Cách tính mức thành thạo",
+  "howP": "Gia sư dùng Bayesian Knowledge Tracing. Với mỗi kỹ năng, nó giữ xác suất bạn đã thành thạo và cập nhật sau mỗi câu trả lời, trừ đi khả năng đoán may mắn và sai sót bất cẩn.",
+  "howA": "giống như một giáo viên dần dần hình thành nhận định về học viên. Một câu trả lời trắc nghiệm đúng kém thuyết phục hơn việc lắp ráp cả chương trình theo đúng thứ tự, vì đoán có 25% cơ hội trong trường hợp đầu.",
+  "howParams": "Tham số: mức thành thạo ban đầu 15%, học mỗi ticket 20%, sai sót 10%, đoán theo loại ticket (1 trong 4 cho câu hỏi lựa chọn, 1 trên mỗi dòng cho lỗi, 5% cho sắp xếp; 50% khi dùng gợi ý). Mở khóa ở mức 60%, thành thạo ở mức 95%.",
   "data": "Dữ liệu của bạn",
-  "dataP": "Tiến trình chỉ được lưu trong trình duyệt này. Nhật ký theo định dạng dài của bộ dữ liệu theo dõi kiến thức (item, kỹ năng, đúng sai, ngôn ngữ, ngôn ngữ lập trình, dấu thời gian).",
-  "showJson": "Hiện nhật ký JSON",
+  "dataP": "Tiến trình chỉ được lưu trong trình duyệt này. Nhật ký theo định dạng dài của bộ dữ liệu knowledge tracing (mục, kỹ năng, tính đúng sai, ngôn ngữ, ngôn ngữ lập trình, dấu thời gian).",
+  "showJson": "Hiển thị nhật ký JSON",
   "hideJson": "Ẩn nhật ký JSON",
-  "download": "Tải JSON xuống",
+  "download": "Tải về JSON",
   "reset": "Xóa tiến trình",
-  "resetConfirm": "Xác nhận: xóa toàn bộ tiến trình"
+  "resetConfirm": "Xác nhận: xóa toàn bộ tiến trình",
+  "setH": "Cài đặt"
  },
  "sbc": {
   "CC-C.1.3": "RF-CC C.1.3: Giải quyết vấn đề bằng môi trường lập trình (Thuật toán, Kỹ thuật lập trình, Cấu trúc dữ liệu).",
@@ -297,27 +297,6 @@ LANG.vi = {
   "ES-C.6.5": "RF-ES C.6.5: Áp dụng các kỹ thuật tích hợp các phần của hệ thống (môi trường tích hợp, công cụ build)."
  },
  "skills": {
-  "cond": {
-   "name": "Câu lệnh điều kiện",
-   "about": "Chọn đường đi của chương trình với if, else if và else.",
-   "client": "Phòng khám y tế khu phố",
-   "title": "Hàng đợi không thể theo thứ tự đến trước phục vụ trước",
-   "story": "Tại phòng khám, y tá Rosa phân loại bệnh nhân trong đầu: sốt cao được ưu tiên trước, người cao tuổi được quyền ưu tiên, những người còn lại phải chờ. Khi cô ấy đi vắng, hàng đợi trở thành đến trước phục vụ trước, và một ca bệnh nặng phải chờ hai tiếng. Phòng khám muốn hệ thống áp dụng các quy tắc của Rosa mỗi lần, bao gồm cả các trường hợp ngoại lệ như sốt đúng 39 độ.",
-   "theory": [
-    [
-     "Một điều kiện là một câu hỏi có hoặc không",
-     "Chương trình đánh giá một biểu thức boolean và đi theo một đường duy nhất. Các toán tử như >, >= và == xác định chính xác ranh giới nằm ở đâu."
-    ],
-    [
-     "Thứ tự của các phép kiểm tra là quan trọng",
-     "Trong chuỗi if / else if, phép kiểm tra đúng đầu tiên sẽ thắng và các phép còn lại thậm chí không được đánh giá. Quy tắc nghiêm ngặt nhất phải được đặt trước."
-    ],
-    [
-     "Kết hợp các điều kiện",
-     "AND (and, &&) cần cả hai đều đúng; OR (or, ||) cần ít nhất một cái đúng. AND được đánh giá trước OR; khi không chắc chắn, hãy dùng dấu ngoặc đơn."
-    ]
-   ]
-  },
   "var": {
    "name": "Biến",
    "about": "Lưu trữ giá trị, kiểu dữ liệu và các phép toán cơ bản.",
@@ -339,24 +318,24 @@ LANG.vi = {
     ]
    ]
   },
-  "col": {
-   "name": "Bộ sưu tập",
-   "about": "Danh sách và từ điển, chỉ mục và tham chiếu.",
-   "client": "Thư viện cộng đồng Casa das Letras",
-   "title": "Cuốn sổ ghi mượn đã biến mất",
-   "story": "Thư viện cộng đồng ghi việc mượn sách vào một cuốn sổ, cuốn sổ đã bị ướt trong cơn bão vừa qua. Ông Antônio muốn biết có những cuốn sách nào, mỗi cuốn có bao nhiêu bản, và ai đang giữ cuốn nào. Đó là rất nhiều dữ liệu cùng loại: các biến rời rạc không thể chứa hết. Đã đến lúc sắp xếp dữ liệu thành các bộ sưu tập.",
+  "cond": {
+   "name": "Câu lệnh điều kiện",
+   "about": "Chọn đường đi của chương trình với if, else if và else.",
+   "client": "Phòng khám y tế khu phố",
+   "title": "Hàng đợi không thể theo thứ tự đến trước phục vụ trước",
+   "story": "Tại phòng khám, y tá Rosa phân loại bệnh nhân trong đầu: sốt cao được ưu tiên trước, người cao tuổi được quyền ưu tiên, những người còn lại phải chờ. Khi cô ấy đi vắng, hàng đợi trở thành đến trước phục vụ trước, và một ca bệnh nặng phải chờ hai tiếng. Phòng khám muốn hệ thống áp dụng các quy tắc của Rosa mỗi lần, bao gồm cả các trường hợp ngoại lệ như sốt đúng 39 độ.",
    "theory": [
     [
-     "Danh sách: một chuỗi có thứ tự",
-     "Nó chứa nhiều giá trị được truy cập theo vị trí. Chỉ mục bắt đầu từ 0, vì vậy một danh sách có 3 phần tử chạy từ chỉ mục 0 đến 2."
+     "Một điều kiện là một câu hỏi có hoặc không",
+     "Chương trình đánh giá một biểu thức boolean và đi theo một đường duy nhất. Các toán tử như >, >= và == xác định chính xác ranh giới nằm ở đâu."
     ],
     [
-     "Từ điển hoặc map: tra cứu theo khóa",
-     "Nó liên kết một khóa với một giá trị, chẳng hạn như tên sách với số bản. Đây là lựa chọn phù hợp khi bạn tìm kiếm theo tên thay vì theo vị trí."
+     "Thứ tự của các phép kiểm tra là quan trọng",
+     "Trong chuỗi if / else if, phép kiểm tra đúng đầu tiên sẽ thắng và các phép còn lại thậm chí không được đánh giá. Quy tắc nghiêm ngặt nhất phải được đặt trước."
     ],
     [
-     "Bộ sưu tập được chia sẻ theo tham chiếu",
-     "Gán một danh sách cho một biến khác không sao chép dữ liệu: cả hai tên đều trỏ đến cùng một bộ sưu tập. Để nhân bản nó, bạn phải sao chép một cách tường minh."
+     "Kết hợp các điều kiện",
+     "AND (and, &&) cần cả hai đều đúng; OR (or, ||) cần ít nhất một cái đúng. AND được đánh giá trước OR; khi không chắc chắn, hãy dùng dấu ngoặc đơn."
     ]
    ]
   },
@@ -402,6 +381,27 @@ LANG.vi = {
     ]
    ]
   },
+  "col": {
+   "name": "Bộ sưu tập",
+   "about": "Danh sách và từ điển, chỉ mục và tham chiếu.",
+   "client": "Thư viện cộng đồng Casa das Letras",
+   "title": "Cuốn sổ ghi mượn đã biến mất",
+   "story": "Thư viện cộng đồng ghi việc mượn sách vào một cuốn sổ, cuốn sổ đã bị ướt trong cơn bão vừa qua. Ông Antônio muốn biết có những cuốn sách nào, mỗi cuốn có bao nhiêu bản, và ai đang giữ cuốn nào. Đó là rất nhiều dữ liệu cùng loại: các biến rời rạc không thể chứa hết. Đã đến lúc sắp xếp dữ liệu thành các bộ sưu tập.",
+   "theory": [
+    [
+     "Danh sách: một chuỗi có thứ tự",
+     "Nó chứa nhiều giá trị được truy cập theo vị trí. Chỉ mục bắt đầu từ 0, vì vậy một danh sách có 3 phần tử chạy từ chỉ mục 0 đến 2."
+    ],
+    [
+     "Từ điển hoặc map: tra cứu theo khóa",
+     "Nó liên kết một khóa với một giá trị, chẳng hạn như tên sách với số bản. Đây là lựa chọn phù hợp khi bạn tìm kiếm theo tên thay vì theo vị trí."
+    ],
+    [
+     "Bộ sưu tập được chia sẻ theo tham chiếu",
+     "Gán một danh sách cho một biến khác không sao chép dữ liệu: cả hai tên đều trỏ đến cùng một bộ sưu tập. Để nhân bản nó, bạn phải sao chép một cách tường minh."
+    ]
+   ]
+  },
   "rec": {
    "name": "Đệ quy",
    "about": "Hàm gọi chính nó và trường hợp cơ sở.",
@@ -444,27 +444,6 @@ LANG.vi = {
     ]
    ]
   },
-  "git": {
-   "name": "Git",
-   "about": "Quản lý phiên bản mã: commit, nhánh và hợp nhất.",
-   "client": "Nhóm Ponte",
-   "title": "Thứ Sáu mã biến mất",
-   "story": "Chiều thứ Sáu, Caio và Bia cùng sửa một tệp của hệ thống tiệm bánh. Mỗi người lưu phiên bản của mình vào thư mục chung với tên \"final_this_time_for_real.zip\". Lần lưu cuối cùng xóa sạch công việc của người kia, và không ai biết phiên bản nào đang chạy. Ponte quyết định: từ thứ Hai trở đi, toàn bộ mã được lưu trong kho Git.",
-   "theory": [
-    [
-     "Commit: một ảnh chụp nhanh kèm chú thích",
-     "Nó ghi lại trạng thái dự án với tác giả, ngày giờ và thông điệp. Thông điệp rõ ràng cho biết đã thay đổi gì và vì sao."
-    ],
-    [
-     "Branch: làm việc song song",
-     "Mỗi tính năng được phát triển trên một nhánh riêng biệt, và nhánh chính luôn ổn định cho đến khi xem xét và tích hợp (merge)."
-    ],
-    [
-     "Xung đột là yêu cầu đưa ra quyết định",
-     "Nếu hai nhánh thay đổi cùng những dòng, Git không tự quyết: nó hiển thị cả hai phiên bản và yêu cầu ai đó quyết định."
-    ]
-   ]
-  },
   "agil": {
    "name": "Agile",
    "about": "Sprint, MVP và bàn giao từng phần.",
@@ -483,6 +462,27 @@ LANG.vi = {
     [
      "Phạm vi là biến số điều chỉnh",
      "Thời hạn và chất lượng được giữ cố định; những gì sẽ đưa vào là điều phải thương lượng. Giới hạn công việc đang thực hiện giúp nhóm hoàn thành trước khi bắt đầu việc mới."
+    ]
+   ]
+  },
+  "git": {
+   "name": "Git",
+   "about": "Quản lý phiên bản mã: commit, nhánh và hợp nhất.",
+   "client": "Nhóm Ponte",
+   "title": "Thứ Sáu mã biến mất",
+   "story": "Chiều thứ Sáu, Caio và Bia cùng sửa một tệp của hệ thống tiệm bánh. Mỗi người lưu phiên bản của mình vào thư mục chung với tên \"final_this_time_for_real.zip\". Lần lưu cuối cùng xóa sạch công việc của người kia, và không ai biết phiên bản nào đang chạy. Ponte quyết định: từ thứ Hai trở đi, toàn bộ mã được lưu trong kho Git.",
+   "theory": [
+    [
+     "Commit: một ảnh chụp nhanh kèm chú thích",
+     "Nó ghi lại trạng thái dự án với tác giả, ngày giờ và thông điệp. Thông điệp rõ ràng cho biết đã thay đổi gì và vì sao."
+    ],
+    [
+     "Branch: làm việc song song",
+     "Mỗi tính năng được phát triển trên một nhánh riêng biệt, và nhánh chính luôn ổn định cho đến khi xem xét và tích hợp (merge)."
+    ],
+    [
+     "Xung đột là yêu cầu đưa ra quyết định",
+     "Nếu hai nhánh thay đổi cùng những dòng, Git không tự quyết: nó hiển thị cả hai phiên bản và yêu cầu ai đó quyết định."
     ]
    ]
   },
@@ -859,92 +859,6 @@ LANG.vi = {
    "why": "Chỉ lựa chọn đầu tiên có tiêu chí đo lường được. \"Nhanh\", \"thân thiện\" và \"hiện đại\" trở thành tranh cãi khi bàn giao.",
    "analogy": "Đó là sự khác biệt giữa việc yêu cầu thợ xây \"một bức tường cao\" và \"một bức tường cao 2,80 m\". Chỉ điều thứ hai mới có thể kiểm tra bằng thước dây."
   },
-  "g1": {
-   "title": "Commit là gì",
-   "prompt": "Một commit trong Git là:",
-   "opts": [
-    "Bản ghi trạng thái dự án tại thời điểm đó, kèm tin nhắn",
-    "Tải tệp lên máy chủ",
-    "Bản sao lưu trong thư mục khác",
-    "Xóa các phiên bản cũ"
-   ],
-   "hint": "Lệnh gửi lên máy chủ là lệnh khác (push).",
-   "why": "Một commit lưu một ảnh chụp cục bộ các thay đổi, với tác giả, ngày và tin nhắn. Việc gửi lên kho từ xa diễn ra sau, bằng lệnh push.",
-   "analogy": "Nó giống như điểm lưu trong trò chơi: nếu trùm đánh bại bạn, bạn có thể quay lại đúng khoảnh khắc đó."
-  },
-  "g2": {
-   "title": "Công bố bản sửa lỗi",
-   "prompt": "Sắp xếp các lệnh để tạo nhánh, ghi lại thay đổi và gửi lên kho từ xa.",
-   "hint": "Đầu tiên là không gian làm việc, sau đó đưa vào stage (add), ghi lại (commit) và gửi (push).",
-   "why": "Bạn tạo nhánh trước khi thay đổi; add chọn những gì sẽ được đưa vào; commit ghi lại; push công bố.",
-   "analogy": "Gửi một bưu kiện: lấy hộp (branch), bỏ đồ vào (add), dán kín và ghi nhãn (commit), rồi mới đem đến bưu điện (push)."
-  },
-  "g3": {
-   "title": "Nhánh dùng để làm gì",
-   "prompt": "Vì sao Bia nên tạo một nhánh cho màn hình giảm giá mới?",
-   "opts": [
-    "Để làm việc biệt lập mà không ảnh hưởng đến nhánh chính",
-    "Để làm cho kho nhanh hơn",
-    "Vì Git cấm commit trên main",
-    "Để xóa lịch sử cũ"
-   ],
-   "hint": "Hãy nghĩ điều gì xảy ra nếu mã chưa hoàn thiện đi thẳng vào main.",
-   "why": "Một nhánh cô lập công việc đang tiến hành. Main vẫn ổn định cho đến khi thay đổi được xem xét và tích hợp.",
-   "analogy": "Nó giống như bản nháp của một tài liệu: bạn thoải mái thử nghiệm và chỉ sao chép vào bản gốc khi văn bản đã tốt."
-  },
-  "g4": {
-   "title": "Vì sao merge bị xung đột",
-   "prompt": "Khi nào xảy ra xung đột merge?",
-   "opts": [
-    "Khi hai nhánh thay đổi cùng những dòng theo cách khác nhau",
-    "Bất cứ khi nào hai người làm việc trong cùng một kho",
-    "Khi nhánh có hơn mười commit",
-    "Khi một tệp mới được tạo trên một trong các nhánh"
-   ],
-   "hint": "Git tự động merge các thay đổi ở những chỗ khác nhau. Điều gì nó không thể quyết định?",
-   "why": "Nếu cả hai phiên bản chạm vào cùng một chỗ, Git không biết chọn cái nào và yêu cầu con người quyết định.",
-   "analogy": "Hai người viết lại cùng một câu trong hợp đồng. Công chứng viên không tự mình chọn: cả hai được gọi đến để thống nhất câu chữ cuối cùng."
-  },
-  "g5": {
-   "title": "Một tin nhắn commit tốt",
-   "prompt": "Tin nhắn commit nào hữu ích nhất cho người đọc lịch sử một năm sau?",
-   "opts": [
-    "Sửa tính toán giảm giá cho mua đúng R$ 50",
-    "chỉnh sửa",
-    "phiên bản cuối cùng lần này thật đấy",
-    "Caio thay đổi hôm thứ Sáu"
-   ],
-   "hint": "Tin nhắn nên nói thay đổi gì và vì sao, không buộc ai phải mở mã.",
-   "why": "Một tin nhắn tốt mô tả thay đổi và lý do. \"chỉnh sửa\" không giúp xác định khi nào hành vi thay đổi.",
-   "analogy": "Nó giống như nhãn trên thùng đồ khi chuyển nhà: \"bếp, ly thủy tinh dễ vỡ\" giúp bạn không phải mở hai mươi thùng ghi \"đồ đạc\"."
-  },
-  "t1": {
-   "title": "Unit test là gì",
-   "prompt": "Một unit test kiểm tra:",
-   "opts": [
-    "Một đơn vị mã nhỏ biệt lập, chẳng hạn một hàm",
-    "Toàn bộ hệ thống qua giao diện người dùng",
-    "Máy chủ có chịu được lưu lượng lớn không",
-    "Khách hàng có hài lòng với bàn giao không"
-   ],
-   "hint": "Tên gọi đã nói lên điều đó: \"đơn vị\" là gì?",
-   "why": "Unit test nhỏ, nhanh và biệt lập. Toàn bộ hệ thống là kiểm thử end-to-end; lưu lượng lớn là kiểm thử tải.",
-   "analogy": "Giống như kiểm tra từng bóng đèn trước khi lắp dây đèn. Nếu cả dây sau đó hỏng, bạn đã biết bóng không phải vấn đề."
-  },
-  "t2": {
-   "title": "Chọn giá trị kiểm thử",
-   "prompt": "Quy tắc áp dụng \"từ 18\". Bộ dữ liệu nào kiểm tra hàm tốt nhất?",
-   "hint": "Lỗi so sánh (> thay vì >=) thường ẩn ở đâu?",
-   "why": "Lỗi tập trung ở các biên. Kiểm tra ngay dưới, đúng tại và ngay trên giới hạn sẽ phát hiện việc nhầm >= thành >.",
-   "analogy": "Để kiểm tra cửa đóng có khít không, bạn xem khung cửa chứ không phải giữa tường."
-  },
-  "t3": {
-   "title": "Arrange, act, assert",
-   "prompt": "Lắp ráp bài kiểm tra giảm giá ở tiệm bánh theo arrange, act, assert.",
-   "hint": "Đầu tiên là dữ liệu, sau đó gọi hàm cần kiểm tra, cuối cùng là kiểm tra.",
-   "why": "Bài kiểm tra thiết lập kịch bản, thực hiện hành động và so sánh kết quả với mong đợi.",
-   "analogy": "Giống như thử một công thức nấu ăn: bày nguyên liệu ra, nấu, rồi mới nếm để xem có ngon không."
-  },
   "q3": {
    "title": "Một user story đúng chuẩn",
    "prompt": "Lựa chọn nào tuân theo định dạng user story?",
@@ -1048,6 +962,92 @@ LANG.vi = {
    "hint": "Nút thắt không phải là bắt đầu; mà là hoàn thành.",
    "why": "Giới hạn WIP buộc phải hoàn thành trước khi bắt đầu mới, cắt giảm việc chuyển đổi ngữ cảnh và làm lộ các nút thắt.",
    "analogy": "Bếp bốn lò với 12 cái chảo: không có gì chín đúng. Tốt hơn là hoàn thành bốn món rồi mới đặt những món tiếp theo lên."
+  },
+  "g1": {
+   "title": "Commit là gì",
+   "prompt": "Một commit trong Git là:",
+   "opts": [
+    "Bản ghi trạng thái dự án tại thời điểm đó, kèm tin nhắn",
+    "Tải tệp lên máy chủ",
+    "Bản sao lưu trong thư mục khác",
+    "Xóa các phiên bản cũ"
+   ],
+   "hint": "Lệnh gửi lên máy chủ là lệnh khác (push).",
+   "why": "Một commit lưu một ảnh chụp cục bộ các thay đổi, với tác giả, ngày và tin nhắn. Việc gửi lên kho từ xa diễn ra sau, bằng lệnh push.",
+   "analogy": "Nó giống như điểm lưu trong trò chơi: nếu trùm đánh bại bạn, bạn có thể quay lại đúng khoảnh khắc đó."
+  },
+  "g2": {
+   "title": "Công bố bản sửa lỗi",
+   "prompt": "Sắp xếp các lệnh để tạo nhánh, ghi lại thay đổi và gửi lên kho từ xa.",
+   "hint": "Đầu tiên là không gian làm việc, sau đó đưa vào stage (add), ghi lại (commit) và gửi (push).",
+   "why": "Bạn tạo nhánh trước khi thay đổi; add chọn những gì sẽ được đưa vào; commit ghi lại; push công bố.",
+   "analogy": "Gửi một bưu kiện: lấy hộp (branch), bỏ đồ vào (add), dán kín và ghi nhãn (commit), rồi mới đem đến bưu điện (push)."
+  },
+  "g3": {
+   "title": "Nhánh dùng để làm gì",
+   "prompt": "Vì sao Bia nên tạo một nhánh cho màn hình giảm giá mới?",
+   "opts": [
+    "Để làm việc biệt lập mà không ảnh hưởng đến nhánh chính",
+    "Để làm cho kho nhanh hơn",
+    "Vì Git cấm commit trên main",
+    "Để xóa lịch sử cũ"
+   ],
+   "hint": "Hãy nghĩ điều gì xảy ra nếu mã chưa hoàn thiện đi thẳng vào main.",
+   "why": "Một nhánh cô lập công việc đang tiến hành. Main vẫn ổn định cho đến khi thay đổi được xem xét và tích hợp.",
+   "analogy": "Nó giống như bản nháp của một tài liệu: bạn thoải mái thử nghiệm và chỉ sao chép vào bản gốc khi văn bản đã tốt."
+  },
+  "g4": {
+   "title": "Vì sao merge bị xung đột",
+   "prompt": "Khi nào xảy ra xung đột merge?",
+   "opts": [
+    "Khi hai nhánh thay đổi cùng những dòng theo cách khác nhau",
+    "Bất cứ khi nào hai người làm việc trong cùng một kho",
+    "Khi nhánh có hơn mười commit",
+    "Khi một tệp mới được tạo trên một trong các nhánh"
+   ],
+   "hint": "Git tự động merge các thay đổi ở những chỗ khác nhau. Điều gì nó không thể quyết định?",
+   "why": "Nếu cả hai phiên bản chạm vào cùng một chỗ, Git không biết chọn cái nào và yêu cầu con người quyết định.",
+   "analogy": "Hai người viết lại cùng một câu trong hợp đồng. Công chứng viên không tự mình chọn: cả hai được gọi đến để thống nhất câu chữ cuối cùng."
+  },
+  "g5": {
+   "title": "Một tin nhắn commit tốt",
+   "prompt": "Tin nhắn commit nào hữu ích nhất cho người đọc lịch sử một năm sau?",
+   "opts": [
+    "Sửa tính toán giảm giá cho mua đúng R$ 50",
+    "chỉnh sửa",
+    "phiên bản cuối cùng lần này thật đấy",
+    "Caio thay đổi hôm thứ Sáu"
+   ],
+   "hint": "Tin nhắn nên nói thay đổi gì và vì sao, không buộc ai phải mở mã.",
+   "why": "Một tin nhắn tốt mô tả thay đổi và lý do. \"chỉnh sửa\" không giúp xác định khi nào hành vi thay đổi.",
+   "analogy": "Nó giống như nhãn trên thùng đồ khi chuyển nhà: \"bếp, ly thủy tinh dễ vỡ\" giúp bạn không phải mở hai mươi thùng ghi \"đồ đạc\"."
+  },
+  "t1": {
+   "title": "Unit test là gì",
+   "prompt": "Một unit test kiểm tra:",
+   "opts": [
+    "Một đơn vị mã nhỏ biệt lập, chẳng hạn một hàm",
+    "Toàn bộ hệ thống qua giao diện người dùng",
+    "Máy chủ có chịu được lưu lượng lớn không",
+    "Khách hàng có hài lòng với bàn giao không"
+   ],
+   "hint": "Tên gọi đã nói lên điều đó: \"đơn vị\" là gì?",
+   "why": "Unit test nhỏ, nhanh và biệt lập. Toàn bộ hệ thống là kiểm thử end-to-end; lưu lượng lớn là kiểm thử tải.",
+   "analogy": "Giống như kiểm tra từng bóng đèn trước khi lắp dây đèn. Nếu cả dây sau đó hỏng, bạn đã biết bóng không phải vấn đề."
+  },
+  "t2": {
+   "title": "Chọn giá trị kiểm thử",
+   "prompt": "Quy tắc áp dụng \"từ 18\". Bộ dữ liệu nào kiểm tra hàm tốt nhất?",
+   "hint": "Lỗi so sánh (> thay vì >=) thường ẩn ở đâu?",
+   "why": "Lỗi tập trung ở các biên. Kiểm tra ngay dưới, đúng tại và ngay trên giới hạn sẽ phát hiện việc nhầm >= thành >.",
+   "analogy": "Để kiểm tra cửa đóng có khít không, bạn xem khung cửa chứ không phải giữa tường."
+  },
+  "t3": {
+   "title": "Arrange, act, assert",
+   "prompt": "Lắp ráp bài kiểm tra giảm giá ở tiệm bánh theo arrange, act, assert.",
+   "hint": "Đầu tiên là dữ liệu, sau đó gọi hàm cần kiểm tra, cuối cùng là kiểm tra.",
+   "why": "Bài kiểm tra thiết lập kịch bản, thực hiện hành động và so sánh kết quả với mong đợi.",
+   "analogy": "Giống như thử một công thức nấu ăn: bày nguyên liệu ra, nấu, rồi mới nếm để xem có ngon không."
   },
   "t4": {
    "title": "Tất cả đều xanh, không còn lỗi?",
@@ -1211,63 +1211,6 @@ LANG.vi = {
    ],
    "why": "Thất bại thuộc về hệ thống làm việc, không phải một cá nhân. Kiểm thử hồi quy ngăn lỗi quay lại, và thay đổi quy trình ngăn tình huống tái diễn.",
    "analogy": "Trong ngành hàng không, mọi sự cố đều trở thành một cuộc điều tra và một quy trình tốt hơn, không phải một cuộc săn phù thủy. Đó là lý do việc bay trở nên an toàn đến vậy."
-  },
-  "o2": {
-   "title": "Đường ra sản phẩm",
-   "prompt": "Sắp xếp các giai đoạn của quy trình triển khai liên tục theo đúng thứ tự.",
-   "lines": [
-    "Lập trình viên đẩy mã lên",
-    "Máy chủ CI lấy mã và cài đặt các phụ thuộc",
-    "Các bài kiểm thử tự động chạy",
-    "Gói phát hành được đóng gói",
-    "Phiên bản được phát hành ra môi trường sản xuất"
-   ],
-   "hint": "Không có gì được đóng gói trước khi vượt qua kiểm thử, và không có gì được phát hành trước khi được đóng gói.",
-   "why": "Mỗi giai đoạn là một cổng kiểm soát: chỉ những gì vượt qua kiểm thử mới được đóng gói, và chỉ những gì được đóng gói một cách tái lập mới được phát hành.",
-   "analogy": "Một dây chuyền lắp ráp: bộ phận đến, được lắp ráp, qua kiểm tra chất lượng, được đóng hộp, và chỉ sau đó mới rời khỏi nhà máy."
-  },
-  "o3": {
-   "title": "\"Chạy tốt trên máy của tôi\"",
-   "prompt": "Ứng dụng chạy tốt trên laptop của Bia nhưng lại lỗi trên máy chủ. Nguyên nhân có khả năng nhất và cách khắc phục đúng là gì?",
-   "opts": [
-    "Môi trường khác nhau; khai báo các phụ thuộc và phiên bản trong một tệp và sử dụng cùng môi trường ở mọi nơi",
-    "Máy chủ bị lỗi; mua một máy chủ khác",
-    "Xui xẻo; thử lại vào ngày mai",
-    "Ngôn ngữ không tốt; viết lại bằng ngôn ngữ khác"
-   ],
-   "hint": "Mã giống nhau ở cả hai nơi. Điều gì thay đổi xung quanh nó?",
-   "why": "Cùng một đoạn mã có thể hoạt động khác nhau khi phiên bản và cấu hình thay đổi. Khai báo phụ thuộc và chuẩn hóa môi trường giúp việc thực thi trở nên tái lập.",
-   "analogy": "Công thức làm bánh thành công trong bếp của bạn nhưng thất bại ở nhà hàng xóm vì lò nướng của họ hiển thị nhiệt độ khác. Hãy chuẩn hóa lò nướng; đừng đổ lỗi cho chiếc bánh."
-  },
-  "o4": {
-   "title": "Rủi ro phát hành",
-   "prompt": "Phân loại từng thực hành theo tác động của nó đến rủi ro phát hành.",
-   "bins": [
-    "Giảm rủi ro",
-    "Tăng rủi ro"
-   ],
-   "cards": [
-    "Phát hành các thay đổi nhỏ vài lần mỗi tuần",
-    "Dồn ba tháng thay đổi vào một lần phát hành duy nhất",
-    "Có lệnh rollback đã được kiểm thử",
-    "Chỉnh sửa tệp trực tiếp trên máy chủ sản xuất"
-   ],
-   "hint": "Hãy tự hỏi: nếu có sự cố, liệu có dễ tìm ra nguyên nhân và quay lại không?",
-   "why": "Một thay đổi nhỏ có nguyên nhân dễ tìm, và rollback đã được kiểm thử cho phép quay lại nhanh chóng. Một bản phát hành khổng lồ và chỉnh sửa thủ công trên môi trường sản xuất khiến lỗi khó xác định và khó hoàn tác.",
-   "analogy": "Băng qua sông bằng cách bước từng viên đá cho phép bạn lùi lại. Nhảy từ bờ này sang bờ kia là được ăn cả, ngã về không."
-  },
-  "o5": {
-   "title": "CI đã đỏ ba ngày",
-   "prompt": "Một bài kiểm thử đã thất bại trong CI suốt ba ngày và nhóm vẫn tiếp tục đẩy mã. Hành động đúng đắn là gì?",
-   "opts": [
-    "Dừng lại và sửa bản build trước: cảnh báo bị bỏ qua sẽ không còn tác dụng bảo vệ",
-    "Vô hiệu hóa bài kiểm thử đang thất bại",
-    "Tiếp tục và sửa mọi thứ vào cuối tháng",
-    "Loại bỏ CI, nó chỉ gây cản trở"
-   ],
-   "hint": "Một cảnh báo còn giá trị gì khi mọi người đã học cách lờ đi nó?",
-   "why": "Với bản build đỏ, các lỗi mới sẽ ẩn sau lỗi đầu tiên. Sửa bản build trở thành ưu tiên của cả nhóm; vô hiệu hóa bài kiểm thử chỉ là tắt đèn báo trên bảng điều khiển.",
-   "analogy": "Đó là đèn báo áp suất dầu trên bảng điều khiển: dán băng keo che nó không sửa được động cơ."
   },
   "q6": {
    "title": "Phân loại yêu cầu",
@@ -1494,62 +1437,119 @@ LANG.vi = {
    "hint": "Nghĩ về người gác kiểm tra mỗi thay đổi ngay khi nó đến.",
    "why": "CI xây dựng dự án từ đầu và chạy kiểm thử trên mọi thay đổi. Giá trị nằm ở tốc độ cảnh báo: phút, không phải tuần.",
    "analogy": "Đó là máy dò kim loại ở cửa: kiểm tra từng người khi vào, thay vì lục soát cả tòa nhà vào cuối tháng."
+  },
+  "o2": {
+   "title": "Đường ra sản phẩm",
+   "prompt": "Sắp xếp các giai đoạn của quy trình triển khai liên tục theo đúng thứ tự.",
+   "lines": [
+    "Lập trình viên đẩy mã lên",
+    "Máy chủ CI lấy mã và cài đặt các phụ thuộc",
+    "Các bài kiểm thử tự động chạy",
+    "Gói phát hành được đóng gói",
+    "Phiên bản được phát hành ra môi trường sản xuất"
+   ],
+   "hint": "Không có gì được đóng gói trước khi vượt qua kiểm thử, và không có gì được phát hành trước khi được đóng gói.",
+   "why": "Mỗi giai đoạn là một cổng kiểm soát: chỉ những gì vượt qua kiểm thử mới được đóng gói, và chỉ những gì được đóng gói một cách tái lập mới được phát hành.",
+   "analogy": "Một dây chuyền lắp ráp: bộ phận đến, được lắp ráp, qua kiểm tra chất lượng, được đóng hộp, và chỉ sau đó mới rời khỏi nhà máy."
+  },
+  "o3": {
+   "title": "\"Chạy tốt trên máy của tôi\"",
+   "prompt": "Ứng dụng chạy tốt trên laptop của Bia nhưng lại lỗi trên máy chủ. Nguyên nhân có khả năng nhất và cách khắc phục đúng là gì?",
+   "opts": [
+    "Môi trường khác nhau; khai báo các phụ thuộc và phiên bản trong một tệp và sử dụng cùng môi trường ở mọi nơi",
+    "Máy chủ bị lỗi; mua một máy chủ khác",
+    "Xui xẻo; thử lại vào ngày mai",
+    "Ngôn ngữ không tốt; viết lại bằng ngôn ngữ khác"
+   ],
+   "hint": "Mã giống nhau ở cả hai nơi. Điều gì thay đổi xung quanh nó?",
+   "why": "Cùng một đoạn mã có thể hoạt động khác nhau khi phiên bản và cấu hình thay đổi. Khai báo phụ thuộc và chuẩn hóa môi trường giúp việc thực thi trở nên tái lập.",
+   "analogy": "Công thức làm bánh thành công trong bếp của bạn nhưng thất bại ở nhà hàng xóm vì lò nướng của họ hiển thị nhiệt độ khác. Hãy chuẩn hóa lò nướng; đừng đổ lỗi cho chiếc bánh."
+  },
+  "o4": {
+   "title": "Rủi ro phát hành",
+   "prompt": "Phân loại từng thực hành theo tác động của nó đến rủi ro phát hành.",
+   "bins": [
+    "Giảm rủi ro",
+    "Tăng rủi ro"
+   ],
+   "cards": [
+    "Phát hành các thay đổi nhỏ vài lần mỗi tuần",
+    "Dồn ba tháng thay đổi vào một lần phát hành duy nhất",
+    "Có lệnh rollback đã được kiểm thử",
+    "Chỉnh sửa tệp trực tiếp trên máy chủ sản xuất"
+   ],
+   "hint": "Hãy tự hỏi: nếu có sự cố, liệu có dễ tìm ra nguyên nhân và quay lại không?",
+   "why": "Một thay đổi nhỏ có nguyên nhân dễ tìm, và rollback đã được kiểm thử cho phép quay lại nhanh chóng. Một bản phát hành khổng lồ và chỉnh sửa thủ công trên môi trường sản xuất khiến lỗi khó xác định và khó hoàn tác.",
+   "analogy": "Băng qua sông bằng cách bước từng viên đá cho phép bạn lùi lại. Nhảy từ bờ này sang bờ kia là được ăn cả, ngã về không."
+  },
+  "o5": {
+   "title": "CI đã đỏ ba ngày",
+   "prompt": "Một bài kiểm thử đã thất bại trong CI suốt ba ngày và nhóm vẫn tiếp tục đẩy mã. Hành động đúng đắn là gì?",
+   "opts": [
+    "Dừng lại và sửa bản build trước: cảnh báo bị bỏ qua sẽ không còn tác dụng bảo vệ",
+    "Vô hiệu hóa bài kiểm thử đang thất bại",
+    "Tiếp tục và sửa mọi thứ vào cuối tháng",
+    "Loại bỏ CI, nó chỉ gây cản trở"
+   ],
+   "hint": "Một cảnh báo còn giá trị gì khi mọi người đã học cách lờ đi nó?",
+   "why": "Với bản build đỏ, các lỗi mới sẽ ẩn sau lỗi đầu tiên. Sửa bản build trở thành ưu tiên của cả nhóm; vô hiệu hóa bài kiểm thử chỉ là tắt đèn báo trên bảng điều khiển.",
+   "analogy": "Đó là đèn báo áp suất dầu trên bảng điều khiển: dán băng keo che nó không sửa được động cơ."
   }
  },
  "game": {
   "shop": {
    "shield": [
-    "Khiên",
-    "Hấp thụ hình phạt XP cho lỗi tiếp theo của bạn. Tự động kích hoạt."
+    "Lá chắn",
+    "Hấp thụ hình phạt XP của lỗi tiếp theo của bạn. Được dùng tự động."
    ],
    "fifty": [
     "Loại bỏ hai",
-    "Loại bỏ hai phương án sai khỏi câu hỏi trắc nghiệm. Câu trả lời đúng sau đó được tính là bằng chứng yếu hơn về sự thành thạo."
+    "Loại bỏ hai lựa chọn sai khỏi ticket trắc nghiệm. Câu trả lời đúng sau đó được tính là bằng chứng yếu hơn về sự thành thạo."
    ],
    "time": [
     "Thêm thời gian",
-    "Thêm 30 giây vào đồng hồ trong chế độ Cực khó."
+    "Thêm 30 giây vào đồng hồ ở chế độ {h}."
    ],
    "boost": [
-    "Nhân đôi XP",
-    "Nhân đôi XP cho 3 phiếu tiếp theo. Kích hoạt ngay khi bạn dùng."
+    "Gấp đôi XP",
+    "Nhân đôi XP của 3 ticket tiếp theo của bạn. Kích hoạt ngay khi bạn đổi nó."
    ],
    "tBug": [
     "Thợ săn lỗi",
-    "Danh hiệu hiển thị bên cạnh vai trò của bạn."
+    "Một danh hiệu hiển thị bên cạnh vai trò của bạn."
    ],
    "tArch": [
     "Tư duy kiến trúc sư",
-    "Danh hiệu hiển thị bên cạnh vai trò của bạn."
+    "Một danh hiệu hiển thị bên cạnh vai trò của bạn."
    ],
    "tLegend": [
     "Huyền thoại triển khai",
-    "Danh hiệu hiển thị bên cạnh vai trò của bạn."
+    "Một danh hiệu hiển thị bên cạnh vai trò của bạn."
    ]
   },
   "bounties": {
-   "b1": "Trả lời đúng 3 phiếu liên tiếp mà không dùng gợi ý",
-   "b2": "Giải một phiếu ở mức Khó hoặc Cực khó",
-   "b3": "Sprint sạch sẽ: 5 trên 5"
+   "b1": "Trả lời đúng 3 ticket liên tiếp mà không dùng gợi ý",
+   "b2": "Giải một ticket ở chế độ {d} hoặc {h}",
+   "b3": "Sprint sạch: 5 trên 5"
   },
   "bosses": {
    "bossA": {
     "name": "Thanh tra",
-    "client": "Tiệm bánh của bà Lúcia",
-    "trophy": "Dấu niêm phong của thanh tra",
-    "story": "Một thanh tra thành phố bước vào tiệm bánh và muốn xem, trong vòng một giờ, tổng doanh số đã chiết khấu, số khách hàng được chiết khấu và phép tính tiền thối. Chương trình tính tiền trộn lẫn biến, điều kiện và vòng lặp, và bất kỳ sai sót nào cũng bị phạt. Bà Lúcia nhìn bạn."
+    "client": "Tiệm bánh của Dona Lúcia",
+    "trophy": "Dấu niêm phong của Thanh tra",
+    "story": "Một thanh tra thành phố bước vào tiệm bánh và muốn xem trong vòng một giờ, tổng doanh số đã chiết khấu, số khách hàng được chiết khấu, và cách tính tiền thối. Chương trình máy tính tiền trộn lẫn biến, điều kiện và vòng lặp, và bất kỳ sai sót nào cũng có nghĩa là bị phạt. Dona Lúcia nhìn bạn."
    },
    "bossB": {
-    "name": "Cuộc đại di cư",
-    "client": "Văn phòng công chứng quận 2",
-    "trophy": "Chìa khóa lưu trữ",
-    "story": "Văn phòng công chứng sẽ chuyển 40 năm hồ sơ sang máy chủ mới vào cuối tuần này. Script sử dụng các hàm đệ quy trên danh sách, và một báo cáo đếm sai sẽ làm hỏng toàn bộ quy trình. Helena cần mọi hàm được kiểm tra trước thứ Bảy."
+    "name": "Cuộc Đại Di Cư",
+    "client": "Văn phòng công chứng Quận 2",
+    "trophy": "Chìa khóa Lưu trữ",
+    "story": "Văn phòng công chứng sẽ chuyển 40 năm hồ sơ sang máy chủ mới vào cuối tuần này. Kịch bản sử dụng các hàm đệ quy trên danh sách, và một báo cáo sai số lượng sẽ làm hỏng toàn bộ quy trình. Helena cần kiểm tra mọi hàm trước thứ Bảy."
    },
    "bossC": {
     "name": "Thứ Sáu, 5 giờ chiều",
     "client": "Hợp tác xã giao hàng Roda Viva",
     "trophy": "Huy chương Thứ Sáu",
-    "story": "Thứ Sáu, 5 giờ chiều. Hợp tác xã yêu cầu phiếu ăn hoạt động ngay hôm nay, vì chiến dịch bắt đầu vào ngày mai. Code đã viết xong trên máy của ai đó, không có kiểm thử và không được xem xét. Mọi thứ bạn học về yêu cầu, quy trình, quản lý phiên bản, kiểm thử và thiết kế sẽ được kiểm chứng trong vài giờ tới."
+    "story": "Thứ Sáu, 5 giờ chiều. Hợp tác xã yêu cầu phiếu ăn phải hoạt động ngay hôm nay, vì chiến dịch bắt đầu vào ngày mai. Mã nằm hoàn chỉnh trên máy của ai đó, không có kiểm thử và không có đánh giá. Mọi thứ bạn học về yêu cầu, quy trình, quản lý phiên bản, kiểm thử và thiết kế sẽ được thử thách trong vài giờ tới."
    }
   }
  }

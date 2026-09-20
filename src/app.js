@@ -36,8 +36,23 @@ function save(){try{localStorage.setItem(KEY,JSON.stringify(S))}catch(e){}}
 
 /* ---------- i18n ---------- */
 const Lg=()=>LANG[S.lang]||LANG.pt;
-function t(k,vars){let s=Lg().ui[k]; if(s==null)s=LANG.pt.ui[k]; if(s==null)return k;
-  if(vars&&typeof s==="string")for(const v in vars)s=s.split("{"+v+"}").join(vars[v]); return s;}
+const romOn=()=>!!(S&&S.rom&&ROMANIZER.available(S.lang));
+const rz=x=>typeof x==="string"&&romOn()?ROMANIZER.convert(S.lang,x):x;
+function t(k,vars){let s=Lg().ui[k]; if(s==null)s=LANG.en.ui[k]; if(s==null)s=LANG.pt.ui[k]; if(s==null)return k;
+  const fz=x=>furiOn()?(FURI.ja[x]||x):rz(x);
+  if(vars&&typeof s==="string"){s=fz(s);for(const v in vars)s=s.split("{"+v+"}").join(fz(String(vars[v])));} return s;}
+const frac=(a,b)=>a+"/"+b;
+const fill=x=>typeof x==="string"?x.split("{d}").join(rz(t("modes").dificil)).split("{h}").join(rz(t("modes").hardcore)):x;
+const furiOn=()=>!!(S&&S.furi&&S.lang==="ja"&&FURI.ja);
+const FURI_SRC="([\\u3005\\u4e00-\\u9fff]+)\\[([\\u3041-\\u3096\\u30fc]+)\\]";
+function textNode(x){
+  if(typeof x!=="string")return document.createTextNode(x);
+  if(furiOn()){const s=FURI.ja[x]||x, re=new RegExp(FURI_SRC,"g"); if(re.test(s)){re.lastIndex=0;const fr=document.createDocumentFragment();let last=0,m;
+    while((m=re.exec(s))){if(m.index>last)fr.append(s.slice(last,m.index));const rb=document.createElement("ruby");rb.append(m[1]);const rt=document.createElement("rt");rt.textContent=m[2];rb.append(rt);fr.append(rb);last=re.lastIndex}
+    if(last<s.length)fr.append(s.slice(last));return fr} return document.createTextNode(s)}
+  return document.createTextNode(rz(x));
+}
+const langName=l=>{const m=STUDY_LANGS.find(x=>x.code===l);return m?(m.native===m.label?m.native:m.native+" ("+m.label+")"):(LANG[l]||{}).name||l};
 const skT=id=>Lg().skills[id]||LANG.pt.skills[id];
 const itT=id=>Lg().items[id]||LANG.pt.items[id];
 function itemCode(it){return it.shared||(it.code?it.code[S.pl]||it.code.py:null)}
@@ -179,13 +194,14 @@ function h(tag,attrs,...kids){
   const el=document.createElement(tag);
   for(const k in attrs||{}){const v=attrs[k]; if(v==null||v===false)continue;
     if(k==="class")el.className=v; else if(k==="value")el.value=v; else if(k.startsWith("on"))el.addEventListener(k.slice(2),v); else el.setAttribute(k,v===true?"":v);}
-  for(const kid of kids.flat(3)){ if(kid==null||kid===false)continue; el.append(kid.nodeType?kid:document.createTextNode(kid)); }
+  const raw=attrs&&attrs["data-raw"];
+  for(const kid of kids.flat(3)){ if(kid==null||kid===false)continue; el.append(kid.nodeType?kid:raw?document.createTextNode(kid):textNode(kid)); }
   return el;
 }
 function sv(tag,attrs,...kids){
   const el=document.createElementNS("http://www.w3.org/2000/svg",tag);
   for(const k in attrs||{}){ if(attrs[k]==null)continue; if(k.startsWith("on"))el.addEventListener(k.slice(2),attrs[k]); else el.setAttribute(k,attrs[k]); }
-  for(const kid of kids.flat()){ if(kid==null)continue; el.append(kid.nodeType?kid:document.createTextNode(kid)); }
+  for(const kid of kids.flat()){ if(kid==null)continue; el.append(kid.nodeType?kid:document.createTextNode(rz(kid))); }
   return el;
 }
 const pct=x=>Math.round(x*100)+"%";
@@ -195,9 +211,11 @@ function applyLang(){const el=document.documentElement; el.lang=S.lang; if(el.se
 function setLang(l){S.lang=l; save(); applyLang(); render()}
 function setPl(p){S.pl=p; SKILLS.forEach(s=>{const k=tkey(s.id); if(S.sprint.start[k]===undefined)S.sprint.start[k]=trk(s.id).L}); fillBoard(); save(); render()}
 function langBar(){
-  const ks=Object.keys(LANG);
-  if(ks.length>4)return h("select",{class:"langsel","aria-label":t("uiLang"),onchange:e=>setLang(e.target.value)},ks.map(l=>h("option",{value:l,selected:S.lang===l},LANG[l].name)));
-  return h("div",{class:"langbar",role:"group","aria-label":t("uiLang")},ks.map(l=>h("button",{"aria-pressed":String(S.lang===l),title:LANG[l].name,onclick:()=>setLang(l)},l.toUpperCase())));
+  const ks=Object.keys(LANG), can=ROMANIZER.available(S.lang);
+  return h("div",{class:"langbar"},
+    h("select",{class:"langsel","aria-label":t("uiLang"),onchange:e=>setLang(e.target.value)},ks.map(l=>h("option",{value:l,selected:S.lang===l,"data-raw":1},langName(l)))),
+    S.lang==="ja"&&FURI.ja&&h("button",{"aria-pressed":String(!!S.furi),title:"ふりがな","aria-label":"ふりがな","data-raw":1,onclick:()=>{S.furi=!S.furi;if(S.furi)S.rom=false;save();render()}},"ふ"),
+    can&&h("button",{"aria-pressed":String(!!S.rom),title:t("rom"),"aria-label":t("rom"),"data-raw":1,onclick:()=>{S.rom=!S.rom;if(S.rom)S.furi=false;save();render()}},"Aa"));
 }
 function plTabs(){return h("div",{class:"tabs",role:"group","aria-label":t("codeLang")},Object.keys(PLS).map(p=>h("button",{"aria-pressed":String(S.pl===p),onclick:()=>setPl(p)},PLS[p])))}
 
@@ -244,7 +262,7 @@ function modePanel(){
     h("div",{class:"tabs",role:"group","aria-label":t("modeH")},Object.keys(MODES).map(k=>h("button",{"aria-pressed":String(S.mode===k),onclick:()=>{S.mode=k;save();render()}},MODE_ICON[k]+" "+t("modes")[k]+" ×"+String(MODES[k].mult).replace(".",S.lang==="en"?".":",")))),
     h("p",{class:"note",style:"margin:6px 0 14px"},t("modeDesc")[S.mode]),
     h("b",{style:"font-family:var(--display)"},"🎯 "+t("bountiesH")),
-    h("ul",{class:"bounties"},BOUNTIES.map(b=>h("li",{class:S.sprint.b[b.id]?"ok":null},(S.sprint.b[b.id]?"✅ ":"")+gt().bounties[b.id]+"  +"+b.xp+" XP"))));
+    h("ul",{class:"bounties"},BOUNTIES.map(b=>h("li",{class:S.sprint.b[b.id]?"ok":null},(S.sprint.b[b.id]?"✅ ":"")+fill(gt().bounties[b.id])+"  +"+b.xp+" XP"))));
 }
 function missionCard(s){
   const x=skT(s.id);
@@ -345,7 +363,7 @@ function bossAdvance(){
 }
 function shop(){
   const card=p=>{const x=gt().shop[p.id], has=p.kind==="title"&&S.titles.includes(p.id), n=p.id==="boost"?S.boost:S.inv[p.id], can=S.xp>=p.cost;
-    return h("div",{class:"panel shopitem"+(can||has?"":" far")},h("div",{class:"ico","aria-hidden":"true"},p.icon),h("h3",null,x[0]),h("p",null,x[1]),
+    return h("div",{class:"panel shopitem"+(can||has?"":" far")},h("div",{class:"ico","aria-hidden":"true"},p.icon),h("h3",null,x[0]),h("p",null,fill(x[1])),
       p.kind==="power"&&h("p",{class:"note"},(n>0?"🎒 ":"")+t("owned",{n})),
       has?h("button",{class:"btn ghost small",onclick:()=>{S.title=S.title===p.id?null:p.id;save();render()}},S.title===p.id?"✅ "+t("equipped")+". "+t("unequip"):t("equip"))
          :h("button",{class:"btn small",disabled:!can,onclick:()=>buy(p)},can?t("buy",{c:p.cost}):"🔒 "+t("need",{n:p.cost-S.xp,c:p.cost})));};
@@ -428,7 +446,7 @@ function ticket(){
       r.pen>0&&h("p",{class:"note"},t("lost",{x:r.pen})),
       r.shield&&h("p",{class:"delta"},"🛡️ "+t("shieldUsed")),
       !r.ok&&r.after>r.before&&h("p",{class:"note"},t("roseNote")),
-      r.bounties.map(bn=>h("p",{class:"promo"},"🎯 "+t("bountyDone",{s:gt().bounties[bn.id],x:bn.xp}))),
+      r.bounties.map(bn=>h("p",{class:"promo"},"🎯 "+t("bountyDone",{s:fill(gt().bounties[bn.id]),x:bn.xp}))),
       r.masteredNow&&h("p",{class:"promo"},"🏅 "+t("masteredNow",{s:skT(it.skill).name})),
       r.newly.length>0&&h("p",{class:"promo"},"🔓 "+t("unlockedNow",{s:r.newly.join(", ")})),
       r.promo&&h("p",{class:"promo"},"📈 "+t("promo",{r:r.promo})),
@@ -473,7 +491,7 @@ function evolution(){
       h("tbody",null,list.map(z=>{const a=z.pts[0].b,b=z.pts[z.pts.length-1].y,g=Math.round((b-a)*100);return h("tr",null,h("td",null,label(z)),h("td",null,pct(a)),h("td",null,h("b",null,pct(b))),h("td",null,(g>=0?"+":"")+g+" pp"),h("td",null,String(z.pts.length)))})))));
 }
 function plPanel(){
-  const pls=Object.keys(PLS), acc=p=>{const ls=S.log.filter(l=>l.pl===p);return ls.length?t("of",{a:ls.filter(l=>l.ok).length,b:ls.length}):t("noData")};
+  const pls=Object.keys(PLS), acc=p=>{const ls=S.log.filter(l=>l.pl===p);return ls.length?frac(ls.filter(l=>l.ok).length,ls.length):t("noData")};
   return h("section",{class:"panel"},h("h3",null,"💻 "+t("plH")),h("p",{class:"note"},t("plP")),
     h("div",{class:"tblwrap"},h("table",null,h("thead",null,h("tr",null,h("th",null,t("colSkill")),pls.map(p=>h("th",null,PLS[p]+(p===S.pl?" ●":""))))),
       h("tbody",null,SKILLS.filter(s=>s.area==="prog").map(s=>h("tr",null,h("td",null,skT(s.id).name),pls.map(p=>{const x=practiced(s.id,p);return h("td",null,x&&x.n?h("b",null,pct(x.L)):x?pct(x.L):"-")}))),
@@ -483,9 +501,9 @@ function plPanel(){
 function langPanel(){
   const used=[...new Set(S.log.map(l=>l.lang))];
   return h("section",{class:"panel"},h("h3",null,"🌍 "+t("studyH")),h("p",{class:"note"},t("studyP")),
-    used.length>0&&h("p",null,h("b",null,t("langH")+": "),used.map(l=>{const ls=S.log.filter(x=>x.lang===l);return (LANG[l]?LANG[l].name:l)+" "+t("of",{a:ls.filter(x=>x.ok).length,b:ls.length})}).join("; ")),
+    used.length>0&&h("p",null,h("b",null,t("langH")+": "),used.map(l=>{const ls=S.log.filter(x=>x.lang===l);return (LANG[l]?LANG[l].name:l)+" "+frac(ls.filter(x=>x.ok).length,ls.length)}).join("; ")),
     h("div",{class:"tblwrap"},h("table",null,h("thead",null,h("tr",null,h("th",null,t("colLang")),h("th",null,t("colScript")),h("th",null,"FLORES-200"),h("th",null,t("colTok")),h("th",null,t("colStatus")))),
-      h("tbody",null,STUDY_LANGS.map(x=>h("tr",null,h("td",null,x.native),h("td",null,x.script),h("td",{class:"note"},x.flores),h("td",null,String(x.tok)),h("td",null,LANG[x.code]?"✅ "+t("available"):"⏳ "+t("pending"))))))));
+      h("tbody",null,STUDY_LANGS.map(x=>h("tr",null,h("td",{"data-raw":1},x.native+(x.native===x.label?"":" ("+x.label+")")),h("td",null,x.script),h("td",{class:"note"},x.flores),h("td",null,String(x.tok)),h("td",null,LANG[x.code]?"✅ "+t("available"):"⏳ "+t("pending"))))))));
 }
 function exportData(){return JSON.stringify({app:"DevWise",version:3,skills:S.skills,log:S.log},null,1)}
 function report(){
@@ -501,17 +519,17 @@ function report(){
   const status=s=>mastered(s.id)?t("stM"):!unlocked(s.id)?t("stL"):!S.brief[s.id]?t("stB"):t("stP");
   return h("main",null,h("h2",{style:"font-size:1.9rem;font-weight:800"},t("repH")),h("p",{class:"note"},t("repSub")),
     h("div",{class:"kpis"},h("div",null,h("b",null,String(n)),t("k1")),h("div",null,h("b",null,n?pct(c/n):"0%"),t("k2")),
-      h("div",null,h("b",null,t("of",{a:SKILLS.filter(s=>mastered(s.id)).length,b:SKILLS.length})),t("k3")),h("div",null,h("b",null,String(S.best)),t("k4")),h("div",null,h("b",null,String(S.xpTotal)),t("kTotal")),h("div",null,h("b",null,t("of",{a:Object.keys(S.bosses).length,b:BOSSES.length})),t("kBosses"))),
+      h("div",null,h("b",null,frac(SKILLS.filter(s=>mastered(s.id)).length,SKILLS.length)),t("k3")),h("div",null,h("b",null,String(S.best)),t("k4")),h("div",null,h("b",null,String(S.xpTotal)),t("kTotal")),h("div",null,h("b",null,frac(Object.keys(S.bosses).length,BOSSES.length)),t("kBosses"))),
     evolution(),
     h("div",{class:"grid2"},
       plPanel(),
       h("section",{class:"panel"},h("h3",null,t("bySkill")),h("div",{class:"tblwrap"},h("table",null,
         h("thead",null,h("tr",null,h("th",null,t("colSkill")),h("th",null,t("colMastery")),h("th",null,""),h("th",null,t("colHits")),h("th",null,t("colStatus")),h("th",null,t("colSbc")))),
         h("tbody",null,SKILLS.map(s=>{const st=trk(s.id);return h("tr",null,h("td",null,skT(s.id).name),h("td",null,h("div",{class:"bar"+(s.area==="se"?" se":"")},h("i",{style:"width:"+pct(st.L)}))),
-          h("td",null,pct(st.L)),h("td",null,t("of",{a:st.c,b:st.n})),h("td",null,status(s)),h("td",{class:"note"},s.sbc.map(x=>x.replace("-"," ")).join(", ")))}))))),
+          h("td",null,pct(st.L)),h("td",null,frac(st.c,st.n)),h("td",null,status(s)),h("td",{class:"note"},s.sbc.map(x=>x.replace("-"," ")).join(", ")))}))))),
       h("section",{class:"panel"},h("h3",null,t("recs")),h("ul",{style:"margin:0;padding-left:20px"},recs.map(r=>h("li",{style:"margin-bottom:8px"},r))),
         h("h3",{style:"margin-top:20px"},t("bloomAcc")),h("div",{class:"tblwrap"},h("table",null,h("tbody",null,bloom.map(b=>h("tr",null,h("td",null,b.name),
-          h("td",null,h("div",{class:"bar"},h("i",{style:"width:"+(b.n?pct(b.c/b.n):"0%")}))),h("td",null,b.n?t("of",{a:b.c,b:b.n}):t("noData")))))))),
+          h("td",null,h("div",{class:"bar"},h("i",{style:"width:"+(b.n?pct(b.c/b.n):"0%")}))),h("td",null,b.n?frac(b.c,b.n):t("noData")))))))),
       h("section",{class:"panel"},h("h3",null,"🏆 "+t("trophies")),Object.keys(S.bosses).length?h("ul",{style:"margin:0;padding-left:20px"},Object.keys(S.bosses).map(k=>h("li",null,h("b",null,gt().bosses[k].trophy),"  ("+gt().bosses[k].name+")"))):h("p",{class:"empty"},t("noTrophies"))),
       h("section",{class:"panel"},h("h3",null,t("how")),h("p",null,t("howP")),h("div",{class:"analogy",style:"background:var(--sunken)"},h("b",null,t("analogy")),t("howA")),h("p",{class:"note"},t("howParams"))),
       langPanel(),
@@ -528,7 +546,8 @@ function settings(){
   const status=AI.sample?t("aiClaude"):AI.ready()?t("aiKeyOn",{m:a.model||(a.provider==="anthropic"?"claude-haiku-4-5":"gpt-4o-mini")}):t("aiOff");
   return h("main",{class:"work"},h("h2",null,t("setH")),
     h("div",{class:"form"},
-      h("label",null,t("uiLang"),h("select",{onchange:e=>setLang(e.target.value)},Object.keys(LANG).map(l=>h("option",{value:l,selected:S.lang===l},LANG[l].name)))),
+      h("label",null,t("uiLang"),h("select",{onchange:e=>setLang(e.target.value)},Object.keys(LANG).map(l=>h("option",{value:l,selected:S.lang===l,"data-raw":1},langName(l))))),
+      ROMANIZER.available(S.lang)&&h("label",{class:"chk"},h("input",{type:"checkbox",checked:!!S.rom,onchange:e=>{S.rom=e.target.checked;save();render()}}),t("rom")),
       h("label",null,t("codeLang"),h("select",{onchange:e=>setPl(e.target.value)},Object.keys(PLS).map(p=>h("option",{value:p,selected:S.pl===p},PLS[p]))))),
     h("h2",{style:"margin-top:34px;font-size:1.6rem"},t("aiH")),h("p",null,t("aiP")),h("p",{class:"delta"},status),
     !AI.sample&&h("div",{class:"form"},

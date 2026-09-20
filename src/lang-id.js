@@ -16,59 +16,59 @@ LANG.id = {
    "Senior",
    "Staf"
   ],
-  "homeH": "Pelajari pemrograman dan rekayasa perangkat lunak dengan memecahkan masalah nyata orang-orang",
-  "homeLead": "Kamu baru saja bergabung dengan Ponte, sebuah bengkel perangkat lunak kecil yang melayani toko roti, klinik kesehatan, sekolah, dan koperasi pengiriman di lingkungan sekitar. Setiap klien membawa masalah nyata: kamu mendengar ceritanya, mempelajari perangkat teori, dan baru kemudian mengerjakan tiketnya.",
+  "homeH": "Belajar pemrograman dan rekayasa perangkat lunak dengan memecahkan masalah nyata orang-orang",
+  "homeLead": "Kamu baru saja bergabung dengan Ponte, sebuah perusahaan perangkat lunak kecil yang melayani toko roti, klinik kesehatan, sekolah, dan koperasi pengiriman di lingkungan sekitar. Setiap klien membawa masalah nyata: kamu mendengar ceritanya, mempelajari perangkat teori, dan baru kemudian mengambil tiket-tiketnya.",
   "start": "Mulai sprint pertama",
-  "cont": "Lanjutkan dari tempat saya berhenti",
+  "cont": "Lanjutkan dari tempatku berhenti",
   "steps": [
    [
     "Dengarkan klien",
-    "Setiap misi dibuka dengan cerita tentang masalah nyata, diceritakan oleh orang-orang yang mengalaminya."
+    "Setiap misi dibuka dengan cerita tentang masalah nyata, yang diceritakan oleh orang-orang yang mengalaminya."
    ],
    [
-    "Bangun perangkat teori Anda",
-    "Konsep kunci, contoh kode dalam bahasa yang Anda pilih, dan kompetensi kurikulum SBC yang dilatih."
+    "Bangun perangkat teorimu",
+    "Konsep-konsep kunci, contoh kode dalam bahasa yang kamu pilih, dan kompetensi kurikulum SBC yang dilatih."
    ],
    [
-    "Selesaikan tiket",
-    "Prediksi keluaran, urutkan kode, cari bug, dan buat keputusan rekayasa. Setiap jawaban disertai analogi praktis, dan tutor melacak penguasaan Anda."
+    "Selesaikan tiket-tiketnya",
+    "Prediksi keluaran, urutkan kode, cari bug, dan buat keputusan rekayasa. Setiap jawaban disertai analogi praktis, dan tutor melacak penguasaanmu."
    ]
   ],
   "sprint": "Sprint {n}",
   "ticketOf": "Tiket {n} dari {m}",
-  "freePlay": "Anda telah menguasai semuanya. Papan sekarang menjadi latihan bebas.",
+  "freePlay": "Kamu telah menguasai semuanya. Papan sekarang menjadi latihan bebas.",
   "missions": "Misi baru",
-  "todo": "Untuk dikerjakan",
+  "todo": "Yang harus dikerjakan",
   "todoEmpty": "Buka misi di atas untuk menerima tiketnya.",
   "openBrief": "Dengarkan ceritanya dan pelajari teorinya",
   "doneSprint": "Selesai sprint ini",
   "nothingDone": "Belum ada apa-apa. Pilih tiket untuk membuka sprint.",
-  "resolved": "terpecahkan",
+  "resolved": "terselesaikan",
   "toReview": "untuk ditinjau",
   "map": "Peta penguasaan",
   "areaProg": "Pemrograman",
   "areaSE": "Rekayasa perangkat lunak",
-  "mapHint": "Ketuk keterampilan untuk melihat detail. Angka tersebut adalah perkiraan probabilitas bahwa Anda telah menguasainya.",
+  "mapHint": "Ketuk sebuah keterampilan untuk melihat detailnya. Angka tersebut adalah estimasi probabilitas bahwa kamu sudah menguasainya.",
   "locked": "Terkunci: capai 60% pada {p} untuk membuka.",
   "and": " dan ",
   "masteredTxt": "Dikuasai. ",
-  "estTxt": "Perkiraan penguasaan {p}. ",
+  "estTxt": "Estimasi penguasaan {p}. ",
   "hits": "{c} benar dari {n} tiket.",
-  "reread": "Baca ulang cerita dan teori",
+  "reread": "Baca ulang cerita dan teorinya",
   "lockedAria": "terkunci",
   "masteryAria": "penguasaan",
   "client": "Klien",
   "story": "Cerita",
   "arsenal": "Perangkat teori",
   "example": "Contoh kode",
-  "snippetNote": "Cuplikan Java dan C menghilangkan kelas dan fungsi utama agar fokus tetap pada konsep.",
+  "snippetNote": "Cuplikan Java dan C menghilangkan kelas dan fungsi main agar fokus pada konsepnya.",
   "sbcH": "Kompetensi dari Pedoman Kurikulum SBC (2017) yang dilatih di sini",
-  "startTickets": "Saya siap: keluarkan tiket misi ini",
+  "startTickets": "Aku siap: keluarkan tiket misi ini",
   "backBoard": "Kembali ke papan",
   "types": {
    "mc": "Analisis dan jawab",
-   "parsons": "Urutkan kode",
-   "bug": "Cari bug",
+   "parsons": "Urutkan kodenya",
+   "bug": "Cari bug-nya",
    "sort": "Klasifikasikan"
   },
   "bloom": [
@@ -86,13 +86,13 @@ LANG.id = {
   "aiLabel": "Tutor AI: ",
   "aiThinking": "Tutor sedang berpikir...",
   "aiFail": "Tutor AI tidak merespons. Periksa pengaturan atau gunakan petunjuk biasa.",
-  "hintNote": "Dengan petunjuk, jawaban yang benar menghasilkan setengah XP dan dianggap sebagai bukti penguasaan yang lebih lemah.",
+  "hintNote": "Dengan petunjuk, jawaban benar mendapat setengah XP dan dianggap sebagai bukti penguasaan yang lebih lemah.",
   "bank": "Baris yang tersedia (ketuk untuk menggunakan)",
-  "sol": "Program Anda (ketuk baris untuk mengembalikannya)",
+  "sol": "Programmu (ketuk baris untuk mengembalikannya)",
   "allUsed": "Semua baris telah digunakan.",
   "correctOrder": "Urutan yang benar:",
-  "up": "Pindah ke atas",
-  "down": "Pindah ke bawah",
+  "up": "Naikkan",
+  "down": "Turunkan",
   "options": "Pilihan",
   "codeLines": "Baris kode",
   "solved": "Tiket selesai",
@@ -100,66 +100,65 @@ LANG.id = {
   "why": "Mengapa: ",
   "analogy": "Analogi: ",
   "delta": "Penguasaan {s}: {a} ke {b}   (+{x} XP)",
-  "roseNote": "Nilai tetap naik sedikit meskipun ada kesalahan karena model menganggap membaca penjelasan juga mengajarkan.",
+  "roseNote": "Nilainya sedikit naik meskipun ada kesalahan karena model menganggap membaca penjelasan juga mengajarkan.",
   "masteredNow": "Keterampilan dikuasai: {s}.",
   "unlockedNow": "Misi baru terbuka: {s}.",
-  "promo": "Promosi: peranmu sekarang {r}.",
+  "promo": "Promosi: peranmu sekarang adalah {r}.",
   "aiExplain": "Minta tutor AI untuk analogi lain",
   "toRetro": "Lihat retrospektif sprint",
   "retroH": "Retrospektif sprint {n}",
   "retroSum": "{c} dari {n} tiket selesai. ",
-  "retroA": "Sprint bersih.",
-  "retroB": "Kecepatan bagus; tinjau yang tertinggal.",
-  "retroC": "Sprint sulit. Tiket yang perlu ditinjau akan kembali ke papan nanti.",
-  "changed": "Apa yang berubah dalam penguasaanmu",
+  "retroA": "Sprint yang bersih.",
+  "retroB": "Langkah bagus; tinjau yang tertinggal.",
+  "retroC": "Sprint yang sulit. Tiket untuk ditinjau akan kembali ke papan nanti.",
+  "changed": "Yang berubah dalam penguasaanmu",
   "colSkill": "Keterampilan",
   "colStart": "Awal sprint",
   "colNow": "Sekarang",
   "suggestion": "Saran tutor untuk sprint berikutnya: fokus pada {s}, saat ini di {p}.",
   "allDone": "Semua keterampilan sudah dikuasai. Sprint berikutnya adalah latihan bebas.",
   "nextSprint": "Mulai sprint {n}",
-  "repH": "Laporan pembelajaran",
-  "repSub": "Tampilan untuk siswa dan siapa pun yang mendukungnya: apa yang sudah dikuasai, di mana letak kesalahan, dan apa yang perlu dilatih selanjutnya.",
+  "repH": "Laporan belajar",
+  "repSub": "Tampilan untuk siswa dan siapa pun yang mendukungnya: apa yang dikuasai, di mana letak kesalahannya, dan apa yang harus dilatih berikutnya.",
   "k1": "tiket dijawab",
   "k2": "akurasi",
   "k3": "keterampilan dikuasai",
   "k4": "rentetan benar terpanjang",
-  "of": "{a} dari {b}",
   "bySkill": "Penguasaan per keterampilan",
   "colMastery": "Penguasaan",
   "colHits": "Benar",
   "colStatus": "Status",
   "colSbc": "SBC",
   "stM": "Dikuasai",
-  "stP": "Dalam proses",
+  "stP": "Sedang berjalan",
   "stL": "Terkunci",
   "stB": "Misi untuk dibuka",
   "recs": "Rekomendasi tutor",
   "recNone": "Belum ada jawaban. Selesaikan beberapa tiket agar tutor punya bukti.",
-  "recPriority": "Prioritas: {s} ({p} penguasaan, {c} benar dari {n}).",
-  "recBloom": "Level kognitif dengan kesalahan terbanyak: {b} ({c} dari {n}). Latih tiket semacam ini dengan tenang, tanpa petunjuk.",
-  "recHints": "Petunjuk digunakan pada {p} tiket. Coba bentuk hipotesis dulu sebelum bertanya.",
-  "recLocked": "Masih terkunci: {s}. Mereka terbuka saat prasyarat melewati 60%.",
+  "recPriority": "Prioritas: {s} (penguasaan {p}, {c} benar dari {n}).",
+  "recBloom": "Level kognitif dengan kesalahan terbanyak: {b} ({c} dari {n}). Latih jenis tiket ini dengan tenang, tanpa bantuan.",
+  "recHints": "Bantuan dipakai di {p} tiket. Coba bentuk hipotesis dulu sebelum minta bantuan.",
+  "recLocked": "Masih terkunci: {s}. Terbuka saat prasyarat melewati 60%.",
   "bloomAcc": "Akurasi per level Bloom",
   "noData": "tidak ada data",
-  "how": "Bagaimana penguasaan dihitung",
-  "howP": "Tutor menggunakan Bayesian Knowledge Tracing. Untuk setiap keterampilan, ia menyimpan probabilitas bahwa kamu telah menguasainya dan memperbaruinya setelah setiap jawaban, dengan mengurangi kemungkinan tebakan beruntung dan kecerobohan.",
-  "howA": "ini seperti guru yang membentuk opini tentang siswa sedikit demi sedikit. Jawaban pilihan ganda yang benar kurang meyakinkan daripada merakit program utuh dalam urutan yang benar, karena tebakan punya peluang 25% pada kasus pertama.",
-  "howParams": "Parameter: penguasaan awal 15%, pembelajaran per tiket 20%, kecerobohan 10%, tebakan berdasarkan tipe tiket (1 dari 4 untuk opsi, 1 per baris untuk bug, 5% untuk pengurutan; 50% saat petunjuk digunakan). Terbuka pada 60%, penguasaan pada 95%.",
-  "data": "Datamu",
-  "dataP": "Progres disimpan hanya di browser ini. Log mengikuti format panjang dataset knowledge tracing (item, keterampilan, kebenaran, bahasa, bahasa pemrograman, stempel waktu).",
+  "how": "Cara menghitung penguasaan",
+  "howP": "Tutor menggunakan Bayesian Knowledge Tracing. Untuk setiap keterampilan, tutor menyimpan probabilitas bahwa kamu sudah menguasainya dan memperbaruinya setelah setiap jawaban, dengan memperhitungkan kemungkinan tebakan beruntung dan kecerobohan.",
+  "howA": "ibarat guru yang membentuk opini tentang siswa sedikit demi sedikit. Jawaban pilihan ganda yang benar kurang meyakinkan daripada menyusun seluruh program dalam urutan yang benar, karena tebakan punya peluang 25% pada kasus pertama.",
+  "howParams": "Parameter: penguasaan awal 15%, belajar per tiket 20%, kecerobohan 10%, tebakan menurut jenis tiket (1 dari 4 untuk pilihan, 1 per baris untuk bug, 5% untuk pengurutan; 50% saat bantuan dipakai). Terbuka di 60%, dikuasai di 95%.",
+  "data": "Data kamu",
+  "dataP": "Progres hanya disimpan di browser ini. Log mengikuti format panjang dataset knowledge tracing (item, keterampilan, kebenaran, bahasa, bahasa pemrograman, timestamp).",
   "showJson": "Tampilkan log JSON",
   "hideJson": "Sembunyikan log JSON",
   "download": "Unduh JSON",
   "reset": "Hapus progres",
   "resetConfirm": "Konfirmasi: hapus semua progres",
   "setH": "Pengaturan",
-  "uiLang": "Bahasa permainan",
-  "codeLang": "Bahasa pemrograman dari tiket",
+  "uiLang": "Bahasa game",
+  "codeLang": "Bahasa pemrograman tiket",
   "aiH": "Tutor AI",
-  "aiP": "Tutor AI menulis petunjuk Sokratik yang disesuaikan dan analogi segar dalam bahasa permainan, tanpa memberikan jawaban. Tanpa itu, permainan menggunakan petunjuk yang ditulis oleh pembuat.",
+  "aiP": "Tutor AI menulis petunjuk Sokratik dan analogi segar dalam bahasa game, tanpa memberikan jawaban langsung. Tanpa itu, game menggunakan petunjuk yang ditulis oleh penulis.",
   "aiClaude": "Terhubung melalui Claude: tidak perlu kunci di halaman ini.",
-  "aiKeyOn": "Dikonfigurasi dengan kunci Anda sendiri ({m}).",
+  "aiKeyOn": "Dikonfigurasi dengan kunci milikmu ({m}).",
   "aiOff": "Mati. Masukkan penyedia di bawah untuk menyalakannya.",
   "provider": "Penyedia",
   "provAnthropic": "Anthropic (Claude)",
@@ -169,13 +168,13 @@ LANG.id = {
   "base": "URL dasar",
   "save": "Simpan pengaturan tutor",
   "clear": "Hapus kunci",
-  "saved": "Pengaturan disimpan.",
-  "keyNote": "Kunci disimpan hanya di browser ini (localStorage) dan dikirim langsung ke penyedia. Jangan gunakan di komputer bersama. Untuk penggunaan kelas, lebih baik gunakan server lokal (misalnya, Ollama di http://localhost:11434/v1), yang tidak memerlukan kunci.",
+  "saved": "Pengaturan tersimpan.",
+  "keyNote": "Kunci hanya disimpan di browser ini (localStorage) dan dikirim langsung ke penyedia. Jangan gunakan di komputer bersama. Untuk penggunaan kelas, lebih baik gunakan server lokal (misalnya, Ollama di http://localhost:11434/v1), yang tidak memerlukan kunci.",
   "err": "Kesalahan",
   "none": "Tidak ada",
   "navShop": "Toko",
   "balance": "Saldo",
-  "total": "Total XP",
+  "total": "Total XP seumur hidup",
   "titleLbl": "Gelar",
   "modeH": "Kesulitan",
   "modes": {
@@ -186,30 +185,30 @@ LANG.id = {
   },
   "modeDesc": {
    "normal": "XP ×1. Petunjuk gratis (jawaban benar yang diberi petunjuk mendapat setengah). Setiap kesalahan mengurangi 2 XP per level tiket.",
-   "medio": "XP ×1.5. Setiap petunjuk berharga 5 XP. Setiap kesalahan mengurangi 4 XP per level tiket.",
-   "dificil": "XP ×2. Tanpa petunjuk dan tanpa pilihan pada tiket keluaran: Anda mengetik apa yang dicetak program. Setiap kesalahan mengurangi 6 XP per level.",
-   "hardcore": "XP ×3. Tanpa petunjuk, jawaban diketik, dan batas waktu 60 detik. Setiap kesalahan mengurangi 10 XP per level."
+   "medio": "XP ×1,5. Setiap petunjuk membutuhkan 5 XP. Setiap kesalahan mengurangi 4 XP per level tiket.",
+   "dificil": "XP ×2. Tidak ada petunjuk dan tidak ada pilihan pada tiket keluaran: kamu mengetik apa yang dicetak program. Setiap kesalahan mengurangi 6 XP per level.",
+   "hardcore": "XP ×3. Tidak ada petunjuk, jawaban diketik, dan waktu 60 detik. Setiap kesalahan mengurangi 10 XP per level."
   },
   "typedLbl": "Ketik persis apa yang dicetak program",
   "typedPh": "keluaran program",
-  "yourAnswer": "Jawaban Anda: {a}",
+  "yourAnswer": "Jawabanmu: {a}",
   "expected": "Keluaran yang benar: {a}",
-  "timeLeft": "Waktu: {s} dtk",
+  "timeLeft": "Waktu: {s} detik",
   "timeout": "Waktu habis.",
-  "lost": "Penalti: -{x} XP dari saldo Anda.",
-  "shieldUsed": "Perisai Anda menyerap penalti.",
+  "lost": "Penalti: -{x} XP dari saldomu.",
+  "shieldUsed": "Perisaimu menyerap penalti.",
   "boostOn": "XP ganda: {n} tiket tersisa",
   "hintPaid": "Minta petunjuk (biaya {c} XP)",
   "noHints": "Tidak ada petunjuk dalam mode ini.",
   "useFifty": "Gunakan Hapus dua ({n})",
-  "useTime": "Gunakan +30 dtk ({n})",
-  "lockedXp": "Terkunci: butuh 60% di {p} dan {x} XP seumur hidup (Anda punya {y}).",
-  "lockedXpOnly": "Terkunci: butuh {x} XP seumur hidup (Anda punya {y}).",
+  "useTime": "Gunakan +30 detik ({n})",
+  "lockedXp": "Terkunci: butuh 60% di {p} dan {x} XP seumur hidup (kamu punya {y}).",
+  "lockedXpOnly": "Terkunci: butuh {x} XP seumur hidup (kamu punya {y}).",
   "bountiesH": "Tantangan sprint",
   "bountyDone": "Tantangan selesai: {s} (+{x} XP)",
   "dailyH": "Tantangan harian",
   "dailyTag": "XP ganda",
-  "dailyDone": "Tantangan harian selesai. Tantangan baru hadir besok.",
+  "dailyDone": "Tantangan harian selesai. Yang baru datang besok.",
   "bossesH": "Bos",
   "bossLocked": "Butuh 60% di {p} dan {x} XP seumur hidup.",
   "bossDefeated": "Dikalahkan",
@@ -219,18 +218,18 @@ LANG.id = {
   "bossNext": "Tahap berikutnya",
   "bossResult": "Lihat hasil",
   "bossWin": "Bos dikalahkan",
-  "bossWinP": "Anda memperoleh {x} XP dan trofi \"{t}\".",
+  "bossWinP": "Kamu mendapat {x} XP dan trofi \"{t}\".",
   "bossLose": "Bos menang kali ini",
-  "bossLoseP": "Anda kehilangan {x} XP dari saldo. Tinjau misi terkait dan kembali untuk pertandingan ulang.",
-  "bossRules": "Tiga tahap berantai, tanpa petunjuk dan tanpa power-up. Anda hanya boleh melakukan satu kesalahan. Tingkat kesulitan yang dipilih di papan juga berlaku di sini.",
+  "bossLoseP": "Kamu kehilangan {x} XP dari saldomu. Tinjau kembali misi terkait dan kembali untuk pertandingan ulang.",
+  "bossRules": "Tiga tahap berurutan, tanpa petunjuk dan tanpa power-up. Kamu boleh membuat satu kesalahan. Tingkat kesulitan yang dipilih di papan juga berlaku di sini.",
   "bossStart": "Mulai pertarungan",
   "reward": "Hadiah: {x} XP",
-  "trophies": "Trofi",
-  "noTrophies": "Belum ada. Bos muncul di papan setelah kamu memiliki cukup penguasaan dan XP.",
-  "review": "Tinjau",
+  "trophies": "Piala",
+  "noTrophies": "Belum ada. Bos akan muncul di papan setelah kamu punya cukup penguasaan dan XP.",
+  "review": "Ulasan",
   "shopH": "Toko",
-  "shopP": "Tukarkan saldo XP-mu dengan power-up dan gelar. Menggunakan saldo tidak mengurangi XP seumur hidup, yang menentukan terbukanya tahap dan bos.",
-  "shopA": "Ini seperti miles program loyalitas. Kamu menggunakan saldo untuk membeli tiket; tingkatan kartumu bergantung pada total miles yang telah diterbangkan dan tidak turun saat kamu menukarkannya.",
+  "shopP": "Tukarkan saldo XP kamu dengan power-up dan gelar. Membelanjakan saldo tidak mengurangi XP seumur hidup, yang menentukan terbukanya tahap dan bos.",
+  "shopA": "Ini seperti miles dalam program loyalitas. Kamu belanjakan saldo untuk tiket; tingkat kartumu bergantung pada total miles yang diterbangkan dan tidak turun saat kamu menukarkannya.",
   "powers": "Power-up",
   "titlesH": "Gelar",
   "owned": "Kamu punya: {n}",
@@ -243,40 +242,41 @@ LANG.id = {
   "cheers": [
    "Bagus sekali!",
    "Pembacaan kode yang hebat!",
-   "Tepat sekali, penalaran yang tajam!",
+   "Tepat, penalaran yang tajam!",
    "Tiket ditutup dengan gaya!"
   ],
   "oops": [
-   "Hampir berhasil. Setiap pengembang pernah merusak build sebelum memperbaikinya.",
-   "Kesalahan adalah bagian dari perjalanan: sekarang kamu tahu di mana jebakannya.",
+   "Hampir tepat. Setiap developer pernah merusak build sebelum memperbaikinya.",
+   "Kesalahan adalah bagian dari perjalanan: sekarang kamu tahu di mana letak jebakannya.",
    "Kamu menemukan bug dalam penalaranmu, dan begitulah cara belajar debugging.",
-   "Tidak kali ini, dan itu tidak apa-apa. Luangkan waktumu dengan penjelasannya."
+   "Belum kali ini, dan tidak apa-apa. Santai saja dengan penjelasannya."
   ],
   "keepGoing": "Tiket ini akan kembali ke papan nanti untuk pertandingan ulang.",
-  "streakMsg": "{n} berturut-turut! Bonus beruntun: +5 XP.",
-  "comeback": "Bangkit kembali: +{x} XP karena menjawab benar tepat setelah kesalahan.",
-  "need": "Butuh {n} XP lagi (biaya {c})",
+  "streakMsg": "{n} berturut-turut! Bonus streak: +5 XP.",
+  "comeback": "Bangkit lagi: +{x} XP karena menjawab benar langsung setelah salah.",
+  "need": "Kurang {n} XP (butuh {c})",
   "evoH": "Pertumbuhan pengetahuan",
-  "evoP": "Setiap garis adalah perkiraan penguasaan satu keterampilan dari tiket yang kamu jawab. Ketuk keterampilan untuk menyorotnya: titik hijau berarti jawaban benar dan titik kuning berarti kesalahan. Garis putus-putus menandai terbukanya (60%) dan penguasaan (95%).",
+  "evoP": "Setiap baris adalah perkiraan penguasaan satu keterampilan di semua tiket yang kamu jawab. Ketuk keterampilan untuk menyorotnya: titik hijau adalah jawaban benar dan titik kuning adalah kesalahan. Garis putus-putus menandai terbukanya (60%) dan penguasaan (95%).",
   "evoEmpty": "Jawab beberapa tiket dalam bahasa ini untuk melihat kurva belajarmu.",
   "evoAll": "Semua",
   "evoX": "tiket dijawab",
-  "colFirst": "Perkiraan awal",
-  "colGain": "Peningkatan",
+  "colFirst": "Perkiraan pertama",
+  "colGain": "Kenaikan",
   "colTries": "Tiket",
   "plH": "Penguasaan per bahasa pemrograman",
-  "plP": "Setiap bahasa memiliki pelacak penguasaannya sendiri; yang sedang digunakan ditandai dengan ●. Saat pertama kali mencoba bahasa, kamu mulai dari perkiraan transfer: setengah dari jarak yang sudah ditempuh di bahasa terbaikmu. Nilai yang dicetak tebal telah dipraktikkan.",
-  "plA": "Seseorang yang bisa mengendarai mobil manual tidak mulai dari nol di mobil matic, tetapi tetap perlu beberapa putaran di sekitar blok untuk membuktikan bahwa mereka telah beradaptasi.",
+  "plP": "Setiap bahasa punya pelacak penguasaannya sendiri; yang sedang dipakai ditandai dengan ●. Saat pertama kali mencoba suatu bahasa, kamu mulai dari perkiraan transfer: setengah dari jalan yang sudah ditempuh di bahasa terbaikmu. Nilai yang dicetak tebal sudah dipraktikkan.",
+  "plA": "Seseorang yang bisa mengemudi mobil manual tidak mulai dari nol di mobil otomatis, tapi tetap perlu beberapa putaran di sekitar blok untuk membuktikan dirinya sudah beradaptasi.",
   "plAcc": "Benar",
-  "langH": "Jawaban benar per bahasa game",
-  "studyH": "Bahasa dalam studi multibahasa",
-  "studyP": "20 bahasa dalam analisis terjemahan dan tokenisasi. Biaya token per 1000 karakter diukur dalam studi ini dan menunjukkan berapa banyak yang dihabiskan tutor AI untuk setiap bahasa. Paket yang tertunda dihasilkan dengan tools/gerar-idioma.js dan ditinjau sebelum masuk ke game.",
+  "langH": "Jawaban benar per bahasa permainan",
+  "studyH": "Bahasa dari studi multibahasa",
+  "studyP": "20 bahasa dari analisis terjemahan dan tokenisasi. Biaya dalam token per 1000 karakter diukur dalam studi ini dan menunjukkan berapa banyak yang dihabiskan tutor AI di setiap bahasa. Paket yang tertunda dibuat dengan tools/gerar-idioma.js dan ditinjau sebelum masuk ke permainan.",
   "available": "tersedia",
-  "pending": "paket akan dihasilkan",
+  "pending": "paket akan dibuat",
   "colLang": "Bahasa",
-  "colScript": "Skrip",
+  "colScript": "Aksara",
   "colTok": "Token per 1000 karakter",
-  "sortHint": "Pilih salah satu dari dua kategori untuk setiap kartu."
+  "sortHint": "Pilih salah satu dari dua kategori untuk setiap kartu.",
+  "rom": "Tampilkan teks alih aksara Latin"
  },
  "sbc": {
   "CC-C.1.3": "RF-CC C.1.3: Menyelesaikan masalah menggunakan lingkungan pemrograman (Algoritma, Teknik Pemrograman, Struktur Data).",
@@ -339,6 +339,27 @@ LANG.id = {
     ]
    ]
   },
+  "loop": {
+   "name": "Perulangan",
+   "about": "Mengulang instruksi dengan for dan while.",
+   "client": "Sekolah Kota Paulo Freire",
+   "title": "Empat ratus rapor dihitung manual",
+   "story": "Marta, sekretaris sekolah, menghitung rata-rata nilai 400 siswa dengan kalkulator, satu per satu, setiap semester. Butuh tiga hari dan selalu ada kesalahan yang lolos. Perhitungannya sama untuk semua orang; hanya nilainya yang berbeda. Ini gambaran tugas yang butuh pengulangan otomatis: tulis aturannya sekali dan biarkan komputer menelusuri seluruh daftar.",
+   "theory": [
+    [
+     "for: ulangi untuk setiap elemen",
+     "Gunakan saat jumlah perulangan sudah diketahui: setiap siswa dalam daftar, setiap angka dari 0 sampai n-1. Penghitungan biasanya mulai dari 0 dan berhenti sebelum batas."
+    ],
+    [
+     "while: ulangi selama sesuatu benar",
+     "Gunakan saat kamu tidak tahu berapa putaran yang akan terjadi. Sesuatu di dalam perulangan harus bergerak menuju titik keluar, atau tidak akan pernah berakhir."
+    ],
+    [
+     "Pola akumulator",
+     "Sebuah variabel dimulai dengan nilai netral (0, kosong, elemen pertama) dan diperbarui setiap putaran: jumlah, hitung, nilai terbesar."
+    ]
+   ]
+  },
   "func": {
    "name": "Fungsi",
    "about": "Mengemas logika: parameter, return, dan scope.",
@@ -362,43 +383,22 @@ LANG.id = {
   },
   "col": {
    "name": "Koleksi",
-   "about": "Daftar dan kamus, indeks dan referensi.",
+   "about": "List dan dictionary, indeks dan referensi.",
    "client": "Perpustakaan komunitas Casa das Letras",
-   "title": "Buku catatan pinjaman hilang",
-   "story": "Perpustakaan komunitas mencatat pinjaman di sebuah buku catatan, yang basah kuyup oleh hujan badai terakhir. Pak Antônio ingin mengetahui buku apa saja yang ada, berapa salinan dari masing-masing buku, dan siapa meminjam apa. Itu banyak data yang sejenis: variabel yang terpisah tidak bisa menampungnya. Saatnya mengatur data ke dalam koleksi.",
+   "title": "Buku catatan peminjaman hilang",
+   "story": "Perpustakaan komunitas menyimpan data peminjaman di buku catatan, yang basah kuyup saat badai terakhir. Pak Antônio ingin tahu buku apa saja yang ada, berapa banyak salinan setiap buku, dan siapa meminjam apa. Itu banyak data sejenis: variabel lepas tidak sanggup menampungnya. Saatnya mengatur data ke dalam koleksi.",
    "theory": [
     [
      "List: urutan terurut",
-     "List menyimpan beberapa nilai yang diakses berdasarkan posisi. Indeks dimulai dari 0, jadi list dengan 3 item berjalan dari indeks 0 sampai 2."
+     "List menampung beberapa nilai yang diakses berdasarkan posisi. Indeks dimulai dari 0, jadi list dengan 3 item berjalan dari indeks 0 sampai 2."
     ],
     [
      "Dictionary atau map: pencarian berdasarkan kunci",
-     "Dictionary mengaitkan kunci dengan nilai, seperti judul ke jumlah salinan. Ini pilihan yang tepat saat mencari berdasarkan nama, bukan berdasarkan posisi."
+     "Dictionary mengaitkan kunci dengan nilai, seperti judul ke jumlah salinan. Ini pilihan tepat saat kamu mencari berdasarkan nama, bukan posisi."
     ],
     [
      "Koleksi dibagikan melalui referensi",
-     "Menugaskan list ke variabel lain tidak menyalin data: kedua nama menunjuk ke koleksi yang sama. Untuk menduplikasinya, Anda harus menyalin secara eksplisit."
-    ]
-   ]
-  },
-  "loop": {
-   "name": "Perulangan",
-   "about": "Mengulang instruksi dengan for dan while.",
-   "client": "Sekolah Kota Paulo Freire",
-   "title": "Empat ratus rapor dihitung manual",
-   "story": "Marta, sekretaris sekolah, menghitung rata-rata nilai 400 siswa dengan kalkulator, satu per satu, setiap semester. Butuh tiga hari dan selalu ada kesalahan yang lolos. Perhitungannya sama untuk semua orang; hanya nilainya yang berbeda. Ini gambaran tugas yang butuh pengulangan otomatis: tulis aturannya sekali dan biarkan komputer menelusuri seluruh daftar.",
-   "theory": [
-    [
-     "for: ulangi untuk setiap elemen",
-     "Gunakan saat jumlah perulangan sudah diketahui: setiap siswa dalam daftar, setiap angka dari 0 sampai n-1. Penghitungan biasanya mulai dari 0 dan berhenti sebelum batas."
-    ],
-    [
-     "while: ulangi selama sesuatu benar",
-     "Gunakan saat kamu tidak tahu berapa putaran yang akan terjadi. Sesuatu di dalam perulangan harus bergerak menuju titik keluar, atau tidak akan pernah berakhir."
-    ],
-    [
-     "Pola akumulator",
-     "Sebuah variabel dimulai dengan nilai netral (0, kosong, elemen pertama) dan diperbarui setiap putaran: jumlah, hitung, nilai terbesar."
+     "Menugaskan list ke variabel lain tidak menyalin data: kedua nama menunjuk ke koleksi yang sama. Untuk menduplikasinya, kamu harus menyalin secara eksplisit."
     ]
    ]
   },
@@ -420,27 +420,6 @@ LANG.id = {
     [
      "Call stack",
      "Setiap panggilan menunggu panggilan berikutnya selesai. Apa pun yang muncul setelah panggilan rekursif hanya berjalan saat kembali, dari yang terdalam ke yang terluar."
-    ]
-   ]
-  },
-  "git": {
-   "name": "Git",
-   "about": "Versioning kode: commit, branch, dan merge.",
-   "client": "Tim Ponte",
-   "title": "Jumat saat kode hilang",
-   "story": "Pada Jumat sore, Caio dan Bia mengedit file yang sama di sistem toko roti. Masing-masing menyimpan versi mereka ke folder bersama sebagai \"final_ini_sungguhan.zip\". Simpanan terakhir menimpa pekerjaan yang lain, dan tidak ada yang tahu versi mana yang sedang berjalan. Ponte memutuskan: mulai Senin, semua kode berada di repositori Git.",
-   "theory": [
-    [
-     "Commit: potret dengan keterangan",
-     "Ini mencatat keadaan proyek dengan penulis, tanggal, dan pesan. Pesan yang jelas menyatakan apa yang berubah dan mengapa."
-    ],
-    [
-     "Branch: bekerja secara paralel",
-     "Setiap fitur dibuat di branch terpisah, dan jalur utama tetap stabil sampai ditinjau dan diintegrasikan (merge)."
-    ],
-    [
-     "Konflik adalah permintaan untuk memutuskan",
-     "Jika dua branch mengubah baris yang sama, Git tidak memilih sendiri: ia menampilkan kedua versi dan meminta seseorang untuk memutuskan."
     ]
    ]
   },
@@ -486,6 +465,27 @@ LANG.id = {
     ]
    ]
   },
+  "git": {
+   "name": "Git",
+   "about": "Versioning kode: commit, branch, dan merge.",
+   "client": "Tim Ponte",
+   "title": "Jumat saat kode hilang",
+   "story": "Pada Jumat sore, Caio dan Bia mengedit file yang sama di sistem toko roti. Masing-masing menyimpan versi mereka ke folder bersama sebagai \"final_ini_sungguhan.zip\". Simpanan terakhir menimpa pekerjaan yang lain, dan tidak ada yang tahu versi mana yang sedang berjalan. Ponte memutuskan: mulai Senin, semua kode berada di repositori Git.",
+   "theory": [
+    [
+     "Commit: potret dengan keterangan",
+     "Ini mencatat keadaan proyek dengan penulis, tanggal, dan pesan. Pesan yang jelas menyatakan apa yang berubah dan mengapa."
+    ],
+    [
+     "Branch: bekerja secara paralel",
+     "Setiap fitur dibuat di branch terpisah, dan jalur utama tetap stabil sampai ditinjau dan diintegrasikan (merge)."
+    ],
+    [
+     "Konflik adalah permintaan untuk memutuskan",
+     "Jika dua branch mengubah baris yang sama, Git tidak memilih sendiri: ia menampilkan kedua versi dan meminta seseorang untuk memutuskan."
+    ]
+   ]
+  },
   "test": {
    "name": "Pengujian",
    "about": "Memeriksa kode dengan tes otomatis.",
@@ -528,27 +528,6 @@ LANG.id = {
     ]
    ]
   },
-  "qual": {
-   "name": "Kualitas",
-   "about": "Atribut kualitas, tinjauan kode, metrik, dan utang teknis.",
-   "client": "Tim Ponte",
-   "title": "Kode yang hanya Caio yang paham",
-   "story": "Caio pergi berlibur dan sistem toko roti mati. Bia membuka kodenya: variabel bernama x1 dan x2, fungsi sepanjang 400 baris, tidak ada petunjuk mengapa keputusan dibuat. Butuh dua hari baginya untuk memperbaiki satu baris. Kode itu berfungsi, tetapi hanya untuk orang yang menulisnya. Ponte memutuskan: tidak ada perubahan yang masuk ke jalur utama sebelum orang lain membacanya.",
-   "theory": [
-    [
-     "Kualitas memiliki beberapa atribut",
-     "Selain berfungsi, perangkat lunak harus dapat dibaca, diuji, aman, efisien, dan mudah diubah. ISO/IEC 25010 mengatur atribut-atribut ini; pemeliharaan paling berpengaruh pada biaya selama bertahun-tahun."
-    ],
-    [
-     "Tinjauan kode",
-     "Orang lain membaca perubahan sebelum digabungkan (pull request). Tinjauan kecil dan sering menangkap cacat lebih awal, menyebarkan pengetahuan, dan menjaga sistem agar tidak bergantung pada satu orang. Targetnya adalah kodenya, bukan penulisnya."
-    ],
-    [
-     "Utang teknis dan pengukuran",
-     "Jalan pintas hari ini menagih bunga besok: setiap perubahan menjadi lebih lambat. Metrik seperti kompleksitas siklomatik, duplikasi, dan cakupan, yang dikumpulkan oleh analisis statis, menunjukkan di mana utang menumpuk."
-    ]
-   ]
-  },
   "model": {
    "name": "Pemodelan",
    "about": "Diagram yang menyelaraskan tim sebelum menulis kode: use case, class, dan sequence.",
@@ -567,6 +546,27 @@ LANG.id = {
     [
      "Relasi dan multiplisitas",
      "Sebuah Buku punya banyak Eksemplar; sebuah Eksemplar milik satu Buku. Menulis 1 dan * di ujung garis mencegah kesalahpahaman paling mahal dalam sebuah sistem: kesalahan pada model data."
+    ]
+   ]
+  },
+  "qual": {
+   "name": "Kualitas",
+   "about": "Atribut kualitas, tinjauan kode, metrik, dan utang teknis.",
+   "client": "Tim Ponte",
+   "title": "Kode yang hanya Caio yang paham",
+   "story": "Caio pergi berlibur dan sistem toko roti mati. Bia membuka kodenya: variabel bernama x1 dan x2, fungsi sepanjang 400 baris, tidak ada petunjuk mengapa keputusan dibuat. Butuh dua hari baginya untuk memperbaiki satu baris. Kode itu berfungsi, tetapi hanya untuk orang yang menulisnya. Ponte memutuskan: tidak ada perubahan yang masuk ke jalur utama sebelum orang lain membacanya.",
+   "theory": [
+    [
+     "Kualitas memiliki beberapa atribut",
+     "Selain berfungsi, perangkat lunak harus dapat dibaca, diuji, aman, efisien, dan mudah diubah. ISO/IEC 25010 mengatur atribut-atribut ini; pemeliharaan paling berpengaruh pada biaya selama bertahun-tahun."
+    ],
+    [
+     "Tinjauan kode",
+     "Orang lain membaca perubahan sebelum digabungkan (pull request). Tinjauan kecil dan sering menangkap cacat lebih awal, menyebarkan pengetahuan, dan menjaga sistem agar tidak bergantung pada satu orang. Targetnya adalah kodenya, bukan penulisnya."
+    ],
+    [
+     "Utang teknis dan pengukuran",
+     "Jalan pintas hari ini menagih bunga besok: setiap perubahan menjadi lebih lambat. Metrik seperti kompleksitas siklomatik, duplikasi, dan cakupan, yang dikumpulkan oleh analisis statis, menunjukkan di mana utang menumpuk."
     ]
    ]
   },
@@ -594,45 +594,45 @@ LANG.id = {
  },
  "items": {
   "v1": {
-   "title": "Label yang berpindah",
+   "title": "Label yang pindah",
    "prompt": "Dona Lúcia menyalin harga lama sebelum menaikkannya. Apa yang dicetak program?",
-   "hint": "Telusuri baris per baris: berapa nilai x saat y menerimanya?",
+   "hint": "Telusuri baris demi baris: berapa nilai x saat y menerimanya?",
    "why": "y menerima salinan nilai x pada saat itu (5). Mengubah x setelahnya tidak memengaruhi y.",
-   "analogy": "Variabel adalah label pada sebuah nilai. y mendapat labelnya sendiri pada 5; memindahkan label x ke 8 tidak menyentuh label y."
+   "analogy": "Variabel adalah label pada nilai. y memiliki labelnya sendiri pada angka 5; memindahkan label x ke angka 8 tidak menyentuh label y."
   },
   "v2": {
    "title": "Penjumlahan yang tidak menjumlah",
    "prompt": "Ini kesalahan spreadsheet keponakan. Apa yang dicetak program?",
-   "hint": "Perhatikan tanda kutip: apakah nilai ini angka atau teks?",
-   "why": "Di dalam tanda kutip, 3 dan 4 adalah teks. Dengan teks, operasi menggabungkan, bukan menjumlahkan.",
-   "analogy": "String adalah kalung manik-manik: menggabungkan dua kalung menghasilkan kalung yang lebih panjang, bukan jumlah. Untuk menambah, ubah dulu menjadi angka."
+   "hint": "Lihat tanda kutip: nilai-nilai ini angka atau teks?",
+   "why": "Di dalam tanda kutip, 3 dan 4 adalah teks. Dengan teks, operasinya menggabungkan, bukan menjumlahkan.",
+   "analogy": "String adalah kalung manik-manik: menggabungkan dua kalung menghasilkan kalung yang lebih panjang, bukan jumlah. Untuk menjumlahkan, ubah menjadi angka terlebih dahulu."
   },
   "v3": {
-   "title": "Tukar nilai yang kehilangan data",
+   "title": "Pertukaran yang kehilangan nilai",
    "prompt": "Kode seharusnya menukar a dan b, tetapi mencetak 2 2. Pada baris mana nilai asli a hilang?",
    "hint": "Setelah baris mana angka 1 tidak ada lagi di variabel mana pun?",
-   "why": "Saat a menerima b, 1 ditimpa tanpa disimpan. Penukaran yang benar menggunakan variabel sementara.",
-   "analogy": "Untuk menukar isi dua gelas, Anda butuh gelas ketiga. Menuang langsung dari satu ke yang lain akan menghilangkan salah satu minuman."
+   "why": "Saat a menerima b, angka 1 ditimpa tanpa disimpan. Pertukaran yang benar menggunakan variabel sementara.",
+   "analogy": "Untuk menukar isi dua gelas, kamu butuh gelas ketiga. Menuangkan langsung ke gelas lainnya akan menghilangkan salah satu minuman."
   },
   "v4": {
-   "title": "Membagi uang kembalian",
-   "prompt": "Tujuh koin dibagi antara dua laci kasir. Apa yang dicetak program?",
-   "hint": "Pembagian bilangan bulat membuang bagian desimal; % mengembalikan sisanya.",
-   "why": "Pembagian bilangan bulat 7 dengan 2 adalah 3, dan sisanya 1.",
+   "title": "Membagi kembalian",
+   "prompt": "Tujuh koin dibagi ke dua kasir. Apa yang dicetak program?",
+   "hint": "Pembagian integer membuang bagian desimal; % mengembalikan sisanya.",
+   "why": "Pembagian integer 7 dengan 2 adalah 3, dan sisanya 1.",
    "analogy": "Membagi 7 permen kepada 2 anak: masing-masing mendapat 3 dan 1 tersisa di meja."
   },
   "v5": {
    "title": "Tipe data yang tepat untuk harga",
-   "prompt": "Tipe data mana yang paling tepat untuk menyimpan harga 4.50 untuk sepotong roti?",
+   "prompt": "Tipe data mana yang paling cocok untuk menyimpan harga 4.50 sebuah roti?",
    "opts": [
-    "Bilangan desimal (floating point)",
-    "Bilangan bulat",
+    "Angka desimal (floating point)",
+    "Integer",
     "Teks",
     "Boolean"
    ],
    "hint": "Nilainya punya sen dan akan dipakai dalam perhitungan.",
-   "why": "Harga punya desimal dan terlibat dalam aritmetika, jadi butuh tipe numerik desimal. Sebagai teks tidak bisa dijumlahkan; sebagai bilangan bulat akan kehilangan sennya.",
-   "analogy": "Ini seperti memilih wadah yang tepat: air di botol, bukan di saringan. Setiap tipe data dibuat untuk satu jenis isi."
+   "why": "Harga punya desimal dan ikut dalam aritmetika, jadi butuh tipe angka desimal. Sebagai teks tidak bisa dijumlahkan; sebagai integer akan kehilangan sennya.",
+   "analogy": "Ini seperti memilih wadah yang tepat: air dimasukkan ke botol, bukan ke saringan. Setiap tipe data dibuat untuk satu jenis isi."
   },
   "c1": {
    "title": "Demam tepat 39",
@@ -643,17 +643,17 @@ LANG.id = {
   },
   "c2": {
    "title": "Urutan aturan Rosa",
-   "prompt": "Aturan ditulis dalam urutan ini. Apa yang dicetak program?",
-   "hint": "Begitu satu tes dalam rantai bernilai benar, tes berikutnya tidak dievaluasi lagi.",
-   "why": "30 > 20 sudah benar, jadi hanya A yang dicetak. Kondisi yang lebih ketat (t > 28) seharusnya diletakkan lebih dulu.",
-   "analogy": "Ini seperti barisan pintu putar: siapa yang melewati pintu pertama tidak akan mencoba yang lain. Pintu putar yang paling ketat harus berdiri di depan."
+   "prompt": "Aturan ditulis dengan urutan ini. Apa yang dicetak program?",
+   "hint": "Begitu satu tes dalam rantai bernilai benar, tes berikutnya tidak dievaluasi.",
+   "why": "30 > 20 sudah benar, jadi hanya A yang dicetak. Kondisi yang lebih ketat (t > 28) harusnya diletakkan lebih dulu.",
+   "analogy": "Ini seperti barisan pintu putar: yang lewat pintu pertama tidak mencoba yang lain. Pintu putar yang paling ketat harus berada di depan."
   },
   "c3": {
-   "title": "Nomor antrean genap atau ganjil",
-   "prompt": "Klinik memanggil nomor genap ke loket 1 dan nomor ganjil ke loket 2. Susun program yang mengklasifikasikan nomor tersebut.",
-   "hint": "Pertama data ada; lalu muncul tes pada sisa pembagian dengan 2.",
-   "why": "Data harus ada sebelum tes. Sisa nol saat membagi dengan 2 berarti genap; else mencakup semua yang lain.",
-   "analogy": "Seperti triase: pertama pasien datang, lalu muncul pertanyaan, dan setiap jawaban mengarah ke ruangan."
+   "title": "Nomor tiket genap atau ganjil",
+   "prompt": "Klinik memanggil nomor genap ke loket 1 dan nomor ganjil ke loket 2. Susun program yang mengklasifikasikan nomor.",
+   "hint": "Pertama data harus ada; lalu lakukan tes sisa pembagian dengan 2.",
+   "why": "Data harus ada sebelum tes. Sisa nol saat dibagi 2 berarti genap; else menangani sisanya.",
+   "analogy": "Seperti triase: pasien datang lebih dulu, lalu pertanyaan diajukan, dan setiap jawaban mengarah ke ruangan."
   },
   "c4": {
    "title": "Siapa yang lebih dulu: AND atau OR",
@@ -719,123 +719,123 @@ LANG.id = {
   },
   "f2": {
    "title": "Mencetak bukan mengembalikan",
-   "prompt": "Sebuah fungsi menghitung biaya pengiriman dan hanya mencetaknya, tanpa mengembalikannya. Apa konsekuensinya?",
+   "prompt": "Sebuah fungsi menghitung biaya pengiriman dan hanya mencetaknya, tanpa mengembalikannya. Apa akibatnya?",
    "opts": [
-    "Pemanggil tidak dapat menggunakan nilai tersebut dalam perhitungan lain",
-    "Tidak ada: mencetak dan mengembalikan itu setara",
+    "Pemanggil tidak dapat memakai nilai itu dalam perhitungan lain",
+    "Tidak ada: mencetak dan mengembalikan itu sama saja",
     "Fungsi menjadi lebih cepat",
     "Nilai otomatis menjadi global"
    ],
-   "hint": "Ke mana perginya nilai yang dicetak? Dan nilai yang dikembalikan?",
-   "why": "Mencetak mengirim nilai ke layar dan tidak lebih. Mengembalikan menyerahkan nilai ke kode pemanggil, yang dapat menambahkannya, menyimpannya, atau meneruskannya.",
-   "analogy": "Mencetak itu seperti memajang hidangan di etalase toko; mengembalikan itu menyerahkannya kepada pelanggan. Siapa yang hanya melihat etalase pulang dengan tangan kosong."
+   "hint": "Ke mana perginya nilai yang dicetak? Dan yang dikembalikan?",
+   "why": "Mencetak mengirim nilai ke layar dan tidak lebih. Mengembalikan menyerahkan nilai kepada kode pemanggil, yang bisa menambahkannya, menyimpannya, atau meneruskannya.",
+   "analogy": "Mencetak itu memajang makanan di etalase; mengembalikan itu menyerahkannya kepada pelanggan. Yang hanya melihat etalase pulang dengan tangan kosong."
   },
   "f3": {
    "title": "x di dalam dan x di luar",
-   "prompt": "Apa yang dicetak oleh program?",
+   "prompt": "Apa yang dicetak program ini?",
    "hint": "Apakah variabel yang dibuat di dalam fungsi sama dengan yang di luar?",
    "why": "x = 99 adalah variabel lokal yang hanya ada selama pemanggilan. x di luar tetap 10.",
-   "analogy": "Fungsi adalah ruangan dengan papan tulisnya sendiri. Apa yang ditulis di dalam dihapus saat keluar dan tidak mengubah papan di koridor."
+   "analogy": "Fungsi adalah ruangan dengan papan tulis sendiri. Apa yang ditulis di dalam terhapus saat keluar dan tidak mengubah papan di koridor."
   },
   "f4": {
    "title": "Fungsi untuk rata-rata",
-   "prompt": "Rakit fungsi yang menghitung rata-rata dari sebuah list dan pemanggilan yang mencetak hasilnya.",
-   "hint": "Di dalam fungsi: set ulang total, akumulasi dalam loop, dan baru kemudian kembalikan hasil pembagian.",
-   "why": "return berada setelah loop, jika tidak fungsi akan keluar pada putaran pertama. Pemanggilan berada setelah definisi.",
-   "analogy": "Resep kue: pertama nama resep, lalu langkah-langkah berurutan, dan Anda menyajikan hanya di akhir. Anda tidak bisa menyajikan di tengah proses mengaduk."
+   "prompt": "Susun fungsi yang menghitung rata-rata dari sebuah daftar dan pemanggilan yang mencetak hasilnya.",
+   "hint": "Di dalam fungsi: ulang total, kumpulkan dalam perulangan, dan baru setelah itu kembalikan hasil pembagian.",
+   "why": "return berada setelah perulangan, kalau tidak fungsi akan keluar pada putaran pertama. Pemanggilan berada setelah definisi.",
+   "analogy": "Resep kue: pertama nama resep, lalu langkah-langkah berurutan, dan kamu menyajikan hanya di akhir. Kamu tidak bisa menyajikan di tengah-tengah mengaduk."
   },
   "f5": {
    "title": "Argumen adalah salinan",
-   "prompt": "Apa yang dicetak oleh program?",
+   "prompt": "Apa yang dicetak program ini?",
    "hint": "Apakah fungsi menerima variabel x itu sendiri atau salinan nilainya?",
    "why": "Angka dilewatkan berdasarkan nilai: n adalah salinan dari x. Mengubah n di dalam fungsi tidak mengubah x, yang tetap 5.",
-   "analogy": "Anda menyerahkan fotokopi dokumen. Mereka boleh mencoret-coret salinannya sesuka hati: dokumen asli di laci Anda tetap utuh."
+   "analogy": "Kamu menyerahkan fotokopi dokumen. Mereka boleh mencoret-coret salinannya sesuka hati: aslinya di lacimu tetap utuh."
   },
   "k1": {
    "title": "Indeks dimulai dari nol",
-   "prompt": "Apa yang dicetak oleh program?",
-   "hint": "Elemen pertama berada pada indeks 0.",
+   "prompt": "Apa yang dicetak program ini?",
+   "hint": "Elemen pertama ada di indeks 0.",
    "why": "Indeksnya adalah 0 (10), 1 (20), dan 2 (30).",
-   "analogy": "Indeks adalah jarak ke depan antrean: orang pertama berjarak 0 langkah, orang kedua berjarak 1 langkah."
+   "analogy": "Indeks adalah jarak ke depan antrean: orang pertama berjarak 0 langkah, orang kedua 1 langkah."
   },
   "k2": {
-   "title": "Dua variabel, satu list",
-   "prompt": "Apa yang dicetak oleh program?",
-   "hint": "Apakah variabel kedua merupakan koleksi baru atau nama lain untuk koleksi yang sama?",
+   "title": "Dua variabel, satu daftar",
+   "prompt": "Apa yang dicetak program ini?",
+   "hint": "Apakah variabel kedua adalah koleksi baru atau nama lain untuk koleksi yang sama?",
    "why": "Penugasan tidak menyalin koleksi: kedua nama menunjuk ke data yang sama. Perubahan melalui b terlihat di a.",
-   "analogy": "a dan b adalah dua kunci untuk laci yang sama. Siapa pun yang memasukkan sesuatu menggunakan kunci b mengubah apa yang akan ditemukan kunci a."
+   "analogy": "a dan b adalah dua kunci untuk laci yang sama. Siapa pun yang memasukkan sesuatu memakai kunci b mengubah apa yang akan ditemukan kunci a."
   },
   "k3": {
-   "title": "List atau dictionary",
-   "prompt": "Pak Antônio ingin melihat berapa banyak salinan sebuah buku yang ada dengan mengetikkan judulnya. Struktur mana yang paling cocok?",
+   "title": "Daftar atau kamus",
+   "prompt": "Pak Antônio ingin mencari berapa banyak salinan sebuah buku dengan mengetik judulnya. Struktur mana yang paling cocok?",
    "opts": [
-    "Sebuah dictionary (map) dari judul ke jumlah",
-    "Sebuah list jumlah sesuai urutan kedatangan",
-    "Satu variabel per buku",
-    "Satu teks tunggal dengan semuanya dipisahkan koma"
+    "Kamus (map) dari judul ke jumlah",
+    "Daftar jumlah sesuai urutan kedatangan",
+    "Satu variabel untuk setiap buku",
+    "Satu teks dengan semuanya dipisah koma"
    ],
    "hint": "Apakah pencariannya berdasarkan posisi atau nama?",
-   "why": "Dictionary mengaitkan kunci dengan nilai dan mencari langsung berdasarkan kunci. Dengan list Anda perlu mengetahui posisinya atau memindai semuanya.",
-   "analogy": "Dictionary adalah daftar kontak: Anda mencari berdasarkan nama dan menemukan nomor telepon, tanpa membaca seluruh daftar."
+   "why": "Kamus menghubungkan kunci ke nilai dan mencari langsung berdasarkan kunci. Dengan daftar, kamu perlu tahu posisinya atau memindai semuanya.",
+   "analogy": "Kamus adalah daftar kontak: kamu mencari berdasarkan nama dan menemukan nomor telepon, tanpa membaca seluruh daftar."
   },
   "k4": {
    "title": "Satu langkah melewati akhir",
-   "prompt": "Loop mencoba mengakses posisi yang tidak ada. Baris mana yang menyebabkan masalah?",
+   "prompt": "Perulangan mencoba mengakses posisi yang tidak ada. Baris mana yang menyebabkan masalah?",
    "hint": "Dengan 3 elemen, berapa indeks valid terbesar?",
-   "why": "Loop menghasilkan indeks 0, 1, 2, dan 3, tetapi 3 tidak ada. Batas yang benar adalah ukuran koleksi, tidak termasuk.",
-   "analogy": "Ini adalah kesalahan tiang pagar: pada pagar dengan 3 papan, siapa yang menghitung sampai 4 mencoba memaku papan yang tidak ada."
+   "why": "Perulangan menghasilkan indeks 0, 1, 2, dan 3, tetapi 3 tidak ada. Batas yang benar adalah ukuran koleksi, tidak termasuk.",
+   "analogy": "Ini kesalahan tiang pagar: pada pagar dengan 3 papan, siapa yang menghitung sampai 4 mencoba memaku papan yang tidak ada."
   },
   "k5": {
-   "title": "Berapa banyak buku dengan lebih dari empat salinan",
+   "title": "Berapa banyak buku dengan lebih dari empat eksemplar",
    "prompt": "Apa yang dicetak oleh program?",
-   "hint": "c menghitung elemen; bukan menjumlahkan nilainya.",
-   "why": "Hanya 5 dan 8 yang lebih besar dari 4, jadi penghitung berakhir di 2.",
-   "analogy": "Ini seperti penjaga pintu dengan alat hitung klik: satu klik per orang yang memenuhi aturan, tidak peduli seberapa tinggi orang itu."
+   "hint": "c menghitung elemen; ia tidak menambahkan nilai.",
+   "why": "Hanya 5 dan 8 yang lebih besar dari 4, jadi penghitung berakhir pada 2.",
+   "analogy": "Ini seperti petugas pintu dengan penghitung klik: satu klik untuk setiap orang yang memenuhi aturan, tidak peduli seberapa tinggi masing-masing."
   },
   "r1": {
    "title": "Rem rekursi",
    "prompt": "Apa yang harus dimiliki setiap fungsi rekursif agar tidak memanggil dirinya sendiri selamanya?",
    "opts": [
-    "Sebuah kasus dasar, yang menjawab tanpa panggilan baru",
-    "Sebuah loop while di dalam",
+    "Kasus dasar, yang menjawab tanpa panggilan baru",
+    "Loop while di dalamnya",
     "Variabel kontrol global",
     "Setidaknya dua parameter"
    ],
    "hint": "Pikirkan apa yang membuat panggilan berhenti.",
-   "why": "Kasus dasar adalah situasi sederhana yang diselesaikan secara langsung. Setiap panggilan rekursif harus bergerak menujunya.",
-   "analogy": "Boneka Rusia: Anda membuka satu, menemukan yang lebih kecil, dan berhenti di boneka padat. Tanpa itu, Anda akan membuka boneka selamanya."
+   "why": "Kasus dasar adalah situasi sederhana yang diselesaikan langsung. Setiap panggilan rekursif harus bergerak menuju kasus dasar.",
+   "analogy": "Boneka Rusia: kamu membuka satu, menemukan yang lebih kecil, dan berhenti pada boneka padat. Tanpa itu, kamu akan membuka boneka selamanya."
   },
   "r2": {
    "title": "Faktorial langkah demi langkah",
    "prompt": "Apa yang dicetak oleh program?",
-   "hint": "Perluas: fact(4) = 4 × fact(3) = ...",
+   "hint": "Uraikan: fact(4) = 4 × fact(3) = ...",
    "why": "4 × 3 × 2 × 1 = 24. Setiap panggilan menunggu jawaban panggilan yang lebih kecil lalu mengalikannya.",
-   "analogy": "Antrean orang yang bertanya kepada orang di depannya \"berapa nomormu?\". Yang pertama menjawab 1, dan jawabannya berjalan mundur di sepanjang antrean sambil dikalikan."
+   "analogy": "Antrean orang yang bertanya kepada orang di depan \"berapa nomormu?\". Yang pertama menjawab 1, dan jawabannya berjalan mundur sepanjang antrean sambil dikalikan."
   },
   "r3": {
    "title": "Rekursi yang tidak bergerak",
    "prompt": "Fungsi seharusnya mencetak n, n-1, ..., 1, tetapi meluap tumpukan panggilan. Baris mana yang salah?",
    "hint": "Apakah panggilan rekursif bergerak menuju kasus dasar?",
    "why": "Memanggil count(n) mengulangi masalah yang sama selamanya. Perbaikannya adalah count(n - 1), yang berjalan turun ke nol.",
-   "analogy": "Ini seperti meminta seseorang turun tangga sementara mereka terus melangkah di anak tangga yang sama. Kasus dasar ada; hanya saja tidak pernah tercapai."
+   "analogy": "Ini seperti meminta seseorang menuruni tangga sementara mereka terus menginjak anak tangga yang sama. Kasus dasar ada; hanya tidak pernah tercapai."
   },
   "r4": {
    "title": "Mencetak saat kembali",
    "prompt": "Apa yang dicetak oleh program?",
-   "hint": "Print muncul setelah panggilan rekursif. Kapan akhirnya dijalankan?",
-   "why": "Setiap panggilan pertama turun ke kasus dasar; pencetakan hanya terjadi saat kembali, dari yang paling dalam (1) ke yang paling luar (3).",
-   "analogy": "Tumpukan piring: Anda menumpuk 3, 2, 1 dan hanya mencuci saat Anda membongkar tumpukan. Yang terakhir masuk adalah yang pertama dicuci."
+   "hint": "Pencetakan terjadi setelah panggilan rekursif. Kapan akhirnya dijalankan?",
+   "why": "Setiap panggilan pertama-tama turun ke kasus dasar; pencetakan hanya terjadi saat kembali, dari yang terdalam (1) hingga terluar (3).",
+   "analogy": "Tumpukan piring: kamu menumpuk 3, 2, 1 dan hanya mencuci saat membongkar. Yang terakhir masuk adalah yang pertama dicuci."
   },
   "r5": {
    "title": "Dua panggilan sekaligus",
    "prompt": "Apa yang dicetak oleh program?",
    "hint": "Kerjakan dari bawah ke atas: f(0), f(1), f(2)...",
    "why": "Ini adalah barisan Fibonacci: 0, 1, 1, 2, 3, 5. Jadi f(5) = 5.",
-   "analogy": "Pohon keluarga terbalik: setiap jawaban bergantung pada dua sebelumnya, sampai Anda mencapai leluhur yang dikenal (kasus dasar)."
+   "analogy": "Pohon keluarga terbalik: setiap jawaban bergantung pada dua sebelumnya, sampai kamu mencapai leluhur yang diketahui (kasus dasar)."
   },
   "q1": {
    "title": "Fungsional atau non-fungsional",
-   "prompt": "Manakah dari berikut ini yang merupakan persyaratan NON-fungsional dari sistem klinik?",
+   "prompt": "Manakah dari berikut ini yang merupakan persyaratan NON-fungsional sistem klinik?",
    "opts": [
     "Sistem harus merespons dalam 2 detik",
     "Pasien dapat menjadwalkan ulang janji temu",
@@ -844,106 +844,20 @@ LANG.id = {
    ],
    "hint": "Non-fungsional menggambarkan kualitas (seberapa baik), bukan perilaku (apa yang dilakukan).",
    "why": "Waktu respons adalah atribut kualitas. Tiga lainnya menggambarkan fungsi yang dilakukan sistem.",
-   "analogy": "Pada mobil, fungsional adalah mengemudi, mengerem, dan menyalakan lampu. Non-fungsional adalah efisiensi bahan bakar, kenyamanan, dan keamanan saat melakukannya."
+   "analogy": "Pada mobil, fungsional adalah mengemudi, mengerem, dan menyalakan lampu. Non-fungsional adalah efisiensi bahan bakar, kenyamanan, dan keamanan dalam melakukannya."
   },
   "q2": {
    "title": "Persyaratan yang dapat diuji",
    "prompt": "Persyaratan mana yang ditulis dengan cara yang dapat diverifikasi?",
    "opts": [
-    "Pencarian mengembalikan hasil dalam waktu kurang dari 1 detik untuk 95% kueri",
+    "Pencarian mengembalikan hasil dalam kurang dari 1 detik untuk 95% kueri",
     "Sistem harus cepat",
     "Antarmuka harus ramah",
     "Sistem harus modern dan tangguh"
    ],
-   "hint": "Tanyakan pada diri sendiri: bagaimana saya membuktikan ini terpenuhi?",
-   "why": "Hanya opsi pertama yang memiliki kriteria terukur. \"Cepat\", \"ramah\", dan \"modern\" berubah menjadi perdebatan saat waktu pengiriman.",
-   "analogy": "Ini seperti perbedaan antara meminta tukang batu membuat \"dinding tinggi\" dan \"dinding 2,80 m\". Hanya yang kedua yang bisa diperiksa dengan meteran."
-  },
-  "g1": {
-   "title": "Apa itu commit",
-   "prompt": "Commit Git adalah:",
-   "opts": [
-    "Catatan keadaan proyek pada saat itu, beserta pesan",
-    "Mengunggah file ke server",
-    "Salinan cadangan di folder lain",
-    "Menghapus versi lama"
-   ],
-   "hint": "Mengirim ke server adalah perintah yang berbeda (push).",
-   "why": "Commit menyimpan snapshot lokal perubahan, lengkap dengan penulis, tanggal, dan pesan. Mengirimnya ke remote dilakukan nanti, dengan push.",
-   "analogy": "Ini seperti titik penyimpanan dalam game: jika bos mengalahkanmu, kamu bisa kembali ke momen itu."
-  },
-  "g2": {
-   "title": "Menerbitkan perbaikan",
-   "prompt": "Urutkan perintah untuk membuat branch, merekam perubahan, dan mengirimkannya ke repositori remote.",
-   "hint": "Pertama ruang kerja, lalu stage (add), rekam (commit) dan kirim (push).",
-   "why": "Kamu membuat branch sebelum mengubah; add memilih apa yang masuk; commit merekam; push menerbitkan.",
-   "analogy": "Mengirim paket: ambil kotaknya (branch), masukkan barangnya (add), tutup dan beri label (commit), lalu bawa ke kantor pos (push)."
-  },
-  "g3": {
-   "title": "Untuk apa branch",
-   "prompt": "Mengapa Bia harus membuat branch untuk layar diskon baru?",
-   "opts": [
-    "Untuk bekerja secara terisolasi tanpa memengaruhi jalur utama",
-    "Untuk membuat repositori lebih cepat",
-    "Karena Git melarang commit di main",
-    "Untuk menghapus riwayat lama"
-   ],
-   "hint": "Pikirkan apa yang terjadi jika kode yang belum selesai langsung masuk ke main.",
-   "why": "Branch mengisolasi pekerjaan yang sedang berjalan. Main tetap stabil sampai perubahan ditinjau dan diintegrasikan.",
-   "analogy": "Ini seperti draf dokumen: kamu bereksperimen dengan bebas dan hanya menyalinnya ke dokumen asli ketika teksnya sudah bagus."
-  },
-  "g4": {
-   "title": "Mengapa merge konflik",
-   "prompt": "Kapan konflik merge terjadi?",
-   "opts": [
-    "Ketika dua branch mengubah baris yang sama dengan cara berbeda",
-    "Setiap kali dua orang bekerja di repositori yang sama",
-    "Ketika branch memiliki lebih dari sepuluh commit",
-    "Ketika file baru dibuat di salah satu branch"
-   ],
-   "hint": "Git menggabungkan perubahan di tempat yang berbeda secara otomatis. Apa yang tidak bisa diputuskannya?",
-   "why": "Jika kedua versi menyentuh tempat yang sama, Git tidak tahu mana yang harus dipilih dan meminta keputusan manusia.",
-   "analogy": "Dua orang menulis ulang kalimat yang sama dalam kontrak. Notaris tidak memilih sendiri: keduanya dipanggil untuk menentukan kalimat akhir."
-  },
-  "g5": {
-   "title": "Pesan commit yang baik",
-   "prompt": "Pesan commit mana yang paling berguna untuk seseorang yang membaca riwayat setahun kemudian?",
-   "opts": [
-    "Perbaiki perhitungan diskon untuk pembelian tepat R$ 50",
-    "tweaks",
-    "versi final kali ini benar-benar",
-    "Perubahan yang dibuat oleh Caio pada hari Jumat"
-   ],
-   "hint": "Pesan harus menjelaskan apa yang berubah dan mengapa, tanpa memaksa orang untuk membuka kode.",
-   "why": "Pesan yang baik menggambarkan perubahan dan alasannya. \"tweaks\" tidak membantu menemukan kapan perilaku berubah.",
-   "analogy": "Ini seperti label pada kotak pindahan: \"dapur, gelas mudah pecah\" menghemat kamu dari membuka dua puluh kotak bertanda \"barang\"."
-  },
-  "t1": {
-   "title": "Apa itu unit test",
-   "prompt": "Unit test memeriksa:",
-   "opts": [
-    "Sebuah unit kecil kode yang terisolasi, seperti fungsi",
-    "Seluruh sistem melalui antarmuka pengguna",
-    "Apakah server dapat menangani lalu lintas berat",
-    "Apakah klien puas dengan pengiriman"
-   ],
-   "hint": "Namanya sudah memberi petunjuk: apa itu \"unit\"?",
-   "why": "Unit test itu kecil, cepat, dan terisolasi. Pengujian seluruh sistem adalah end-to-end testing; lalu lintas berat adalah load testing.",
-   "analogy": "Ini seperti menguji setiap bohlam sebelum merangkai lampu hias. Jika rangkaiannya gagal nanti, kamu sudah tahu bohlamnya bukan masalahnya."
-  },
-  "t2": {
-   "title": "Memilih nilai uji",
-   "prompt": "Aturannya berlaku \"dari 18 tahun\". Kumpulan input mana yang paling baik untuk menguji fungsi?",
-   "hint": "Di mana kesalahan perbandingan (> bukan >=) cenderung tersembunyi?",
-   "why": "Cacat sering berkumpul di batas. Menguji tepat di bawah, tepat di, dan tepat di atas batas akan menyingkap >= yang tertukar dengan >.",
-   "analogy": "Untuk memeriksa apakah pintu tertutup dengan baik, kamu memeriksa kusennya, bukan tengah dinding."
-  },
-  "t3": {
-   "title": "Arrange, act, assert",
-   "prompt": "Susun pengujian diskon toko roti mengikuti arrange, act, assert.",
-   "hint": "Pertama data, lalu panggilan ke fungsi yang diuji, dan terakhir pemeriksaan.",
-   "why": "Pengujian menyiapkan skenario, melakukan aksi, dan membandingkan hasilnya dengan yang diharapkan.",
-   "analogy": "Seperti mencoba resep: siapkan bahan, masak, dan baru kemudian cicipi untuk melihat apakah hasilnya benar."
+   "hint": "Tanyakan pada dirimu: bagaimana aku bisa membuktikan ini terpenuhi?",
+   "why": "Hanya opsi pertama yang memiliki kriteria terukur. \"Cepat\", \"ramah\", dan \"modern\" berubah menjadi perdebatan saat waktu penyerahan.",
+   "analogy": "Ini seperti perbedaan antara meminta tukang batu \"tembok tinggi\" dan \"tembok 2,80 m\". Hanya yang kedua yang bisa diperiksa dengan meteran."
   },
   "q3": {
    "title": "User story yang baik",
@@ -1049,168 +963,480 @@ LANG.id = {
    "why": "Membatasi WIP memaksa menyelesaikan sebelum memulai, mengurangi perpindahan konteks, dan membuat kemacetan terlihat.",
    "analogy": "Kompor empat tungku dengan 12 wajan: tidak ada yang matang sempurna. Lebih baik menyelesaikan empat hidangan dulu, baru menaruh yang berikutnya."
   },
+  "g1": {
+   "title": "Apa itu commit",
+   "prompt": "Commit Git adalah:",
+   "opts": [
+    "Catatan keadaan proyek pada saat itu, beserta pesan",
+    "Mengunggah file ke server",
+    "Salinan cadangan di folder lain",
+    "Menghapus versi lama"
+   ],
+   "hint": "Mengirim ke server adalah perintah yang berbeda (push).",
+   "why": "Commit menyimpan snapshot lokal perubahan, lengkap dengan penulis, tanggal, dan pesan. Mengirimnya ke remote dilakukan nanti, dengan push.",
+   "analogy": "Ini seperti titik penyimpanan dalam game: jika bos mengalahkanmu, kamu bisa kembali ke momen itu."
+  },
+  "g2": {
+   "title": "Menerbitkan perbaikan",
+   "prompt": "Urutkan perintah untuk membuat branch, merekam perubahan, dan mengirimkannya ke repositori remote.",
+   "hint": "Pertama ruang kerja, lalu stage (add), rekam (commit) dan kirim (push).",
+   "why": "Kamu membuat branch sebelum mengubah; add memilih apa yang masuk; commit merekam; push menerbitkan.",
+   "analogy": "Mengirim paket: ambil kotaknya (branch), masukkan barangnya (add), tutup dan beri label (commit), lalu bawa ke kantor pos (push)."
+  },
+  "g3": {
+   "title": "Untuk apa branch",
+   "prompt": "Mengapa Bia harus membuat branch untuk layar diskon baru?",
+   "opts": [
+    "Untuk bekerja secara terisolasi tanpa memengaruhi jalur utama",
+    "Untuk membuat repositori lebih cepat",
+    "Karena Git melarang commit di main",
+    "Untuk menghapus riwayat lama"
+   ],
+   "hint": "Pikirkan apa yang terjadi jika kode yang belum selesai langsung masuk ke main.",
+   "why": "Branch mengisolasi pekerjaan yang sedang berjalan. Main tetap stabil sampai perubahan ditinjau dan diintegrasikan.",
+   "analogy": "Ini seperti draf dokumen: kamu bereksperimen dengan bebas dan hanya menyalinnya ke dokumen asli ketika teksnya sudah bagus."
+  },
+  "g4": {
+   "title": "Mengapa merge konflik",
+   "prompt": "Kapan konflik merge terjadi?",
+   "opts": [
+    "Ketika dua branch mengubah baris yang sama dengan cara berbeda",
+    "Setiap kali dua orang bekerja di repositori yang sama",
+    "Ketika branch memiliki lebih dari sepuluh commit",
+    "Ketika file baru dibuat di salah satu branch"
+   ],
+   "hint": "Git menggabungkan perubahan di tempat yang berbeda secara otomatis. Apa yang tidak bisa diputuskannya?",
+   "why": "Jika kedua versi menyentuh tempat yang sama, Git tidak tahu mana yang harus dipilih dan meminta keputusan manusia.",
+   "analogy": "Dua orang menulis ulang kalimat yang sama dalam kontrak. Notaris tidak memilih sendiri: keduanya dipanggil untuk menentukan kalimat akhir."
+  },
+  "g5": {
+   "title": "Pesan commit yang baik",
+   "prompt": "Pesan commit mana yang paling berguna untuk seseorang yang membaca riwayat setahun kemudian?",
+   "opts": [
+    "Perbaiki perhitungan diskon untuk pembelian tepat R$ 50",
+    "tweaks",
+    "versi final kali ini benar-benar",
+    "Perubahan yang dibuat oleh Caio pada hari Jumat"
+   ],
+   "hint": "Pesan harus menjelaskan apa yang berubah dan mengapa, tanpa memaksa orang untuk membuka kode.",
+   "why": "Pesan yang baik menggambarkan perubahan dan alasannya. \"tweaks\" tidak membantu menemukan kapan perilaku berubah.",
+   "analogy": "Ini seperti label pada kotak pindahan: \"dapur, gelas mudah pecah\" menghemat kamu dari membuka dua puluh kotak bertanda \"barang\"."
+  },
+  "t1": {
+   "title": "Apa itu unit test",
+   "prompt": "Unit test memeriksa:",
+   "opts": [
+    "Sebuah unit kecil kode yang terisolasi, seperti fungsi",
+    "Seluruh sistem melalui antarmuka pengguna",
+    "Apakah server dapat menangani lalu lintas berat",
+    "Apakah klien puas dengan pengiriman"
+   ],
+   "hint": "Namanya sudah memberi petunjuk: apa itu \"unit\"?",
+   "why": "Unit test itu kecil, cepat, dan terisolasi. Pengujian seluruh sistem adalah end-to-end testing; lalu lintas berat adalah load testing.",
+   "analogy": "Ini seperti menguji setiap bohlam sebelum merangkai lampu hias. Jika rangkaiannya gagal nanti, kamu sudah tahu bohlamnya bukan masalahnya."
+  },
+  "t2": {
+   "title": "Memilih nilai uji",
+   "prompt": "Aturannya berlaku \"dari 18 tahun\". Kumpulan input mana yang paling baik untuk menguji fungsi?",
+   "hint": "Di mana kesalahan perbandingan (> bukan >=) cenderung tersembunyi?",
+   "why": "Cacat sering berkumpul di batas. Menguji tepat di bawah, tepat di, dan tepat di atas batas akan menyingkap >= yang tertukar dengan >.",
+   "analogy": "Untuk memeriksa apakah pintu tertutup dengan baik, kamu memeriksa kusennya, bukan tengah dinding."
+  },
+  "t3": {
+   "title": "Arrange, act, assert",
+   "prompt": "Susun pengujian diskon toko roti mengikuti arrange, act, assert.",
+   "hint": "Pertama data, lalu panggilan ke fungsi yang diuji, dan terakhir pemeriksaan.",
+   "why": "Pengujian menyiapkan skenario, melakukan aksi, dan membandingkan hasilnya dengan yang diharapkan.",
+   "analogy": "Seperti mencoba resep: siapkan bahan, masak, dan baru kemudian cicipi untuk melihat apakah hasilnya benar."
+  },
   "t4": {
    "title": "Semua hijau, nol bug?",
-   "prompt": "Semua 200 tes lulus dan cakupan 100%. Bisakah Anda mengklaim perangkat lunak tidak memiliki cacat?",
+   "prompt": "Semua 200 tes lulus dan cakupan 100%. Bisakah kamu mengklaim perangkat lunak ini tidak memiliki cacat?",
    "opts": [
-    "Tidak: tes mengungkap keberadaan cacat, tidak membuktikan ketidakhadiran",
-    "Ya: cakupan 100% menjaminnya",
-    "Ya, selama tesnya adalah tes unit",
-    "Tidak, karena 200 tes terlalu sedikit; 1000 sudah cukup"
+    "Tidak: tes mengungkap keberadaan cacat, bukan membuktikan ketiadaan",
+    "Ya: cakupan 100% menjamin itu",
+    "Ya, asalkan tesnya adalah tes unit",
+    "Tidak, karena 200 tes terlalu sedikit; 1000 tes sudah cukup"
    ],
    "hint": "Cakupan mengukur baris yang dieksekusi, bukan situasi yang diverifikasi.",
-   "why": "Cakupan menunjukkan baris dijalankan, bukan bahwa setiap kombinasi input dan persyaratan sudah diperiksa. Ini adalah komentar klasik Dijkstra.",
-   "analogy": "Alarm asap yang diam berarti tidak ada asap saat ini, bukan berarti kabel seluruh rumah aman."
+   "why": "Cakupan menunjukkan baris berjalan, bukan semua kombinasi input dan persyaratan sudah diperiksa. Itu komentar klasik Dijkstra.",
+   "analogy": "Alarm asap yang diam berarti tidak ada asap saat ini, bukan kabel seluruh rumah aman."
   },
   "t5": {
    "title": "Bug diskon tidak boleh kembali",
-   "prompt": "Anda menemukan penyebab bug R$ 50. Apa urutan terbaik?",
+   "prompt": "Kamu menemukan penyebab bug R$ 50. Apa urutan terbaik?",
    "opts": [
     "Tulis tes yang mereproduksi bug, perbaiki, dan pertahankan tesnya",
     "Perbaiki langsung di produksi dan beri tahu Dona Lúcia",
     "Perbaiki dan uji manual sekali",
     "Tulis bug di dokumen untuk diingat nanti"
    ],
-   "hint": "Bagaimana Anda memastikan tidak ada yang memperkenalkan kembali kesalahan yang sama enam bulan dari sekarang?",
+   "hint": "Bagaimana memastikan tidak ada yang memperkenalkan kembali kesalahan yang sama enam bulan kemudian?",
    "why": "Tes regresi gagal sebelum perbaikan, lulus setelahnya, dan menjaga selamanya.",
-   "analogy": "Ini seperti vaksin: sistem bertemu penyusup sekali dan mengenalinya setiap kali mencoba kembali."
+   "analogy": "Ini vaksin: sistem bertemu penyusup sekali dan mengenalinya setiap kali mencoba kembali."
   },
   "d1": {
    "title": "Kelas yang melakukan segalanya",
-   "prompt": "Kelas Report menghitung total, merender PDF, dan mengirim email. Prinsip mana yang dilanggar?",
+   "prompt": "Kelas Report menghitung total, merender PDF, dan mengirim email. Prinsip apa yang dilanggar?",
    "opts": [
     "Tanggung jawab tunggal (SRP)",
     "Substitusi Liskov (LSP)",
     "Inversi dependensi (DIP)",
-    "Tidak ada: menyimpan semuanya bersama memudahkan pemeliharaan"
+    "Tidak ada: menyatukan semuanya memudahkan pemeliharaan"
    ],
-   "hint": "Berapa banyak alasan berbeda untuk mengubah kelas ini?",
+   "hint": "Ada berapa alasan berbeda untuk mengubah kelas ini?",
    "why": "Kelas berubah jika aturan perhitungan, tata letak PDF, atau server email berubah. Tiga alasan menunjukkan tiga tanggung jawab.",
-   "analogy": "Pisau lipat Swiss Army berguna saat berkemah, tetapi di dapur profesional setiap pisau punya tugasnya, dan mengasah satu tidak merusak yang lain."
+   "analogy": "Pisau Swiss Army berguna saat berkemah, tapi di dapur profesional setiap pisau punya tugas, dan mengasah satu tidak merusak yang lain."
   },
   "d2": {
    "title": "Fungsi 300 baris",
-   "prompt": "Fungsi pengisian mengulang blok validasi yang sama di tiga tempat. Apa refactoring terbaik?",
+   "prompt": "Fungsi penagihan mengulangi blok validasi yang sama di tiga tempat. Refactoring apa yang terbaik?",
    "opts": [
     "Ekstrak blok yang berulang menjadi fungsi dengan nama yang jelas",
-    "Tambahkan komentar yang menjelaskan setiap pengulangan",
+    "Tambahkan komentar menjelaskan setiap pengulangan",
     "Pisahkan file menjadi dua, pertahankan fungsinya",
-    "Biarkan saja, karena berfungsi"
+    "Biarkan saja, karena sudah berfungsi"
    ],
-   "hint": "Pikirkan prinsip DRY: jangan ulangi dirimu sendiri.",
-   "why": "Mengekstrak fungsi menghilangkan duplikasi: perbaikan dilakukan di satu tempat saja, dan nama mendokumentasikan niat.",
-   "analogy": "Alih-alih menulis ulang alamat di setiap surat, Anda membuat stempel. Alamat berubah? Ganti stempelnya, bukan semua surat."
+   "hint": "Pikirkan prinsip DRY: jangan ulangi dirimu.",
+   "why": "Mengekstrak fungsi menghilangkan duplikasi: perbaikan dilakukan di satu tempat saja, dan nama mendokumentasikan maksudnya.",
+   "analogy": "Daripada menulis ulang alamat di setiap surat, kamu membuat stempel. Alamat berubah? Ganti stempelnya, bukan semua surat."
   },
   "d3": {
    "title": "Kohesi dan kopling",
-   "prompt": "Dalam desain modul yang baik, Anda mengincar:",
+   "prompt": "Dalam desain modul yang baik, kamu mengincar:",
    "opts": [
     "Kohesi tinggi dan kopling rendah",
     "Kohesi rendah dan kopling tinggi",
     "Kohesi tinggi dan kopling tinggi",
-    "Tidak masalah, selama tes lulus"
+    "Tidak masalah, asalkan tes lulus"
    ],
-   "hint": "Kohesi adalah fokus internal modul; kopling adalah seberapa banyak ia bergantung pada modul lain.",
-   "why": "Modul yang fokus dan sedikit bergantung satu sama lain dapat dipahami, diuji, dan diganti secara terpisah.",
-   "analogy": "Bata LEGO: masing-masing punya bentuk yang jelas (kohesi) dan konektor standar yang sederhana (kopling rendah)."
+   "hint": "Kohesi adalah fokus internal modul; kopling adalah seberapa besar ketergantungannya pada modul lain.",
+   "why": "Modul yang fokus dan sedikit bergantung pada modul lain dapat dipahami, diuji, dan diganti secara terpisah.",
+   "analogy": "Bata LEGO: masing-masing punya bentuk yang terdefinisi baik (kohesi) dan konektor standar yang sederhana (kopling rendah)."
   },
   "d4": {
-   "title": "Satu lagi \"if\" di pembayaran",
-   "prompt": "Setiap metode pembayaran baru berarti mengedit fungsi ini. Perubahan desain mana yang paling baik menyelesaikannya?",
+   "title": "Satu \"if\" lagi di pembayaran",
+   "prompt": "Setiap metode pembayaran baru berarti mengedit fungsi ini. Perubahan desain apa yang paling baik menyelesaikannya?",
    "opts": [
     "Buat antarmuka Payment dan satu implementasi per metode",
     "Tambahkan \"if\" baru dan komentar",
     "Salin seluruh fungsi untuk setiap metode pembayaran",
-    "Ganti rantai kondisi dengan loop while"
+    "Ganti rangkaian kondisi dengan loop while"
    ],
    "hint": "Prinsip terbuka/tertutup: terbuka untuk ekstensi, tertutup untuk modifikasi.",
    "why": "Dengan polimorfisme (pola Strategy), metode pembayaran baru menjadi modul baru, tanpa menyentuh kode yang sudah berfungsi dan teruji.",
-   "analogy": "Ini seperti stopkontak standar: setiap peralatan baru dapat dicolokkan tanpa ada yang membongkar tembok dan mengulang kabel."
+   "analogy": "Ini stopkontak standar: alat baru apa pun bisa dicolokkan tanpa ada yang membongkar dinding dan mengulang kabel."
   },
   "d5": {
-   "title": "Database terlanjur dilas ke kelas",
-   "prompt": "Kelas Order membuat koneksi sendiri ke database MySQL tertentu. Apa yang membuatnya lebih sulit, dan bagaimana cara memperbaikinya?",
+   "title": "Basis data terlas ke dalam kelas",
+   "prompt": "Kelas Order membuat koneksi sendiri ke basis data MySQL spesifik. Apa yang dipersulit, dan bagaimana memperbaikinya?",
    "opts": [
-    "Pengujian dan penggantian database; terima dependensi yang sudah jadi, melalui antarmuka",
+    "Pengujian dan penggantian basis data; terima dependensi yang sudah jadi, melalui antarmuka",
     "Tidak ada; membuat koneksi di dalam adalah cara paling rapi",
     "Kecepatan; perbaiki dengan server yang lebih kuat",
-    "Keterbacaan; perbaiki dengan lebih banyak komentar"
+    "Keterbacaan; perbaiki dengan komentar lebih banyak"
    ],
-   "hint": "Bagaimana Anda menguji Order tanpa MySQL yang berjalan?",
-   "why": "Membuat dependensi konkret secara internal mengikat kelas ke dependensi itu. Dengan injeksi dependensi, kelas menerima sesuatu yang memenuhi antarmuka, dan dalam pengujian ia menerima pengganti.",
-   "analogy": "Lampu dengan bohlam yang dilas: saat putus, Anda membuang semuanya. Dengan soket standar Anda hanya mengganti bohlam, bahkan dengan bohlam uji."
+   "hint": "Bagaimana kamu menguji Order tanpa MySQL yang berjalan?",
+   "why": "Membuat dependensi konkret di dalam menggabungkan kelas dengannya. Dengan injeksi dependensi, kelas menerima sesuatu yang memenuhi antarmuka, dan dalam tes menerima pengganti.",
+   "analogy": "Lampu dengan bohlam terlas: saat putus, kamu buang semuanya. Dengan soket standar kamu hanya mengganti bohlam, bahkan dengan bohlam uji."
   },
   "xa1": {
    "title": "Total yang didiskon",
-   "prompt": "Penjualan 50 atau lebih mendapat diskon 10% (bagian integer). Apa yang dicetak program?",
+   "prompt": "Penjualan 50 atau lebih mendapat diskon 10% (bagian bilangan bulat). Apa yang dicetak program?",
    "why": "12 tetap 12; 55 menjadi 50; 50 menjadi 45; 8 tetap 8. Totalnya 115. Diskon juga berlaku untuk tepat 50, karena >=.",
-   "analogy": "Ini seperti memeriksa struk baris per baris: siapa pun yang hanya melihat total tidak dapat melihat di baris mana diskon diberikan."
+   "analogy": "Ini seperti memeriksa struk baris per baris: siapa yang hanya melihat total tidak bisa melihat di baris mana diskon masuk."
   },
   "xa2": {
    "title": "Hitungan yang hasilnya nol",
-   "prompt": "Program seharusnya menghitung 2 penjualan diskon tetapi mencetak 0. Baris mana yang berada di tempat yang salah?",
-   "why": "Mengatur ulang penghitung di dalam loop menghapus hitungan setiap putaran. Inisialisasi seharusnya sebelum loop, dan itu sudah ada.",
-   "analogy": "Ini seperti penjaga pintu yang mengatur ulang klik penghitungnya untuk setiap orang yang masuk: pada akhir hari, layar hanya tahu orang terakhir."
+   "prompt": "Program seharusnya menghitung 2 penjualan diskon tetapi mencetak 0. Baris mana yang posisinya salah?",
+   "why": "Meletakkan ulang penghitung di dalam perulangan menghapus hitungan setiap putaran. Inisialisasi seharusnya berada sebelum perulangan, yang sudah ada di sana.",
+   "analogy": "Ini seperti penjaga pintu yang menekan ulang alat hitungnya untuk setiap orang yang masuk: di akhir hari, layarnya hanya tahu orang terakhir."
   },
   "xa3": {
-   "title": "Kembalian dalam lembar sepuluh ribuan",
-   "prompt": "Susun program yang memvalidasi pembayaran dan mencetak berapa lembar sepuluh ribuan dan berapa koin seribuan yang menjadi kembalian.",
-   "why": "Harga harus ada sebelum jumlah yang dibayar, yang bergantung padanya. Validasi dilakukan sebelum perhitungan, dan kembalian hanya dihitung pada cabang di mana pembayaran cukup.",
-   "analogy": "Kasir pertama-tama memeriksa bahwa uangnya menutupi tagihan; baru setelah itu laci dibuka untuk menyiapkan kembalian."
+   "title": "Kembalian dalam lembaran sepuluh ribuan",
+   "prompt": "Rangkai program yang memvalidasi pembayaran dan mencetak berapa lembar uang sepuluh ribuan dan berapa koin seribuan yang menjadi kembalian.",
+   "why": "Harga harus ada sebelum jumlah yang dibayar, yang bergantung padanya. Validasi datang sebelum perhitungan, dan kembalian hanya dihitung pada cabang di mana pembayarannya cukup.",
+   "analogy": "Kasir terlebih dahulu memeriksa bahwa uangnya menutupi tagihan; baru setelah itu laci dibuka untuk menyiapkan kembalian."
   },
   "xb1": {
-   "title": "Penjumlahan mulai dari suatu posisi",
-   "prompt": "Apa yang dicetak program?",
-   "why": "Pemanggilan dimulai dari indeks 1, jadi menjumlahkan 7 + 9 = 16. Nilai pada indeks 0 ditinggalkan. Kasus dasar terjadi ketika i mencapai ukuran list.",
-   "analogy": "Ini seperti bergabung dengan antrean di posisi kedua dan meminta semua orang untuk menambahkan nomor mereka ke nomor orang di belakang mereka."
+   "title": "Penjumlahan mulai dari posisi tertentu",
+   "prompt": "Apa yang dicetak oleh program?",
+   "why": "Panggilan dimulai dari indeks 1, jadi ia menjumlahkan 7 + 9 = 16. Nilai pada indeks 0 tidak diikutsertakan. Kasus dasar terjadi ketika i mencapai ukuran daftar.",
+   "analogy": "Ini seperti bergabung dengan antrean di posisi kedua dan meminta setiap orang menambahkan nomor mereka kepada orang-orang di belakangnya."
   },
   "xb2": {
-   "title": "Satu file terlalu banyak",
-   "prompt": "Fungsi seharusnya menghitung 3 file tetapi menjawab 4. Baris mana yang salah?",
-   "why": "Dengan >, rekursi hanya berhenti setelah melewati akhir, menghitung posisi yang tidak ada. Kasus dasar yang benar membandingkan kesamaan dengan ukuran.",
-   "analogy": "Ini seperti menghitung anak tangga dan menyertakan lantai atas: rem diinjak satu langkah terlambat."
+   "title": "Satu berkas terlalu banyak",
+   "prompt": "Fungsi seharusnya menghitung 3 berkas tetapi menjawab 4. Baris mana yang salah?",
+   "why": "Dengan >, rekursi hanya berhenti setelah melewati ujung, menghitung posisi yang tidak ada. Kasus dasar yang benar membandingkan dengan sama dengan ukuran.",
+   "analogy": "Ini seperti menghitung anak tangga dan menyertakan lantai di atas: rem diinjak satu langkah terlambat."
   },
   "xb3": {
-   "title": "Berapa banyak file besar",
-   "prompt": "Susun fungsi yang menghitung berapa banyak nilai melebihi batas dan panggilan yang mencetak hasilnya.",
-   "why": "Penghitung dibuat sebelum loop, diperbarui di dalamnya, dan hanya dikembalikan setelah loop berakhir. Panggilan dilakukan setelah definisi.",
-   "analogy": "Ini seperti pos pemeriksaan berat di pinggir jalan: penghitung diatur ulang pada awal shift, setiap truk yang kelebihan muatan dihitung, dan laporan baru keluar pada akhir shift."
+   "title": "Berapa banyak berkas besar",
+   "prompt": "Rangkai fungsi yang menghitung berapa banyak nilai yang melebihi batas dan panggilan yang mencetak hasilnya.",
+   "why": "Penghitung dibuat sebelum perulangan, diperbarui di dalamnya, dan hanya dikembalikan setelah perulangan berakhir. Panggilan dilakukan setelah definisi.",
+   "analogy": "Ini seperti pos pemeriksaan berat di jalan: penghitung diatur ulang pada awal giliran kerja, setiap truk yang kelebihan muatan dihitung, dan laporan hanya keluar pada akhirnya."
   },
   "xc1": {
    "title": "Permintaan jam 5 sore",
-   "prompt": "Koperasi ingin voucher makan aktif hari ini. Kode hanya ada di mesin rekan kerja, tanpa tes. Apa tindakan terbaik?",
+   "prompt": "Koperasi ingin voucher makan langsung dipakai hari ini. Kodenya hanya ada di mesin rekan kerja, tanpa pengujian. Apa tindakan terbaik?",
    "opts": [
-    "Push kode ke branch, tes jalur kritis, tinjau dan rilis dengan rencana rollback; jika tidak muat hari ini, negosiasikan tenggat waktu",
-    "Salin file langsung ke server, karena tenggat waktu adalah aturan",
-    "Tolak rilis apa pun sampai modul pembayaran ditulis ulang sepenuhnya",
-    "Rilis sekarang dan tulis tesnya pada hari Senin"
+    "Dorong kode ke cabang, uji jalur kritis, tinjau, dan rilis dengan rencana pemulihan; jika tidak muat hari ini, negosiasikan tenggat",
+    "Salin berkas langsung ke server, karena tenggat adalah aturan",
+    "Tolak rilis apa pun sampai seluruh modul pembayaran ditulis ulang",
+    "Rilis sekarang dan tulis pengujiannya hari Senin"
    ],
-   "why": "Tenggat waktu yang ketat tidak menangguhkan proses: versioning, pengujian jalur kritis, tinjauan, dan cara kembali mengurangi risiko. Jika tidak muat, Anda menegosiasikan cakupan atau tenggat waktu, bukan diam-diam mengorbankan kualitas.",
+   "why": "Tenggat yang ketat tidak menangguhkan proses: pembuatan versi, pengujian jalur kritis, tinjauan, dan jalan kembali mengurangi risiko. Jika tidak muat, kamu menegosiasikan cakupan atau tenggat, bukan diam-diam menurunkan kualitas.",
    "analogy": "Operasi darurat tetap memiliki daftar periksa dan teknik steril: urgensi mengubah kecepatan, bukan langkah-langkah yang mencegah tragedi."
   },
   "xc2": {
    "title": "Pix bermasalah",
    "prompt": "Sepuluh menit setelah rilis, pembayaran Pix mulai gagal. Apa tindakan pertama?",
    "opts": [
-    "Rollback ke versi sebelumnya dan selidiki penyebabnya dengan sistem stabil",
+    "Kembalikan ke versi sebelumnya dan selidiki penyebabnya dengan sistem stabil",
     "Debug langsung di produksi sampai kesalahan ditemukan",
-    "Tunggu laporan lebih banyak untuk memastikan",
-    "Matikan server dan bereskan pada hari Senin"
+    "Tunggu lebih banyak laporan untuk memastikan",
+    "Matikan server dan bereskan hari Senin"
    ],
-   "why": "Pertama Anda memulihkan layanan; baru kemudian menyelidiki. Riwayat Git membuat rollback cepat dan aman.",
-   "analogy": "Dengan pipa yang pecah, Anda mematikan air terlebih dahulu. Mencari tahu mengapa pecah dilakukan kemudian, dengan lantai yang kering."
+   "why": "Pertama kamu memulihkan layanan; kemudian kamu menyelidiki. Riwayat Git membuat kembali ke versi sebelumnya menjadi cepat dan aman.",
+   "analogy": "Dengan pipa bocor, kamu mematikan air terlebih dahulu. Mencari tahu mengapa bocor datang kemudian, dengan lantai yang sudah kering."
   },
   "xc3": {
    "title": "Rapat hari Senin",
-   "prompt": "Dalam retrospektif, ternyata perubahan merusak kasus yang tidak diuji siapa pun. Tindak lanjut apa yang terbaik?",
+   "prompt": "Dalam retrospektif, ternyata perubahan itu merusak kasus yang tidak diuji siapa pun. Tindak lanjut mana yang terbaik?",
    "opts": [
-    "Tinjauan tanpa menyalahkan: tambahkan tes regresi dan sesuaikan proses sehingga tinjauan kode memerlukan tes",
-    "Identifikasi pelakunya dan keluarkan peringatan tertulis",
-    "Larang rilis pada hari Jumat dan tutup masalah ini",
-    "Perpanjang setiap tenggat proyek sebesar 50%"
+    "Tinjauan tanpa menyalahkan: tambahkan uji regresi dan sesuaikan proses agar tinjauan kode mensyaratkan pengujian",
+    "Temukan pelakunya dan berikan surat peringatan tertulis",
+    "Larang rilis hari Jumat dan tutup masalah ini",
+    "Perpanjang semua tenggat proyek sebesar 50%"
    ],
-   "why": "Kegagalan adalah milik sistem kerja, bukan satu orang. Tes regresi mencegah cacat kembali, dan perubahan proses mencegah situasi kembali.",
-   "analogy": "Dalam penerbangan, setiap insiden menjadi investigasi dan prosedur yang lebih baik, bukan perburuan penyihir. Itulah mengapa terbang menjadi sangat aman."
+   "why": "Kegagalan adalah milik sistem kerja, bukan satu orang. Uji regresi mencegah cacat kembali, dan perubahan proses mencegah situasi itu kembali.",
+   "analogy": "Dalam penerbangan, setiap insiden menjadi investigasi dan prosedur yang lebih baik, bukan perburuan penyihir. Itulah sebabnya terbang menjadi sangat aman."
+  },
+  "q6": {
+   "title": "Triage kebutuhan",
+   "prompt": "Klasifikasikan setiap kebutuhan sistem klinik kesehatan.",
+   "bins": [
+    "Fungsional",
+    "Non-fungsional"
+   ],
+   "cards": [
+    "Pasien mendapat pengingat sehari sebelum janji temu",
+    "Sistem tersedia 99% dari waktu",
+    "Resepsionis menjadwalkan ulang janji temu",
+    "Data pasien disimpan terenkripsi"
+   ],
+   "hint": "Tanyakan pada setiap kartu: apakah ini sesuatu yang DILAKUKAN sistem, atau kualitas saat melakukannya?",
+   "why": "Mengingatkan dan menjadwalkan ulang adalah perilaku (fungsional). Ketersediaan dan enkripsi adalah kualitas layanan (non-fungsional), dan sering terlupakan sampai menjadi masalah.",
+   "analogy": "Pada menu, hidangan adalah bagian fungsional. Tiba panas, dalam dua puluh menit, dan dari dapur bersih adalah bagian non-fungsional: tidak ada yang memesannya, semua orang mengharapkannya."
+  },
+  "a6": {
+   "title": "Irama sprint",
+   "prompt": "Urutkan acara sprint Scrum.",
+   "lines": [
+    "Perencanaan: tim memilih apa yang muat dalam sprint",
+    "Pertemuan harian melacak kemajuan",
+    "Tinjauan: increment ditunjukkan kepada orang yang menggunakannya",
+    "Retrospektif: tim meningkatkan prosesnya sendiri"
+   ],
+   "hint": "Pertama kamu memutuskan apa yang akan dikerjakan; di akhir kamu melihat produk lalu prosesnya.",
+   "why": "Sprint dibuka dengan perencanaan, berlanjut dengan pertemuan harian, menunjukkan hasil di tinjauan, dan ditutup dengan retrospektif yang menjadi masukan siklus berikutnya.",
+   "analogy": "Ini seperti perjalanan: rencanakan rute, periksa peta setiap hari, tunjukkan foto saat tiba, dan sepakati apa yang harus dilakukan berbeda lain kali."
+  },
+  "g6": {
+   "title": "Mengurai konflik",
+   "prompt": "Urutkan langkah-langkah menyelesaikan konflik merge dengan aman.",
+   "lines": [
+    "Bawa main terbaru ke branch kamu",
+    "Buka file yang ditandai konflik",
+    "Putuskan, per bagian, versi mana yang dipertahankan",
+    "Jalankan tes untuk memastikan tidak ada yang rusak",
+    "Catat commit yang menyelesaikan merge"
+   ],
+   "hint": "Konflik baru muncul ketika dua versi bertemu; commit hanya datang setelah pemeriksaan.",
+   "why": "Merge mengungkap konflik, keputusan dibuat manusia per bagian, dan tes memastikan kombinasi bekerja sebelum commit akhir.",
+   "analogy": "Dua editor mengubah paragraf yang sama: versi-versi disatukan, dibaca dengan tenang, dipilih kata-kata, seluruh teks diperiksa, baru kemudian dicetak."
+  },
+  "t6": {
+   "title": "Siklus TDD",
+   "prompt": "Urutkan siklus pengembangan berbasis tes.",
+   "lines": [
+    "Tulis tes yang gagal",
+    "Tulis kode minimum agar tes lulus",
+    "Jalankan semua tes dan lihat semuanya hijau",
+    "Refactor di bawah perlindungan tes"
+   ],
+   "hint": "Merah, hijau, refactor.",
+   "why": "Tes ditulis pertama dan gagal (merah), kode minimum membuatnya lulus (hijau), baru setelah itu struktur diperbaiki dengan jaring pengaman tes.",
+   "analogy": "Penjahit menandai ukuran lebih dulu, lalu memotong kain sampai pas, dan baru di akhir melakukan penyelesaian sambil memeriksa ukuran setiap penyesuaian."
+  },
+  "d6": {
+   "title": "Tanda-tanda coupling",
+   "prompt": "Klasifikasikan setiap situasi yang diamati di sistem koperasi.",
+   "bins": [
+    "Coupling rendah",
+    "Coupling tinggi"
+   ],
+   "cards": [
+    "Perhitungan pengiriman menerima tabel harga sebagai parameter",
+    "Layar mengakses database langsung",
+    "Penagihan berkomunikasi dengan pembayaran melalui antarmuka",
+    "Mengubah formulir pendaftaran memaksa perubahan di enam file lain"
+   ],
+   "hint": "Tanyakan: jika bagian ini berubah, berapa banyak bagian lain yang harus ikut berubah?",
+   "why": "Menerima dependensi dari luar dan berkomunikasi melalui antarmuka mengisolasi bagian-bagian. Layar berbicara langsung ke database dan perubahan beruntun menunjukkan bagian-bagian yang saling terikat.",
+   "analogy": "Peralatan yang dicolok ke stopkontak bisa diganti satu per satu. Peralatan dengan kabel disolder bersama memaksa kamu membongkar ruangan untuk mengganti televisi."
+  },
+  "m1": {
+   "title": "Siapa yang menggunakannya, dan untuk apa",
+   "prompt": "Diagram mana yang menunjukkan siapa yang menggunakan sistem dan apa yang bisa dilakukan setiap orang?",
+   "opts": [
+    "Diagram use case",
+    "Diagram kelas",
+    "Diagram sequence",
+    "Diagram deployment"
+   ],
+   "hint": "Cari tampilan yang berpusat pada orang (aktor) dan tujuan.",
+   "why": "Use case menghubungkan aktor dengan tujuan: pembaca meminjam, relawan mendaftar. Kelas menunjukkan konsep; sequence menunjukkan urutan pesan.",
+   "analogy": "Ini adalah menu restoran dilihat dari ruang makan: siapa bisa memesan apa, tanpa menunjukkan dapur."
+  },
+  "m2": {
+   "title": "Buku dan salinan",
+   "prompt": "Bagaimana seharusnya hubungan antara Buku dan Salinan dimodelkan?",
+   "opts": [
+    "Satu Buku punya banyak Salinan; setiap Salinan termasuk dalam satu Buku",
+    "Satu Buku punya tepat satu Salinan",
+    "Banyak Buku ke banyak Salinan",
+    "Tidak ada hubungan: keduanya sama"
+   ],
+   "hint": "Perpustakaan punya tiga salinan Dom Casmurro. Berapa judul, dan berapa objek fisik?",
+   "why": "Ada satu judul; objek di rak ada beberapa. Yang dipinjam adalah salinan, bukan buku. Salah menentukan multiplisitas ini akan mengotori seluruh database.",
+   "analogy": "Resepnya satu; kue yang dibuat darinya banyak. Kamu makan kue, bukan resep."
+  },
+  "m3": {
+   "title": "Struktur atau perilaku",
+   "prompt": "Klasifikasikan setiap kalimat: termasuk ke tampilan model yang mana?",
+   "bins": [
+    "Tampilan statis (kelas)",
+    "Tampilan dinamis (sequence)"
+   ],
+   "cards": [
+    "Seorang Pembaca punya nama dan nomor telepon",
+    "Sistem memeriksa apakah salinan tersedia lalu mencatat pinjaman",
+    "Pinjaman merujuk ke Salinan",
+    "Pengembalian memicu pemberitahuan ke orang berikutnya di daftar tunggu"
+   ],
+   "hint": "Statis menggambarkan apa yang ada; dinamis menggambarkan apa yang terjadi, dan dalam urutan apa.",
+   "why": "Atribut dan hubungan adalah struktur dan berlaku setiap saat. Memeriksa, mencatat, dan memberi tahu adalah kejadian yang dirangkai dalam waktu.",
+   "analogy": "Denah lantai menunjukkan ruangan (statis); skrip kunjungan menunjukkan ke mana orang berjalan dan dalam urutan apa (dinamis)."
+  },
+  "m4": {
+   "title": "Urutan peminjaman",
+   "prompt": "Susun pesan-pesan dalam diagram urutan \"pinjam buku\" dengan benar.",
+   "lines": [
+    "Pembaca meminta buku di meja layanan",
+    "Relawan mencari judul di sistem",
+    "Sistem memeriksa apakah ada salinan yang tersedia",
+    "Sistem mencatat peminjaman dan tanggal jatuh tempo",
+    "Relawan menyerahkan salinan kepada pembaca"
+   ],
+   "hint": "Setiap pesan hanya masuk akal setelah pesan sebelumnya dijawab.",
+   "why": "Urutan dimulai dari aktor, melalui pencarian dan pemeriksaan, dan baru dicatat setelah ketersediaan dipastikan. Penyerahan fisik menutup alur.",
+   "analogy": "Ini seperti tarian: setiap langkah menjawab langkah sebelumnya, dan menukar urutannya membuat para penari saling bertabrakan."
+  },
+  "m5": {
+   "title": "Seberapa banyak yang dimodelkan",
+   "prompt": "Tim ingin menggambar semua 40 kelas secara detail sebelum menulis baris kode pertama. Apa saran terbaik?",
+   "opts": [
+    "Modelkan apa yang dibutuhkan untuk menyelaraskan tim dan bagian paling berisiko, lalu kembangkan model seiring dengan kode",
+    "Modelkan semuanya secara detail terlebih dahulu, agar tidak ada pekerjaan ulang",
+    "Jangan modelkan apa pun: kode adalah dokumentasinya",
+    "Setiap orang menggambar modelnya sendiri lalu semuanya digabungkan"
+   ],
+   "hint": "Model bernilai sebesar kesalahpahaman yang dicegahnya, bukan jumlah kotaknya.",
+   "why": "Terlalu banyak pemodelan menjadi usang sebelum digunakan; terlalu sedikit membiarkan kesalahpahaman mencapai kode. Jumlah yang tepat cukup untuk memutuskan langkah berikutnya dengan aman.",
+   "analogy": "Untuk perjalanan, kamu merencanakan rute dan memesan hotel pertama; kamu tidak memutuskan di meja mana kamu akan makan siang pada hari kesepuluh."
+  },
+  "u1": {
+   "title": "Dua hari untuk mengubah satu baris",
+   "prompt": "Bia butuh dua hari untuk memperbaiki satu baris di kode Caio. Atribut kualitas apa yang hilang?",
+   "opts": [
+    "Maintainability",
+    "Kinerja",
+    "Kegunaan",
+    "Portabilitas"
+   ],
+   "hint": "Programnya berfungsi untuk pengguna. Untuk siapa program itu tidak berfungsi?",
+   "why": "Maintainability adalah seberapa mudah perangkat lunak dipahami, diperbaiki, dan dikembangkan. Ini tidak terlihat oleh pengguna dan menentukan biaya.",
+   "analogy": "Sebuah mobil bisa berjalan dengan baik tetapi tetap perlu membongkar mesin untuk mengganti bohlam. Mekaniknya menderita, dan pemiliknya yang membayar tagihannya."
+  },
+  "u2": {
+   "title": "Cara berkomentar dalam review",
+   "prompt": "Komentar review kode mana yang paling berguna?",
+   "opts": [
+    "Loop ini melewati daftar dua kali; bisakah digabung menjadi satu? Senang membantu jika kamu mau",
+    "Kode yang buruk, ulangi",
+    "Disetujui (tanpa membaca)",
+    "Saya akan melakukannya secara berbeda"
+   ],
+   "hint": "Komentar yang baik menunjuk ke suatu titik, menjelaskan alasannya, dan membuka percakapan.",
+   "why": "Review yang efektif bersifat spesifik, membicarakan kode bukan orangnya, dan mengusulkan jalan ke depan. Menyetujui tanpa membaca lebih buruk daripada tidak mereview: itu menciptakan rasa aman palsu.",
+   "analogy": "Editor naskah yang baik melingkari kalimat dan menyarankan yang lain; mereka tidak mengembalikan naskah dengan tulisan \"ini buruk\" di sampulnya."
+  },
+  "u3": {
+   "title": "Membayar utang atau menambahnya",
+   "prompt": "Klasifikasikan setiap tindakan terkait utang teknis.",
+   "bins": [
+    "Membayar utang",
+    "Menambah utang"
+   ],
+   "cards": [
+    "Mengganti nama x1 menjadi total_sales",
+    "Menyalin dan menempelkan fungsi untuk menghemat waktu",
+    "Menulis tes sebelum menyentuh kode lama",
+    "Mematikan peringatan penganalisis statis agar build lolos"
+   ],
+   "hint": "Tanyakan: apakah ini membuat perubahan berikutnya lebih mudah atau lebih sulit?",
+   "why": "Nama yang jelas dan tes menurunkan biaya perubahan di masa depan. Duplikasi dan peringatan yang dibungkam menyembunyikan masalah yang kembali lebih besar.",
+   "analogy": "Ini seperti kartu kredit: membayar dengan cicilan menyelesaikan bulan ini, tetapi setiap cicilan yang ditunda menambah bunga. Mengganti nama dan menguji adalah membayar tagihan."
+  },
+  "u4": {
+   "title": "Pull request 2.000 baris",
+   "prompt": "Perubahan dengan 2.000 baris yang dimodifikasi datang untuk direview. Apa tindakan terbaik?",
+   "opts": [
+    "Minta untuk dipecah menjadi perubahan yang lebih kecil dan independen",
+    "Review semuanya sekaligus, dengan terburu-buru",
+    "Setujui, percaya pada pembuatnya",
+    "Tolak tanpa menjelaskan alasannya"
+   ],
+   "hint": "Perhatian seorang reviewer turun tajam setelah beberapa ratus baris.",
+   "why": "Perubahan kecil mendapat perhatian nyata dalam review, digabungkan lebih cepat, dan mudah dikembalikan. Perubahan raksasa lolos tanpa dibaca.",
+   "analogy": "Tidak ada yang memeriksa seluruh isi rumah pindahan dengan melihat truk yang tertutup. Kotak demi kotak, kamu bisa melihat apa yang rusak."
+  },
+  "u5": {
+   "title": "Di mana harus menyerang lebih dulu",
+   "prompt": "Sebuah fungsi memiliki kompleksitas siklomatik 35, tidak ada cakupan tes, dan diubah setiap minggu. Apa prioritasnya?",
+   "opts": [
+    "Tinggi: tutupi dengan tes, lalu pecah menjadi bagian-bagian lebih kecil",
+    "Rendah: jika berfungsi, jangan disentuh",
+    "Tulis ulang seluruh sistem dari awal",
+    "Tidak ada: metrik tidak berarti apa-apa"
+   ],
+   "hint": "Gabungkan tiga sinyal: banyak jalur, tidak ada tes, sering berubah.",
+   "why": "Risiko adalah kompleksitas dikalikan dengan seberapa sering kode berubah. Pertama jaring pengaman tes, lalu refactoring dalam langkah-langkah kecil; menulis ulang semuanya menukar satu risiko yang diketahui dengan beberapa risiko yang tidak diketahui.",
+   "analogy": "Ini adalah persimpangan tanpa lampu lalu lintas yang dilewati semua orang pada jam sibuk: bahayanya bukan karena ada, tetapi berapa kali sehari seseorang melewatinya."
+  },
+  "o1": {
+   "title": "Apa yang dilakukan CI",
+   "prompt": "Apa yang dilakukan continuous integration pada setiap push?",
+   "opts": [
+    "Membangun proyek dan menjalankan tes secara otomatis, memperingatkan jika ada yang rusak",
+    "Merilis ke produksi tanpa pengujian",
+    "Hanya membuat salinan cadangan kode",
+    "Menghapus cabang lama"
+   ],
+   "hint": "Bayangkan seorang penjaga yang memeriksa setiap perubahan begitu tiba.",
+   "why": "CI membangun proyek dari awal dan menjalankan tes pada setiap perubahan. Nilainya terletak pada seberapa cepat peringatan datang: menit, bukan minggu.",
+   "analogy": "Ini adalah detektor logam di pintu: ia memeriksa setiap orang saat masuk, alih-alih menggeledah seluruh gedung di akhir bulan."
   },
   "o2": {
    "title": "Jalan menuju produksi",
@@ -1268,232 +1494,6 @@ LANG.id = {
    "hint": "Apa gunanya alarm setelah semua orang belajar mengabaikannya?",
    "why": "Dengan build merah, cacat baru lolos tersembunyi di belakang cacat pertama. Memperbaiki build menjadi prioritas seluruh tim; menonaktifkan tes hanya mematikan lampu di dashboard.",
    "analogy": "Itu lampu oli di dashboard: menutupnya dengan lakban tidak memperbaiki mesin."
-  },
-  "q6": {
-   "title": "Triage Kebutuhan",
-   "prompt": "Klasifikasikan setiap kebutuhan sistem klinik kesehatan.",
-   "bins": [
-    "Fungsional",
-    "Non-fungsional"
-   ],
-   "cards": [
-    "Pasien mendapat pengingat sehari sebelum jadwal temu",
-    "Sistem tersedia 99% dari waktu",
-    "Resepsionis menjadwalkan ulang janji temu",
-    "Data pasien disimpan terenkripsi"
-   ],
-   "hint": "Tanyakan pada setiap kartu: apakah ini sesuatu yang DILAKUKAN sistem, atau kualitas pelaksanaannya?",
-   "why": "Mengingatkan dan menjadwalkan ulang adalah perilaku (fungsional). Ketersediaan dan enkripsi adalah kualitas layanan (non-fungsional), dan sering terlupakan sampai menjadi masalah.",
-   "analogy": "Pada menu, hidangan adalah bagian fungsional. Tiba dalam keadaan panas, dalam dua puluh menit, dan dari dapur yang bersih adalah bagian non-fungsional: tidak ada yang memesannya, semua orang mengharapkannya."
-  },
-  "a6": {
-   "title": "Ritme Sprint",
-   "prompt": "Urutkan peristiwa sprint Scrum.",
-   "lines": [
-    "Perencanaan: tim memilih apa yang sesuai untuk sprint",
-    "Pertemuan harian melacak kemajuan",
-    "Tinjauan: increment ditunjukkan kepada pengguna",
-    "Retrospektif: tim memperbaiki prosesnya sendiri"
-   ],
-   "hint": "Pertama Anda memutuskan apa yang akan dilakukan; pada akhirnya Anda melihat produk lalu proses.",
-   "why": "Sprint dibuka dengan perencanaan, berlanjut dengan harian, menunjukkan hasil pada tinjauan, dan ditutup dengan retrospektif, yang menjadi masukan siklus berikutnya.",
-   "analogy": "Seperti perjalanan: rencanakan rute, periksa peta setiap hari, tunjukkan foto setibanya di tujuan, dan sepakati apa yang akan dilakukan berbeda lain kali."
-  },
-  "g6": {
-   "title": "Mengurai Konflik",
-   "prompt": "Urutkan langkah-langkah menyelesaikan konflik merge dengan aman.",
-   "lines": [
-    "Bawa main terbaru ke cabang Anda",
-    "Buka file yang ditandai berkonflik",
-    "Putuskan, bagian demi bagian, versi mana yang bertahan",
-    "Jalankan tes untuk memeriksa tidak ada yang rusak",
-    "Catat commit yang menyelesaikan merge"
-   ],
-   "hint": "Konflik hanya muncul saat kedua versi bertemu; commit hanya dilakukan setelah pemeriksaan.",
-   "why": "Merge mengungkap konflik, keputusan bersifat manusiawi dan dilakukan bagian demi bagian, dan tes memastikan kombinasi bekerja sebelum commit akhir.",
-   "analogy": "Dua editor mengubah paragraf yang sama: kedua versi digabungkan, dibaca dengan tenang, dipilih susunan kata, seluruh teks diperiksa, dan baru kemudian dicetak."
-  },
-  "t6": {
-   "title": "Siklus TDD",
-   "prompt": "Urutkan siklus test-driven development.",
-   "lines": [
-    "Tulis tes yang gagal",
-    "Tulis kode minimum agar tes lulus",
-    "Jalankan semua tes dan lihat semuanya hijau",
-    "Refactor di bawah perlindungan tes"
-   ],
-   "hint": "Merah, hijau, refactor.",
-   "why": "Tes datang lebih dulu dan gagal (merah), kode minimum membuatnya lulus (hijau), dan baru setelah itu struktur diperbaiki, dengan jaring pengaman tes di bawahnya.",
-   "analogy": "Penjahit menandai ukuran terlebih dahulu, lalu memotong kain hingga pas, dan hanya pada akhirnya melakukan penyelesaian, memeriksa ukuran setelah setiap penyesuaian."
-  },
-  "d6": {
-   "title": "Tanda-tanda Coupling",
-   "prompt": "Klasifikasikan setiap situasi yang diamati pada sistem koperasi.",
-   "bins": [
-    "Coupling rendah",
-    "Coupling tinggi"
-   ],
-   "cards": [
-    "Perhitungan pengiriman menerima tabel harga sebagai parameter",
-    "Layar mengakses basis data secara langsung",
-    "Penagihan berkomunikasi dengan pembayaran melalui antarmuka",
-    "Mengubah formulir pendaftaran memaksa perubahan di enam file lain"
-   ],
-   "hint": "Tanyakan: jika bagian ini berubah, berapa banyak bagian lain yang harus ikut berubah?",
-   "why": "Menerima dependensi dari luar dan berkomunikasi melalui antarmuka mengisolasi bagian-bagian. Layar yang berbicara langsung ke basis data dan perubahan beruntun menunjukkan bagian-bagian yang saling terikat.",
-   "analogy": "Peralatan yang dicolokkan ke stopkontak diganti satu per satu. Peralatan dengan kabel yang disolder bersama memaksa Anda membongkar ruangan untuk mengganti televisi."
-  },
-  "m1": {
-   "title": "Siapa yang Menggunakan, dan untuk Apa",
-   "prompt": "Diagram mana yang menunjukkan siapa yang menggunakan sistem dan apa yang dapat dilakukan setiap orang?",
-   "opts": [
-    "Diagram use case",
-    "Diagram kelas",
-    "Diagram sekuens",
-    "Diagram deployment"
-   ],
-   "hint": "Cari tampilan yang berpusat pada orang (aktor) dan tujuan.",
-   "why": "Use case menghubungkan aktor dengan tujuan: pembaca meminjam, sukarelawan mendaftar. Kelas menunjukkan konsep; sekuens menunjukkan urutan pesan.",
-   "analogy": "Menu restoran dilihat dari ruang makan: siapa dapat memesan apa, tanpa menunjukkan dapur."
-  },
-  "m2": {
-   "title": "Buku dan Salinan",
-   "prompt": "Bagaimana hubungan antara Buku dan Salinan seharusnya dimodelkan?",
-   "opts": [
-    "Satu Buku memiliki banyak Salinan; setiap Salinan milik satu Buku",
-    "Satu Buku memiliki tepat satu Salinan",
-    "Banyak Buku ke banyak Salinan",
-    "Tidak ada hubungan: keduanya sama"
-   ],
-   "hint": "Perpustakaan memiliki tiga salinan Dom Casmurro. Berapa banyak judul, dan berapa banyak objek fisik?",
-   "why": "Hanya ada satu judul; objek di rak ada beberapa. Yang dipinjam adalah salinannya, bukan bukunya. Salah menentukan multiplisitas akan mengontaminasi seluruh basis data.",
-   "analogy": "Resepnya satu; kue yang dibuat darinya banyak. Anda makan kue, bukan resepnya."
-  },
-  "m3": {
-   "title": "Struktur atau Perilaku",
-   "prompt": "Klasifikasikan setiap kalimat: termasuk tampilan model yang mana?",
-   "bins": [
-    "Tampilan statis (kelas)",
-    "Tampilan dinamis (sekuens)"
-   ],
-   "cards": [
-    "Seorang Pembaca memiliki nama dan nomor telepon",
-    "Sistem memeriksa apakah salinan tersedia lalu mencatat peminjaman",
-    "Sebuah Peminjaman merujuk ke Salinan",
-    "Pengembalian memicu pemberitahuan kepada orang berikutnya dalam daftar tunggu"
-   ],
-   "hint": "Statis menggambarkan apa yang ada; dinamis menggambarkan apa yang terjadi, dan dalam urutan apa.",
-   "why": "Atribut dan hubungan adalah struktur dan berlaku sepanjang waktu. Memeriksa, mencatat, dan memberi tahu adalah peristiwa yang berurutan dalam waktu.",
-   "analogy": "Denah lantai menunjukkan ruangan (statis); naskah kunjungan menunjukkan ke mana orang berjalan dan dalam urutan apa (dinamis)."
-  },
-  "m4": {
-   "title": "Urutan peminjaman",
-   "prompt": "Urutkan pesan pada diagram urutan \"pinjam buku\".",
-   "lines": [
-    "Pembaca meminta buku di meja layanan",
-    "Relawan mencari judul di sistem",
-    "Sistem memeriksa apakah ada salinan yang tersedia",
-    "Sistem mencatat peminjaman dan tanggal jatuh tempo",
-    "Relawan menyerahkan salinan kepada pembaca"
-   ],
-   "hint": "Setiap pesan hanya masuk akal setelah pesan sebelumnya dijawab.",
-   "why": "Urutan dimulai dari aktor, melalui pencarian dan pemeriksaan, dan hanya mencatat setelah ketersediaan dikonfirmasi. Penyerahan fisik menutup alur.",
-   "analogy": "Ini seperti koreografi: setiap langkah menjawab langkah sebelumnya, dan menukar urutan membuat para penari saling bertabrakan."
-  },
-  "m5": {
-   "title": "Seberapa banyak yang perlu dimodelkan",
-   "prompt": "Tim ingin menggambar semua 40 kelas secara rinci sebelum menulis baris kode pertama. Apa panduan terbaik?",
-   "opts": [
-    "Modelkan apa yang diperlukan untuk menyelaraskan tim dan bagian yang paling berisiko, lalu kembangkan model seiring dengan kode",
-    "Modelkan semuanya secara rinci terlebih dahulu, agar tidak ada pengerjaan ulang",
-    "Tidak perlu memodelkan apa pun: kode adalah dokumentasinya",
-    "Setiap orang menggambar modelnya sendiri lalu semuanya digabungkan"
-   ],
-   "hint": "Model bernilai sebesar kesalahpahaman yang dicegahnya, bukan jumlah kotaknya.",
-   "why": "Pemodelan yang berlebihan menjadi usang sebelum digunakan; terlalu sedikit membuat kesalahpahaman mencapai kode. Jumlah yang tepat adalah cukup untuk memutuskan langkah berikutnya dengan aman.",
-   "analogy": "Untuk sebuah perjalanan, Anda merencanakan rute dan memesan hotel pertama; Anda tidak memutuskan di meja mana Anda akan makan siang pada hari kesepuluh."
-  },
-  "u1": {
-   "title": "Dua hari untuk mengubah satu baris",
-   "prompt": "Bia butuh dua hari untuk memperbaiki satu baris di kode Caio. Atribut kualitas apa yang hilang?",
-   "opts": [
-    "Kemudahan pemeliharaan",
-    "Kinerja",
-    "Kegunaan",
-    "Portabilitas"
-   ],
-   "hint": "Programnya berfungsi untuk pengguna. Untuk siapa program itu tidak berfungsi?",
-   "why": "Kemudahan pemeliharaan adalah betapa mudahnya memahami, memperbaiki, dan mengembangkan perangkat lunak. Ini tidak terlihat oleh pengguna tetapi menentukan biaya.",
-   "analogy": "Sebuah mobil dapat berjalan dengan baik tetapi tetap perlu membongkar mesin untuk mengganti bohlam. Mekaniknya menderita, dan pemiliknya mendapat tagihan."
-  },
-  "u2": {
-   "title": "Cara berkomentar dalam tinjauan",
-   "prompt": "Komentar tinjauan kode mana yang paling berguna?",
-   "opts": [
-    "Loop ini melewati daftar dua kali; bisakah digabung menjadi satu? Dengan senang hati membantu jika Anda mau",
-    "Kode yang buruk, ulangi",
-    "Disetujui (tanpa membaca)",
-    "Saya akan melakukannya dengan cara berbeda"
-   ],
-   "hint": "Komentar yang baik menunjuk ke satu titik, menjelaskan alasannya, dan membuka percakapan.",
-   "why": "Tinjauan yang efektif bersifat spesifik, membahas kode bukan orangnya, dan mengusulkan jalan ke depan. Menyetujui tanpa membaca lebih buruk daripada tidak meninjau: itu menciptakan rasa aman yang palsu.",
-   "analogy": "Penyunting yang baik melingkari kalimat dan menyarankan alternatif; mereka tidak mengembalikan naskah dengan tulisan \"ini buruk\" di sampulnya."
-  },
-  "u3": {
-   "title": "Membayar utang atau menambahnya",
-   "prompt": "Klasifikasikan setiap tindakan terkait utang teknis.",
-   "bins": [
-    "Membayar utang",
-    "Menambah utang"
-   ],
-   "cards": [
-    "Mengganti nama x1 menjadi total_penjualan",
-    "Menyalin dan menempelkan fungsi untuk menghemat waktu",
-    "Menulis tes sebelum menyentuh kode lama",
-    "Mematikan peringatan penganalisis statis agar build berhasil"
-   ],
-   "hint": "Tanyakan: apakah ini membuat perubahan berikutnya lebih mudah atau lebih sulit?",
-   "why": "Nama yang jelas dan tes menurunkan biaya perubahan di masa depan. Duplikasi dan peringatan yang dibungkam menyembunyikan masalah yang muncul kembali lebih besar.",
-   "analogy": "Ini seperti kartu kredit: membayar dengan cicilan menyelesaikan bulan ini, tetapi setiap cicilan yang ditunda menambah bunga. Mengganti nama dan menguji adalah membayar tagihan."
-  },
-  "u4": {
-   "title": "Pull request 2.000 baris",
-   "prompt": "Sebuah perubahan dengan 2.000 baris yang dimodifikasi tiba untuk ditinjau. Apa tindakan terbaik?",
-   "opts": [
-    "Minta untuk dipecah menjadi perubahan yang lebih kecil dan mandiri",
-    "Tinjau semuanya sekaligus, dengan terburu-buru",
-    "Setujui, percaya pada pembuatnya",
-    "Tolak tanpa menjelaskan alasannya"
-   ],
-   "hint": "Perhatian peninjau menurun tajam setelah beberapa ratus baris.",
-   "why": "Perubahan kecil mendapat perhatian nyata dalam tinjauan, digabungkan lebih cepat, dan mudah dikembalikan. Perubahan raksasa lolos tanpa dibaca.",
-   "analogy": "Tidak ada yang memeriksa seluruh isi truk pindahan yang tertutup. Kotak demi kotak, Anda bisa melihat apa yang rusak."
-  },
-  "u5": {
-   "title": "Di mana harus menyerang lebih dulu",
-   "prompt": "Sebuah fungsi memiliki kompleksitas siklomatik 35, tanpa cakupan tes, dan berubah setiap minggu. Apa prioritasnya?",
-   "opts": [
-    "Tinggi: tutupi dengan tes, lalu pecah menjadi bagian-bagian yang lebih kecil",
-    "Rendah: jika berfungsi, jangan disentuh",
-    "Tulis ulang seluruh sistem dari awal",
-    "Tidak ada: metrik tidak berarti apa-apa"
-   ],
-   "hint": "Gabungkan tiga sinyal: banyak jalur, tanpa tes, perubahan yang sering.",
-   "why": "Risiko adalah kompleksitas dikalikan seberapa sering kode berubah. Pertama jaring pengaman tes, lalu refaktorisasi dalam langkah kecil; menulis ulang semuanya menukar satu risiko yang diketahui dengan beberapa risiko yang tidak diketahui.",
-   "analogy": "Ini adalah persimpangan tanpa lampu lalu lintas yang dilalui semua orang pada jam sibuk: bahayanya bukan bahwa persimpangan itu ada, tetapi berapa kali sehari seseorang melewatinya."
-  },
-  "o1": {
-   "title": "Apa yang dilakukan CI",
-   "prompt": "Apa yang dilakukan continuous integration pada setiap push?",
-   "opts": [
-    "Membangun proyek dan menjalankan tes secara otomatis, memberi peringatan jika ada yang rusak",
-    "Merilis ke produksi tanpa pengujian",
-    "Hanya membuat salinan cadangan kode",
-    "Menghapus cabang lama"
-   ],
-   "hint": "Bayangkan seorang penjaga yang memeriksa setiap perubahan begitu tiba.",
-   "why": "CI membangun proyek dari awal dan menjalankan tes pada setiap perubahan. Nilainya terletak pada seberapa cepat peringatan datang: menit, bukan minggu.",
-   "analogy": "Ini seperti detektor logam di pintu: memeriksa setiap orang saat masuk, alih-alih menggeledah seluruh gedung pada akhir bulan."
   }
  },
  "game": {
@@ -1504,15 +1504,15 @@ LANG.id = {
    ],
    "fifty": [
     "Hapus dua",
-    "Menghapus dua opsi salah dari tiket pilihan ganda. Jawaban benar kemudian dianggap sebagai bukti penguasaan yang lebih lemah."
+    "Menghapus dua pilihan salah dari tiket pilihan ganda. Jawaban benar kemudian dihitung sebagai bukti penguasaan yang lebih lemah."
    ],
    "time": [
     "Waktu tambahan",
-    "Menambah 30 detik pada jam dalam mode Extra hardcore."
+    "Menambah 30 detik ke jam pada mode {h}."
    ],
    "boost": [
     "XP ganda",
-    "Menggandakan XP dari 3 tiket berikutnya. Aktif segera setelah kamu menukarkannya."
+    "Menggandakan XP pada 3 tiketmu berikutnya. Aktif segera setelah kamu menukarkannya."
    ],
    "tBug": [
     "Pemburu bug",
@@ -1528,28 +1528,28 @@ LANG.id = {
    ]
   },
   "bounties": {
-   "b1": "Jawab 3 tiket berturut-turut dengan benar tanpa petunjuk",
-   "b2": "Selesaikan tiket pada mode Hard atau Extra hardcore",
+   "b1": "Selesaikan 3 tiket berturut-turut dengan benar tanpa petunjuk",
+   "b2": "Selesaikan tiket pada mode {d} atau {h}",
    "b3": "Sprint bersih: 5 dari 5"
   },
   "bosses": {
    "bossA": {
     "name": "Inspektur",
     "client": "Toko roti Dona Lúcia",
-    "trophy": "Segel Inspektur",
-    "story": "Seorang inspektur kota masuk ke toko roti dan ingin melihat, dalam waktu satu jam, total penjualan yang didiskon, jumlah pelanggan yang mendapat diskon, dan perhitungan kembalian. Program kasir mencampur variabel, kondisi, dan perulangan, dan kesalahan sekecil apa pun berarti denda. Dona Lúcia menatapmu."
+    "trophy": "Stempel Inspektur",
+    "story": "Seorang inspektur kota masuk ke toko roti dan ingin melihat, dalam satu jam, total penjualan dengan diskon, jumlah pelanggan yang mendapat diskon, dan perhitungan kembalian. Program kasir mencampur variabel, kondisi, dan perulangan, dan kesalahan apa pun berarti denda. Dona Lúcia menatapmu."
    },
    "bossB": {
     "name": "Migrasi Besar",
-    "client": "Kantor Notaris Distrik ke-2",
+    "client": "Kantor Notaris Distrik 2",
     "trophy": "Kunci Arsip",
-    "story": "Kantor notaris memindahkan file selama 40 tahun ke server baru akhir pekan ini. Skripnya menggunakan fungsi rekursif pada list, dan laporan dengan hitungan yang salah membatalkan seluruh proses. Helena perlu memeriksa setiap fungsi sebelum hari Sabtu."
+    "story": "Kantor notaris memindahkan arsip 40 tahun ke server baru akhir pekan ini. Skrip menggunakan fungsi rekursif pada daftar, dan laporan dengan jumlah yang salah menggagalkan seluruh proses. Helena perlu setiap fungsi diperiksa sebelum hari Sabtu."
    },
    "bossC": {
     "name": "Jumat, jam 5 sore",
-    "client": "Koperasi pengiriman Roda Viva",
+    "client": "Koperasi antar Roda Viva",
     "trophy": "Medali Jumat",
-    "story": "Jumat, jam 5 sore. Koperasi menuntut voucher makan aktif hari ini, karena kampanye dimulai besok. Kode sudah selesai ada di mesin seseorang, tanpa tes dan tanpa review. Semua yang kamu pelajari tentang requirements, proses, versioning, testing, dan design akan diuji dalam beberapa jam ke depan."
+    "story": "Jumat, jam 5 sore. Koperasi menuntut voucher makan aktif hari ini, karena kampanye dimulai besok. Kode sudah selesai di mesin seseorang, tanpa tes dan tanpa review. Semua yang kamu pelajari tentang kebutuhan, proses, versioning, pengujian, dan desain akan diuji dalam beberapa jam ke depan."
    }
   }
  }

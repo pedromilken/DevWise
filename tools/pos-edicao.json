@@ -1,0 +1,167 @@
+{
+ "_": "Correções manuais reaplicadas pelo gerador depois de cada geração (troca exata de texto; se o trecho não existir mais, é ignorado).",
+ "ko": [
+  [
+   "당신은 방금 Ponte에 합류했습니다.",
+   "여러분은 방금 Ponte에 합류했습니다."
+  ],
+  [
+   "이론 도구 상자를 공부한 후에야 티켓을 집어 듭니다.",
+   "이론 도구 상자를 공부한 다음에야 티켓을 맡게 됩니다."
+  ],
+  [
+   "코드를 정렬하고, 버그를 찾고",
+   "코드 순서를 맞추고, 버그를 찾고"
+  ],
+  [
+   "\\\"당신의 번호는 무엇인가요?\\\"",
+   "\\\"몇 번이세요?\\\""
+  ],
+  [
+   "\"준비됐습니다: 이 미션의 티켓을 공개하세요\"",
+   "\"준비됐어요. 이 미션의 티켓 받기\""
+  ],
+  [
+   "\"{n} XP 남음 (비용 {c})\"",
+   "\"{n} XP 부족 (가격 {c})\""
+  ],
+  [
+   "\"이번에는 아니에요\"",
+   "\"이번엔 아쉽네요\""
+  ],
+  [
+   "\"반등: 실수 직후 정답을 맞히면 +{x} XP.\"",
+   "\"재기 보너스: 실수 직후에 정답을 맞혀 +{x} XP.\""
+  ],
+  [
+   "\"Paulo Freire Municipal School\"",
+   "\"Paulo Freire 시립학교\""
+  ]
+ ],
+ "fr": [
+  [
+   "une petite entreprise de logiciels qui dessert la boulangerie du quartier",
+   "une petite entreprise de logiciels qui travaille pour la boulangerie du quartier"
+  ],
+  [
+   "la compétence du référentiel SBC qui est entraînée",
+   "la compétence du référentiel SBC que vous travaillez"
+  ],
+  [
+   "Compétences du référentiel SBC (2017) entraînées ici",
+   "Compétences du référentiel SBC (2017) travaillées ici"
+  ],
+  [
+   "chassez les bogues",
+   "traquez les bugs"
+  ],
+  [
+   "Chasser le bogue",
+   "Traquer le bug"
+  ],
+  [
+   "\"Maîtrise de {s} : {a} à {b}   (+{x} XP)\"",
+   "\"Maîtrise de {s} : de {a} à {b}   (+{x} XP)\""
+  ],
+  [
+   "\"Rebondissez : +{x} XP pour avoir réussi juste après une erreur.\"",
+   "\"Rebond : +{x} XP pour avoir réussi juste après une erreur.\""
+  ],
+  [
+   "(appuyez sur une ligne pour la renvoyer)",
+   "(appuyez sur une ligne pour la retirer)"
+  ],
+  [
+   "\"review\": \"Revoir\"",
+   "\"review\": \"Révision\""
+  ]
+ ],
+ "ru": [
+  [
+   "Учись программированию и программной инженерии",
+   "Учитесь программированию и программной инженерии"
+  ]
+ ],
+ "ja": [
+  [
+   "あなたは、近所のパン屋",
+   "近所のパン屋"
+  ],
+  [
+   "現実の人々の問題を解決しながら",
+   "身近な人々の実際の課題を解決しながら"
+  ]
+ ],
+ "zh": [
+  [
+   "通过解决真实人物的问题来学习编程和软件工程",
+   "通过解决真实的人遇到的问题来学习编程和软件工程"
+  ]
+ ],
+ "vi": [
+  [
+   "một cửa hàng phần mềm nhỏ phục vụ",
+   "một công ty phần mềm nhỏ phục vụ"
+  ]
+ ],
+ "ar": [
+  [
+   "وعندها فقط تلتقط التذاكر",
+   "وعندها فقط تبدأ العمل على التذاكر"
+  ]
+ ],
+ "hi": [
+  [
+   "और उसके बाद ही टिकट उठाते हैं",
+   "और उसके बाद ही टिकटों पर काम शुरू करते हैं"
+  ]
+ ],
+ "bn": [
+  [
+   "তারপরই টিকিট ধরেন",
+   "তারপরই টিকিটের কাজ শুরু করেন"
+  ]
+ ],
+ "pa": [
+  [
+   "ਇੱਕ ਛੋਟੀ ਸਾਫਟਵੇਅਰ ਦੁਕਾਨ ਜੋ",
+   "ਇੱਕ ਛੋਟੀ ਸਾਫਟਵੇਅਰ ਕੰਪਨੀ ਜੋ"
+  ],
+  [
+   "ਅਤੇ ਫਿਰ ਹੀ ਟਿਕਟਾਂ ਚੁੱਕਦੇ ਹੋ",
+   "ਅਤੇ ਫਿਰ ਹੀ ਟਿਕਟਾਂ 'ਤੇ ਕੰਮ ਸ਼ੁਰੂ ਕਰਦੇ ਹੋ"
+  ]
+ ],
+ "ur": [
+  [
+   "اور تب ہی ٹکٹس اٹھاتے ہیں",
+   "اور تب ہی ٹکٹس پر کام شروع کرتے ہیں"
+  ]
+ ],
+ "tr": [
+  [
+   "isme göre ararsınız ve tüm listeyi okumadan telefon numarasını bulursunuz.",
+   "isme göre ararsın ve tüm listeyi okumadan telefon numarasını bulursun."
+  ],
+  [
+   "patron sizi yense bile tam o ana geri dönebilirsiniz.",
+   "patron seni yense bile tam o ana geri dönebilirsin."
+  ],
+  [
+   "serbestçe denersiniz ve yalnızca metin iyi olduğunda orijinaline kopyalarsınız.",
+   "serbestçe denersin ve yalnızca metin iyi olduğunda orijinaline kopyalarsın."
+  ],
+  [
+   "ampullerin sorun olmadığını zaten bilirsiniz.",
+   "ampullerin sorun olmadığını zaten bilirsin."
+  ],
+  [
+   "duvarın ortasına değil, çerçevesine bakarsınız.",
+   "duvarın ortasına değil, çerçevesine bakarsın."
+  ],
+  [
+   "Tarifi değil, keki yersiniz.",
+   "Tarifi değil, keki yersin."
+  ]
+ ]
+}

@@ -1,0 +1,192 @@
+{
+ "_": "Guia de estilo por idioma para o gerador. 'tratamento' entra no prompt; 'evitar' é uma regex que reprova o bloco (com novas tentativas) quando a forma de tratamento errada aparece; 'notas' são instruções extras. 'glossario' fixa o termo de cada idioma para palavras-chave do jogo: [termo a usar, regex de termos a evitar], conferido só nos textos cuja fonte contém a palavra.",
+ "geral": [
+  "'pick up the tickets' is an idiom: it means start working on the tasks. Do not translate it as physically lifting or grabbing something.",
+  "'software shop' means a small software company, not a store.",
+  "For 'analogy' use the everyday word a teacher would say, not a rare learned term.",
+  "Address the learner the same way in every sentence; never switch between informal and formal address.",
+  "In the modelling mission, class names such as Book, Copy, Reader and Loan are domain concepts, not code: translate them.",
+  "Never leave English words in the middle of a sentence when the language has its own everyday term; placeholders in braces such as {d} or {h} stand for names the game fills in, so keep them exactly.",
+  "Cohesion: the title, prompt, hint, explanation and analogy of one item form a single short lesson; use the same terms across them and natural connectives of the language.",
+  "Comprehension: write for an adult beginner; prefer short sentences and the word order a native teacher would use when speaking to a class.",
+  "Naturalness: compose each sentence as people in that country really say it; avoid calques of English syntax, English punctuation habits and passive constructions that the language avoids. Follow local conventions for numbers, percent signs and quotation marks."
+ ],
+ "de": {
+  "tratamento": "Address the learner informally with 'du' (never 'Sie').",
+  "evitar": "(?<![.!?:»«\"]\\s)(?<!^)\\b(Sie|Ihnen|Ihre[nmrs]?|Ihr)\\b",
+  "glossario": {
+   "ticket": [
+    "Ticket",
+    ""
+   ]
+  }
+ },
+ "id": {
+  "tratamento": "Address the learner with 'kamu' (never 'Anda').",
+  "evitar": "\\bAnda\\b",
+  "glossario": {
+   "ticket": [
+    "tiket",
+    ""
+   ]
+  }
+ },
+ "tr": {
+  "tratamento": "Address the learner informally with 'sen' forms (never 'siz' forms). Use 'görev' for ticket.",
+  "evitar": "(?<![a-zçğıöşü])siz(?![a-zçğıöşü])|[ıiuü]n[ıiuü]z\\b",
+  "glossario": {
+   "ticket": [
+    "görev",
+    "bilet|iş emr"
+   ]
+  }
+ },
+ "te": {
+  "tratamento": "Address the learner politely with 'మీరు' (never 'నువ్వు').",
+  "evitar": "(^|\\s)(నువ్వు|నీకు|నీవు)(\\s|$|[,.!?])",
+  "glossario": {
+   "ticket": [
+    "టికెట్",
+    ""
+   ]
+  }
+ },
+ "bn": {
+  "tratamento": "Address the learner politely with 'আপনি' (never 'তুমি').",
+  "evitar": "তুমি|তোমার|তোমাকে",
+  "glossario": {
+   "ticket": [
+    "টিকিট",
+    "টিকেট"
+   ]
+  }
+ },
+ "ur": {
+  "tratamento": "Address the learner politely with 'آپ' (never 'تم').",
+  "evitar": "(^|\\s)(تم|تمہارا|تمہاری|تمہارے)(\\s|$)",
+  "glossario": {
+   "ticket": [
+    "ٹکٹ",
+    ""
+   ]
+  }
+ },
+ "zh": {
+  "tratamento": "Address the learner with '你' (never '您').",
+  "evitar": "您",
+  "glossario": {
+   "ticket": [
+    "工单",
+    "任务单|票"
+   ]
+  }
+ },
+ "ru": {
+  "tratamento": "Address the learner with lowercase 'вы' and plural imperatives such as 'Учитесь', 'Выберите' (never 'ты').",
+  "evitar": "(^|[^а-яё])(ты|тебя|тебе|твой|твоя|твои|твоё)([^а-яё]|$)",
+  "glossario": {
+   "ticket": [
+    "задача (задачи, задачу...)",
+    "билет"
+   ]
+  }
+ },
+ "ja": {
+  "tratamento": "Use polite です/ます style and omit the pronoun 'あなた' wherever natural Japanese would drop it.",
+  "evitar": "",
+  "glossario": {
+   "ticket": [
+    "チケット",
+    ""
+   ]
+  }
+ },
+ "ko": {
+  "tratamento": "Use 합니다체 for explanations and 해요체 for questions; address the learner as '여러분', never '당신'.",
+  "evitar": "",
+  "glossario": {
+   "ticket": [
+    "티켓",
+    ""
+   ]
+  }
+ },
+ "fr": {
+  "tratamento": "Address the learner with 'vous'.",
+  "evitar": "",
+  "glossario": {
+   "ticket": [
+    "ticket",
+    "billet"
+   ]
+  }
+ },
+ "hi": {
+  "tratamento": "Address the learner with 'आप'.",
+  "evitar": "",
+  "glossario": {
+   "ticket": [
+    "टिकट",
+    ""
+   ]
+  }
+ },
+ "mr": {
+  "tratamento": "Address the learner with 'तुम्ही'.",
+  "evitar": "",
+  "glossario": {
+   "ticket": [
+    "तिकीट (अनेकवचन: तिकिटे)",
+    ""
+   ]
+  }
+ },
+ "pa": {
+  "tratamento": "Address the learner with 'ਤੁਸੀਂ'.",
+  "evitar": "",
+  "glossario": {
+   "ticket": [
+    "ਟਿਕਟ",
+    ""
+   ]
+  }
+ },
+ "ta": {
+  "tratamento": "Address the learner with 'நீங்கள்' and use one imperative style consistently (-ுங்கள்).",
+  "evitar": "",
+  "glossario": {
+   "ticket": [
+    "டிக்கெட்",
+    ""
+   ]
+  }
+ },
+ "vi": {
+  "tratamento": "Address the learner with 'bạn'.",
+  "evitar": "",
+  "glossario": {
+   "ticket": [
+    "ticket",
+    "\\bvé\\b|phiếu"
+   ]
+  }
+ },
+ "ar": {
+  "tratamento": "Use Modern Standard Arabic with masculine singular address as the neutral default.",
+  "evitar": "",
+  "glossario": {
+   "ticket": [
+    "تذكرة (جمع: تذاكر)",
+    ""
+   ]
+  }
+ },
+ "romanizacao": {
+  "zh": "Hanyu Pinyin with tone marks, segmented into words",
+  "ja": "Modified Hepburn romaji with spaces between words",
+  "ar": "a readable romanisation with all short vowels written (simplified ALA-LC: ā ī ū, ' for hamza and ayn)",
+  "ur": "Roman Urdu as commonly written, with long vowels marked (ā ī ū)"
+ },
+ "furigana": "After every run of kanji insert its hiragana reading in square brackets, for example 現実[げんじつ]の問題[もんだい]を解決[かいけつ]する. Change nothing else: removing the brackets must give back the original string exactly.",
+ "rubrica": "You are a native-speaking teacher and copy editor of {lang}, reviewing the localisation of an educational game that teaches programming and software engineering to adult beginners. For each entry you receive the English source ('en') and the current text ('xx'). Judge three things: (1) cohesion: connectives, clear referents, the same term for the same thing; (2) comprehension: would an adult beginner understand it on first reading; (3) naturalness: is this how speakers of {lang} in their own country really talk and write, free of translated-sounding phrasing. Rewrite ONLY the entries that fail one of these. Never change the concept being taught, the facts, numbers, code, identifiers, placeholders in braces, or which answer is correct."
+}
