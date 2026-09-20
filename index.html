@@ -280,6 +280,20 @@ rt{font-size:.55em;color:var(--muted);font-weight:400;letter-spacing:0}
   @page{margin:16mm}
 }
 
+/* ---- v8: página inicial ---- */
+.homepage h1{font-size:clamp(2.2rem,6vw,4rem);font-weight:800;letter-spacing:-.03em;margin-bottom:14px}
+.hero{display:grid;grid-template-columns:1.35fr .65fr;gap:34px;align-items:center;padding:10px 0 4px}
+.hero .lead{font-size:1.15rem;max-width:36em;margin-bottom:22px}
+.numbers{display:grid;grid-template-columns:1fr 1fr;gap:14px 18px;text-align:center}
+.numbers div{font-size:.86rem;color:var(--muted);line-height:1.25}
+.numbers b{display:block;font-family:var(--display);font-size:2rem;color:var(--ink);line-height:1.1}
+.resume{margin-top:22px}
+.resume .kpis{margin:0}
+.homeh2{font-family:var(--display);font-size:1.45rem;font-weight:800;margin:30px 0 14px;padding-top:16px;border-top:2px solid var(--ink)}
+.homepage .loop{margin-bottom:4px}
+.homepage .grid2{margin-top:0}
+@media (max-width:820px){.hero{grid-template-columns:1fr}.numbers{grid-template-columns:repeat(4,1fr)}.numbers b{font-size:1.5rem}}
+
 </style>
 </head>
 <body>
@@ -1964,6 +1978,12 @@ g9:{title:"O que entra no repositório",prompt:"Classifique cada arquivo do proj
 g10:{title:"A publicação forçada",prompt:"Um colega sugere usar publicação forçada na branch principal para \"limpar\" o histórico. Por que isso é perigoso?",opts:["Reescreve o histórico que os outros já baixaram e pode apagar o trabalho deles","Deixa o repositório mais lento","Só funciona com permissão de administrador","Não é perigoso: é a forma recomendada de organizar commits"],hint:"O que acontece com quem já baixou a versão antiga e continuou trabalhando sobre ela?",why:"A publicação forçada substitui o histórico do remoto. Commits que outras pessoas já baixaram somem da linha do tempo, e o trabalho feito sobre eles fica órfão. Em branch compartilhada, prefere-se reverter.",analogy:"É reimprimir a ata de uma reunião que todos já levaram para casa. Quem anotou em cima da versão antiga fica com um documento que não existe mais."},
 g11:{title:"O commit que faz tudo",prompt:"Um commit altera o cálculo do troco, renomeia vinte variáveis e acrescenta uma tela nova. Qual é o problema?",opts:["Não dá para revisar, reverter nem localizar a origem de um defeito de forma isolada","Nenhum: commits grandes economizam tempo","O Git tem limite de arquivos por commit","A mensagem ficará longa demais"],hint:"Pense no dia em que só uma dessas três mudanças precisar ser desfeita.",why:"Cada commit deveria conter uma mudança coerente. Misturando três, a reversão leva junto o que estava certo, e a revisão se perde entre renomeações e lógica nova.",analogy:"É embalar cozinha, banheiro e escritório na mesma caixa. Para achar uma xícara, você revira tudo, e não dá para devolver só o que veio errado."}
 });
+Object.assign(LANG.pt.ui,{
+ navHome:"Início", homeMissions:"missões com história e teoria", homeTickets:"tickets no banco", homeLangs:"idiomas", homePls:"linguagens de programação",
+ homeSciH:"Como a ferramenta foi construída",
+ homeSbc:"As 14 missões cobrem programação e engenharia de software, e cada uma declara as competências dos Referenciais de Formação da SBC (2017) que treina. O mesmo conceito aparece em quatro linguagens de programação, com o mesmo gabarito.",
+ homeI18n:"O jogo existe em 20 idiomas, os mesmos da análise de tradução e tokenização que orienta o projeto. Escritas da direita para a esquerda são suportadas, e idiomas com escrita própria oferecem versão romanizada."
+});
 
 LANG.en = {
 name:"English", llmName:"English",
@@ -2309,6 +2329,12 @@ g9:{title:"What belongs in the repository",prompt:"Classify each file of the bak
 g10:{title:"The force push",prompt:"A colleague suggests force pushing to the main branch to \"tidy up\" the history. Why is that dangerous?",opts:["It rewrites history others have already pulled and can erase their work","It makes the repository slower","It only works with admin rights","It is not dangerous: it is the recommended way to organise commits"],hint:"What happens to someone who already pulled the old version and kept working on top of it?",why:"A force push replaces the remote history. Commits other people already pulled vanish from the timeline, and the work built on them is orphaned. On a shared branch, revert instead.",analogy:"It is reprinting the minutes of a meeting everyone already took home. Whoever annotated the old version is left holding a document that no longer exists."},
 g11:{title:"The commit that does everything",prompt:"One commit changes the change calculation, renames twenty variables and adds a new screen. What is the problem?",opts:["It cannot be reviewed, reverted or traced back to the source of a defect in isolation","None: big commits save time","Git has a limit of files per commit","The message will be far too long"],hint:"Think of the day when only one of those three changes has to be undone.",why:"Each commit should hold one coherent change. Mixing three, a revert drags along what was right, and the review gets lost between renames and new logic.",analogy:"It is packing the kitchen, the bathroom and the office in the same box. To find one cup you turn everything over, and you cannot send back only what arrived wrong."}
 });
+Object.assign(LANG.en.ui,{
+ navHome:"Home", homeMissions:"missions with story and theory", homeTickets:"tickets in the bank", homeLangs:"languages", homePls:"programming languages",
+ homeSciH:"How the tool was built",
+ homeSbc:"The 14 missions cover programming and software engineering, and each one states the competencies from the SBC Curriculum Guidelines (2017) that it trains. The same concept appears in four programming languages, with the same answer key.",
+ homeI18n:"The game exists in 20 languages, the same ones from the translation and tokenisation analysis that guides the project. Right-to-left scripts are supported, and languages with their own script offer a romanised version."
+});
 
 LANG.es = {
 name:"Español", llmName:"Latin American Spanish",
@@ -2653,6 +2679,12 @@ g8:{title:"Traer o ya mezclar",prompt:"¿Cuál es la diferencia entre fetch y pu
 g9:{title:"Qué entra al repositorio",prompt:"Clasifica cada archivo del proyecto de la panadería.",bins:["Versionar","Dejar afuera (.gitignore)"],cards:["El código fuente del cálculo del vuelto","El archivo con la contraseña de la base de datos","El README con instrucciones de instalación","La carpeta de bibliotecas descargadas automáticamente"],hint:"Pregúntate si el archivo lo escribió el equipo y si puede verlo cualquiera con acceso al repositorio.",why:"Se versiona lo que el equipo escribe y necesita compartir. Los secretos nunca entran, porque el historial de Git es permanente; las dependencias descargadas tampoco, porque se reconstruyen desde el archivo de dependencias.",analogy:"Es armar la valija: tu ropa va, el champú del hotel se queda. Y la llave de casa no viaja en una valija abierta de ninguna manera."},
 g10:{title:"La publicación forzada",prompt:"Un colega propone usar publicación forzada en la rama principal para \"limpiar\" el historial. ¿Por qué es peligroso?",opts:["Reescribe el historial que los demás ya descargaron y puede borrar su trabajo","Deja el repositorio más lento","Solo funciona con permisos de administrador","No es peligroso: es la forma recomendada de ordenar los commits"],hint:"¿Qué pasa con quien ya descargó la versión anterior y siguió trabajando sobre ella?",why:"La publicación forzada reemplaza el historial del remoto. Los commits que otras personas ya descargaron desaparecen de la línea de tiempo, y el trabajo hecho sobre ellos queda huérfano. En una rama compartida se prefiere revertir.",analogy:"Es reimprimir el acta de una reunión que todos ya se llevaron a casa. Quien anotó sobre la versión vieja se queda con un documento que ya no existe."},
 g11:{title:"El commit que hace de todo",prompt:"Un commit cambia el cálculo del vuelto, renombra veinte variables y agrega una pantalla nueva. ¿Cuál es el problema?",opts:["No se puede revisar, revertir ni rastrear el origen de un defecto por separado","Ninguno: los commits grandes ahorran tiempo","Git tiene un límite de archivos por commit","El mensaje va a quedar demasiado largo"],hint:"Piensa en el día en que haya que deshacer solo uno de esos tres cambios.",why:"Cada commit debería contener un cambio coherente. Al mezclar tres, la reversión se lleva lo que estaba bien, y la revisión se pierde entre renombres y lógica nueva.",analogy:"Es embalar la cocina, el baño y el escritorio en la misma caja. Para encontrar una taza das vuelta todo, y no puedes devolver solo lo que vino mal."}
+});
+Object.assign(LANG.es.ui,{
+ navHome:"Inicio", homeMissions:"misiones con historia y teoría", homeTickets:"tickets en el banco", homeLangs:"idiomas", homePls:"lenguajes de programación",
+ homeSciH:"Cómo se construyó la herramienta",
+ homeSbc:"Las 14 misiones cubren programación e ingeniería de software, y cada una declara las competencias de los Referenciales de Formación de la SBC (2017) que entrena. El mismo concepto aparece en cuatro lenguajes de programación, con la misma clave de respuesta.",
+ homeI18n:"El juego existe en 20 idiomas, los mismos del análisis de traducción y tokenización que orienta el proyecto. Se admiten escrituras de derecha a izquierda, y los idiomas con escritura propia ofrecen una versión romanizada."
 });
 
 /* Pacote gerado por tools/gerar-idioma.js a partir de "en". REVISAR com um falante nativo antes de publicar. */
@@ -33587,13 +33619,14 @@ function plTabs(){return h("div",{class:"tabs",role:"group","aria-label":t("code
 function topbar(){
   const onBoard=["board","ticket","retro","brief","boss"].includes(view);
   return h("header",{class:"top"},
-    h("button",{class:"brand",onclick:()=>go(S.started?"board":"home")},"DevWise"),
+    h("button",{class:"brand",onclick:()=>go("home")},"DevWise"),
     S.started&&h("div",{class:"stats"},h("span",null,t("role")+" ",h("b",null,career())),
       S.title&&h("span",null,SHOP.find(p=>p.id===S.title).icon+" ",h("b",null,gt().shop[S.title][0])),
       h("span",null,"💰 "+t("balance")+" ",h("b",{id:"bal"},S.xp+" XP")),h("span",null,t("total")+" ",h("b",null,String(S.xpTotal))),
       h("span",null,(S.streak>=3?"🔥 ":"")+t("streak")+" ",h("b",null,String(S.streak))),
       S.boost>0&&h("span",{class:"tag",style:"background:var(--gold-soft)"},"⚡ "+t("boostOn",{n:S.boost}))),
     h("nav",{class:"nav"},
+      S.started&&h("button",{"aria-current":view==="home"?"page":null,onclick:()=>go("home")},t("navHome")),
       S.started&&h("button",{"aria-current":onBoard?"page":null,onclick:()=>go("board")},t("navBoard")),
       S.started&&h("button",{"aria-current":view==="shop"?"page":null,onclick:()=>go("shop")},"🛍️ "+t("navShop")),
       S.started&&h("button",{"aria-current":view==="report"?"page":null,onclick:()=>go("report")},t("navReport")),
@@ -33601,11 +33634,39 @@ function topbar(){
       langBar()));
 }
 function home(){
-  return h("main",{class:"home"},
-    h("div",null,h("h1",{style:"font-size:clamp(2.4rem,6.5vw,4.4rem)"},t("homeH")),h("p",{class:"lead"},t("homeLead")),
-      h("button",{class:"btn",onclick:()=>{S.started=true;fillBoard();save();go("board")}},S.log.length?t("cont"):t("start"))),
-    h("ol",{class:"loop"},t("steps").map(s=>h("li",null,h("div",null,h("strong",null,s[0]),s[1])))));
+  const started=S.started&&S.log.length, done=SKILLS.filter(x=>mastered(x.id)&&confirmed(x.id)).length;
+  const num=(v,k)=>h("div",null,h("b",null,String(v)),t(k));
+  const go1=()=>{S.started=true;fillBoard();save();go("board")};
+  return h("main",{class:"homepage"},
+    h("section",{class:"hero"},
+      h("div",null,
+        h("h1",null,t("homeH")),
+        h("p",{class:"lead"},t("homeLead")),
+        h("div",{class:"row"},
+          h("button",{class:"btn",onclick:go1},started?t("cont"):t("start")),
+          started&&h("button",{class:"btn ghost",onclick:()=>go("report")},t("navReport")))),
+      h("div",{class:"panel numbers"},
+        num(SKILLS.length,"homeMissions"),num(ITEMS.length,"homeTickets"),
+        num(Object.keys(LANG).length,"homeLangs"),num(Object.keys(PLS).length,"homePls"))),
+    started&&h("section",{class:"panel resume"},
+      h("div",{class:"kpis"},
+        h("div",null,h("b",null,career()),t("role")),
+        h("div",null,h("b",null,String(S.xpTotal)),t("total")),
+        h("div",null,h("b",null,frac(done,SKILLS.length)),t("k3")),
+        h("div",null,h("b",null,String(S.log.length)),t("k1")))),
+    h("h2",{class:"homeh2"},t("arsenal")),
+    h("ol",{class:"loop"},t("steps").map(x=>h("li",null,h("div",null,h("strong",null,x[0]),x[1])))),
+    h("h2",{class:"homeh2"},t("homeSciH")),
+    h("div",{class:"grid2"},
+      h("section",{class:"panel"},h("h3",null,t("sbcH")),h("p",{class:"note"},t("homeSbc"))),
+      h("section",{class:"panel"},h("h3",null,t("modelH")),h("p",{class:"note"},t("howP",{m:pct(master())}))),
+      h("section",{class:"panel"},h("h3",null,t("uiLang")),h("p",{class:"note"},t("homeI18n"))),
+      h("section",{class:"panel"},h("h3",null,t("data")),h("p",{class:"note"},t("dataP")))),
+    h("div",{class:"row",style:"margin-top:22px"},
+      h("button",{class:"btn",onclick:go1},started?t("cont"):t("start")),
+      h("button",{class:"btn ghost",onclick:()=>go("settings")},t("navSettings"))));
 }
+
 function ticketCard(it,daily){
   const se=SK[it.skill].area==="se", conf=confirmToday(it.skill)&&!daily, rev=mastered(it.skill)&&!daily&&!conf;
   return h("button",{class:"ticket"+(se?" se":"")+(daily?" daily":""),onclick:()=>openTicket(it.id,{daily})},

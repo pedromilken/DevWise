@@ -4,6 +4,10 @@ Jogo instrutivo de **programação e engenharia de software** com *knowledge tra
 
 **Jogar:** https://pedromilken.github.io/DevWise/
 
+## Página inicial
+
+A rota inicial do `index.html` é uma página de apresentação: o que é a ferramenta, os números do banco, o ciclo das missões, a base curricular da SBC, o modelo de rastreamento, a cobertura de idiomas e a nota sobre onde os dados ficam. Quem já jogou vê ali o resumo do próprio progresso e o botão de continuar. Ela é acessível a qualquer momento pelo item **Início** do menu ou pelo nome do jogo.
+
 ## Como funciona
 
 Você entra na Ponte, uma pequena casa de software que atende a padaria, o posto de saúde, a escola e a cooperativa do bairro. Cada uma das 14 missões (6 de programação e 8 de engenharia de software) segue três passos:

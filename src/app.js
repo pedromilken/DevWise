@@ -232,13 +232,14 @@ function plTabs(){return h("div",{class:"tabs",role:"group","aria-label":t("code
 function topbar(){
   const onBoard=["board","ticket","retro","brief","boss"].includes(view);
   return h("header",{class:"top"},
-    h("button",{class:"brand",onclick:()=>go(S.started?"board":"home")},"DevWise"),
+    h("button",{class:"brand",onclick:()=>go("home")},"DevWise"),
     S.started&&h("div",{class:"stats"},h("span",null,t("role")+" ",h("b",null,career())),
       S.title&&h("span",null,SHOP.find(p=>p.id===S.title).icon+" ",h("b",null,gt().shop[S.title][0])),
       h("span",null,"💰 "+t("balance")+" ",h("b",{id:"bal"},S.xp+" XP")),h("span",null,t("total")+" ",h("b",null,String(S.xpTotal))),
       h("span",null,(S.streak>=3?"🔥 ":"")+t("streak")+" ",h("b",null,String(S.streak))),
       S.boost>0&&h("span",{class:"tag",style:"background:var(--gold-soft)"},"⚡ "+t("boostOn",{n:S.boost}))),
     h("nav",{class:"nav"},
+      S.started&&h("button",{"aria-current":view==="home"?"page":null,onclick:()=>go("home")},t("navHome")),
       S.started&&h("button",{"aria-current":onBoard?"page":null,onclick:()=>go("board")},t("navBoard")),
       S.started&&h("button",{"aria-current":view==="shop"?"page":null,onclick:()=>go("shop")},"🛍️ "+t("navShop")),
       S.started&&h("button",{"aria-current":view==="report"?"page":null,onclick:()=>go("report")},t("navReport")),
@@ -246,11 +247,39 @@ function topbar(){
       langBar()));
 }
 function home(){
-  return h("main",{class:"home"},
-    h("div",null,h("h1",{style:"font-size:clamp(2.4rem,6.5vw,4.4rem)"},t("homeH")),h("p",{class:"lead"},t("homeLead")),
-      h("button",{class:"btn",onclick:()=>{S.started=true;fillBoard();save();go("board")}},S.log.length?t("cont"):t("start"))),
-    h("ol",{class:"loop"},t("steps").map(s=>h("li",null,h("div",null,h("strong",null,s[0]),s[1])))));
+  const started=S.started&&S.log.length, done=SKILLS.filter(x=>mastered(x.id)&&confirmed(x.id)).length;
+  const num=(v,k)=>h("div",null,h("b",null,String(v)),t(k));
+  const go1=()=>{S.started=true;fillBoard();save();go("board")};
+  return h("main",{class:"homepage"},
+    h("section",{class:"hero"},
+      h("div",null,
+        h("h1",null,t("homeH")),
+        h("p",{class:"lead"},t("homeLead")),
+        h("div",{class:"row"},
+          h("button",{class:"btn",onclick:go1},started?t("cont"):t("start")),
+          started&&h("button",{class:"btn ghost",onclick:()=>go("report")},t("navReport")))),
+      h("div",{class:"panel numbers"},
+        num(SKILLS.length,"homeMissions"),num(ITEMS.length,"homeTickets"),
+        num(Object.keys(LANG).length,"homeLangs"),num(Object.keys(PLS).length,"homePls"))),
+    started&&h("section",{class:"panel resume"},
+      h("div",{class:"kpis"},
+        h("div",null,h("b",null,career()),t("role")),
+        h("div",null,h("b",null,String(S.xpTotal)),t("total")),
+        h("div",null,h("b",null,frac(done,SKILLS.length)),t("k3")),
+        h("div",null,h("b",null,String(S.log.length)),t("k1")))),
+    h("h2",{class:"homeh2"},t("arsenal")),
+    h("ol",{class:"loop"},t("steps").map(x=>h("li",null,h("div",null,h("strong",null,x[0]),x[1])))),
+    h("h2",{class:"homeh2"},t("homeSciH")),
+    h("div",{class:"grid2"},
+      h("section",{class:"panel"},h("h3",null,t("sbcH")),h("p",{class:"note"},t("homeSbc"))),
+      h("section",{class:"panel"},h("h3",null,t("modelH")),h("p",{class:"note"},t("howP",{m:pct(master())}))),
+      h("section",{class:"panel"},h("h3",null,t("uiLang")),h("p",{class:"note"},t("homeI18n"))),
+      h("section",{class:"panel"},h("h3",null,t("data")),h("p",{class:"note"},t("dataP")))),
+    h("div",{class:"row",style:"margin-top:22px"},
+      h("button",{class:"btn",onclick:go1},started?t("cont"):t("start")),
+      h("button",{class:"btn ghost",onclick:()=>go("settings")},t("navSettings"))));
 }
+
 function ticketCard(it,daily){
   const se=SK[it.skill].area==="se", conf=confirmToday(it.skill)&&!daily, rev=mastered(it.skill)&&!daily&&!conf;
   return h("button",{class:"ticket"+(se?" se":"")+(daily?" daily":""),onclick:()=>openTicket(it.id,{daily})},
