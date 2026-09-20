@@ -773,5 +773,215 @@ void testDiscount() {
 {id:"u4",skill:"qual",type:"mc",d:2,bloom:3},{id:"u5",skill:"qual",type:"mc",d:3,bloom:4},
 /* Entrega contínua */
 {id:"o1",skill:"devops",type:"mc",d:1,bloom:1},{id:"o2",skill:"devops",type:"parsons",d:2,bloom:3},{id:"o3",skill:"devops",type:"mc",d:2,bloom:4},
-{id:"o4",skill:"devops",type:"sort",d:2,bloom:4,key:[0,1,0,1]},{id:"o5",skill:"devops",type:"mc",d:3,bloom:5}
+{id:"o4",skill:"devops",type:"sort",d:2,bloom:4,key:[0,1,0,1]},{id:"o5",skill:"devops",type:"mc",d:3,bloom:5},
+/* ---------- Lote 2: ampliação do banco nas habilidades de entrada ---------- */
+{id:"v6",skill:"var",type:"mc",d:2,bloom:2,mono:true,opts:["14","20","24","@err"],code:four(
+`print(2 + 3 * 4)`,
+`console.log(2 + 3 * 4);`,
+`System.out.println(2 + 3 * 4);`,
+`printf("%d", 2 + 3 * 4);`)},
+{id:"v7",skill:"var",type:"mc",d:3,bloom:4,mono:true,opts:["different","equal","0.3","@err"],code:four(
+`a = 0.1 + 0.2
+if a == 0.3:
+    print("equal")
+else:
+    print("different")`,
+`const a = 0.1 + 0.2;
+if (a === 0.3) {
+  console.log("equal");
+} else {
+  console.log("different");
+}`,
+`double a = 0.1 + 0.2;
+if (a == 0.3) {
+  System.out.println("equal");
+} else {
+  System.out.println("different");
+}`,
+`double a = 0.1 + 0.2;
+if (a == 0.3) {
+  printf("equal");
+} else {
+  printf("different");
+}`)},
+{id:"v8",skill:"var",type:"bug",d:2,bloom:4,answer:1,code:four(
+`grams = 500
+kilos = grams * 1000
+print(kilos)`,
+`const grams = 500;
+const kilos = grams * 1000;
+console.log(kilos);`,
+`int grams = 500;
+int kilos = grams * 1000;
+System.out.println(kilos);`,
+`int grams = 500;
+int kilos = grams * 1000;
+printf("%d", kilos);`)},
+{id:"v9",skill:"var",type:"parsons",d:2,bloom:3,code:four(
+`a = 1
+b = 2
+temp = a
+a = b
+b = temp
+print(a, b)`,
+`let a = 1;
+let b = 2;
+const temp = a;
+a = b;
+b = temp;
+console.log(a, b);`,
+`int a = 1;
+int b = 2;
+int temp = a;
+a = b;
+b = temp;
+System.out.println(a + " " + b);`,
+`int a = 1;
+int b = 2;
+int temp = a;
+a = b;
+b = temp;
+printf("%d %d", a, b);`)},
+{id:"v10",skill:"var",type:"sort",d:2,bloom:4,key:[0,1,0,1]},
+{id:"c6",skill:"cond",type:"mc",d:2,bloom:3,mono:true,opts:["B","A","C","@none"],code:four(
+`x = 5
+if x > 3:
+    if x > 10:
+        print("A")
+    else:
+        print("B")
+else:
+    print("C")`,
+`const x = 5;
+if (x > 3) {
+  if (x > 10) {
+    console.log("A");
+  } else {
+    console.log("B");
+  }
+} else {
+  console.log("C");
+}`,
+`int x = 5;
+if (x > 3) {
+  if (x > 10) {
+    System.out.println("A");
+  } else {
+    System.out.println("B");
+  }
+} else {
+  System.out.println("C");
+}`,
+`int x = 5;
+if (x > 3) {
+  if (x > 10) {
+    printf("A");
+  } else {
+    printf("B");
+  }
+} else {
+  printf("C");
+}`)},
+{id:"c7",skill:"cond",type:"bug",d:2,bloom:4,answer:2,code:four(
+`age = 70
+priority = 0
+if age >= 65 and age <= 12:
+    priority = 1
+print(priority)`,
+`const age = 70;
+let priority = 0;
+if (age >= 65 && age <= 12) {
+  priority = 1;
+}
+console.log(priority);`,
+`int age = 70;
+int priority = 0;
+if (age >= 65 && age <= 12) {
+  priority = 1;
+}
+System.out.println(priority);`,
+`int age = 70;
+int priority = 0;
+if (age >= 65 && age <= 12) {
+  priority = 1;
+}
+printf("%d", priority);`)},
+{id:"c8",skill:"cond",type:"sort",d:2,bloom:4,key:[0,1,0,1]},
+{id:"c9",skill:"cond",type:"parsons",d:3,bloom:3,code:four(
+`temp = 39
+age = 70
+if temp >= 39:
+    level = "red"
+elif age >= 65:
+    level = "yellow"
+else:
+    level = "green"
+print(level)`,
+`const temp = 39;
+const age = 70;
+let level;
+if (temp >= 39) {
+  level = "red";
+} else if (age >= 65) {
+  level = "yellow";
+} else {
+  level = "green";
+}
+console.log(level);`,
+`int temp = 39;
+int age = 70;
+String level;
+if (temp >= 39) {
+  level = "red";
+} else if (age >= 65) {
+  level = "yellow";
+} else {
+  level = "green";
+}
+System.out.println(level);`,
+`int temp = 39;
+int age = 70;
+char level[8];
+if (temp >= 39) {
+  strcpy(level, "red");
+} else if (age >= 65) {
+  strcpy(level, "yellow");
+} else {
+  strcpy(level, "green");
+}
+printf("%s", level);`)},
+{id:"c10",skill:"cond",type:"mc",d:3,bloom:4,mono:true,opts:["B","A","0","@err"],code:four(
+`x = 0
+if x != 0 and 10 / x > 2:
+    print("A")
+else:
+    print("B")`,
+`const x = 0;
+if (x !== 0 && 10 / x > 2) {
+  console.log("A");
+} else {
+  console.log("B");
+}`,
+`int x = 0;
+if (x != 0 && 10 / x > 2) {
+  System.out.println("A");
+} else {
+  System.out.println("B");
+}`,
+`int x = 0;
+if (x != 0 && 10 / x > 2) {
+  printf("A");
+} else {
+  printf("B");
+}`)},
+{id:"q7",skill:"req",type:"sort",d:2,bloom:4,key:[0,1,0,1]},
+{id:"q8",skill:"req",type:"parsons",d:2,bloom:2},
+{id:"q9",skill:"req",type:"mc",d:3,bloom:5},
+{id:"q10",skill:"req",type:"mc",d:2,bloom:3},
+{id:"q11",skill:"req",type:"mc",d:3,bloom:4},
+{id:"g7",skill:"git",type:"parsons",d:2,bloom:3},
+{id:"g8",skill:"git",type:"mc",d:2,bloom:2},
+{id:"g9",skill:"git",type:"sort",d:2,bloom:4,key:[0,1,0,1]},
+{id:"g10",skill:"git",type:"mc",d:3,bloom:5},
+{id:"g11",skill:"git",type:"mc",d:2,bloom:3}
 ];

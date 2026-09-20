@@ -1060,7 +1060,217 @@ void testDiscount() {
 {id:"u4",skill:"qual",type:"mc",d:2,bloom:3},{id:"u5",skill:"qual",type:"mc",d:3,bloom:4},
 /* Entrega contínua */
 {id:"o1",skill:"devops",type:"mc",d:1,bloom:1},{id:"o2",skill:"devops",type:"parsons",d:2,bloom:3},{id:"o3",skill:"devops",type:"mc",d:2,bloom:4},
-{id:"o4",skill:"devops",type:"sort",d:2,bloom:4,key:[0,1,0,1]},{id:"o5",skill:"devops",type:"mc",d:3,bloom:5}
+{id:"o4",skill:"devops",type:"sort",d:2,bloom:4,key:[0,1,0,1]},{id:"o5",skill:"devops",type:"mc",d:3,bloom:5},
+/* ---------- Lote 2: ampliação do banco nas habilidades de entrada ---------- */
+{id:"v6",skill:"var",type:"mc",d:2,bloom:2,mono:true,opts:["14","20","24","@err"],code:four(
+`print(2 + 3 * 4)`,
+`console.log(2 + 3 * 4);`,
+`System.out.println(2 + 3 * 4);`,
+`printf("%d", 2 + 3 * 4);`)},
+{id:"v7",skill:"var",type:"mc",d:3,bloom:4,mono:true,opts:["different","equal","0.3","@err"],code:four(
+`a = 0.1 + 0.2
+if a == 0.3:
+    print("equal")
+else:
+    print("different")`,
+`const a = 0.1 + 0.2;
+if (a === 0.3) {
+  console.log("equal");
+} else {
+  console.log("different");
+}`,
+`double a = 0.1 + 0.2;
+if (a == 0.3) {
+  System.out.println("equal");
+} else {
+  System.out.println("different");
+}`,
+`double a = 0.1 + 0.2;
+if (a == 0.3) {
+  printf("equal");
+} else {
+  printf("different");
+}`)},
+{id:"v8",skill:"var",type:"bug",d:2,bloom:4,answer:1,code:four(
+`grams = 500
+kilos = grams * 1000
+print(kilos)`,
+`const grams = 500;
+const kilos = grams * 1000;
+console.log(kilos);`,
+`int grams = 500;
+int kilos = grams * 1000;
+System.out.println(kilos);`,
+`int grams = 500;
+int kilos = grams * 1000;
+printf("%d", kilos);`)},
+{id:"v9",skill:"var",type:"parsons",d:2,bloom:3,code:four(
+`a = 1
+b = 2
+temp = a
+a = b
+b = temp
+print(a, b)`,
+`let a = 1;
+let b = 2;
+const temp = a;
+a = b;
+b = temp;
+console.log(a, b);`,
+`int a = 1;
+int b = 2;
+int temp = a;
+a = b;
+b = temp;
+System.out.println(a + " " + b);`,
+`int a = 1;
+int b = 2;
+int temp = a;
+a = b;
+b = temp;
+printf("%d %d", a, b);`)},
+{id:"v10",skill:"var",type:"sort",d:2,bloom:4,key:[0,1,0,1]},
+{id:"c6",skill:"cond",type:"mc",d:2,bloom:3,mono:true,opts:["B","A","C","@none"],code:four(
+`x = 5
+if x > 3:
+    if x > 10:
+        print("A")
+    else:
+        print("B")
+else:
+    print("C")`,
+`const x = 5;
+if (x > 3) {
+  if (x > 10) {
+    console.log("A");
+  } else {
+    console.log("B");
+  }
+} else {
+  console.log("C");
+}`,
+`int x = 5;
+if (x > 3) {
+  if (x > 10) {
+    System.out.println("A");
+  } else {
+    System.out.println("B");
+  }
+} else {
+  System.out.println("C");
+}`,
+`int x = 5;
+if (x > 3) {
+  if (x > 10) {
+    printf("A");
+  } else {
+    printf("B");
+  }
+} else {
+  printf("C");
+}`)},
+{id:"c7",skill:"cond",type:"bug",d:2,bloom:4,answer:2,code:four(
+`age = 70
+priority = 0
+if age >= 65 and age <= 12:
+    priority = 1
+print(priority)`,
+`const age = 70;
+let priority = 0;
+if (age >= 65 && age <= 12) {
+  priority = 1;
+}
+console.log(priority);`,
+`int age = 70;
+int priority = 0;
+if (age >= 65 && age <= 12) {
+  priority = 1;
+}
+System.out.println(priority);`,
+`int age = 70;
+int priority = 0;
+if (age >= 65 && age <= 12) {
+  priority = 1;
+}
+printf("%d", priority);`)},
+{id:"c8",skill:"cond",type:"sort",d:2,bloom:4,key:[0,1,0,1]},
+{id:"c9",skill:"cond",type:"parsons",d:3,bloom:3,code:four(
+`temp = 39
+age = 70
+if temp >= 39:
+    level = "red"
+elif age >= 65:
+    level = "yellow"
+else:
+    level = "green"
+print(level)`,
+`const temp = 39;
+const age = 70;
+let level;
+if (temp >= 39) {
+  level = "red";
+} else if (age >= 65) {
+  level = "yellow";
+} else {
+  level = "green";
+}
+console.log(level);`,
+`int temp = 39;
+int age = 70;
+String level;
+if (temp >= 39) {
+  level = "red";
+} else if (age >= 65) {
+  level = "yellow";
+} else {
+  level = "green";
+}
+System.out.println(level);`,
+`int temp = 39;
+int age = 70;
+char level[8];
+if (temp >= 39) {
+  strcpy(level, "red");
+} else if (age >= 65) {
+  strcpy(level, "yellow");
+} else {
+  strcpy(level, "green");
+}
+printf("%s", level);`)},
+{id:"c10",skill:"cond",type:"mc",d:3,bloom:4,mono:true,opts:["B","A","0","@err"],code:four(
+`x = 0
+if x != 0 and 10 / x > 2:
+    print("A")
+else:
+    print("B")`,
+`const x = 0;
+if (x !== 0 && 10 / x > 2) {
+  console.log("A");
+} else {
+  console.log("B");
+}`,
+`int x = 0;
+if (x != 0 && 10 / x > 2) {
+  System.out.println("A");
+} else {
+  System.out.println("B");
+}`,
+`int x = 0;
+if (x != 0 && 10 / x > 2) {
+  printf("A");
+} else {
+  printf("B");
+}`)},
+{id:"q7",skill:"req",type:"sort",d:2,bloom:4,key:[0,1,0,1]},
+{id:"q8",skill:"req",type:"parsons",d:2,bloom:2},
+{id:"q9",skill:"req",type:"mc",d:3,bloom:5},
+{id:"q10",skill:"req",type:"mc",d:2,bloom:3},
+{id:"q11",skill:"req",type:"mc",d:3,bloom:4},
+{id:"g7",skill:"git",type:"parsons",d:2,bloom:3},
+{id:"g8",skill:"git",type:"mc",d:2,bloom:2},
+{id:"g9",skill:"git",type:"sort",d:2,bloom:4,key:[0,1,0,1]},
+{id:"g10",skill:"git",type:"mc",d:3,bloom:5},
+{id:"g11",skill:"git",type:"mc",d:2,bloom:3}
 ];
 
 /* DevWise - camada de jogo: economia de XP, dificuldade, loja, desafios e chefões */
@@ -1731,6 +1941,30 @@ Object.assign(LANG.pt.ui,{
  howParams:"Parâmetros de projeto, ainda não calibrados com dados: tickets de nível 1, 2 e 3 com dificuldade de -1,2, 0 e +1,2 logits; ganho inicial de 1,8, que diminui a cada resposta, com os erros pesando 70% para tolerar deslizes; chute conforme o formato (1 em 4 nas opções, 1 por linha no bug, 1 em 16 ao classificar, 5% ao ordenar, 3% na resposta digitada e 50% com dica). Desbloqueio com 60%, domínio com {m} e confirmação em outro dia. TRI 3PL, BKT, PFA e AFM apenas observam."
 });
 
+/* ---------- Lote 2: itens novos das habilidades de entrada ---------- */
+Object.assign(LANG.pt.items,{
+v6:{title:"A conta da vitrine",prompt:"Dois pães a 4 reais e uma conta feita de cabeça. O que o programa imprime?",hint:"Em programação, como na matemática, a multiplicação é resolvida antes da soma.",why:"Primeiro 3 × 4 = 12, depois 2 + 12 = 14. Para somar antes, seria preciso escrever (2 + 3) * 4.",analogy:"É a fila do caixa com preferencial: quem tem prioridade passa primeiro, mesmo chegando depois. Os parênteses são a senha que muda a ordem."},
+v7:{title:"Os centavos que somem",prompt:"Dona Lúcia soma dois valores e compara com o esperado. O que o programa imprime?",hint:"Números decimais são guardados em binário, e nem todo decimal cabe exatamente nessa forma.",why:"Em binário, 0,1 e 0,2 são dízimas: a soma dá 0,30000000000000004, e a comparação exata falha. Para dinheiro, compara-se com uma tolerância ou trabalha-se em centavos, com números inteiros.",analogy:"É como medir com uma régua de polegadas um corte em centímetros: cada conversão deixa um resto invisível, e somar restos acaba dando diferença no total."},
+v8:{title:"Gramas viraram toneladas",prompt:"A receita usa 500 gramas de farinha, mas o programa imprime 500000. Qual linha está errada?",hint:"Um quilo tem mil gramas. Para ir de gramas a quilos, multiplica-se ou divide-se?",why:"A conversão está invertida: de gramas para quilos divide-se por 1000. Multiplicar leva na direção oposta.",analogy:"É trocar real por dólar na direção errada: o número fica enorme e a conta parece certa até alguém olhar o valor final."},
+v9:{title:"Trocar os potes sem perder o conteúdo",prompt:"Monte o programa que troca os valores de a e b usando uma variável temporária e imprime o resultado.",hint:"Guarde um dos valores antes de sobrescrevê-lo.",why:"A variável temporária segura o primeiro valor enquanto ele é substituído. Sem ela, um dos dois se perde, como no ticket do caixa que trocava os valores.",analogy:"Para trocar o conteúdo de dois copos cheios, você usa um terceiro copo vazio. É o mesmo movimento, em código."},
+v10:{title:"Inteiro ou decimal",prompt:"Classifique cada dado da padaria pelo tipo numérico mais adequado.",bins:["Número inteiro","Número decimal"],cards:["Quantidade de pães vendidos no dia","Preço do quilo de farinha","Número de clientes na fila","Peso da massa em quilos"],hint:"Pergunte se faz sentido existir metade daquilo.",why:"O que se conta uma unidade de cada vez pede inteiro; o que se mede em partes pede decimal. Meio cliente não existe; meio quilo, sim.",analogy:"É a diferença entre contar ovos e pesar farinha: um cabe na caixa, o outro pede balança."},
+c6:{title:"Uma pergunta dentro da outra",prompt:"O que o programa imprime?",hint:"O segundo teste só acontece se o primeiro for verdadeiro.",why:"5 > 3 é verdadeiro, então entra no bloco de dentro. Lá, 5 > 10 é falso, e o programa cai no else interno. O else externo nunca é alcançado.",analogy:"É a triagem em duas portas: quem passa pela primeira ainda encontra outra decisão adiante, e quem não passa nem chega a vê-la."},
+c7:{title:"Idoso que não recebe prioridade",prompt:"Pacientes com 65 anos ou mais, e também crianças de até 12, deveriam ter prioridade. O programa nunca marca ninguém. Qual linha corrigir?",hint:"Existe alguma idade que seja ao mesmo tempo maior que 65 e menor que 12?",why:"Com E, as duas condições precisam valer juntas, o que é impossível. A regra une dois grupos distintos, então pede OU.",analogy:"É a placa \"entrada para idosos e crianças\": ninguém é as duas coisas ao mesmo tempo. Trocar o \"e\" pelo \"ou\" abre a porta para os dois grupos."},
+c8:{title:"O limite entra ou fica de fora",prompt:"Classifique cada condição da triagem quanto ao valor exato do limite.",bins:["Inclui o limite","Exclui o limite"],cards:["temperatura >= 39","temperatura > 39","idade <= 12","idade < 12"],hint:"O traço embaixo do sinal é o que carrega o \"ou igual\".",why:"Os sinais >= e <= incluem o valor do limite; > e < deixam exatamente esse valor de fora. É onde nascem os erros de fronteira.",analogy:"É a diferença entre \"a partir dos 65\" e \"acima dos 65\": quem tem exatamente 65 entra num caso e fica de fora no outro."},
+c9:{title:"A triagem da Rosa, em três níveis",prompt:"Monte a triagem: febre de 39 ou mais é vermelho; senão, idade de 65 ou mais é amarelo; os demais, verde.",hint:"A regra mais grave vem primeiro, e cada paciente sai com um único nível.",why:"A cadeia if, elif e else garante que só um nível seja atribuído e que a regra mais grave seja testada antes. Os dados precisam existir antes do teste, e a impressão vem depois da decisão.",analogy:"É o protocolo pendurado na parede do posto: lê-se de cima para baixo e para-se na primeira linha que se aplica."},
+c10:{title:"A divisão que não acontece",prompt:"Com x igual a zero, dividir por x daria erro. O que o programa imprime?",hint:"Quando o primeiro teste de um E já é falso, o segundo chega a ser avaliado?",why:"O operador E avalia em curto-circuito: como x != 0 é falso, a divisão nunca é executada e o programa segue para o else, sem erro. Esse padrão protege operações arriscadas.",analogy:"É conferir se há gasolina antes de dar a partida: não havendo, ninguém tenta girar a chave. A ordem dos testes é a proteção."},
+q7:{title:"Descobrir ou conferir",prompt:"Classifique cada atividade da engenharia de requisitos.",bins:["Elicitação (descobrir)","Validação (conferir)"],cards:["Entrevistar a recepcionista sobre o dia a dia do atendimento","Revisar a lista de requisitos com a diretora antes de programar","Observar os pacientes usando o totem de senhas","Mostrar um protótipo e verificar se é isso mesmo que se espera"],hint:"Pergunte se a atividade busca informação nova ou confirma o que já foi escrito.",why:"Entrevistar e observar levantam requisitos que ainda não existiam no papel. Revisar e checar protótipos verificam se o que foi escrito corresponde à necessidade real.",analogy:"É a diferença entre tirar as medidas do cliente e provar a roupa nele. A primeira descobre; a segunda confirma."},
+q8:{title:"O caminho de um requisito",prompt:"Ordene as etapas da engenharia de requisitos.",lines:["Elicitação: descobrir o que as pessoas precisam","Análise: resolver conflitos e definir prioridades","Especificação: escrever os requisitos de forma verificável","Validação: conferir com quem pediu se é isso mesmo","Gerência: controlar as mudanças ao longo do projeto"],hint:"Primeiro se descobre, depois se organiza, se escreve e se confere; controlar mudanças acompanha todo o resto.",why:"Cada etapa alimenta a seguinte: não se prioriza o que não foi levantado, nem se valida o que não foi escrito. A gerência entra quando os requisitos começam a mudar, e eles sempre mudam.",analogy:"É construir uma casa: conversar com a família, decidir o que cabe no orçamento, desenhar a planta, mostrar o desenho e, depois, registrar cada mudança de ideia."},
+q9:{title:"\"O sistema avisa o paciente\"",prompt:"O requisito diz apenas: \"o sistema avisa o paciente\". Por que ele é problemático?",opts:["Não diz quando, por qual meio nem o que fazer se o aviso falhar","Está longo demais e precisa ser dividido","Usa a palavra sistema, que deveria ser evitada","Não tem problema: está claro o suficiente"],hint:"Imagine duas pessoas implementando essa frase sem conversar entre si. Sairia a mesma coisa?",why:"Requisito ambíguo é aquele que admite mais de uma leitura razoável. Avisar na véspera por mensagem é diferente de avisar na hora por e-mail, e ambos cabem nessa frase.",analogy:"É pedir \"me avise\" a um amigo: ele pode ligar às seis da manhã ou mandar recado pelo vizinho. Sem combinar, cada um cumpre à sua maneira."},
+q10:{title:"Critério de aceitação",prompt:"O que transforma uma história de usuário em algo que o time sabe quando terminou?",opts:["Critérios de aceitação: condições verificáveis que dizem quando ela está pronta","A estimativa de horas do desenvolvedor","O nome de quem pediu a funcionalidade","A tela desenhada pelo designer"],hint:"Pense no que permite responder sim ou não à pergunta: já acabou?",why:"Critérios de aceitação descrevem, em condições verificáveis, o comportamento esperado. Sem eles, \"pronto\" vira opinião.",analogy:"É a lista de conferência da vistoria do imóvel: sem ela, entregar as chaves vira discussão sobre o que estava combinado."},
+q11:{title:"Dois pedidos que se contradizem",prompt:"A diretora quer registro completo do paciente; a recepção quer agendamento em menos de um minuto. Qual é a melhor conduta?",opts:["Levar o conflito às duas partes e negociar uma solução explícita, como cadastro mínimo agora e completo depois","Atender a diretora, porque ela tem mais autoridade","Atender a recepção, porque está mais perto do problema","Implementar os dois e deixar que resolvam no uso"],hint:"Conflito entre requisitos é um problema a resolver na análise, não no código.",why:"Requisitos conflitantes precisam ser reconciliados com as partes interessadas antes de virar código. Escolher em silêncio transfere o conflito para o produto, onde custa muito mais caro.",analogy:"São dois cômodos disputando a mesma parede na planta. O arquiteto senta com a família e decide antes; depois de erguida, a parede custa obra."},
+g7:{title:"Desfazer sem apagar a história",prompt:"Uma mudança já publicada quebrou o sistema da padaria. Ordene os passos para desfazê-la com segurança.",lines:["Identificar o commit que causou a falha no histórico","Criar um commit de reversão que desfaz aquelas alterações","Rodar os testes para confirmar que o sistema voltou ao normal","Publicar a reversão para o repositório remoto","Investigar a causa com calma e preparar a correção definitiva"],hint:"Primeiro restaure o serviço; entender o porquê vem depois, com o sistema estável.",why:"A reversão cria um commit novo que desfaz o anterior, sem apagar o histórico que outras pessoas já baixaram. Investigar depois é seguro porque o sistema já voltou a funcionar.",analogy:"Na contabilidade não se rasura um lançamento errado: faz-se um lançamento de estorno. O erro continua registrado, e a conta volta ao certo."},
+g8:{title:"Buscar ou já misturar",prompt:"Qual é a diferença entre buscar (fetch) e puxar (pull) no Git?",opts:["Buscar apenas traz as mudanças do remoto; puxar traz e já junta com a sua branch","São dois nomes para a mesma operação","Buscar envia mudanças; puxar recebe","Buscar funciona só na main; puxar em qualquer branch"],hint:"Um dos dois altera os seus arquivos na hora. Qual?",why:"Buscar atualiza a visão do repositório remoto sem tocar no seu trabalho, permitindo ver o que mudou antes de integrar. Puxar faz as duas coisas de uma vez e pode gerar conflito na hora.",analogy:"É a diferença entre receber a correspondência e abrir os envelopes na mesa onde você está trabalhando. Buscar deixa na caixa; puxar espalha tudo agora."},
+g9:{title:"O que entra no repositório",prompt:"Classifique cada arquivo do projeto da padaria.",bins:["Versionar","Manter fora (.gitignore)"],cards:["O código-fonte do cálculo do troco","O arquivo com a senha do banco de dados","O README com instruções de instalação","A pasta de bibliotecas baixadas automaticamente"],hint:"Pergunte se o arquivo foi escrito pela equipe e se pode ser visto por qualquer pessoa com acesso ao repositório.",why:"Versiona-se o que a equipe escreve e precisa compartilhar. Segredos nunca entram, porque o histórico do Git é permanente; dependências baixadas também não, porque são reconstruíveis a partir do arquivo de dependências.",analogy:"É a mala de viagem: roupa sua vai, o xampu do hotel fica. E a chave de casa não viaja na mala aberta de jeito nenhum."},
+g10:{title:"A publicação forçada",prompt:"Um colega sugere usar publicação forçada na branch principal para \"limpar\" o histórico. Por que isso é perigoso?",opts:["Reescreve o histórico que os outros já baixaram e pode apagar o trabalho deles","Deixa o repositório mais lento","Só funciona com permissão de administrador","Não é perigoso: é a forma recomendada de organizar commits"],hint:"O que acontece com quem já baixou a versão antiga e continuou trabalhando sobre ela?",why:"A publicação forçada substitui o histórico do remoto. Commits que outras pessoas já baixaram somem da linha do tempo, e o trabalho feito sobre eles fica órfão. Em branch compartilhada, prefere-se reverter.",analogy:"É reimprimir a ata de uma reunião que todos já levaram para casa. Quem anotou em cima da versão antiga fica com um documento que não existe mais."},
+g11:{title:"O commit que faz tudo",prompt:"Um commit altera o cálculo do troco, renomeia vinte variáveis e acrescenta uma tela nova. Qual é o problema?",opts:["Não dá para revisar, reverter nem localizar a origem de um defeito de forma isolada","Nenhum: commits grandes economizam tempo","O Git tem limite de arquivos por commit","A mensagem ficará longa demais"],hint:"Pense no dia em que só uma dessas três mudanças precisar ser desfeita.",why:"Cada commit deveria conter uma mudança coerente. Misturando três, a reversão leva junto o que estava certo, e a revisão se perde entre renomeações e lógica nova.",analogy:"É embalar cozinha, banheiro e escritório na mesma caixa. Para achar uma xícara, você revira tudo, e não dá para devolver só o que veio errado."}
+});
+
 LANG.en = {
 name:"English", llmName:"English",
 ui:{
@@ -2052,6 +2286,30 @@ Object.assign(LANG.en.ui,{
  howParams:"Design parameters, not yet calibrated on data: tickets of level 1, 2 and 3 have difficulty -1.2, 0 and +1.2 logits; initial gain 1.8, shrinking with each answer, with mistakes weighted at 70% to tolerate slips; guessing by format (1 in 4 for options, 1 per line for bugs, 1 in 16 when classifying, 5% when ordering, 3% for typed answers and 50% with a hint). Unlock at 60%, mastery at {m}, confirmed on another day. 3PL IRT, BKT, PFA and AFM only observe."
 });
 
+/* ---------- Batch 2: new items for the entry skills ---------- */
+Object.assign(LANG.en.items,{
+v6:{title:"The counter maths",prompt:"Two loaves at 4 reais and a sum done in the head. What does the program print?",hint:"In programming, as in maths, multiplication is worked out before addition.",why:"First 3 × 4 = 12, then 2 + 12 = 14. To add first you would have to write (2 + 3) * 4.",analogy:"It is the priority lane at the till: whoever has priority goes first, even if they arrived later. Parentheses are the pass that changes the order."},
+v7:{title:"The cents that vanish",prompt:"Dona Lúcia adds two amounts and compares them with what she expected. What does the program print?",hint:"Decimal numbers are stored in binary, and not every decimal fits exactly in that form.",why:"In binary, 0.1 and 0.2 are repeating fractions: the sum gives 0.30000000000000004 and the exact comparison fails. For money, compare with a tolerance or work in cents, with whole numbers.",analogy:"It is like measuring a centimetre cut with an inch ruler: every conversion leaves an invisible remainder, and adding remainders throws the total off."},
+v8:{title:"Grams turned into tonnes",prompt:"The recipe uses 500 grams of flour, but the program prints 500000. Which line is wrong?",hint:"A kilo has a thousand grams. To go from grams to kilos, do you multiply or divide?",why:"The conversion is inverted: from grams to kilos you divide by 1000. Multiplying goes the opposite way.",analogy:"It is converting currency in the wrong direction: the number grows huge and the maths looks right until someone checks the final amount."},
+v9:{title:"Swapping jars without spilling",prompt:"Assemble the program that swaps the values of a and b using a temporary variable and prints the result.",hint:"Store one of the values before it gets overwritten.",why:"The temporary variable holds the first value while it is replaced. Without it, one of the two is lost, as in the till ticket where the swap went wrong.",analogy:"To swap the contents of two full glasses you use a third, empty one. It is the same move, in code."},
+v10:{title:"Whole or decimal",prompt:"Classify each piece of bakery data by the numeric type that fits best.",bins:["Whole number","Decimal number"],cards:["Number of loaves sold today","Price per kilo of flour","Number of customers in the queue","Weight of the dough in kilos"],hint:"Ask whether half of that thing makes any sense.",why:"What you count one unit at a time calls for an integer; what you measure in parts calls for a decimal. Half a customer does not exist; half a kilo does.",analogy:"It is the difference between counting eggs and weighing flour: one fits in a box, the other needs scales."},
+c6:{title:"A question inside another",prompt:"What does the program print?",hint:"The second test only happens if the first one is true.",why:"5 > 3 is true, so it enters the inner block. There, 5 > 10 is false and the program falls to the inner else. The outer else is never reached.",analogy:"It is triage behind two doors: whoever passes the first still meets another decision ahead, and whoever does not never sees it."},
+c7:{title:"An elderly patient with no priority",prompt:"Patients aged 65 or over, and also children up to 12, should get priority. The program never flags anyone. Which line needs fixing?",hint:"Is there any age that is at the same time over 65 and under 12?",why:"With AND, both conditions must hold together, which is impossible. The rule joins two separate groups, so it calls for OR.",analogy:"It is the sign \"entrance for the elderly and children\": nobody is both at once. Swapping \"and\" for \"or\" opens the door to both groups."},
+c8:{title:"Does the limit count or not",prompt:"Classify each triage condition by what it does with the exact limit value.",bins:["Includes the limit","Excludes the limit"],cards:["temperature >= 39","temperature > 39","age <= 12","age < 12"],hint:"The line under the sign is what carries the \"or equal\".",why:"The signs >= and <= include the limit value; > and < leave exactly that value out. This is where boundary errors are born.",analogy:"It is the difference between \"from 65\" and \"over 65\": someone who is exactly 65 is in under one rule and out under the other."},
+c9:{title:"Rosa's triage, in three levels",prompt:"Assemble the triage: a fever of 39 or more is red; otherwise, age 65 or over is yellow; everyone else is green.",hint:"The most serious rule comes first, and each patient leaves with a single level.",why:"The if, elif and else chain guarantees that only one level is assigned and that the most serious rule is tested first. The data must exist before the test, and printing comes after the decision.",analogy:"It is the protocol pinned to the clinic wall: you read it top to bottom and stop at the first line that applies."},
+c10:{title:"The division that never happens",prompt:"With x equal to zero, dividing by x would fail. What does the program print?",hint:"When the first test of an AND is already false, does the second one get evaluated at all?",why:"The AND operator short-circuits: since x != 0 is false, the division is never run and the program goes to the else, with no error. This pattern guards risky operations.",analogy:"It is checking for fuel before turning the key: if there is none, nobody tries to start the engine. The order of the tests is the protection."},
+q7:{title:"Finding out or checking",prompt:"Classify each requirements engineering activity.",bins:["Elicitation (finding out)","Validation (checking)"],cards:["Interviewing the receptionist about the daily routine","Reviewing the requirements list with the director before coding","Watching patients use the ticket kiosk","Showing a prototype and checking whether this is really what is expected"],hint:"Ask whether the activity seeks new information or confirms what has already been written.",why:"Interviewing and observing surface requirements that were not yet on paper. Reviewing and checking prototypes verify whether what was written matches the real need.",analogy:"It is the difference between taking the client's measurements and trying the garment on them. The first discovers; the second confirms."},
+q8:{title:"The path of a requirement",prompt:"Put the stages of requirements engineering in order.",lines:["Elicitation: find out what people need","Analysis: resolve conflicts and set priorities","Specification: write the requirements in a verifiable way","Validation: check with the people who asked whether this is right","Management: control changes throughout the project"],hint:"First you find out, then you organise, write and check; controlling changes runs alongside all the rest.",why:"Each stage feeds the next: you do not prioritise what was never raised, nor validate what was never written. Management starts when requirements begin to change, and they always do.",analogy:"It is building a house: talking to the family, deciding what fits the budget, drawing the plan, showing the drawing, and then recording every change of mind."},
+q9:{title:"\"The system notifies the patient\"",prompt:"The requirement says only: \"the system notifies the patient\". Why is it a problem?",opts:["It does not say when, by which channel, or what to do if the notice fails","It is too long and should be split","It uses the word system, which should be avoided","It is no problem: it is clear enough"],hint:"Picture two people implementing that sentence without talking to each other. Would they build the same thing?",why:"An ambiguous requirement is one that allows more than one reasonable reading. Notifying the day before by text is different from notifying at the time by email, and both fit that sentence.",analogy:"It is telling a friend \"let me know\": they may call at six in the morning or leave word with a neighbour. Without agreeing on it, each one delivers in their own way."},
+q10:{title:"Acceptance criteria",prompt:"What turns a user story into something the team knows it has finished?",opts:["Acceptance criteria: verifiable conditions that say when it is done","The developer's estimate in hours","The name of whoever asked for the feature","The screen drawn by the designer"],hint:"Think about what lets you answer yes or no to: is it finished?",why:"Acceptance criteria describe the expected behaviour in verifiable conditions. Without them, \"done\" becomes a matter of opinion.",analogy:"It is the snagging list at a property handover: without it, handing over the keys turns into an argument about what was agreed."},
+q11:{title:"Two requests that contradict each other",prompt:"The director wants a complete patient record; the front desk wants scheduling in under a minute. What is the best course of action?",opts:["Take the conflict to both parties and negotiate an explicit solution, such as a minimal record now and the full one later","Side with the director, because she has more authority","Side with the front desk, because they are closer to the problem","Implement both and let them sort it out in practice"],hint:"A conflict between requirements is a problem to settle in analysis, not in code.",why:"Conflicting requirements must be reconciled with the stakeholders before they become code. Choosing in silence moves the conflict into the product, where it costs far more.",analogy:"Two rooms are fighting over the same wall on the plan. The architect sits down with the family and decides beforehand; once built, the wall costs a renovation."},
+g7:{title:"Undoing without erasing the history",prompt:"A change already released broke the bakery system. Put the steps for undoing it safely in order.",lines:["Identify the commit that caused the failure in the history","Create a revert commit that undoes those changes","Run the tests to confirm the system is back to normal","Push the revert to the remote repository","Investigate the cause calmly and prepare the definitive fix"],hint:"Restore the service first; understanding why comes later, with the system stable.",why:"A revert creates a new commit that undoes the previous one, without erasing the history other people have already pulled. Investigating afterwards is safe because the system already works again.",analogy:"In bookkeeping you do not scratch out a wrong entry: you post a reversing entry. The mistake stays on record, and the balance comes right."},
+g8:{title:"Fetch or already merge",prompt:"What is the difference between fetch and pull in Git?",opts:["Fetch only brings the changes from the remote; pull brings them and merges into your branch","They are two names for the same operation","Fetch sends changes; pull receives them","Fetch works only on main; pull on any branch"],hint:"One of the two changes your files right away. Which?",why:"Fetch updates your view of the remote repository without touching your work, letting you see what changed before integrating. Pull does both at once and can raise a conflict there and then.",analogy:"It is the difference between collecting the post and opening the envelopes on the desk you are working at. Fetch leaves it in the box; pull spreads it out now."},
+g9:{title:"What belongs in the repository",prompt:"Classify each file of the bakery project.",bins:["Version it","Keep it out (.gitignore)"],cards:["The source code of the change calculation","The file with the database password","The README with installation instructions","The folder of libraries downloaded automatically"],hint:"Ask whether the team wrote the file and whether anyone with access to the repository may see it.",why:"You version what the team writes and needs to share. Secrets never go in, because Git history is permanent; downloaded dependencies do not either, because they can be rebuilt from the dependency file.",analogy:"It is packing a suitcase: your clothes go in, the hotel shampoo stays. And your house key certainly does not travel in an open case."},
+g10:{title:"The force push",prompt:"A colleague suggests force pushing to the main branch to \"tidy up\" the history. Why is that dangerous?",opts:["It rewrites history others have already pulled and can erase their work","It makes the repository slower","It only works with admin rights","It is not dangerous: it is the recommended way to organise commits"],hint:"What happens to someone who already pulled the old version and kept working on top of it?",why:"A force push replaces the remote history. Commits other people already pulled vanish from the timeline, and the work built on them is orphaned. On a shared branch, revert instead.",analogy:"It is reprinting the minutes of a meeting everyone already took home. Whoever annotated the old version is left holding a document that no longer exists."},
+g11:{title:"The commit that does everything",prompt:"One commit changes the change calculation, renames twenty variables and adds a new screen. What is the problem?",opts:["It cannot be reviewed, reverted or traced back to the source of a defect in isolation","None: big commits save time","Git has a limit of files per commit","The message will be far too long"],hint:"Think of the day when only one of those three changes has to be undone.",why:"Each commit should hold one coherent change. Mixing three, a revert drags along what was right, and the review gets lost between renames and new logic.",analogy:"It is packing the kitchen, the bathroom and the office in the same box. To find one cup you turn everything over, and you cannot send back only what arrived wrong."}
+});
+
 LANG.es = {
 name:"Español", llmName:"Latin American Spanish",
 ui:{
@@ -2371,6 +2629,30 @@ Object.assign(LANG.es.ui,{
  howP:"El tutor usa un modelo Elo/Rasch. Cada habilidad tuya tiene una puntuación, y cada ticket tiene una dificultad en la misma escala. La diferencia entre ambas da la probabilidad de acierto; después de responder, la puntuación sube o baja en proporción a la sorpresa. El dominio que se muestra es tu probabilidad de resolver, sin adivinar, un ticket de dificultad media, y la habilidad cuenta como dominada desde el {m}.",
  howA:"es el ranking del ajedrez. Ganarle a un rival fuerte vale mucho, ganarle a uno débil vale poco, y perder contra uno débil cuesta caro. Aquí el rival es el ticket.",
  howParams:"Parámetros de diseño, todavía sin calibrar con datos: los tickets de nivel 1, 2 y 3 tienen dificultad de -1,2, 0 y +1,2 logits; ganancia inicial de 1,8, que disminuye con cada respuesta, con los errores pesando un 70% para tolerar descuidos; azar según el formato (1 de 4 en opciones, 1 por línea en el error, 1 de 16 al clasificar, 5% al ordenar, 3% en la respuesta escrita y 50% con pista). Se desbloquea con 60%, se domina con {m} y se confirma otro día. TRI 3PL, BKT, PFA y AFM solo observan."
+});
+
+/* ---------- Lote 2: ítems nuevos de las habilidades de entrada ---------- */
+Object.assign(LANG.es.items,{
+v6:{title:"La cuenta del mostrador",prompt:"Dos panes a 4 reales y una cuenta hecha de memoria. ¿Qué imprime el programa?",hint:"En programación, igual que en matemática, la multiplicación se resuelve antes que la suma.",why:"Primero 3 × 4 = 12, después 2 + 12 = 14. Para sumar antes habría que escribir (2 + 3) * 4.",analogy:"Es la fila preferencial de la caja: quien tiene prioridad pasa primero, aunque haya llegado después. Los paréntesis son el pase que cambia el orden."},
+v7:{title:"Los centavos que desaparecen",prompt:"Doña Lúcia suma dos importes y los compara con lo esperado. ¿Qué imprime el programa?",hint:"Los números decimales se guardan en binario, y no todo decimal cabe exactamente en esa forma.",why:"En binario, 0,1 y 0,2 son periódicos: la suma da 0,30000000000000004 y la comparación exacta falla. Para dinero se compara con una tolerancia o se trabaja en centavos, con números enteros.",analogy:"Es como medir con una regla en pulgadas un corte en centímetros: cada conversión deja un resto invisible, y sumar restos termina corriendo el total."},
+v8:{title:"Los gramos se volvieron toneladas",prompt:"La receta usa 500 gramos de harina, pero el programa imprime 500000. ¿Qué línea está mal?",hint:"Un kilo tiene mil gramos. Para pasar de gramos a kilos, ¿se multiplica o se divide?",why:"La conversión está invertida: de gramos a kilos se divide por 1000. Multiplicar va en la dirección opuesta.",analogy:"Es cambiar moneda en el sentido equivocado: el número queda enorme y la cuenta parece bien hasta que alguien mira el total."},
+v9:{title:"Cambiar los frascos sin perder el contenido",prompt:"Arma el programa que intercambia los valores de a y b usando una variable temporal e imprime el resultado.",hint:"Guarda uno de los valores antes de sobrescribirlo.",why:"La variable temporal sostiene el primer valor mientras se lo reemplaza. Sin ella se pierde uno de los dos, como en el ticket de la caja donde el intercambio fallaba.",analogy:"Para intercambiar el contenido de dos vasos llenos usas un tercer vaso vacío. Es el mismo movimiento, en código."},
+v10:{title:"Entero o decimal",prompt:"Clasifica cada dato de la panadería según el tipo numérico más adecuado.",bins:["Número entero","Número decimal"],cards:["Cantidad de panes vendidos en el día","Precio del kilo de harina","Cantidad de clientes en la fila","Peso de la masa en kilos"],hint:"Pregúntate si tiene sentido que exista la mitad de eso.",why:"Lo que se cuenta de a una unidad pide entero; lo que se mide en partes pide decimal. Medio cliente no existe; medio kilo, sí.",analogy:"Es la diferencia entre contar huevos y pesar harina: uno entra en la caja, el otro pide balanza."},
+c6:{title:"Una pregunta dentro de otra",prompt:"¿Qué imprime el programa?",hint:"La segunda prueba solo ocurre si la primera es verdadera.",why:"5 > 3 es verdadero, así que entra al bloque interno. Ahí, 5 > 10 es falso y el programa cae en el else interno. El else externo nunca se alcanza.",analogy:"Es el triaje con dos puertas: quien pasa la primera todavía encuentra otra decisión más adelante, y quien no pasa ni llega a verla."},
+c7:{title:"Un adulto mayor sin prioridad",prompt:"Los pacientes de 65 años o más, y también los niños de hasta 12, deberían tener prioridad. El programa nunca marca a nadie. ¿Qué línea hay que corregir?",hint:"¿Existe alguna edad que sea al mismo tiempo mayor que 65 y menor que 12?",why:"Con Y, las dos condiciones tienen que cumplirse juntas, lo cual es imposible. La regla une dos grupos distintos, así que pide O.",analogy:"Es el cartel \"entrada para adultos mayores y niños\": nadie es las dos cosas a la vez. Cambiar el \"y\" por el \"o\" abre la puerta a los dos grupos."},
+c8:{title:"El límite entra o queda afuera",prompt:"Clasifica cada condición del triaje según qué hace con el valor exacto del límite.",bins:["Incluye el límite","Excluye el límite"],cards:["temperatura >= 39","temperatura > 39","edad <= 12","edad < 12"],hint:"La rayita debajo del signo es la que carga el \"o igual\".",why:"Los signos >= y <= incluyen el valor del límite; > y < dejan justamente ese valor afuera. Ahí nacen los errores de frontera.",analogy:"Es la diferencia entre \"a partir de los 65\" y \"más de 65\": quien tiene exactamente 65 entra en un caso y queda afuera en el otro."},
+c9:{title:"El triaje de Rosa, en tres niveles",prompt:"Arma el triaje: fiebre de 39 o más es rojo; si no, edad de 65 o más es amarillo; los demás, verde.",hint:"La regla más grave va primero, y cada paciente sale con un único nivel.",why:"La cadena if, elif y else garantiza que se asigne un solo nivel y que la regla más grave se pruebe antes. Los datos tienen que existir antes de la prueba, y la impresión va después de la decisión.",analogy:"Es el protocolo colgado en la pared del centro de salud: se lee de arriba abajo y uno se detiene en la primera línea que aplica."},
+c10:{title:"La división que no ocurre",prompt:"Con x igual a cero, dividir por x daría error. ¿Qué imprime el programa?",hint:"Cuando la primera prueba de un Y ya es falsa, ¿la segunda llega a evaluarse?",why:"El operador Y evalúa en cortocircuito: como x != 0 es falso, la división nunca se ejecuta y el programa sigue al else, sin error. Ese patrón protege operaciones riesgosas.",analogy:"Es fijarse si hay nafta antes de arrancar: si no hay, nadie gira la llave. El orden de las pruebas es la protección."},
+q7:{title:"Descubrir o comprobar",prompt:"Clasifica cada actividad de la ingeniería de requisitos.",bins:["Elicitación (descubrir)","Validación (comprobar)"],cards:["Entrevistar a la recepcionista sobre el día a día de la atención","Revisar la lista de requisitos con la directora antes de programar","Observar a los pacientes usando el tótem de turnos","Mostrar un prototipo y verificar si es eso lo que se espera"],hint:"Pregúntate si la actividad busca información nueva o confirma lo que ya se escribió.",why:"Entrevistar y observar sacan a la luz requisitos que todavía no estaban en papel. Revisar y comprobar prototipos verifican si lo escrito corresponde a la necesidad real.",analogy:"Es la diferencia entre tomarle las medidas al cliente y probarle la ropa. La primera descubre; la segunda confirma."},
+q8:{title:"El camino de un requisito",prompt:"Ordena las etapas de la ingeniería de requisitos.",lines:["Elicitación: descubrir qué necesitan las personas","Análisis: resolver conflictos y definir prioridades","Especificación: escribir los requisitos de forma verificable","Validación: comprobar con quien lo pidió si es eso","Gestión: controlar los cambios a lo largo del proyecto"],hint:"Primero se descubre, después se organiza, se escribe y se comprueba; controlar los cambios acompaña todo lo demás.",why:"Cada etapa alimenta a la siguiente: no se prioriza lo que no se relevó, ni se valida lo que no se escribió. La gestión entra cuando los requisitos empiezan a cambiar, y siempre cambian.",analogy:"Es construir una casa: conversar con la familia, decidir qué entra en el presupuesto, dibujar el plano, mostrar el dibujo y después registrar cada cambio de idea."},
+q9:{title:"\"El sistema avisa al paciente\"",prompt:"El requisito dice solamente: \"el sistema avisa al paciente\". ¿Por qué es problemático?",opts:["No dice cuándo, por qué medio ni qué hacer si el aviso falla","Es demasiado largo y habría que dividirlo","Usa la palabra sistema, que habría que evitar","No tiene problema: está bastante claro"],hint:"Imagina a dos personas implementando esa frase sin hablar entre sí. ¿Saldría lo mismo?",why:"Un requisito ambiguo es el que admite más de una lectura razonable. Avisar la víspera por mensaje es distinto de avisar en el momento por correo, y las dos caben en esa frase.",analogy:"Es decirle a un amigo \"avísame\": puede llamar a las seis de la mañana o dejar el recado con el vecino. Sin acordarlo, cada uno cumple a su manera."},
+q10:{title:"Criterios de aceptación",prompt:"¿Qué convierte una historia de usuario en algo que el equipo sabe cuándo terminó?",opts:["Criterios de aceptación: condiciones verificables que dicen cuándo está lista","La estimación en horas del desarrollador","El nombre de quien pidió la funcionalidad","La pantalla dibujada por el diseñador"],hint:"Piensa en lo que permite responder sí o no a: ¿ya terminó?",why:"Los criterios de aceptación describen, en condiciones verificables, el comportamiento esperado. Sin ellos, \"listo\" se vuelve opinión.",analogy:"Es la lista de la inspección al recibir un departamento: sin ella, entregar las llaves termina en discusión sobre lo acordado."},
+q11:{title:"Dos pedidos que se contradicen",prompt:"La directora quiere un registro completo del paciente; la recepción quiere agendar en menos de un minuto. ¿Cuál es la mejor conducta?",opts:["Llevar el conflicto a ambas partes y negociar una solución explícita, como registro mínimo ahora y completo después","Hacerle caso a la directora, porque tiene más autoridad","Hacerle caso a la recepción, porque está más cerca del problema","Implementar las dos cosas y que lo resuelvan en el uso"],hint:"Un conflicto entre requisitos es un problema que se resuelve en el análisis, no en el código.",why:"Los requisitos en conflicto tienen que reconciliarse con las partes interesadas antes de volverse código. Elegir en silencio traslada el conflicto al producto, donde cuesta mucho más caro.",analogy:"Son dos ambientes que se disputan la misma pared en el plano. El arquitecto se sienta con la familia y decide antes; una vez levantada, la pared cuesta una obra."},
+g7:{title:"Deshacer sin borrar la historia",prompt:"Un cambio ya publicado rompió el sistema de la panadería. Ordena los pasos para deshacerlo con seguridad.",lines:["Identificar en el historial el commit que causó la falla","Crear un commit de reversión que deshaga esos cambios","Correr las pruebas para confirmar que el sistema volvió a la normalidad","Publicar la reversión en el repositorio remoto","Investigar la causa con calma y preparar la corrección definitiva"],hint:"Primero restablece el servicio; entender el porqué viene después, con el sistema estable.",why:"La reversión crea un commit nuevo que deshace el anterior, sin borrar el historial que otras personas ya descargaron. Investigar después es seguro porque el sistema ya volvió a funcionar.",analogy:"En contabilidad no se tacha un asiento equivocado: se hace un asiento de reversión. El error queda registrado y la cuenta vuelve a estar bien."},
+g8:{title:"Traer o ya mezclar",prompt:"¿Cuál es la diferencia entre fetch y pull en Git?",opts:["Fetch solo trae los cambios del remoto; pull los trae y ya los integra en tu rama","Son dos nombres para la misma operación","Fetch envía cambios; pull los recibe","Fetch funciona solo en main; pull en cualquier rama"],hint:"Una de las dos cambia tus archivos en el momento. ¿Cuál?",why:"Fetch actualiza tu vista del repositorio remoto sin tocar tu trabajo, y te deja ver qué cambió antes de integrar. Pull hace las dos cosas de una vez y puede generar un conflicto ahí mismo.",analogy:"Es la diferencia entre retirar la correspondencia y abrir los sobres sobre el escritorio donde estás trabajando. Fetch la deja en el buzón; pull la desparrama ahora."},
+g9:{title:"Qué entra al repositorio",prompt:"Clasifica cada archivo del proyecto de la panadería.",bins:["Versionar","Dejar afuera (.gitignore)"],cards:["El código fuente del cálculo del vuelto","El archivo con la contraseña de la base de datos","El README con instrucciones de instalación","La carpeta de bibliotecas descargadas automáticamente"],hint:"Pregúntate si el archivo lo escribió el equipo y si puede verlo cualquiera con acceso al repositorio.",why:"Se versiona lo que el equipo escribe y necesita compartir. Los secretos nunca entran, porque el historial de Git es permanente; las dependencias descargadas tampoco, porque se reconstruyen desde el archivo de dependencias.",analogy:"Es armar la valija: tu ropa va, el champú del hotel se queda. Y la llave de casa no viaja en una valija abierta de ninguna manera."},
+g10:{title:"La publicación forzada",prompt:"Un colega propone usar publicación forzada en la rama principal para \"limpiar\" el historial. ¿Por qué es peligroso?",opts:["Reescribe el historial que los demás ya descargaron y puede borrar su trabajo","Deja el repositorio más lento","Solo funciona con permisos de administrador","No es peligroso: es la forma recomendada de ordenar los commits"],hint:"¿Qué pasa con quien ya descargó la versión anterior y siguió trabajando sobre ella?",why:"La publicación forzada reemplaza el historial del remoto. Los commits que otras personas ya descargaron desaparecen de la línea de tiempo, y el trabajo hecho sobre ellos queda huérfano. En una rama compartida se prefiere revertir.",analogy:"Es reimprimir el acta de una reunión que todos ya se llevaron a casa. Quien anotó sobre la versión vieja se queda con un documento que ya no existe."},
+g11:{title:"El commit que hace de todo",prompt:"Un commit cambia el cálculo del vuelto, renombra veinte variables y agrega una pantalla nueva. ¿Cuál es el problema?",opts:["No se puede revisar, revertir ni rastrear el origen de un defecto por separado","Ninguno: los commits grandes ahorran tiempo","Git tiene un límite de archivos por commit","El mensaje va a quedar demasiado largo"],hint:"Piensa en el día en que haya que deshacer solo uno de esos tres cambios.",why:"Cada commit debería contener un cambio coherente. Al mezclar tres, la reversión se lleva lo que estaba bien, y la revisión se pierde entre renombres y lógica nueva.",analogy:"Es embalar la cocina, el baño y el escritorio en la misma caja. Para encontrar una taza das vuelta todo, y no puedes devolver solo lo que vino mal."}
 });
 
 /* Pacote gerado por tools/gerar-idioma.js a partir de "en". REVISAR com um falante nativo antes de publicar. */

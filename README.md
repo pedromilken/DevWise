@@ -16,7 +16,7 @@ Você entra na Ponte, uma pequena casa de software que atende a padaria, o posto
 |---|---|
 | Modelo do estudante | **Elo/Rasch** com dificuldade de item e chute pilota o jogo; **TRI 3PL com EAP, BKT, PFA e AFM** rodam como sombras e registram no log a previsão feita antes de cada resposta |
 | Sequenciamento | Grafo de pré-requisitos (60% libera, 95% domina); item escolhido pela dificuldade mais próxima do domínio atual |
-| Banco de itens | 75 itens (30 de programação e 45 de engenharia de software), com nível de Bloom e dificuldade |
+| Banco de itens | 95 itens, com nível de Bloom e dificuldade. As habilidades de entrada (Variáveis, Condicionais, Requisitos, Git) têm 10 ou 11 itens; as demais, 5 ou 6 |
 | Idiomas | Português, inglês e espanhol completos; registro dos 20 idiomas do estudo e gerador de pacotes para os demais |
 | Linguagens de programação | Python, JavaScript, Java e C, com o mesmo gabarito nas quatro |
 | Tutor com IA | Dicas socráticas e novas analogias via Anthropic, qualquer API compatível com OpenAI ou servidor local (Ollama); sem IA, usa as dicas autorais |

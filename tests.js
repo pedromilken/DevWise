@@ -55,7 +55,8 @@ for(const mode of Object.keys(MODES)){ let tot=0,xpT=0,bal=0,stuck=0,runs=150;
   console.log(mode.padEnd(9),"["+pilot()+"] tickets até dominar tudo:",(tot/runs).toFixed(1)," XP acumulado:",Math.round(xpT/runs)," saldo:",Math.round(bal/runs)," travou:",stuck);
   if(stuck)errs.push("quadro vazio no modo "+mode); }
 errs=[...new Set(errs)];
-{const miss={},rest=[];for(const e of errs){const m=/^(\\w+): falta ui\\.(.+)$/.exec(e);if(m)(miss[m[1]]=miss[m[1]]||[]).push(m[2]);else rest.push(e)}
- const ls=Object.keys(miss);if(ls.length){const n=miss[ls[0]].length;rest.unshift(ls.length+" pacotes sem "+n+" textos novos da interface ("+miss[ls[0]].slice(0,4).join(", ")+"...): "+ls.join(", ")+". Enquanto isso aparecem em inglês. Rode: node tools/gerar-idioma.js revisar")}errs=rest} console.log(errs.length?"ERROS:\\n"+errs.join("\\n"):"OK: sem inconsistências"); process.exit(errs.length?1:0);
+{const miss={},mit={},rest=[];for(const e of errs){const m=/^(\\w+): falta ui\\.(.+)$/.exec(e),mi=/^(\\w+): falta item (.+)$/.exec(e);if(m)(miss[m[1]]=miss[m[1]]||[]).push(m[2]);else if(mi)(mit[mi[1]]=mit[mi[1]]||[]).push(mi[2]);else rest.push(e)}
+ const ls=Object.keys(miss);if(ls.length){const n=miss[ls[0]].length;rest.unshift(ls.length+" pacotes sem "+n+" textos novos da interface ("+miss[ls[0]].slice(0,4).join(", ")+"...): "+ls.join(", ")+". Enquanto isso aparecem em inglês. Rode: node tools/gerar-idioma.js revisar")}{const ls2=Object.keys(mit);if(ls2.length){const n2=mit[ls2[0]].length;rest.unshift(ls2.length+" pacotes sem "+n2+" itens novos ("+mit[ls2[0]].slice(0,4).join(", ")+"...): "+ls2.join(", ")+". Rode: node tools/gerar-idioma.js revisar")}}
+ errs=rest} console.log(errs.length?"ERROS:\\n"+errs.join("\\n"):"OK: sem inconsistências"); process.exit(errs.length?1:0);
 `;
 eval(src);
