@@ -3,105 +3,6 @@ LANG.tr = {
  "name": "Türkçe",
  "llmName": "Turkish",
  "ui": {
-  "role": "Rol",
-  "streak": "Seri",
-  "freePlay": "Her şeyi öğrendin. Tahta artık serbest çalışma.",
-  "locked": "Kilitli: {p} bölümünde %60'a ulaşarak kilidi aç.",
-  "hits": "{n} görevden {c} doğru.",
-  "masteryAria": "ustalık",
-  "correctOrder": "Doğru sıra:",
-  "down": "Aşağı taşı",
-  "why": "Neden: ",
-  "colNow": "Şimdi",
-  "k3": "beceride ustalaşıldı",
-  "colStatus": "Durum",
-  "stM": "Ustalaşıldı",
-  "recLocked": "Hâlâ kilitli: {s}. Ön koşullar %60'ı geçtiğinde açılır.",
-  "bloomAcc": "Bloom düzeyine göre doğruluk",
-  "data": "Verilerin",
-  "setH": "Ayarlar",
-  "uiLang": "Oyun dili",
-  "balance": "Denge",
-  "total": "Toplam XP",
-  "modes": {
-   "normal": "Normal",
-   "medio": "Orta",
-   "dificil": "Zor",
-   "hardcore": "Ekstra zor"
-  },
-  "typedPh": "program çıktısı",
-  "shieldUsed": "Kalkanın cezayı emdi.",
-  "boostOn": "Çift XP: {n} görev kaldı",
-  "lockedXpOnly": "Kilitli: {x} toplam XP gerekiyor (sende {y} var).",
-  "bossNext": "Sonraki aşama",
-  "bossLose": "Patron bu sefer kazandı",
-  "bossRules": "Üç zincirleme aşama, ipucu yok ve güçlendirme yok. Tek bir hata yapabilirsin. Tahtada seçilen zorluk burada da geçerli.",
-  "trophies": "Kupalar",
-  "equip": "Bu unvanı kullan",
-  "evoP": "Her satır, cevapladığın görevlerdeki bir becerinin tahmini ustalığını gösterir. Vurgulamak için bir beceriye dokun: yeşil noktalar doğru cevaplar, sarı noktalar hatalardır. Kesikli çizgiler kilidi açmayı (%60) ve ustalığı ({m}) işaretler.",
-  "models": {
-   "elo": "Elo/Rasch",
-   "irt": "EAP ile 3PL IRT",
-   "bkt": "BKT",
-   "pfa": "PFA",
-   "afm": "AFM"
-  },
-  "cmpH": "Bu geçmişte model karşılaştırması",
-  "confirmTag": "Onay",
-  "studentName": "Öğrenci adı (isteğe bağlı, yazdırılan raporda görünür)",
-  "navBoard": "Pano",
-  "roles": [
-   "Stajyer",
-   "Yeni Başlayan",
-   "Orta Düzey",
-   "Kıdemli",
-   "Uzman"
-  ],
-  "ticketOf": "Görev {n} / {m}",
-  "missions": "Yeni görevler",
-  "nothingDone": "Henüz bir şey yapılmadı. Sprint'i başlatmak için bir görev seç.",
-  "areaSE": "Yazılım mühendisliği",
-  "masteredTxt": "Öğrenildi. ",
-  "reread": "Hikayeyi ve teoriyi tekrar oku",
-  "client": "Müşteri",
-  "bloom": [
-   "Hatırla",
-   "Anla",
-   "Uygula",
-   "Analiz et",
-   "Değerlendir"
-  ],
-  "hint": "İpucu iste",
-  "analogy": "Benzetme: ",
-  "masteredNow": "Beceri edinildi: {s}.",
-  "unlockedNow": "Yeni görev açıldı: {s}.",
-  "retroA": "Temiz sprint.",
-  "repH": "Öğrenme raporu",
-  "k4": "en uzun doğru serisi",
-  "colMastery": "Ustalık",
-  "stB": "Açılacak görev",
-  "recs": "Eğitmenin önerileri",
-  "recBloom": "En çok hata yapılan bilişsel düzey: {b} ({c} / {n}). İpucu kullanmadan, sakin bir şekilde bu tür görevleri çalış.",
-  "howA": "satranç puanı gibidir. Güçlü bir rakibi yenmek çok puan kazandırır, zayıf bir rakibi yenmek az puan getirir, zayıf bir rakibe yenilmek ise çok puan kaybettirir. Burada rakip görevdir.",
-  "base": "Temel URL",
-  "clear": "Anahtarı kaldır",
-  "saved": "Ayarlar kaydedildi.",
-  "keyNote": "Anahtar yalnızca bu tarayıcıda saklanır (localStorage) ve doğrudan sağlayıcıya gönderilir. Ortak bir bilgisayarda kullanma. Sınıf kullanımı için anahtar gerektirmeyen yerel bir sunucuyu tercih et (örneğin, Ollama http://localhost:11434/v1).",
-  "navShop": "Mağaza",
-  "bountiesH": "Sprint görevleri",
-  "dailyH": "Günlük görev",
-  "dailyDone": "Günlük görev tamamlandı. Yenisi yarın gelecek.",
-  "bossStage": "Aşama {n} / {m}",
-  "bossWin": "Boss yenildi",
-  "reward": "Ödül: {x} XP",
-  "shopA": "bunlar sadakat programının milleri gibidir. Bakiyeyi görevler için harcarsın; kart seviyen toplam uçtuğun mile bağlıdır ve kullandığında düşmez.",
-  "equipped": "Kullanımda",
-  "keepGoing": "Bu görev daha sonra tekrar denemek için panoya geri dönecek.",
-  "streakMsg": "Art arda {n}! Seri bonusu: +5 XP.",
-  "colTries": "Görevler",
-  "plA": "düz vites araba kullanan biri otomatik viteste sıfırdan başlamaz, ama uyum sağladığını kanıtlamak için bloğun etrafında birkaç tur atması gerekir.",
-  "plAcc": "Doğru",
-  "printBtn": "Yazdır veya PDF olarak kaydet",
   "start": "İlk sprinti başlat",
   "sprint": "Sprint {n}",
   "todo": "Yapılacaklar",
@@ -204,44 +105,105 @@ LANG.tr = {
   "unequip": "Kullanmayı bırak",
   "sortHint": "Her kart için iki kategoriden birini seç.",
   "modelH": "Bilgi izleme modeli",
-  "homeH": "Gerçek insanların sorunlarını çözerek programlama ve yazılım mühendisliği öğren",
-  "todoEmpty": "Görevlerini almak için yukarıdan bir görev aç.",
-  "lockedAria": "kilitli",
-  "aiHint": "Yapay zeka eğitmeninden ipucu iste",
-  "tutorHint": "Eğitmenin ipucu: ",
-  "solved": "Görev çözüldü",
-  "promo": "Terfi: rolün artık {r}.",
-  "aiExplain": "Yapay zeka eğitmeninden başka bir benzetme iste",
-  "retroC": "Zorlu sprint. Gözden geçirilecek görevler daha sonra panoya geri dönecek.",
-  "stP": "Devam ediyor",
-  "noData": "veri yok",
-  "resetConfirm": "Onayla: tüm ilerlemeyi sil",
-  "codeLang": "Görevlerin programlama dili",
-  "aiOff": "Kapalı. Açmak için aşağıya bir sağlayıcı girin.",
-  "provider": "Sağlayıcı",
-  "provAnthropic": "Anthropic (Claude)",
-  "provOpenAI": "OpenAI uyumlu (OpenAI, Ollama, LM Studio, vb.)",
-  "key": "API anahtarı",
-  "save": "Eğitmen ayarlarını kaydet",
-  "err": "Hata",
-  "dailyTag": "Çift XP",
-  "bossWinP": "{x} XP ve \"{t}\" kupasını kazandın.",
-  "bossStart": "Savaşı başlat",
-  "noTrophies": "Henüz yok. Yeterli ustalık ve XP'ye sahip olduğunda patronlar panoda belirir.",
-  "kTotal": "ömür boyu XP",
-  "oops": [
-   "Neredeyse oldu. Her geliştirici düzeltmeden önce derlemeyi bozar.",
-   "Hatalar yolun bir parçasıdır: şimdi tuzağın nerede olduğunu biliyorsun.",
-   "Mantığında bir hata buldun ve hata ayıklama böyle öğrenilir.",
-   "Bu sefer olmadı ve sorun değil. Açıklamayı acele etmeden incele."
+  "role": "Rol",
+  "streak": "Seri",
+  "freePlay": "Her şeyi öğrendin. Tahta artık serbest çalışma.",
+  "locked": "Kilitli: {p} bölümünde %60'a ulaşarak kilidi aç.",
+  "hits": "{n} görevden {c} doğru.",
+  "masteryAria": "ustalık",
+  "correctOrder": "Doğru sıra:",
+  "down": "Aşağı taşı",
+  "why": "Neden: ",
+  "colNow": "Şimdi",
+  "k3": "beceride ustalaşıldı",
+  "colStatus": "Durum",
+  "stM": "Ustalaşıldı",
+  "recLocked": "Hâlâ kilitli: {s}. Ön koşullar %60'ı geçtiğinde açılır.",
+  "bloomAcc": "Bloom düzeyine göre doğruluk",
+  "data": "Verilerin",
+  "setH": "Ayarlar",
+  "uiLang": "Oyun dili",
+  "balance": "Denge",
+  "total": "Toplam XP",
+  "modes": {
+   "normal": "Normal",
+   "medio": "Orta",
+   "dificil": "Zor",
+   "hardcore": "Ekstra zor"
+  },
+  "typedPh": "program çıktısı",
+  "shieldUsed": "Kalkanın cezayı emdi.",
+  "boostOn": "Çift XP: {n} görev kaldı",
+  "lockedXpOnly": "Kilitli: {x} toplam XP gerekiyor (sende {y} var).",
+  "bossNext": "Sonraki aşama",
+  "bossLose": "Patron bu sefer kazandı",
+  "bossRules": "Üç zincirleme aşama, ipucu yok ve güçlendirme yok. Tek bir hata yapabilirsin. Tahtada seçilen zorluk burada da geçerli.",
+  "trophies": "Kupalar",
+  "equip": "Bu unvanı kullan",
+  "evoP": "Her satır, cevapladığın görevlerdeki bir becerinin tahmini ustalığını gösterir. Vurgulamak için bir beceriye dokun: yeşil noktalar doğru cevaplar, sarı noktalar hatalardır. Kesikli çizgiler kilidi açmayı (%60) ve ustalığı ({m}) işaretler.",
+  "models": {
+   "elo": "Elo/Rasch",
+   "irt": "EAP ile 3PL IRT",
+   "bkt": "BKT",
+   "pfa": "PFA",
+   "afm": "AFM"
+  },
+  "cmpH": "Bu geçmişte model karşılaştırması",
+  "confirmTag": "Onay",
+  "studentName": "Öğrenci adı (isteğe bağlı, yazdırılan raporda görünür)",
+  "navBoard": "Pano",
+  "roles": [
+   "Stajyer",
+   "Yeni Başlayan",
+   "Orta Düzey",
+   "Kıdemli",
+   "Uzman"
   ],
-  "comeback": "Geri dönüş: bir hatadan hemen sonra doğru yaptığın için +{x} XP.",
-  "evoEmpty": "Öğrenme eğrini görmek için bu dilde birkaç görev çöz.",
-  "evoAll": "Tümü",
-  "colGain": "Kazanç",
-  "colModel": "Model",
-  "colAcc": "Doğruluk",
-  "printedOn": "{d} tarihinde oluşturuldu",
+  "ticketOf": "Görev {n} / {m}",
+  "missions": "Yeni görevler",
+  "nothingDone": "Henüz bir şey yapılmadı. Sprint'i başlatmak için bir görev seç.",
+  "areaSE": "Yazılım mühendisliği",
+  "masteredTxt": "Öğrenildi. ",
+  "reread": "Hikayeyi ve teoriyi tekrar oku",
+  "client": "Müşteri",
+  "bloom": [
+   "Hatırla",
+   "Anla",
+   "Uygula",
+   "Analiz et",
+   "Değerlendir"
+  ],
+  "hint": "İpucu iste",
+  "analogy": "Benzetme: ",
+  "masteredNow": "Beceri edinildi: {s}.",
+  "unlockedNow": "Yeni görev açıldı: {s}.",
+  "retroA": "Temiz sprint.",
+  "repH": "Öğrenme raporu",
+  "k4": "en uzun doğru serisi",
+  "colMastery": "Ustalık",
+  "stB": "Açılacak görev",
+  "recs": "Eğitmenin önerileri",
+  "recBloom": "En çok hata yapılan bilişsel düzey: {b} ({c} / {n}). İpucu kullanmadan, sakin bir şekilde bu tür görevleri çalış.",
+  "howA": "satranç puanı gibidir. Güçlü bir rakibi yenmek çok puan kazandırır, zayıf bir rakibi yenmek az puan getirir, zayıf bir rakibe yenilmek ise çok puan kaybettirir. Burada rakip görevdir.",
+  "base": "Temel URL",
+  "clear": "Anahtarı kaldır",
+  "saved": "Ayarlar kaydedildi.",
+  "keyNote": "Anahtar yalnızca bu tarayıcıda saklanır (localStorage) ve doğrudan sağlayıcıya gönderilir. Ortak bir bilgisayarda kullanma. Sınıf kullanımı için anahtar gerektirmeyen yerel bir sunucuyu tercih et (örneğin, Ollama http://localhost:11434/v1).",
+  "navShop": "Mağaza",
+  "bountiesH": "Sprint görevleri",
+  "dailyH": "Günlük görev",
+  "dailyDone": "Günlük görev tamamlandı. Yenisi yarın gelecek.",
+  "bossStage": "Aşama {n} / {m}",
+  "bossWin": "Boss yenildi",
+  "reward": "Ödül: {x} XP",
+  "shopA": "bunlar sadakat programının milleri gibidir. Bakiyeyi görevler için harcarsın; kart seviyen toplam uçtuğun mile bağlıdır ve kullandığında düşmez.",
+  "equipped": "Kullanımda",
+  "keepGoing": "Bu görev daha sonra tekrar denemek için panoya geri dönecek.",
+  "streakMsg": "Art arda {n}! Seri bonusu: +5 XP.",
+  "colTries": "Görevler",
+  "plA": "düz vites araba kullanan biri otomatik viteste sıfırdan başlamaz, ama uyum sağladığını kanıtlamak için bloğun etrafında birkaç tur atması gerekir.",
+  "plAcc": "Doğru",
+  "printBtn": "Yazdır veya PDF olarak kaydet",
   "xp": "XP",
   "navSettings": "Ayarlar",
   "cont": "Kaldığım yerden devam et",
@@ -294,7 +256,45 @@ LANG.tr = {
   "cmpP": "Her cevaptan önce, beş model doğru cevap için tahmin ettikleri olasılığı kaydeder. Brier, tahmin hatasını ölçer (düşük olması daha iyidir); AUC, modelin doğru cevapları hatalardan ayırıp ayırmadığını ölçer (0.5 şans, 1 mükemmeldir).",
   "confirmNote": "Ustalığa bugün ulaşıldı. Bunu doğrulamak için, bu beceriden bir görevi başka bir günde doğru cevapla: tek bir oturum bilgiyi momentumla karıştırır.",
   "stC": "Başka bir günde doğrulanacak",
-  "repFor": "Öğrenci: {n}"
+  "repFor": "Öğrenci: {n}",
+  "homeH": "Gerçek insanların sorunlarını çözerek programlama ve yazılım mühendisliği öğren",
+  "todoEmpty": "Görevlerini almak için yukarıdan bir görev aç.",
+  "lockedAria": "kilitli",
+  "aiHint": "Yapay zeka eğitmeninden ipucu iste",
+  "tutorHint": "Eğitmenin ipucu: ",
+  "solved": "Görev çözüldü",
+  "promo": "Terfi: rolün artık {r}.",
+  "aiExplain": "Yapay zeka eğitmeninden başka bir benzetme iste",
+  "retroC": "Zorlu sprint. Gözden geçirilecek görevler daha sonra panoya geri dönecek.",
+  "stP": "Devam ediyor",
+  "noData": "veri yok",
+  "resetConfirm": "Onayla: tüm ilerlemeyi sil",
+  "codeLang": "Görevlerin programlama dili",
+  "aiOff": "Kapalı. Açmak için aşağıya bir sağlayıcı girin.",
+  "provider": "Sağlayıcı",
+  "provAnthropic": "Anthropic (Claude)",
+  "provOpenAI": "OpenAI uyumlu (OpenAI, Ollama, LM Studio, vb.)",
+  "key": "API anahtarı",
+  "save": "Eğitmen ayarlarını kaydet",
+  "err": "Hata",
+  "dailyTag": "Çift XP",
+  "bossWinP": "{x} XP ve \"{t}\" kupasını kazandın.",
+  "bossStart": "Savaşı başlat",
+  "noTrophies": "Henüz yok. Yeterli ustalık ve XP'ye sahip olduğunda patronlar panoda belirir.",
+  "kTotal": "ömür boyu XP",
+  "oops": [
+   "Neredeyse oldu. Her geliştirici düzeltmeden önce derlemeyi bozar.",
+   "Hatalar yolun bir parçasıdır: şimdi tuzağın nerede olduğunu biliyorsun.",
+   "Mantığında bir hata buldun ve hata ayıklama böyle öğrenilir.",
+   "Bu sefer olmadı ve sorun değil. Açıklamayı acele etmeden incele."
+  ],
+  "comeback": "Geri dönüş: bir hatadan hemen sonra doğru yaptığın için +{x} XP.",
+  "evoEmpty": "Öğrenme eğrini görmek için bu dilde birkaç görev çöz.",
+  "evoAll": "Tümü",
+  "colGain": "Kazanç",
+  "colModel": "Model",
+  "colAcc": "Doğruluk",
+  "printedOn": "{d} tarihinde oluşturuldu"
  },
  "sbc": {
   "CC-C.1.3": "RF-CC C.1.3: Programlama ortamlarını kullanarak problemleri çözme (Algoritmalar, Programlama Teknikleri, Veri Yapıları).",
@@ -1458,9 +1458,9 @@ LANG.tr = {
   },
   "o2": {
    "title": "Üretime giden yol",
-   "prompt": "Sürekli teslimat hattının aşamalarını sıraya koyun.",
+   "prompt": "Sürekli teslimat hattının aşamalarını sıraya koy.",
    "lines": [
-    "Geliştirici kodu push eder",
+    "Geliştirici kodu gönderir",
     "CI sunucusu kodu çeker ve bağımlılıkları kurar",
     "Otomatik testler çalışır",
     "Sürüm paketi oluşturulur",
@@ -1468,24 +1468,24 @@ LANG.tr = {
    ],
    "hint": "Testleri geçmeden hiçbir şey paketlenmez ve paketlenmeden hiçbir şey yayınlanmaz.",
    "why": "Her aşama bir kapıdır: yalnızca testleri geçen paketlenir ve yalnızca tekrarlanabilir şekilde paketlenen yayınlanır.",
-   "analogy": "Bir montaj hattı: parça gelir, monte edilir, kalite kontrolünden geçer, kutulanır ve ancak ondan sonra dükkâna gönderilir."
+   "analogy": "Bir montaj hattı: parça gelir, monte edilir, kalite kontrolden geçer, kutuya konur ve ancak ondan sonra dükkâna gönderilir."
   },
   "o3": {
    "title": "\"Benim makinemde çalışıyor\"",
-   "prompt": "Uygulama Bia'nın dizüstü bilgisayarında çalışıyor ama sunucuda hata veriyor. En olası neden ve doğru çözüm nedir?",
+   "prompt": "Uygulama Bia'nın dizüstü bilgisayarında çalışıyor ve sunucuda çöküyor. En olası neden ve doğru düzeltme nedir?",
    "opts": [
-    "Farklı ortamlar; bağımlılıkları ve sürümleri bir dosyada bildirin ve her yerde aynı ortamı kullanın",
-    "Arızalı sunucu; yenisini alın",
-    "Kötü şans; yarın tekrar deneyin",
-    "Kötü dil; başka bir dilde yeniden yazın"
+    "Farklı ortamlar; bağımlılıkları ve sürümleri bir dosyada bildir ve her yerde aynı ortamı kullan",
+    "Arızalı bir sunucu; yenisini al",
+    "Kötü şans; yarın tekrar dene",
+    "Kötü bir dil; başka bir dilde yeniden yaz"
    ],
-   "hint": "Kod her iki yerde de aynı. Çevresinde ne değişiyor?",
-   "why": "Aynı kod, sürümler ve ayarlar değiştiğinde farklı davranır. Bildirilen bağımlılıklar ve standartlaştırılmış ortamlar yürütmeyi tekrarlanabilir kılar.",
-   "analogy": "Tarif senin mutfağında çalışıyor, komşununkinde başarısız oluyor çünkü onların fırını farklı sıcaklık gösteriyor. Fırını standartlaştır; keki suçlama."
+   "hint": "Kod her iki yerde de aynı. Etrafında ne değişiyor?",
+   "why": "Sürümler ve ayarlar değiştiğinde aynı kod farklı davranır. Bildirilen bağımlılıklar ve standartlaştırılmış ortamlar çalıştırmayı tekrarlanabilir yapar.",
+   "analogy": "Tarif kendi mutfağında çalışıyor ve komşuda başarısız oluyor çünkü onların fırını farklı bir sıcaklık gösteriyor. Fırını standartlaştır; keki suçlama."
   },
   "o4": {
    "title": "Sürüm riski",
-   "prompt": "Her uygulamayı sürüm riski üzerindeki etkisine göre sınıflandırın.",
+   "prompt": "Her uygulamayı sürüm riski üzerindeki etkisine göre sınıflandır.",
    "bins": [
     "Riski azaltır",
     "Riski artırır"
@@ -1496,22 +1496,252 @@ LANG.tr = {
     "Test edilmiş bir geri alma komutuna sahip olmak",
     "Üretim sunucusunda dosyaları doğrudan düzenlemek"
    ],
-   "hint": "Kendinize sorun: Bir şeyler ters giderse nedeni bulmak ve geri dönmek kolay olur mu?",
-   "why": "Küçük bir değişikliğin nedeni kolay bulunur ve test edilmiş bir geri alma hızlı bir yol sağlar. Dev bir sürüm ve üretimde elle yapılan düzenlemeler hatayı bulmayı ve geri almayı zorlaştırır.",
-   "analogy": "Nehri taş taş geçmek geri adım atmanı sağlar. Bir kıyıdan diğerine atlamak ya hep ya hiçtir."
+   "hint": "Sor: eğer ters giderse, nedeni bulmak ve geri dönmek kolay olacak mı?",
+   "why": "Küçük bir değişikliğin bulunması kolay bir nedeni vardır ve test edilmiş bir geri alma hızlı bir dönüş sağlar. Dev bir sürüm ve üretimde elle düzenlemeler hatayı bulmayı ve geri almayı zorlaştırır.",
+   "analogy": "Nehri taş taş geçmek geri adım atmana izin verir. Bir kıyıdan diğerine atlamak ya hep ya hiçtir."
   },
   "o5": {
    "title": "CI üç gündür kırmızı",
-   "prompt": "CI'da bir test üç gündür başarısız oluyor ve ekip kod push etmeye devam ediyor. Doğru hareket tarzı nedir?",
+   "prompt": "CI'da bir test üç gündür başarısız oluyor ve ekip kod göndermeye devam ediyor. Doğru hareket tarzı nedir?",
    "opts": [
-    "Önce durun ve derlemeyi düzeltin: yok sayılan bir alarm korumayı bırakır",
-    "Başarısız testi devre dışı bırakın",
-    "Devam edin ve ay sonunda her şeyi düzeltin",
-    "Yalnızca engel olan CI'ı kaldırın"
+    "Dur ve önce derlemeyi düzelt: yok sayılan bir alarm korumayı bırakır",
+    "Başarısız testi devre dışı bırak",
+    "Devam et ve her şeyi ay sonunda düzelt",
+    "Sadece engel olan CI'ı kaldır"
    ],
    "hint": "Herkes yok saymayı öğrendikten sonra bir alarmın değeri nedir?",
-   "why": "Kırmızı bir derlemede yeni kusurlar ilk hatanın arkasına gizlenerek sızar. Derlemeyi düzeltmek tüm ekibin önceliği haline gelir; testi devre dışı bırakmak yalnızca gösterge panelindeki ışığı kapatır.",
-   "analogy": "Gösterge panelindeki yağ lambasıdır: üzerini bantlamak motoru tamir etmez."
+   "why": "Kırmızı bir derlemede, yeni hatalar ilkinin arkasına gizlenerek içeri sızar. Derlemeyi düzeltmek tüm ekibin önceliği olur; testi devre dışı bırakmak yalnızca gösterge panelindeki ışığı söndürür.",
+   "analogy": "Gösterge panelindeki yağ ışığıdır: üzerine bant yapıştırmak motoru tamir etmez."
+  },
+  "v6": {
+   "title": "Tezgâh matematiği",
+   "prompt": "İki somun 4 real ve kafadan yapılan bir toplama. Program ne yazdırır?",
+   "hint": "Programlamada da matematikte olduğu gibi çarpma toplamadan önce yapılır.",
+   "why": "Önce 3 × 4 = 12, sonra 2 + 12 = 14. Önce toplamak için (2 + 3) * 4 yazman gerekirdi.",
+   "analogy": "Kasadaki öncelik şerididir: önceliği olan önce geçer, sonra gelse bile. Parantezler sırayı değiştiren geçiş kartıdır."
+  },
+  "v7": {
+   "title": "Kaybolan sentler",
+   "prompt": "Dona Lúcia iki tutarı topluyor ve beklediğiyle karşılaştırıyor. Program ne yazdırır?",
+   "hint": "Ondalık sayılar ikilik sistemde saklanır ve her ondalık bu biçimde tam olarak ifade edilemez.",
+   "why": "İkilik sistemde 0.1 ve 0.2 tekrarlayan kesirlerdir: toplam 0.30000000000000004 verir ve tam karşılaştırma başarısız olur. Para için bir toleransla karşılaştır veya sentlerle, tam sayılarla çalış.",
+   "analogy": "Bir santimetreyi inç cetveliyle ölçmek gibidir: her dönüşüm görünmez bir kalan bırakır ve kalanları toplamak sonucu saptırır."
+  },
+  "v8": {
+   "title": "Gramlar tona dönüştü",
+   "prompt": "Tarifte 500 gram un kullanılıyor ama program 500000 yazdırıyor. Hangi satır yanlış?",
+   "hint": "Bir kiloda bin gram vardır. Gramdan kiloya gitmek için çarpar mısın, böler misin?",
+   "why": "Dönüşüm tersine çevrilmiş: gramdan kiloya gitmek için 1000'e bölersin. Çarpmak ters yöne götürür.",
+   "analogy": "Dövizi yanlış yönde çevirmektir: sayı devasa büyür ve biri son tutarı kontrol edene kadar matematik doğru görünür."
+  },
+  "v9": {
+   "title": "Kavanozları dökmeden takas etmek",
+   "prompt": "Geçici bir değişken kullanarak a ve b'nin değerlerini takas eden ve sonucu yazdıran programı birleştir.",
+   "hint": "Üzerine yazılmadan önce değerlerden birini sakla.",
+   "why": "Geçici değişken, değiştirilirken ilk değeri tutar. O olmadan ikisinden biri kaybolur, tıpkı takasın yanlış gittiği kasa fişindeki gibi.",
+   "analogy": "İki dolu bardağın içeriğini takas etmek için üçüncü, boş bir bardak kullanırsın. Kodda da aynı harekettir."
+  },
+  "v10": {
+   "title": "Tam sayı mı, ondalık mı",
+   "prompt": "Fırın verilerini en uygun sayı türüne göre sınıflandır.",
+   "bins": [
+    "Tam sayı",
+    "Ondalık sayı"
+   ],
+   "cards": [
+    "Bugün satılan ekmek sayısı",
+    "Unun kilo fiyatı",
+    "Kuyruktaki müşteri sayısı",
+    "Hamurun kilogram cinsinden ağırlığı"
+   ],
+   "hint": "O şeyin yarısı mantıklı olur mu diye sor.",
+   "why": "Tek tek saydığın şeyler için tam sayı gerekir; parça parça ölçtüğün şeyler için ondalık sayı gerekir. Yarım müşteri olmaz; yarım kilo olur.",
+   "analogy": "Yumurta saymakla un tartmak arasındaki fark gibidir: biri kutuya sığar, öbürü terazi ister."
+  },
+  "c6": {
+   "title": "İç içe bir soru",
+   "prompt": "Program ne yazdırır?",
+   "hint": "İkinci test yalnızca birincisi doğruysa çalışır.",
+   "why": "5 > 3 doğrudur, bu yüzden iç bloğa girer. Orada 5 > 10 yanlıştır ve program iç else'e düşer. Dış else'e hiç ulaşılmaz.",
+   "analogy": "İki kapının ardındaki triyaj gibidir: İlkini geçen ileride yine bir kararla karşılaşır, geçemeyen onu hiç görmez."
+  },
+  "c7": {
+   "title": "Önceliği olmayan yaşlı hasta",
+   "prompt": "65 yaş ve üzeri hastalar ile 12 yaşına kadar çocuklar öncelikli olmalı. Program kimseyi işaretlemiyor. Hangi satırın düzeltilmesi gerekiyor?",
+   "hint": "Aynı anda hem 65 üstü hem 12 altı olan bir yaş var mı?",
+   "why": "AND ile iki koşulun birlikte sağlanması gerekir, bu imkânsızdır. Kural iki ayrı grubu birleştiriyor, bu yüzden OR gerekir.",
+   "analogy": "\"Yaşlılar ve çocuklar için giriş\" tabelası gibidir: kimse aynı anda ikisi olamaz. \"Ve\"yi \"veya\" ile değiştirmek kapıyı iki gruba da açar."
+  },
+  "c8": {
+   "title": "Sınır değer sayılıyor mu",
+   "prompt": "Her triyaj koşulunu, tam sınır değerinde ne yaptığına göre sınıflandır.",
+   "bins": [
+    "Sınırı dahil eder",
+    "Sınırı hariç tutar"
+   ],
+   "cards": [
+    "sıcaklık >= 39",
+    "sıcaklık > 39",
+    "yaş <= 12",
+    "yaş < 12"
+   ],
+   "hint": "İşaretin altındaki çizgi \"eşittir\" anlamını taşır.",
+   "why": ">= ve <= işaretleri sınır değerini dahil eder; > ve < tam o değeri dışarıda bırakır. Sınır hataları burada doğar.",
+   "analogy": "\"65'ten itibaren\" ile \"65 üstü\" arasındaki fark gibidir: tam 65 yaşında biri bir kuralda içeride, öbüründe dışarıda olur."
+  },
+  "c9": {
+   "title": "Rosa'nın triyajı, üç seviyede",
+   "prompt": "Triyajı oluştur: 39 veya üstü ateş kırmızıdır; değilse, 65 yaş ve üzeri sarıdır; diğer herkes yeşildir.",
+   "hint": "En ciddi kural önce gelir ve her hasta tek bir seviyeyle ayrılır.",
+   "why": "if, elif ve else zinciri yalnızca bir seviye atanmasını ve en ciddi kuralın önce test edilmesini garanti eder. Veri testten önce var olmalıdır ve yazdırma karardan sonra gelir.",
+   "analogy": "Kliniğin duvarına asılı protokol gibidir: yukarıdan aşağıya okursun ve ilk uyan satırda durursun."
+  },
+  "c10": {
+   "title": "Asla gerçekleşmeyen bölme",
+   "prompt": "x sıfırken, x'e bölmek hata verir. Program ne yazdırır?",
+   "hint": "Bir AND'nin ilk testi zaten yanlışsa, ikincisi hiç değerlendirilir mi?",
+   "why": "AND operatörü kısa devre yapar: x != 0 yanlış olduğundan bölme hiç çalıştırılmaz ve program hatasız olarak else'e gider. Bu kalıp riskli işlemleri korur.",
+   "analogy": "Kontağı çevirmeden önce yakıtı kontrol etmek gibidir: yakıt yoksa kimse motoru çalıştırmayı denemez. Testlerin sırası korumadır."
+  },
+  "q7": {
+   "title": "Keşfetmek mi, doğrulamak mı",
+   "prompt": "Her gereksinim mühendisliği etkinliğini sınıflandır.",
+   "bins": [
+    "Ortaya çıkarma (keşfetme)",
+    "Doğrulama (kontrol etme)"
+   ],
+   "cards": [
+    "Resepsiyonist ile günlük rutin hakkında görüşme",
+    "Kodlamadan önce gereksinim listesini müdürle gözden geçirme",
+    "Hastaların görev kioskunu kullanmasını izleme",
+    "Bir prototip gösterip bunun gerçekten beklenen şey olup olmadığını kontrol etme"
+   ],
+   "hint": "Etkinliğin yeni bilgi mi aradığını yoksa yazılmış olanı mı doğruladığını sor.",
+   "why": "Görüşme ve gözlem, henüz kâğıda dökülmemiş gereksinimleri ortaya çıkarır. Gözden geçirme ve prototip kontrolü, yazılanın gerçek ihtiyaçla eşleşip eşleşmediğini doğrular.",
+   "analogy": "Müşterinin ölçülerini almakla giysiyi üzerinde denemek arasındaki fark gibidir. Birincisi keşfeder; ikincisi doğrular."
+  },
+  "q8": {
+   "title": "Bir gereksinimin yolu",
+   "prompt": "Gereksinim mühendisliğinin aşamalarını sıraya koy.",
+   "lines": [
+    "Ortaya çıkarma: insanların neye ihtiyacı olduğunu öğren",
+    "Analiz: çatışmaları çöz ve öncelikleri belirle",
+    "Belirtim: gereksinimleri doğrulanabilir biçimde yaz",
+    "Doğrulama: bunun doğru olup olmadığını isteyen kişilerle kontrol et",
+    "Yönetim: proje boyunca değişiklikleri kontrol et"
+   ],
+   "hint": "Önce öğrenirsin, sonra düzenler, yazar ve kontrol edersin; değişiklikleri kontrol etmek diğerleriyle birlikte yürür.",
+   "why": "Her aşama bir sonrakini besler: hiç ortaya atılmamış olanı önceliklendirmezsin, hiç yazılmamış olanı da doğrulamazsın. Yönetim, gereksinimler değişmeye başladığında başlar ve onlar her zaman değişir.",
+   "analogy": "Ev inşa etmek gibidir: aileyle konuşmak, bütçeye neyin sığacağına karar vermek, planı çizmek, çizimi göstermek ve sonra her fikir değişikliğini kaydetmek."
+  },
+  "q9": {
+   "title": "\"Sistem hastayı bilgilendirir\"",
+   "prompt": "Gereksinim yalnızca şunu söylüyor: \"sistem hastayı bilgilendirir\". Bu neden bir sorun?",
+   "opts": [
+    "Ne zaman, hangi kanaldan ve bildirim başarısız olursa ne yapılacağını söylemiyor",
+    "Çok uzun ve bölünmeli",
+    "Kaçınılması gereken sistem kelimesini kullanıyor",
+    "Sorun değil: yeterince açık"
+   ],
+   "hint": "İki kişinin bu cümleyi birbiriyle konuşmadan uyguladığını hayal et. Aynı şeyi mi inşa ederler?",
+   "why": "Belirsiz bir gereksinim, birden fazla makul yoruma izin verendir. Bir gün önce kısa mesajla bilgilendirmek, o anda e-postayla bilgilendirmekten farklıdır ve her ikisi de bu cümleye uyar.",
+   "analogy": "Bir arkadaşına \"bana haber ver\" demek gibi: sabah altıda arayabilir ya da komşuya haber bırakabilir. Üzerinde anlaşmadan herkes kendi yöntemiyle teslim eder."
+  },
+  "q10": {
+   "title": "Kabul kriterleri",
+   "prompt": "Bir kullanıcı hikayesini, ekibin bittiğini bildiği bir şeye dönüştüren nedir?",
+   "opts": [
+    "Kabul kriterleri: bittiğini söyleyen doğrulanabilir koşullar",
+    "Geliştiricinin saat cinsinden tahmini",
+    "Özelliği isteyen kişinin adı",
+    "Tasarımcının çizdiği ekran"
+   ],
+   "hint": "Bitti mi sorusuna evet ya da hayır cevabı vermeni sağlayan şeyi düşün.",
+   "why": "Kabul kriterleri, beklenen davranışı doğrulanabilir koşullarla tanımlar. Onlar olmadan \"bitti\" bir görüş meselesine dönüşür.",
+   "analogy": "Bir konut teslimindeki eksik listesi gibidir: o olmadan anahtarları teslim etmek, ne üzerinde anlaşıldığına dair bir tartışmaya dönüşür."
+  },
+  "q11": {
+   "title": "Birbiriyle çelişen iki istek",
+   "prompt": "Müdür eksiksiz bir hasta kaydı istiyor; ön büro bir dakikadan kısa sürede randevu planlamak istiyor. En iyi yol nedir?",
+   "opts": [
+    "Çatışmayı iki tarafa da götürüp şimdi minimum kayıt, sonra tam kayıt gibi açık bir çözüm müzakere etmek",
+    "Müdürün tarafını tutmak, çünkü daha fazla yetkisi var",
+    "Ön büronun tarafını tutmak, çünkü soruna daha yakınlar",
+    "İkisini de uygulayıp pratikte çözmelerine izin vermek"
+   ],
+   "hint": "Gereksinimler arasındaki çatışma, kodda değil analizde çözülmesi gereken bir sorundur.",
+   "why": "Çelişen gereksinimler, koda dönüşmeden önce paydaşlarla uzlaştırılmalıdır. Sessizce seçim yapmak çatışmayı ürüne taşır ve orada çok daha pahalıya mal olur.",
+   "analogy": "Planda iki oda aynı duvar için kavga ediyor. Mimar aileyle oturup önceden karar verir; bir kez inşa edildi mi duvar tadilat gerektirir."
+  },
+  "g7": {
+   "title": "Geçmişi silmeden geri almak",
+   "prompt": "Yayınlanmış bir değişiklik fırın sistemini bozdu. Güvenli bir şekilde geri almak için adımları sıraya koy.",
+   "lines": [
+    "Geçmişte hataya neden olan commit'i belirle",
+    "Bu değişiklikleri geri alan bir revert commit oluştur",
+    "Sistemin normale döndüğünü doğrulamak için testleri çalıştır",
+    "Revert'i uzak depoya push et",
+    "Sakin bir şekilde nedeni araştır ve kalıcı düzeltmeyi hazırla"
+   ],
+   "hint": "Önce servisi geri getir; nedenini anlamak sonra, sistem stabilken gelir.",
+   "why": "Revert, öncekini geri alan yeni bir commit oluşturur; başkalarının zaten pull ettiği geçmişi silmeden. Sonradan araştırmak güvenlidir çünkü sistem yeniden çalışır durumdadır.",
+   "analogy": "Defter tutmada yanlış bir kaydı karalamazsın: ters kayıt düşersin. Hata kayıtta kalır ve bakiye düzelir."
+  },
+  "g8": {
+   "title": "Fetch mi, zaten merge mi",
+   "prompt": "Git'te fetch ile pull arasındaki fark nedir?",
+   "opts": [
+    "Fetch yalnızca uzaktan değişiklikleri getirir; pull onları getirir ve dalına merge eder",
+    "Aynı işlemin iki adıdır",
+    "Fetch değişiklik gönderir; pull alır",
+    "Fetch yalnızca main'de çalışır; pull her dalda"
+   ],
+   "hint": "İkisinden biri dosyalarını hemen değiştirir. Hangisi?",
+   "why": "Fetch, çalışmana dokunmadan uzak depo görünümünü günceller; entegre etmeden önce ne değiştiğini görmeni sağlar. Pull ikisini birden yapar ve orada bir çakışma çıkarabilir.",
+   "analogy": "Postaları toplamak ile çalıştığın masadaki zarfları açmak arasındaki fark gibidir. Fetch kutuda bırakır; pull şimdi ortaya döker."
+  },
+  "g9": {
+   "title": "Depoya ne girer",
+   "prompt": "Fırın projesinin her dosyasını sınıflandır.",
+   "bins": [
+    "Sürümle",
+    "Dışarıda tut (.gitignore)"
+   ],
+   "cards": [
+    "Hesap değişikliğinin kaynak kodu",
+    "Veritabanı şifresini içeren dosya",
+    "Kurulum talimatlarını içeren README",
+    "Otomatik indirilen kütüphaneler klasörü"
+   ],
+   "hint": "Dosyayı ekibin yazıp yazmadığını ve depoya erişimi olan herkesin onu görüp göremeyeceğini sor.",
+   "why": "Ekibin yazdığı ve paylaşması gereken şeyleri sürümlersin. Sırlar asla girmez, çünkü Git geçmişi kalıcıdır; indirilen bağımlılıklar da girmez, çünkü bağımlılık dosyasından yeniden oluşturulabilirler.",
+   "analogy": "Bir bavul hazırlamak gibidir: kıyafetlerin içeri girer, otel şampuanı dışarıda kalır. Ve ev anahtarın kesinlikle açık bir çantada seyahat etmez."
+  },
+  "g10": {
+   "title": "Force push",
+   "prompt": "Bir meslektaşın, geçmişi \"düzenlemek\" için main dalına force push yapmayı öneriyor. Bu neden tehlikeli?",
+   "opts": [
+    "Başkalarının zaten pull ettiği geçmişi yeniden yazar ve onların çalışmasını silebilir",
+    "Depoyu yavaşlatır",
+    "Yalnızca yönetici haklarıyla çalışır",
+    "Tehlikeli değil: commit'leri düzenlemenin önerilen yoludur"
+   ],
+   "hint": "Eski sürümü zaten pull edip üzerine çalışmaya devam eden birine ne olur?",
+   "why": "Force push, uzak geçmişi değiştirir. Başkalarının zaten pull ettiği commit'ler zaman çizelgesinden kaybolur ve üzerine inşa edilen çalışma yetim kalır. Paylaşılan bir dalda bunun yerine revert kullan.",
+   "analogy": "Herkesin eve götürdüğü bir toplantının tutanaklarını yeniden basmak gibidir. Eski sürüme not alan kişi, artık var olmayan bir belgeyle kalır."
+  },
+  "g11": {
+   "title": "Her şeyi yapan commit",
+   "prompt": "Bir commit, hesap değişikliğini değiştiriyor, yirmi değişkeni yeniden adlandırıyor ve yeni bir ekran ekliyor. Sorun nedir?",
+   "opts": [
+    "Tek başına incelenemez, geri alınamaz veya bir hatanın kaynağına kadar izlenemez",
+    "Hiçbiri: büyük commit'ler zaman kazandırır",
+    "Git'in commit başına dosya sınırı vardır",
+    "Mesaj çok uzun olur"
+   ],
+   "hint": "Bu üç değişiklikten yalnızca birinin geri alınması gereken günü düşün.",
+   "why": "Her commit tek bir tutarlı değişiklik içermelidir. Üçünü karıştırınca, geri alma doğru olanı da sürükler ve inceleme, yeniden adlandırmalar ile yeni mantık arasında kaybolur.",
+   "analogy": "Mutfağı, banyoyu ve ofisi aynı kutuya paketlemek gibidir. Bir fincan bulmak için her şeyi altüst edersin ve yalnızca yanlış geleni geri gönderemezsin."
   }
  },
  "game": {

@@ -1456,9 +1456,102 @@ LANG.de = {
    "why": "CI baut das Projekt von Grund auf und führt die Tests bei jeder Änderung aus. Der Wert liegt in der Geschwindigkeit der Warnung: Minuten, nicht Wochen.",
    "analogy": "Es ist der Metalldetektor an der Tür: Er prüft jede Person beim Eintreten, statt am Monatsende das ganze Gebäude zu durchsuchen."
   },
+  "v10": {
+   "title": "Ganz oder dezimal",
+   "prompt": "Ordne jede Angabe aus der Bäckerei dem passenden numerischen Typ zu.",
+   "bins": [
+    "Ganzzahl",
+    "Dezimalzahl"
+   ],
+   "cards": [
+    "Anzahl der heute verkauften Brote",
+    "Preis pro Kilo Mehl",
+    "Anzahl der Kunden in der Warteschlange",
+    "Gewicht des Teigs in Kilo"
+   ],
+   "hint": "Frag dich, ob die Hälfte davon Sinn ergibt.",
+   "why": "Was du Stück für Stück zählst, verlangt eine Ganzzahl; was du in Teilen misst, verlangt eine Dezimalzahl. Ein halber Kunde existiert nicht; ein halbes Kilo schon.",
+   "analogy": "Es ist der Unterschied zwischen Eier zählen und Mehl wiegen: Das eine passt in eine Schachtel, das andere braucht eine Waage."
+  },
+  "c6": {
+   "title": "Eine Frage in einer anderen",
+   "prompt": "Was gibt das Programm aus?",
+   "hint": "Der zweite Test findet nur statt, wenn der erste wahr ist.",
+   "why": "5 > 3 ist wahr, also geht es in den inneren Block. Dort ist 5 > 10 falsch und das Programm fällt in den inneren else-Zweig. Der äußere else-Zweig wird nie erreicht.",
+   "analogy": "Es ist wie eine Triage hinter zwei Türen: Wer die erste passiert, trifft dahinter auf eine weitere Entscheidung, und wer nicht, sieht sie nie."
+  },
+  "c7": {
+   "title": "Ein älterer Patient ohne Priorität",
+   "prompt": "Patienten ab 65 Jahren und außerdem Kinder bis 12 Jahre sollen Priorität bekommen. Das Programm markiert niemanden. Welche Zeile muss geändert werden?",
+   "hint": "Gibt es ein Alter, das gleichzeitig über 65 und unter 12 ist?",
+   "why": "Mit UND müssen beide Bedingungen zusammen gelten, was unmöglich ist. Die Regel verbindet zwei getrennte Gruppen, also braucht es ODER.",
+   "analogy": "Es ist das Schild „Eingang für Senioren und Kinder“: Niemand ist beides zugleich. Wenn man „und“ durch „oder“ ersetzt, öffnet sich die Tür für beide Gruppen."
+  },
+  "c8": {
+   "title": "Zählt der Grenzwert oder nicht",
+   "prompt": "Ordne jede Triage-Bedingung danach, was sie mit dem exakten Grenzwert macht.",
+   "bins": [
+    "Schließt den Grenzwert ein",
+    "Schließt den Grenzwert aus"
+   ],
+   "cards": [
+    "Temperatur >= 39",
+    "Temperatur > 39",
+    "Alter <= 12",
+    "Alter < 12"
+   ],
+   "hint": "Der Strich unter dem Zeichen ist das, was das „oder gleich“ trägt.",
+   "why": "Die Zeichen >= und <= schließen den Grenzwert ein; > und < lassen genau diesen Wert außen vor. Hier entstehen Grenzfehler.",
+   "analogy": "Es ist der Unterschied zwischen „ab 65“ und „über 65“: Wer genau 65 ist, ist bei der einen Regel dabei und bei der anderen nicht."
+  },
+  "c9": {
+   "title": "Rosas Triage, in drei Stufen",
+   "prompt": "Setze die Triage zusammen: Fieber ab 39 ist rot; sonst ist Alter ab 65 gelb; alle anderen sind grün.",
+   "hint": "Die schwerwiegendste Regel kommt zuerst, und jeder Patient geht mit einer einzigen Stufe hinaus.",
+   "why": "Die Kette aus if, elif und else garantiert, dass nur eine Stufe zugewiesen wird und die schwerwiegendste Regel zuerst geprüft wird. Die Daten müssen vor dem Test existieren, und das Ausgeben kommt nach der Entscheidung.",
+   "analogy": "Es ist das Protokoll an der Wand der Klinik: Man liest es von oben nach unten und hört bei der ersten Zeile auf, die zutrifft."
+  },
+  "c10": {
+   "title": "Die Division, die nie passiert",
+   "prompt": "Wenn x gleich null ist, würde die Division durch x fehlschlagen. Was gibt das Programm aus?",
+   "hint": "Wenn der erste Test eines UND bereits falsch ist, wird der zweite überhaupt ausgewertet?",
+   "why": "Der UND-Operator schließt kurz: Da x != 0 falsch ist, wird die Division nie ausgeführt und das Programm geht in den else-Zweig, ohne Fehler. Dieses Muster schützt riskante Operationen.",
+   "analogy": "Es ist wie der Blick auf die Tankanzeige, bevor man den Schlüssel dreht: Ist nichts da, versucht niemand, den Motor zu starten. Die Reihenfolge der Tests ist der Schutz."
+  },
+  "q7": {
+   "title": "Herausfinden oder Überprüfen",
+   "prompt": "Ordne jede Aktivität der Anforderungsermittlung zu.",
+   "bins": [
+    "Ermittlung (Herausfinden)",
+    "Validierung (Überprüfen)"
+   ],
+   "cards": [
+    "Die Rezeptionistin über ihren Tagesablauf befragen",
+    "Die Anforderungsliste vor dem Programmieren mit der Leitung durchsehen",
+    "Patienten bei der Nutzung des Ticket-Automaten beobachten",
+    "Einen Prototyp zeigen und prüfen, ob das wirklich das Erwartete ist"
+   ],
+   "hint": "Frag dich, ob die Aktivität neue Informationen sucht oder bestätigt, was bereits aufgeschrieben ist.",
+   "why": "Befragen und Beobachten bringen Anforderungen ans Licht, die noch nicht auf dem Papier standen. Durchsehen und Prototypen prüfen, ob das Geschriebene dem echten Bedarf entspricht.",
+   "analogy": "Es ist der Unterschied zwischen dem Maßnehmen beim Kunden und dem Anprobieren des Kleidungsstücks. Das Erste entdeckt; das Zweite bestätigt."
+  },
+  "q8": {
+   "title": "Der Weg einer Anforderung",
+   "prompt": "Bringe die Phasen der Anforderungsermittlung in die richtige Reihenfolge.",
+   "lines": [
+    "Ermittlung: herausfinden, was die Leute brauchen",
+    "Analyse: Konflikte lösen und Prioritäten setzen",
+    "Spezifikation: die Anforderungen überprüfbar aufschreiben",
+    "Validierung: mit den Auftraggebern prüfen, ob das richtig ist",
+    "Management: Änderungen während des gesamten Projekts steuern"
+   ],
+   "hint": "Zuerst herausfinden, dann ordnen, aufschreiben und prüfen; das Steuern von Änderungen läuft parallel zu allem anderen.",
+   "why": "Jede Phase speist die nächste: Man priorisiert nicht, was nie angesprochen wurde, und validiert nicht, was nie aufgeschrieben wurde. Das Management beginnt, wenn sich Anforderungen ändern, und das tun sie immer.",
+   "analogy": "Es ist wie beim Hausbau: mit der Familie sprechen, entscheiden, was ins Budget passt, den Plan zeichnen, die Zeichnung zeigen und dann jede Meinungsänderung festhalten."
+  },
   "o2": {
-   "title": "Der Weg in die Produktion",
-   "prompt": "Ordne die Phasen einer Continuous-Delivery-Pipeline in die richtige Reihenfolge.",
+   "title": "Der Weg zur Produktion",
+   "prompt": "Bringe die Phasen einer kontinuierlichen Bereitstellungs-Pipeline in die richtige Reihenfolge.",
    "lines": [
     "Der Entwickler pusht den Code",
     "Der CI-Server holt den Code und installiert die Abhängigkeiten",
@@ -1466,52 +1559,189 @@ LANG.de = {
     "Das Release-Paket wird gebaut",
     "Die Version wird in Produktion freigegeben"
    ],
-   "hint": "Nichts wird paketiert, bevor die Tests bestanden sind, und nichts wird freigegeben, bevor es paketiert wurde.",
+   "hint": "Nichts wird paketiert, bevor es die Tests bestanden hat, und nichts wird freigegeben, bevor es paketiert wurde.",
    "why": "Jede Phase ist ein Tor: Nur was die Tests bestanden hat, wird paketiert, und nur was reproduzierbar paketiert wurde, wird freigegeben.",
-   "analogy": "Ein Fließband: Das Teil kommt an, wird montiert, durchläuft die Qualitätskontrolle, wird verpackt und verlässt erst dann das Werk für den Laden."
+   "analogy": "Ein Fließband: Das Teil kommt an, wird zusammengebaut, durchläuft die Qualitätskontrolle, wird verpackt und verlässt erst dann die Werkstatt."
   },
   "o3": {
-   "title": "\"Bei mir läuft es\"",
+   "title": "„Bei mir funktioniert es“",
    "prompt": "Die App läuft auf Bias Laptop und stürzt auf dem Server ab. Was ist die wahrscheinlichste Ursache und die richtige Lösung?",
    "opts": [
-    "Unterschiedliche Umgebungen; Abhängigkeiten und Versionen in einer Datei festlegen und überall dieselbe Umgebung verwenden",
-    "Ein fehlerhafter Server; einen neuen kaufen",
-    "Pech; morgen noch einmal versuchen",
+    "Unterschiedliche Umgebungen; Abhängigkeiten und Versionen in einer Datei deklarieren und überall dieselbe Umgebung verwenden",
+    "Ein defekter Server; einen neuen kaufen",
+    "Pech; morgen nochmal versuchen",
     "Eine schlechte Sprache; in einer anderen neu schreiben"
    ],
    "hint": "Der Code ist an beiden Orten derselbe. Was ändert sich um ihn herum?",
-   "why": "Derselbe Code verhält sich anders, wenn sich Versionen und Einstellungen ändern. Festgelegte Abhängigkeiten und standardisierte Umgebungen machen die Ausführung reproduzierbar.",
-   "analogy": "Das Rezept funktioniert in deiner Küche und misslingt beim Nachbarn, weil dessen Ofen eine andere Temperatur anzeigt. Standardisiere den Ofen; gib nicht dem Kuchen die Schuld."
+   "why": "Derselbe Code verhält sich anders, wenn sich Versionen und Einstellungen ändern. Deklarierte Abhängigkeiten und standardisierte Umgebungen machen die Ausführung reproduzierbar.",
+   "analogy": "Das Rezept funktioniert in deiner Küche und scheitert beim Nachbarn, weil dessen Ofen eine andere Temperatur anzeigt. Standardisiere den Ofen; gib nicht dem Kuchen die Schuld."
   },
   "o4": {
-   "title": "Release-Risiko",
-   "prompt": "Ordne jede Praxis nach ihrer Wirkung auf das Release-Risiko ein.",
+   "title": "Risiko bei Releases",
+   "prompt": "Ordne jede Praxis nach ihrer Auswirkung auf das Release-Risiko ein.",
    "bins": [
     "Senkt das Risiko",
     "Erhöht das Risiko"
    ],
    "cards": [
-    "Kleine Änderungen mehrmals pro Woche freigeben",
+    "Kleine Änderungen mehrmals pro Woche veröffentlichen",
     "Drei Monate Änderungen in einem einzigen Release anhäufen",
-    "Einen getesteten Rollback-Befehl bereithalten",
+    "Einen getesteten Rollback-Befehl haben",
     "Dateien direkt auf dem Produktionsserver bearbeiten"
    ],
-   "hint": "Frage dich: Wenn etwas schiefgeht, lässt sich die Ursache leicht finden und zurückgehen?",
-   "why": "Eine kleine Änderung hat eine leicht zu findende Ursache, und ein getesteter Rollback bietet einen schnellen Weg zurück. Ein riesiges Release und manuelle Änderungen in Produktion machen den Fehler schwer auffindbar und schwer rückgängig.",
+   "hint": "Frage: Wenn es schiefgeht, ist es leicht, die Ursache zu finden und zurückzugehen?",
+   "why": "Eine kleine Änderung hat eine leicht zu findende Ursache, und ein getesteter Rollback bietet einen schnellen Weg zurück. Ein riesiges Release und manuelle Änderungen in Produktion machen den Fehler schwer zu lokalisieren und rückgängig zu machen.",
    "analogy": "Den Fluss Stein für Stein zu überqueren erlaubt dir, einen Schritt zurückzutreten. Von einem Ufer zum anderen zu springen ist alles oder nichts."
   },
   "o5": {
    "title": "CI ist seit drei Tagen rot",
-   "prompt": "Ein Test schlägt in CI seit drei Tagen fehl und das Team pusht weiter Code. Was ist das richtige Vorgehen?",
+   "prompt": "Ein Test schlägt seit drei Tagen in der CI fehl und das Team pusht weiterhin Code. Was ist das richtige Vorgehen?",
    "opts": [
     "Anhalten und zuerst den Build reparieren: Ein ignorierter Alarm schützt nicht mehr",
     "Den fehlschlagenden Test deaktivieren",
-    "Weitermachen und alles am Monatsende reparieren",
-    "CI entfernen, das nur stört"
+    "Weitermachen und am Monatsende alles reparieren",
+    "CI entfernen, das stört nur"
    ],
    "hint": "Was ist ein Alarm wert, wenn alle gelernt haben, ihn zu ignorieren?",
-   "why": "Bei einem roten Build schleichen sich neue Fehler ein, versteckt hinter dem ersten. Den Build zu reparieren wird zur Priorität des ganzen Teams; den Test zu deaktivieren schaltet nur das Kontrolllämpchen aus.",
-   "analogy": "Es ist die Öllampe am Armaturenbrett: Sie zuzukleben repariert nicht den Motor."
+   "why": "Bei einem roten Build schleichen sich neue Fehler hinter dem ersten versteckt ein. Die Reparatur des Builds wird zur Priorität des ganzen Teams; den Test zu deaktivieren schaltet nur das Lämpchen am Armaturenbrett aus.",
+   "analogy": "Das ist die Öllampe am Armaturenbrett: Sie abzukleben repariert nicht den Motor."
+  },
+  "v6": {
+   "title": "Die Mathe am Tresen",
+   "prompt": "Zwei Brote zu 4 Reais und eine Rechnung im Kopf. Was gibt das Programm aus?",
+   "hint": "In der Programmierung wie in der Mathematik wird die Multiplikation vor der Addition ausgeführt.",
+   "why": "Zuerst 3 × 4 = 12, dann 2 + 12 = 14. Um zuerst zu addieren, müsste man (2 + 3) * 4 schreiben.",
+   "analogy": "Das ist die Prioritätsspur an der Kasse: Wer Priorität hat, kommt zuerst dran, auch wenn er später ankam. Klammern sind der Ausweis, der die Reihenfolge ändert."
+  },
+  "v7": {
+   "title": "Die verschwundenen Cent",
+   "prompt": "Dona Lúcia addiert zwei Beträge und vergleicht sie mit dem, was sie erwartet hat. Was gibt das Programm aus?",
+   "hint": "Dezimalzahlen werden binär gespeichert, und nicht jede Dezimalzahl passt exakt in diese Form.",
+   "why": "In binärer Darstellung sind 0,1 und 0,2 periodische Brüche: Die Summe ergibt 0,30000000000000004 und der exakte Vergleich schlägt fehl. Für Geld vergleicht man mit einer Toleranz oder arbeitet mit ganzen Zahlen in Cent.",
+   "analogy": "Das ist, als würdest du einen Zentimeter mit einem Zoll-Lineal messen: Jede Umrechnung hinterlässt einen unsichtbaren Rest, und das Addieren von Resten verfälscht die Summe."
+  },
+  "v8": {
+   "title": "Gramm, die zu Tonnen werden",
+   "prompt": "Das Rezept verwendet 500 Gramm Mehl, aber das Programm gibt 500000 aus. Welche Zeile ist falsch?",
+   "hint": "Ein Kilo hat tausend Gramm. Um von Gramm auf Kilo zu kommen: multiplizierst du oder dividierst du?",
+   "why": "Die Umrechnung ist umgekehrt: Von Gramm zu Kilo dividiert man durch 1000. Multiplizieren geht in die entgegengesetzte Richtung.",
+   "analogy": "Das ist wie Währungsumrechnung in die falsche Richtung: Die Zahl wird riesig und die Rechnung sieht richtig aus, bis jemand den Endbetrag prüft."
+  },
+  "v9": {
+   "title": "Gläser tauschen ohne Verschütten",
+   "prompt": "Baue das Programm, das die Werte von a und b mithilfe einer temporären Variablen tauscht und das Ergebnis ausgibt.",
+   "hint": "Speichere einen der Werte, bevor er überschrieben wird.",
+   "why": "Die temporäre Variable hält den ersten Wert, während er ersetzt wird. Ohne sie geht einer der beiden verloren, wie im Kassenbeleg, bei dem der Tausch schiefging.",
+   "analogy": "Um den Inhalt von zwei vollen Gläsern zu tauschen, benutzt du ein drittes, leeres. Derselbe Zug, im Code."
+  },
+  "q9": {
+   "title": "»Das System benachrichtigt den Patienten«",
+   "prompt": "Die Anforderung sagt nur: »Das System benachrichtigt den Patienten.« Warum ist das ein Problem?",
+   "opts": [
+    "Sie sagt nicht, wann, über welchen Kanal oder was bei einem Fehlschlag zu tun ist.",
+    "Sie ist zu lang und sollte aufgeteilt werden.",
+    "Sie verwendet das Wort System, das vermieden werden sollte.",
+    "Das ist kein Problem: Sie ist klar genug."
+   ],
+   "hint": "Stell dir zwei Personen vor, die diesen Satz umsetzen, ohne miteinander zu sprechen. Würden sie dasselbe bauen?",
+   "why": "Eine mehrdeutige Anforderung ist eine, die mehr als eine vernünftige Lesart zulässt. Am Vortag per SMS zu benachrichtigen ist anders, als sofort per E-Mail zu benachrichtigen, und beides passt zu diesem Satz.",
+   "analogy": "Es ist, als würdest du einem Freund sagen: »Sag mir Bescheid.« Er könnte morgens um sechs anrufen oder eine Nachricht bei einem Nachbarn hinterlassen. Ohne eine Absprache macht es jeder auf seine Weise."
+  },
+  "q10": {
+   "title": "Abnahmekriterien",
+   "prompt": "Was macht aus einer User Story etwas, von dem das Team weiß, dass es fertig ist?",
+   "opts": [
+    "Abnahmekriterien: überprüfbare Bedingungen, die sagen, wann es fertig ist.",
+    "Die Schätzung des Entwicklers in Stunden.",
+    "Der Name der Person, die die Funktion angefordert hat.",
+    "Der vom Designer gezeichnete Bildschirm."
+   ],
+   "hint": "Überlege, womit du mit Ja oder Nein antworten kannst auf: Ist es fertig?",
+   "why": "Abnahmekriterien beschreiben das erwartete Verhalten in überprüfbaren Bedingungen. Ohne sie wird »fertig« zu einer Meinungssache.",
+   "analogy": "Es ist die Mängelliste bei der Wohnungsübergabe: Ohne sie wird die Schlüsselübergabe zum Streit darüber, was vereinbart war."
+  },
+  "q11": {
+   "title": "Zwei Anforderungen, die sich widersprechen",
+   "prompt": "Die Direktorin möchte eine vollständige Patientenakte; die Rezeption möchte die Terminvergabe in unter einer Minute. Was ist die beste Vorgehensweise?",
+   "opts": [
+    "Den Konflikt beiden Parteien vortragen und eine explizite Lösung aushandeln, zum Beispiel jetzt eine minimale Akte und später die vollständige.",
+    "Sich auf die Seite der Direktorin stellen, weil sie mehr Autorität hat.",
+    "Sich auf die Seite der Rezeption stellen, weil sie näher am Problem sind.",
+    "Beides umsetzen und sie es in der Praxis klären lassen."
+   ],
+   "hint": "Ein Konflikt zwischen Anforderungen ist ein Problem, das in der Analyse geklärt werden muss, nicht im Code.",
+   "why": "Widersprüchliche Anforderungen müssen mit den Stakeholdern geklärt werden, bevor sie zu Code werden. Eine Entscheidung im Stillen verlagert den Konflikt in das Produkt, wo er viel mehr kostet.",
+   "analogy": "Zwei Zimmer streiten sich auf dem Plan um dieselbe Wand. Die Architektin setzt sich mit der Familie zusammen und entscheidet im Voraus; ist die Wand erst gebaut, kostet sie eine Renovierung."
+  },
+  "g7": {
+   "title": "Rückgängig machen, ohne die Historie zu löschen",
+   "prompt": "Eine bereits veröffentlichte Änderung hat das Bäckereisystem kaputtgemacht. Bringe die Schritte, um sie sicher rückgängig zu machen, in die richtige Reihenfolge.",
+   "lines": [
+    "Den Commit identifizieren, der den Fehler verursacht hat, in der Historie.",
+    "Einen Revert-Commit erstellen, der diese Änderungen rückgängig macht.",
+    "Die Tests ausführen, um zu bestätigen, dass das System wieder normal läuft.",
+    "Den Revert in das entfernte Repository pushen.",
+    "Die Ursache in Ruhe untersuchen und den endgültigen Fix vorbereiten."
+   ],
+   "hint": "Stelle zuerst den Dienst wieder her; das Verstehen kommt danach, wenn das System stabil ist.",
+   "why": "Ein Revert erstellt einen neuen Commit, der den vorherigen rückgängig macht, ohne die Historie zu löschen, die andere bereits gepullt haben. Danach zu untersuchen ist sicher, weil das System bereits wieder funktioniert.",
+   "analogy": "In der Buchhaltung streicht man einen falschen Eintrag nicht durch: Man bucht eine Stornobuchung. Der Fehler bleibt in den Aufzeichnungen, und der Saldo stimmt wieder."
+  },
+  "g8": {
+   "title": "Nur abholen oder gleich zusammenführen",
+   "prompt": "Was ist der Unterschied zwischen fetch und pull in Git?",
+   "opts": [
+    "Fetch holt nur die Änderungen vom Remote; pull holt sie und führt sie in deinen Branch zusammen.",
+    "Sie sind zwei Namen für dieselbe Operation.",
+    "Fetch sendet Änderungen; pull empfängt sie.",
+    "Fetch funktioniert nur auf main; pull auf jedem Branch."
+   ],
+   "hint": "Eine der beiden Operationen verändert deine Dateien sofort. Welche?",
+   "why": "Fetch aktualisiert deine Sicht auf das Remote-Repository, ohne deine Arbeit anzufassen, sodass du siehst, was sich geändert hat, bevor du es integrierst. Pull macht beides auf einmal und kann sofort einen Konflikt auslösen.",
+   "analogy": "Es ist der Unterschied zwischen dem Abholen der Post und dem Öffnen der Umschläge am Schreibtisch, an dem du arbeitest. Fetch lässt sie im Briefkasten; pull breitet sie jetzt aus."
+  },
+  "g9": {
+   "title": "Was ins Repository gehört",
+   "prompt": "Ordne jede Datei des Bäckereiprojekts ein.",
+   "bins": [
+    "Versionieren",
+    "Ausschließen (.gitignore)"
+   ],
+   "cards": [
+    "Der Quellcode der Wechselgeldberechnung",
+    "Die Datei mit dem Datenbankpasswort",
+    "Die README mit Installationsanweisungen",
+    "Der Ordner mit automatisch heruntergeladenen Bibliotheken"
+   ],
+   "hint": "Frage, ob das Team die Datei geschrieben hat und ob jeder mit Zugriff auf das Repository sie sehen darf.",
+   "why": "Du versionierst, was das Team schreibt und teilen muss. Geheimnisse kommen nie hinein, weil die Git-Historie dauerhaft ist; heruntergeladene Abhängigkeiten auch nicht, weil sie aus der Abhängigkeitsdatei neu erstellt werden können.",
+   "analogy": "Es ist wie Kofferpacken: Deine Kleidung kommt hinein, das Hotel-Shampoo bleibt draußen. Und dein Hausschlüssel reist sicher nicht in einem offenen Koffer."
+  },
+  "g10": {
+   "title": "Der Force Push",
+   "prompt": "Ein Kollege schlägt vor, einen Force Push auf den main-Branch zu machen, um die Historie »aufzuräumen«. Warum ist das gefährlich?",
+   "opts": [
+    "Er schreibt die Historie um, die andere bereits gepullt haben, und kann ihre Arbeit löschen.",
+    "Er macht das Repository langsamer.",
+    "Er funktioniert nur mit Admin-Rechten.",
+    "Es ist nicht gefährlich: Es ist die empfohlene Art, Commits zu organisieren."
+   ],
+   "hint": "Was passiert mit jemandem, der die alte Version bereits gepullt hat und darauf weitergearbeitet hat?",
+   "why": "Ein Force Push ersetzt die Remote-Historie. Commits, die andere bereits gepullt haben, verschwinden aus der Zeitachse, und die darauf aufbauende Arbeit wird verwaist. Auf einem gemeinsamen Branch solltest du stattdessen reverten.",
+   "analogy": "Es ist, als würdest du das Protokoll einer Sitzung neu drucken, das alle bereits mit nach Hause genommen haben. Wer die alte Version mit Anmerkungen versehen hat, hält ein Dokument in der Hand, das es nicht mehr gibt."
+  },
+  "g11": {
+   "title": "Der Commit, der alles macht",
+   "prompt": "Ein Commit ändert die Wechselgeldberechnung, benennt zwanzig Variablen um und fügt einen neuen Bildschirm hinzu. Was ist das Problem?",
+   "opts": [
+    "Er kann nicht isoliert überprüft, rückgängig gemacht oder auf die Fehlerquelle zurückverfolgt werden.",
+    "Keins: Große Commits sparen Zeit.",
+    "Git hat ein Limit für Dateien pro Commit.",
+    "Die Nachricht wird viel zu lang."
+   ],
+   "hint": "Denke an den Tag, an dem nur eine dieser drei Änderungen rückgängig gemacht werden muss.",
+   "why": "Jeder Commit sollte eine zusammenhängende Änderung enthalten. Wenn man drei mischt, zieht ein Revert auch das mit, was richtig war, und die Überprüfung verliert sich zwischen Umbenennungen und neuer Logik.",
+   "analogy": "Es ist, als würdest du Küche, Bad und Büro in denselben Karton packen. Um eine Tasse zu finden, musst du alles umdrehen, und du kannst nicht nur das zurückschicken, was falsch ankam."
   }
  },
  "game": {

@@ -3,6 +3,108 @@ LANG.vi = {
  "name": "Tiếng Việt",
  "llmName": "Vietnamese",
  "ui": {
+  "start": "Bắt đầu sprint đầu tiên",
+  "sprint": "Sprint {n}",
+  "todo": "Việc cần làm",
+  "doneSprint": "Đã xong trong sprint này",
+  "map": "Bản đồ thành thạo",
+  "sbcH": "Năng lực từ Hướng dẫn chương trình SBC (2017) được rèn luyện ở đây",
+  "check": "Kiểm tra câu trả lời",
+  "aiFail": "Trợ giảng AI không phản hồi. Hãy kiểm tra cài đặt hoặc dùng gợi ý thường.",
+  "allUsed": "Đã dùng hết các dòng.",
+  "options": "Các lựa chọn",
+  "codeLines": "Dòng code",
+  "delta": "Mức thành thạo {s}: {a} đến {b}   (+{x} XP)",
+  "changed": "Điều gì đã thay đổi về mức thành thạo của bạn",
+  "k1": "ticket đã trả lời",
+  "colHits": "Đúng",
+  "recNone": "Chưa có câu trả lời nào. Hãy giải vài ticket để trợ giảng có dữ liệu.",
+  "howP": "Trợ giảng dùng mô hình Elo/Rasch. Mỗi kỹ năng của bạn có một điểm số, và mỗi ticket có một độ khó trên cùng thang điểm. Khoảng cách giữa hai điểm này cho biết xác suất trả lời đúng; sau khi bạn trả lời, điểm số sẽ tăng hoặc giảm tương ứng với mức độ bất ngờ. Mức thành thạo hiển thị là xác suất bạn giải được một ticket có độ khó trung bình mà không cần đoán, và một kỹ năng được coi là thành thạo từ mức {m}.",
+  "aiP": "Trợ giảng AI viết các gợi ý Socratic phù hợp và các phép so sánh mới bằng ngôn ngữ của trò chơi, mà không đưa ra câu trả lời. Nếu không có nó, trò chơi dùng các gợi ý do tác giả viết.",
+  "aiClaude": "Đã kết nối qua Claude: không cần key trên trang này.",
+  "none": "Không có gì",
+  "titleLbl": "Tiêu đề",
+  "modeDesc": {
+   "normal": "XP ×1. Gợi ý miễn phí (trả lời đúng có gợi ý được nửa số điểm). Mỗi lần sai mất 2 XP cho mỗi cấp độ ticket.",
+   "medio": "XP ×1.5. Mỗi gợi ý tốn 5 XP. Mỗi lần sai mất 4 XP cho mỗi cấp độ ticket.",
+   "dificil": "XP ×2. Không có gợi ý và không có lựa chọn cho ticket đầu ra: bạn gõ những gì chương trình in ra. Mỗi lần sai mất 6 XP cho mỗi cấp độ.",
+   "hardcore": "XP ×3. Không gợi ý, phải gõ câu trả lời và có 60 giây trên đồng hồ. Mỗi lần sai mất 10 XP cho mỗi cấp độ."
+  },
+  "lost": "Phạt: -{x} XP từ số dư của bạn.",
+  "useTime": "Dùng thêm 30 giây ({n})",
+  "bossLives": "Số lần sai còn được phép: {n}",
+  "shopP": "Đổi số dư XP của bạn lấy vật phẩm hỗ trợ và danh hiệu. Việc tiêu số dư không làm giảm XP tích lũy, vốn là thứ mở các màn và trùm.",
+  "powers": "Vật phẩm hỗ trợ",
+  "buy": "Đổi lấy {c} XP",
+  "evoH": "Sự phát triển kiến thức",
+  "plP": "Mỗi ngôn ngữ có bộ theo dõi mức thành thạo riêng; ngôn ngữ đang dùng được đánh dấu bằng ●. Khi bạn thử một ngôn ngữ lần đầu, bạn bắt đầu từ ước tính chuyển giao: một nửa chặng đường đã hoàn thành ở ngôn ngữ tốt nhất của bạn. Các giá trị in đậm đã được luyện tập.",
+  "pilot": "Mô hình vận hành trò chơi",
+  "rolePilot": "vận hành",
+  "cmpNote": "Với ít câu trả lời từ một học viên, những con số này dao động rất nhiều. Việc so sánh hợp lệ cần dùng nhật ký xuất ra của nhiều học viên, chia theo từng học viên.",
+  "colRole": "Vai trò",
+  "confirmRule": "Yêu cầu mức thành thạo được xác nhận bằng một câu trả lời đúng vào một ngày khác",
+  "navReport": "Báo cáo",
+  "homeLead": "Bạn vừa gia nhập Ponte, một xưởng phần mềm nhỏ phục vụ tiệm bánh, trạm y tế, trường học và hợp tác xã giao hàng trong khu phố. Mỗi khách hàng mang đến một vấn đề thực tế: bạn nghe câu chuyện, học bộ công cụ lý thuyết, rồi mới bắt tay vào làm các ticket.",
+  "steps": [
+   [
+    "Lắng nghe khách hàng",
+    "Mỗi nhiệm vụ mở đầu bằng câu chuyện về một vấn đề thực tế, do chính những người đang sống với nó kể lại."
+   ],
+   [
+    "Xây dựng bộ công cụ lý thuyết",
+    "Các khái niệm chính, một ví dụ mã bằng ngôn ngữ bạn chọn, và năng lực trong chương trình SBC đang được rèn luyện."
+   ],
+   [
+    "Giải quyết các ticket",
+    "Dự đoán kết quả, sắp xếp mã, tìm lỗi và đưa ra quyết định kỹ thuật. Mỗi câu trả lời đều có một phép so sánh thực tế, và gia sư theo dõi mức độ thành thạo của bạn."
+   ]
+  ],
+  "toReview": "cần xem lại",
+  "areaProg": "Lập trình",
+  "mapHint": "Chạm vào một kỹ năng để xem chi tiết. Con số là xác suất ước tính bạn đã thành thạo kỹ năng đó.",
+  "and": " và ",
+  "story": "Câu chuyện",
+  "snippetNote": "Các đoạn mã Java và C lược bỏ phần class và hàm main để tập trung vào khái niệm.",
+  "startTickets": "Tôi sẵn sàng: mở các ticket của nhiệm vụ này",
+  "backBoard": "Quay lại bảng",
+  "types": {
+   "mc": "Phân tích và trả lời",
+   "parsons": "Sắp xếp mã",
+   "bug": "Tìm lỗi",
+   "sort": "Phân loại"
+  },
+  "diff": "Độ khó {d} trên 3",
+  "hintNote": "Nếu dùng gợi ý, câu trả lời đúng chỉ được nửa số XP và được coi là bằng chứng yếu hơn về mức độ thành thạo.",
+  "up": "Di chuyển lên",
+  "notYet": "Chưa phải lúc này",
+  "roseNote": "Nó tăng nhẹ dù có lỗi vì mô hình giả định rằng việc đọc lời giải thích cũng giúp học.",
+  "toRetro": "Xem tổng kết sprint",
+  "retroSum": "Đã giải được {c} trên {n} ticket. ",
+  "colSkill": "Kỹ năng",
+  "allDone": "Đã thành thạo mọi kỹ năng. Các sprint tiếp theo là luyện tập tự do.",
+  "nextSprint": "Bắt đầu sprint {n}",
+  "repSub": "Góc nhìn dành cho học viên và người hỗ trợ họ: kỹ năng nào đã vững, sai ở đâu, và nên luyện thêm gì.",
+  "k2": "độ chính xác",
+  "stL": "Đã khóa",
+  "showJson": "Hiển thị nhật ký JSON",
+  "reset": "Xóa tiến trình",
+  "model": "Mô hình",
+  "modeH": "Độ khó",
+  "yourAnswer": "Câu trả lời của bạn: {a}",
+  "timeout": "Hết giờ.",
+  "hintPaid": "Xin gợi ý (tốn {c} XP)",
+  "noHints": "Không có gợi ý trong chế độ này.",
+  "useFifty": "Dùng loại bỏ hai ({n})",
+  "bountyDone": "Hoàn thành thử thách: {s} (+{x} XP)",
+  "bossesH": "Trùm",
+  "bossLocked": "Cần đạt 60% ở {p} và {x} XP tích lũy.",
+  "bossDefeated": "Đã đánh bại",
+  "bossFight": "Đối mặt với trùm",
+  "titlesH": "Danh hiệu",
+  "owned": "Bạn có: {n}",
+  "unequip": "Ngừng sử dụng",
+  "sortHint": "Chọn một trong hai nhóm cho mỗi thẻ.",
+  "modelH": "Mô hình theo dõi kiến thức",
   "role": "Vai trò",
   "streak": "Chuỗi",
   "freePlay": "Bạn đã nắm vững tất cả. Bảng giờ là luyện tập tự do.",
@@ -102,146 +204,6 @@ LANG.vi = {
   "plAcc": "Đúng",
   "printBtn": "In hoặc lưu thành PDF",
   "colTries": "Ticket",
-  "navReport": "Báo cáo",
-  "homeLead": "Bạn vừa gia nhập Ponte, một xưởng phần mềm nhỏ phục vụ tiệm bánh, trạm y tế, trường học và hợp tác xã giao hàng trong khu phố. Mỗi khách hàng mang đến một vấn đề thực tế: bạn nghe câu chuyện, học bộ công cụ lý thuyết, rồi mới bắt tay vào làm các ticket.",
-  "steps": [
-   [
-    "Lắng nghe khách hàng",
-    "Mỗi nhiệm vụ mở đầu bằng câu chuyện về một vấn đề thực tế, do chính những người đang sống với nó kể lại."
-   ],
-   [
-    "Xây dựng bộ công cụ lý thuyết",
-    "Các khái niệm chính, một ví dụ mã bằng ngôn ngữ bạn chọn, và năng lực trong chương trình SBC đang được rèn luyện."
-   ],
-   [
-    "Giải quyết các ticket",
-    "Dự đoán kết quả, sắp xếp mã, tìm lỗi và đưa ra quyết định kỹ thuật. Mỗi câu trả lời đều có một phép so sánh thực tế, và gia sư theo dõi mức độ thành thạo của bạn."
-   ]
-  ],
-  "toReview": "cần xem lại",
-  "areaProg": "Lập trình",
-  "mapHint": "Chạm vào một kỹ năng để xem chi tiết. Con số là xác suất ước tính bạn đã thành thạo kỹ năng đó.",
-  "and": " và ",
-  "story": "Câu chuyện",
-  "snippetNote": "Các đoạn mã Java và C lược bỏ phần class và hàm main để tập trung vào khái niệm.",
-  "startTickets": "Tôi sẵn sàng: mở các ticket của nhiệm vụ này",
-  "backBoard": "Quay lại bảng",
-  "types": {
-   "mc": "Phân tích và trả lời",
-   "parsons": "Sắp xếp mã",
-   "bug": "Tìm lỗi",
-   "sort": "Phân loại"
-  },
-  "diff": "Độ khó {d} trên 3",
-  "hintNote": "Nếu dùng gợi ý, câu trả lời đúng chỉ được nửa số XP và được coi là bằng chứng yếu hơn về mức độ thành thạo.",
-  "up": "Di chuyển lên",
-  "notYet": "Chưa phải lúc này",
-  "roseNote": "Nó tăng nhẹ dù có lỗi vì mô hình giả định rằng việc đọc lời giải thích cũng giúp học.",
-  "toRetro": "Xem tổng kết sprint",
-  "retroSum": "Đã giải được {c} trên {n} ticket. ",
-  "colSkill": "Kỹ năng",
-  "allDone": "Đã thành thạo mọi kỹ năng. Các sprint tiếp theo là luyện tập tự do.",
-  "nextSprint": "Bắt đầu sprint {n}",
-  "repSub": "Góc nhìn dành cho học viên và người hỗ trợ họ: kỹ năng nào đã vững, sai ở đâu, và nên luyện thêm gì.",
-  "k2": "độ chính xác",
-  "stL": "Đã khóa",
-  "showJson": "Hiển thị nhật ký JSON",
-  "reset": "Xóa tiến trình",
-  "model": "Mô hình",
-  "modeH": "Độ khó",
-  "yourAnswer": "Câu trả lời của bạn: {a}",
-  "timeout": "Hết giờ.",
-  "hintPaid": "Xin gợi ý (tốn {c} XP)",
-  "noHints": "Không có gợi ý trong chế độ này.",
-  "useFifty": "Dùng loại bỏ hai ({n})",
-  "bountyDone": "Hoàn thành thử thách: {s} (+{x} XP)",
-  "bossesH": "Trùm",
-  "bossLocked": "Cần đạt 60% ở {p} và {x} XP tích lũy.",
-  "bossDefeated": "Đã đánh bại",
-  "bossFight": "Đối mặt với trùm",
-  "titlesH": "Danh hiệu",
-  "owned": "Bạn có: {n}",
-  "unequip": "Ngừng sử dụng",
-  "sortHint": "Chọn một trong hai nhóm cho mỗi thẻ.",
-  "modelH": "Mô hình theo dõi kiến thức",
-  "start": "Bắt đầu sprint đầu tiên",
-  "sprint": "Sprint {n}",
-  "todo": "Việc cần làm",
-  "doneSprint": "Đã xong trong sprint này",
-  "map": "Bản đồ thành thạo",
-  "sbcH": "Năng lực từ Hướng dẫn chương trình SBC (2017) được rèn luyện ở đây",
-  "check": "Kiểm tra câu trả lời",
-  "aiFail": "Trợ giảng AI không phản hồi. Hãy kiểm tra cài đặt hoặc dùng gợi ý thường.",
-  "allUsed": "Đã dùng hết các dòng.",
-  "options": "Các lựa chọn",
-  "codeLines": "Dòng code",
-  "delta": "Mức thành thạo {s}: {a} đến {b}   (+{x} XP)",
-  "changed": "Điều gì đã thay đổi về mức thành thạo của bạn",
-  "k1": "ticket đã trả lời",
-  "colHits": "Đúng",
-  "recNone": "Chưa có câu trả lời nào. Hãy giải vài ticket để trợ giảng có dữ liệu.",
-  "howP": "Trợ giảng dùng mô hình Elo/Rasch. Mỗi kỹ năng của bạn có một điểm số, và mỗi ticket có một độ khó trên cùng thang điểm. Khoảng cách giữa hai điểm này cho biết xác suất trả lời đúng; sau khi bạn trả lời, điểm số sẽ tăng hoặc giảm tương ứng với mức độ bất ngờ. Mức thành thạo hiển thị là xác suất bạn giải được một ticket có độ khó trung bình mà không cần đoán, và một kỹ năng được coi là thành thạo từ mức {m}.",
-  "aiP": "Trợ giảng AI viết các gợi ý Socratic phù hợp và các phép so sánh mới bằng ngôn ngữ của trò chơi, mà không đưa ra câu trả lời. Nếu không có nó, trò chơi dùng các gợi ý do tác giả viết.",
-  "aiClaude": "Đã kết nối qua Claude: không cần key trên trang này.",
-  "none": "Không có gì",
-  "titleLbl": "Tiêu đề",
-  "modeDesc": {
-   "normal": "XP ×1. Gợi ý miễn phí (trả lời đúng có gợi ý được nửa số điểm). Mỗi lần sai mất 2 XP cho mỗi cấp độ ticket.",
-   "medio": "XP ×1.5. Mỗi gợi ý tốn 5 XP. Mỗi lần sai mất 4 XP cho mỗi cấp độ ticket.",
-   "dificil": "XP ×2. Không có gợi ý và không có lựa chọn cho ticket đầu ra: bạn gõ những gì chương trình in ra. Mỗi lần sai mất 6 XP cho mỗi cấp độ.",
-   "hardcore": "XP ×3. Không gợi ý, phải gõ câu trả lời và có 60 giây trên đồng hồ. Mỗi lần sai mất 10 XP cho mỗi cấp độ."
-  },
-  "lost": "Phạt: -{x} XP từ số dư của bạn.",
-  "useTime": "Dùng thêm 30 giây ({n})",
-  "bossLives": "Số lần sai còn được phép: {n}",
-  "shopP": "Đổi số dư XP của bạn lấy vật phẩm hỗ trợ và danh hiệu. Việc tiêu số dư không làm giảm XP tích lũy, vốn là thứ mở các màn và trùm.",
-  "powers": "Vật phẩm hỗ trợ",
-  "buy": "Đổi lấy {c} XP",
-  "evoH": "Sự phát triển kiến thức",
-  "plP": "Mỗi ngôn ngữ có bộ theo dõi mức thành thạo riêng; ngôn ngữ đang dùng được đánh dấu bằng ●. Khi bạn thử một ngôn ngữ lần đầu, bạn bắt đầu từ ước tính chuyển giao: một nửa chặng đường đã hoàn thành ở ngôn ngữ tốt nhất của bạn. Các giá trị in đậm đã được luyện tập.",
-  "pilot": "Mô hình vận hành trò chơi",
-  "rolePilot": "vận hành",
-  "cmpNote": "Với ít câu trả lời từ một học viên, những con số này dao động rất nhiều. Việc so sánh hợp lệ cần dùng nhật ký xuất ra của nhiều học viên, chia theo từng học viên.",
-  "colRole": "Vai trò",
-  "confirmRule": "Yêu cầu mức thành thạo được xác nhận bằng một câu trả lời đúng vào một ngày khác",
-  "homeH": "Học lập trình và công nghệ phần mềm bằng cách giải quyết vấn đề của người thật",
-  "todoEmpty": "Mở một nhiệm vụ ở trên để nhận các ticket.",
-  "lockedAria": "đã khóa",
-  "aiHint": "Hỏi trợ giảng AI để được gợi ý",
-  "tutorHint": "Gợi ý của trợ giảng: ",
-  "solved": "Đã giải quyết ticket",
-  "promo": "Thăng tiến: vai trò của bạn bây giờ là {r}.",
-  "aiExplain": "Hỏi trợ giảng AI để có phép so sánh khác",
-  "retroC": "Sprint khó nhằn. Các ticket cần xem lại sẽ quay lại bảng sau.",
-  "stP": "Đang tiến hành",
-  "noData": "không có dữ liệu",
-  "resetConfirm": "Xác nhận: xóa toàn bộ tiến trình",
-  "codeLang": "Ngôn ngữ lập trình của các ticket",
-  "aiOff": "Tắt. Nhập nhà cung cấp bên dưới để bật.",
-  "provider": "Nhà cung cấp",
-  "provAnthropic": "Anthropic (Claude)",
-  "provOpenAI": "Tương thích OpenAI (OpenAI, Ollama, LM Studio, v.v.)",
-  "key": "Khóa API",
-  "save": "Lưu cài đặt trợ giảng",
-  "err": "Lỗi",
-  "dailyTag": "Gấp đôi XP",
-  "bossWinP": "Bạn nhận được {x} XP và cúp \"{t}\".",
-  "bossStart": "Bắt đầu trận đấu",
-  "noTrophies": "Chưa có. Các trùm xuất hiện trên bảng khi bạn đủ độ thuần thục và XP.",
-  "kTotal": "XP trọn đời",
-  "oops": [
-   "Gần đúng rồi. Mọi lập trình viên đều làm hỏng bản dựng trước khi sửa.",
-   "Sai lầm là một phần của con đường: giờ bạn biết cái bẫy ở đâu rồi.",
-   "Bạn tìm ra lỗi trong lập luận của mình, và đó là cách học gỡ lỗi.",
-   "Lần này chưa đúng, và cũng không sao. Hãy dành thời gian với lời giải thích."
-  ],
-  "comeback": "Trở lại: +{x} XP vì trả lời đúng ngay sau một lần sai.",
-  "evoEmpty": "Trả lời vài ticket trong ngôn ngữ này để xem đường cong học tập của bạn.",
-  "evoAll": "Tất cả",
-  "colGain": "Tiến bộ",
-  "colModel": "Mô hình",
-  "colAcc": "Độ chính xác",
-  "printedOn": "Được tạo vào {d}",
   "xp": "XP",
   "navSettings": "Cài đặt",
   "cont": "Tiếp tục từ nơi đã dừng",
@@ -294,7 +256,45 @@ LANG.vi = {
   "cmpP": "Trước mỗi câu trả lời, năm mô hình ghi lại xác suất dự đoán câu trả lời đúng. Brier đo sai số dự đoán (càng thấp càng tốt); AUC đo khả năng phân biệt câu trả lời đúng và sai của mô hình (0.5 là ngẫu nhiên và 1 là hoàn hảo).",
   "confirmNote": "Đã đạt mức thành thạo hôm nay. Để xác nhận, hãy trả lời đúng một ticket kỹ năng này vào một ngày khác: một phiên duy nhất kết hợp kiến thức với đà tiến bộ.",
   "stC": "Cần xác nhận vào một ngày khác",
-  "repFor": "Học viên: {n}"
+  "repFor": "Học viên: {n}",
+  "homeH": "Học lập trình và công nghệ phần mềm bằng cách giải quyết vấn đề của người thật",
+  "todoEmpty": "Mở một nhiệm vụ ở trên để nhận các ticket.",
+  "lockedAria": "đã khóa",
+  "aiHint": "Hỏi trợ giảng AI để được gợi ý",
+  "tutorHint": "Gợi ý của trợ giảng: ",
+  "solved": "Đã giải quyết ticket",
+  "promo": "Thăng tiến: vai trò của bạn bây giờ là {r}.",
+  "aiExplain": "Hỏi trợ giảng AI để có phép so sánh khác",
+  "retroC": "Sprint khó nhằn. Các ticket cần xem lại sẽ quay lại bảng sau.",
+  "stP": "Đang tiến hành",
+  "noData": "không có dữ liệu",
+  "resetConfirm": "Xác nhận: xóa toàn bộ tiến trình",
+  "codeLang": "Ngôn ngữ lập trình của các ticket",
+  "aiOff": "Tắt. Nhập nhà cung cấp bên dưới để bật.",
+  "provider": "Nhà cung cấp",
+  "provAnthropic": "Anthropic (Claude)",
+  "provOpenAI": "Tương thích OpenAI (OpenAI, Ollama, LM Studio, v.v.)",
+  "key": "Khóa API",
+  "save": "Lưu cài đặt trợ giảng",
+  "err": "Lỗi",
+  "dailyTag": "Gấp đôi XP",
+  "bossWinP": "Bạn nhận được {x} XP và cúp \"{t}\".",
+  "bossStart": "Bắt đầu trận đấu",
+  "noTrophies": "Chưa có. Các trùm xuất hiện trên bảng khi bạn đủ độ thuần thục và XP.",
+  "kTotal": "XP trọn đời",
+  "oops": [
+   "Gần đúng rồi. Mọi lập trình viên đều làm hỏng bản dựng trước khi sửa.",
+   "Sai lầm là một phần của con đường: giờ bạn biết cái bẫy ở đâu rồi.",
+   "Bạn tìm ra lỗi trong lập luận của mình, và đó là cách học gỡ lỗi.",
+   "Lần này chưa đúng, và cũng không sao. Hãy dành thời gian với lời giải thích."
+  ],
+  "comeback": "Trở lại: +{x} XP vì trả lời đúng ngay sau một lần sai.",
+  "evoEmpty": "Trả lời vài ticket trong ngôn ngữ này để xem đường cong học tập của bạn.",
+  "evoAll": "Tất cả",
+  "colGain": "Tiến bộ",
+  "colModel": "Mô hình",
+  "colAcc": "Độ chính xác",
+  "printedOn": "Được tạo vào {d}"
  },
  "sbc": {
   "CC-C.1.3": "RF-CC C.1.3: Giải quyết vấn đề bằng môi trường lập trình (Thuật toán, Kỹ thuật lập trình, Cấu trúc dữ liệu).",
@@ -1456,62 +1456,292 @@ LANG.vi = {
    "why": "CI xây dựng dự án từ đầu và chạy kiểm thử trên mọi thay đổi. Giá trị nằm ở tốc độ cảnh báo: phút, không phải tuần.",
    "analogy": "Đó là máy dò kim loại ở cửa: kiểm tra từng người khi vào, thay vì lục soát cả tòa nhà vào cuối tháng."
   },
-  "o2": {
-   "title": "Đường ra sản phẩm",
-   "prompt": "Sắp xếp các giai đoạn của quy trình triển khai liên tục theo đúng thứ tự.",
-   "lines": [
-    "Lập trình viên đẩy mã lên",
-    "Máy chủ CI lấy mã và cài đặt các phụ thuộc",
-    "Các bài kiểm thử tự động chạy",
-    "Gói phát hành được đóng gói",
-    "Phiên bản được phát hành ra môi trường sản xuất"
+  "v10": {
+   "title": "Số nguyên hay số thập phân",
+   "prompt": "Phân loại từng mẩu dữ liệu của tiệm bánh theo kiểu số phù hợp nhất.",
+   "bins": [
+    "Số nguyên",
+    "Số thập phân"
    ],
-   "hint": "Không có gì được đóng gói trước khi vượt qua kiểm thử, và không có gì được phát hành trước khi được đóng gói.",
-   "why": "Mỗi giai đoạn là một cổng kiểm soát: chỉ những gì vượt qua kiểm thử mới được đóng gói, và chỉ những gì được đóng gói một cách tái lập mới được phát hành.",
-   "analogy": "Một dây chuyền lắp ráp: bộ phận đến, được lắp ráp, qua kiểm tra chất lượng, được đóng hộp, và chỉ sau đó mới rời khỏi nhà máy."
+   "cards": [
+    "Số ổ bánh mì bán hôm nay",
+    "Giá mỗi ký bột mì",
+    "Số khách trong hàng đợi",
+    "Cân nặng của khối bột tính bằng ký"
+   ],
+   "hint": "Hãy tự hỏi liệu một nửa của thứ đó có ý nghĩa không.",
+   "why": "Cái gì bạn đếm từng đơn vị một thì cần số nguyên; cái gì bạn đo theo từng phần thì cần số thập phân. Nửa khách hàng không tồn tại; nửa ký thì có.",
+   "analogy": "Đó là sự khác biệt giữa đếm trứng và cân bột: một thứ vừa trong hộp, thứ kia cần cân."
+  },
+  "c6": {
+   "title": "Một câu hỏi bên trong câu hỏi khác",
+   "prompt": "Chương trình in ra gì?",
+   "hint": "Phép thử thứ hai chỉ xảy ra nếu phép thử đầu tiên đúng.",
+   "why": "5 > 3 là đúng, nên đi vào khối bên trong. Ở đó, 5 > 10 là sai và chương trình rơi vào else bên trong. else bên ngoài không bao giờ được chạm tới.",
+   "analogy": "Đó là phân loại sau hai cánh cửa: ai qua được cửa đầu vẫn gặp một quyết định khác phía trước, còn ai không qua thì không bao giờ thấy nó."
+  },
+  "c7": {
+   "title": "Bệnh nhân lớn tuổi không được ưu tiên",
+   "prompt": "Bệnh nhân từ 65 tuổi trở lên, và cả trẻ em đến 12 tuổi, nên được ưu tiên. Chương trình không bao giờ đánh dấu ai. Dòng nào cần sửa?",
+   "hint": "Có độ tuổi nào vừa trên 65 vừa dưới 12 không?",
+   "why": "Với AND, cả hai điều kiện phải cùng đúng, điều đó là không thể. Quy tắc gộp hai nhóm riêng biệt, nên cần OR.",
+   "analogy": "Đó là biển báo \"lối vào cho người già và trẻ em\": không ai vừa là cả hai cùng lúc. Đổi \"và\" thành \"hoặc\" mở cửa cho cả hai nhóm."
+  },
+  "c8": {
+   "title": "Giới hạn có được tính hay không",
+   "prompt": "Phân loại từng điều kiện phân loại theo cách nó xử lý giá trị giới hạn chính xác.",
+   "bins": [
+    "Bao gồm giới hạn",
+    "Loại trừ giới hạn"
+   ],
+   "cards": [
+    "temperature >= 39",
+    "temperature > 39",
+    "age <= 12",
+    "age < 12"
+   ],
+   "hint": "Dấu gạch dưới là thứ mang ý nghĩa \"hoặc bằng\".",
+   "why": "Dấu >= và <= bao gồm giá trị giới hạn; > và < loại chính giá trị đó ra. Đây là nơi sinh ra lỗi biên.",
+   "analogy": "Đó là sự khác biệt giữa \"từ 65\" và \"trên 65\": người đúng 65 tuổi được tính theo quy tắc này và bị loại theo quy tắc kia."
+  },
+  "c9": {
+   "title": "Phân loại của Rosa, ba cấp độ",
+   "prompt": "Lắp ráp phân loại: sốt từ 39 trở lên là đỏ; nếu không, tuổi từ 65 trở lên là vàng; còn lại mọi người là xanh.",
+   "hint": "Quy tắc nghiêm trọng nhất đến trước, và mỗi bệnh nhân rời đi với một cấp độ duy nhất.",
+   "why": "Chuỗi if, elif và else đảm bảo chỉ một cấp độ được gán và quy tắc nghiêm trọng nhất được kiểm tra đầu tiên. Dữ liệu phải tồn tại trước khi kiểm tra, và in ra sau khi quyết định.",
+   "analogy": "Đó là quy trình dán trên tường phòng khám: bạn đọc từ trên xuống dưới và dừng ở dòng đầu tiên áp dụng."
+  },
+  "c10": {
+   "title": "Phép chia không bao giờ xảy ra",
+   "prompt": "Với x bằng không, chia cho x sẽ thất bại. Chương trình in ra gì?",
+   "hint": "Khi phép thử đầu tiên của AND đã sai, liệu phép thử thứ hai có được đánh giá không?",
+   "why": "Toán tử AND ngắn mạch: vì x != 0 là sai, phép chia không bao giờ được chạy và chương trình đi đến else, không có lỗi. Mẫu này bảo vệ các thao tác rủi ro.",
+   "analogy": "Đó là kiểm tra nhiên liệu trước khi vặn chìa khóa: nếu không có, không ai cố khởi động động cơ. Thứ tự các phép thử chính là sự bảo vệ."
+  },
+  "q7": {
+   "title": "Tìm hiểu hay kiểm tra",
+   "prompt": "Phân loại từng hoạt động kỹ thuật yêu cầu.",
+   "bins": [
+    "Thu thập (tìm hiểu)",
+    "Xác nhận (kiểm tra)"
+   ],
+   "cards": [
+    "Phỏng vấn lễ tân về quy trình hằng ngày",
+    "Xem xét danh sách yêu cầu với giám đốc trước khi viết mã",
+    "Quan sát bệnh nhân sử dụng kiosk lấy ticket",
+    "Cho xem nguyên mẫu và kiểm tra xem đây có thực sự là điều được mong đợi không"
+   ],
+   "hint": "Hãy hỏi xem hoạt động tìm kiếm thông tin mới hay xác nhận điều đã được viết.",
+   "why": "Phỏng vấn và quan sát làm lộ ra những yêu cầu chưa có trên giấy. Xem xét và kiểm tra nguyên mẫu xác minh liệu điều đã viết có khớp với nhu cầu thực sự không.",
+   "analogy": "Đó là sự khác biệt giữa đo số đo của khách hàng và mặc thử quần áo lên người họ. Cái đầu khám phá; cái sau xác nhận."
+  },
+  "q8": {
+   "title": "Đường đi của một yêu cầu",
+   "prompt": "Sắp xếp các giai đoạn của kỹ thuật yêu cầu theo thứ tự.",
+   "lines": [
+    "Thu thập: tìm hiểu mọi người cần gì",
+    "Phân tích: giải quyết xung đột và đặt ưu tiên",
+    "Đặc tả: viết các yêu cầu theo cách có thể kiểm chứng",
+    "Xác nhận: kiểm tra với những người yêu cầu xem điều này có đúng không",
+    "Quản lý: kiểm soát thay đổi trong suốt dự án"
+   ],
+   "hint": "Đầu tiên bạn tìm hiểu, sau đó tổ chức, viết và kiểm tra; kiểm soát thay đổi chạy song song với tất cả phần còn lại.",
+   "why": "Mỗi giai đoạn nuôi giai đoạn sau: bạn không ưu tiên điều chưa bao giờ được nêu ra, cũng không xác nhận điều chưa bao giờ được viết. Quản lý bắt đầu khi các yêu cầu bắt đầu thay đổi, và chúng luôn thay đổi.",
+   "analogy": "Đó là xây một ngôi nhà: nói chuyện với gia đình, quyết định điều gì vừa ngân sách, vẽ bản thiết kế, cho xem bản vẽ, rồi ghi lại mọi sự thay đổi ý kiến."
+  },
+  "o2": {
+   "title": "Đường lên production",
+   "prompt": "Sắp xếp các giai đoạn của một pipeline triển khai liên tục theo thứ tự.",
+   "lines": [
+    "Lập trình viên push code",
+    "Máy chủ CI lấy code và cài các phụ thuộc",
+    "Các bài kiểm thử tự động chạy",
+    "Gói phát hành được build",
+    "Phiên bản được release lên production"
+   ],
+   "hint": "Không gì được đóng gói trước khi vượt qua kiểm thử, và không gì được release trước khi đóng gói.",
+   "why": "Mỗi giai đoạn là một cánh cổng: chỉ những gì đã vượt qua kiểm thử mới được đóng gói, và chỉ những gì được đóng gói một cách có thể tái lập mới được release.",
+   "analogy": "Một dây chuyền lắp ráp: bộ phận đến, được lắp ráp, đi qua kiểm tra chất lượng, được đóng hộp, và chỉ sau đó mới rời xưởng."
   },
   "o3": {
-   "title": "\"Chạy tốt trên máy của tôi\"",
-   "prompt": "Ứng dụng chạy tốt trên laptop của Bia nhưng lại lỗi trên máy chủ. Nguyên nhân có khả năng nhất và cách khắc phục đúng là gì?",
+   "title": "\"Trên máy tôi chạy được\"",
+   "prompt": "Ứng dụng chạy tốt trên laptop của Bia nhưng gặp sự cố trên máy chủ. Nguyên nhân nhiều khả năng nhất và cách khắc phục đúng là gì?",
    "opts": [
-    "Môi trường khác nhau; khai báo các phụ thuộc và phiên bản trong một tệp và sử dụng cùng môi trường ở mọi nơi",
-    "Máy chủ bị lỗi; mua một máy chủ khác",
-    "Xui xẻo; thử lại vào ngày mai",
-    "Ngôn ngữ không tốt; viết lại bằng ngôn ngữ khác"
+    "Khác biệt môi trường; khai báo dependencies và phiên bản trong một file và dùng cùng môi trường ở mọi nơi",
+    "Máy chủ bị lỗi; mua cái khác",
+    "Xui rủi; thử lại vào ngày mai",
+    "Ngôn ngữ tệ; viết lại bằng ngôn ngữ khác"
    ],
-   "hint": "Mã giống nhau ở cả hai nơi. Điều gì thay đổi xung quanh nó?",
-   "why": "Cùng một đoạn mã có thể hoạt động khác nhau khi phiên bản và cấu hình thay đổi. Khai báo phụ thuộc và chuẩn hóa môi trường giúp việc thực thi trở nên tái lập.",
-   "analogy": "Công thức làm bánh thành công trong bếp của bạn nhưng thất bại ở nhà hàng xóm vì lò nướng của họ hiển thị nhiệt độ khác. Hãy chuẩn hóa lò nướng; đừng đổ lỗi cho chiếc bánh."
+   "hint": "Code giống nhau ở cả hai nơi. Cái gì thay đổi xung quanh nó?",
+   "why": "Cùng một code có hành vi khác khi phiên bản và cài đặt thay đổi. Khai báo dependencies và chuẩn hóa môi trường giúp việc thực thi có thể tái lập.",
+   "analogy": "Công thức nấu ăn chạy tốt trong bếp của bạn nhưng thất bại ở nhà hàng xóm vì lò nướng của họ hiển thị nhiệt độ khác. Hãy chuẩn hóa cái lò; đừng đổ lỗi cho cái bánh."
   },
   "o4": {
-   "title": "Rủi ro phát hành",
-   "prompt": "Phân loại từng thực hành theo tác động của nó đến rủi ro phát hành.",
+   "title": "Rủi ro khi release",
+   "prompt": "Phân loại từng thực hành theo tác động của nó đến rủi ro khi release.",
    "bins": [
     "Giảm rủi ro",
     "Tăng rủi ro"
    ],
    "cards": [
-    "Phát hành các thay đổi nhỏ vài lần mỗi tuần",
-    "Dồn ba tháng thay đổi vào một lần phát hành duy nhất",
+    "Release thay đổi nhỏ vài lần một tuần",
+    "Gom ba tháng thay đổi vào một lần release",
     "Có lệnh rollback đã được kiểm thử",
-    "Chỉnh sửa tệp trực tiếp trên máy chủ sản xuất"
+    "Sửa file trực tiếp trên máy chủ production"
    ],
-   "hint": "Hãy tự hỏi: nếu có sự cố, liệu có dễ tìm ra nguyên nhân và quay lại không?",
-   "why": "Một thay đổi nhỏ có nguyên nhân dễ tìm, và rollback đã được kiểm thử cho phép quay lại nhanh chóng. Một bản phát hành khổng lồ và chỉnh sửa thủ công trên môi trường sản xuất khiến lỗi khó xác định và khó hoàn tác.",
-   "analogy": "Băng qua sông bằng cách bước từng viên đá cho phép bạn lùi lại. Nhảy từ bờ này sang bờ kia là được ăn cả, ngã về không."
+   "hint": "Hãy tự hỏi: nếu xảy ra sự cố, có dễ tìm nguyên nhân và quay lại không?",
+   "why": "Thay đổi nhỏ có nguyên nhân dễ tìm, và rollback đã kiểm thử cho đường quay lại nhanh. Release khổng lồ và sửa thủ công trong production khiến lỗi khó xác định và khó hoàn tác.",
+   "analogy": "Qua sông từng viên đá một cho phép bạn lùi bước. Nhảy từ bờ này sang bờ kia là được ăn cả ngã về không."
   },
   "o5": {
-   "title": "CI đã đỏ ba ngày",
-   "prompt": "Một bài kiểm thử đã thất bại trong CI suốt ba ngày và nhóm vẫn tiếp tục đẩy mã. Hành động đúng đắn là gì?",
+   "title": "CI đỏ ba ngày nay",
+   "prompt": "Một bài kiểm thử đã thất bại trong CI ba ngày và nhóm vẫn tiếp tục push code. Hướng hành động đúng là gì?",
    "opts": [
-    "Dừng lại và sửa bản build trước: cảnh báo bị bỏ qua sẽ không còn tác dụng bảo vệ",
-    "Vô hiệu hóa bài kiểm thử đang thất bại",
+    "Dừng lại và sửa build trước: chuông báo động bị phớt lờ không còn bảo vệ nữa",
+    "Tắt bài kiểm thử đang thất bại",
     "Tiếp tục và sửa mọi thứ vào cuối tháng",
-    "Loại bỏ CI, nó chỉ gây cản trở"
+    "Bỏ CI, cái chỉ gây cản trở"
    ],
-   "hint": "Một cảnh báo còn giá trị gì khi mọi người đã học cách lờ đi nó?",
-   "why": "Với bản build đỏ, các lỗi mới sẽ ẩn sau lỗi đầu tiên. Sửa bản build trở thành ưu tiên của cả nhóm; vô hiệu hóa bài kiểm thử chỉ là tắt đèn báo trên bảng điều khiển.",
-   "analogy": "Đó là đèn báo áp suất dầu trên bảng điều khiển: dán băng keo che nó không sửa được động cơ."
+   "hint": "Chuông báo động có giá trị gì khi mọi người đã học cách phớt lờ nó?",
+   "why": "Với build đỏ, lỗi mới chui vào ẩn sau lỗi đầu tiên. Sửa build trở thành ưu tiên của cả nhóm; tắt bài kiểm thử chỉ là tắt đèn trên bảng điều khiển.",
+   "analogy": "Đó là đèn báo dầu trên bảng điều khiển: dán băng dính lên nó không sửa được động cơ."
+  },
+  "v6": {
+   "title": "Phép toán ở quầy tính tiền",
+   "prompt": "Hai ổ bánh mì giá 4 reais và một phép cộng nhẩm trong đầu. Chương trình in ra gì?",
+   "hint": "Trong lập trình, như trong toán học, phép nhân được thực hiện trước phép cộng.",
+   "why": "Đầu tiên 3 × 4 = 12, sau đó 2 + 12 = 14. Để cộng trước bạn phải viết (2 + 3) * 4.",
+   "analogy": "Đó là làn ưu tiên ở quầy thanh toán: ai có quyền ưu tiên thì đi trước, kể cả đến sau. Dấu ngoặc là tấm vé thay đổi thứ tự."
+  },
+  "v7": {
+   "title": "Những đồng xu biến mất",
+   "prompt": "Dona Lúcia cộng hai khoản tiền và so sánh với số bà mong đợi. Chương trình in ra gì?",
+   "hint": "Số thập phân được lưu trữ dưới dạng nhị phân, và không phải số thập phân nào cũng khớp chính xác trong dạng đó.",
+   "why": "Trong hệ nhị phân, 0.1 và 0.2 là các phân số tuần hoàn: tổng cho 0.30000000000000004 và phép so sánh chính xác thất bại. Đối với tiền, hãy so sánh với dung sai hoặc tính bằng xu, với số nguyên.",
+   "analogy": "Giống như đo một centimet bằng thước inch: mỗi lần chuyển đổi đều để lại phần dư vô hình, và cộng các phần dư làm sai tổng."
+  },
+  "v8": {
+   "title": "Gram biến thành tấn",
+   "prompt": "Công thức dùng 500 gram bột mì, nhưng chương trình in ra 500000. Dòng nào sai?",
+   "hint": "Một kilo có một nghìn gram. Để đổi từ gram sang kilo, bạn nhân hay chia?",
+   "why": "Phép chuyển đổi bị ngược: từ gram sang kilo bạn chia cho 1000. Nhân thì đi theo hướng ngược lại.",
+   "analogy": "Giống như đổi tiền theo hướng sai: con số trở nên khổng lồ và phép tính có vẻ đúng cho đến khi ai đó kiểm tra số tiền cuối cùng."
+  },
+  "v9": {
+   "title": "Đổi chỗ hai hũ mà không đổ",
+   "prompt": "Lắp ráp chương trình hoán đổi giá trị của a và b dùng biến tạm và in kết quả.",
+   "hint": "Lưu một giá trị trước khi nó bị ghi đè.",
+   "why": "Biến tạm giữ giá trị đầu tiên trong khi nó bị thay thế. thiếu nó, một trong hai giá trị bị mất, như trong ticket ở quầy tính tiền nơi việc hoán đổi bị hỏng.",
+   "analogy": "Để hoán đổi nội dung của hai cốc đầy bạn dùng một cốc thứ ba, rỗng. Đó là cùng một động tác, trong code."
+  },
+  "q9": {
+   "title": "\"Hệ thống thông báo cho bệnh nhân\"",
+   "prompt": "Yêu cầu chỉ nói: \"hệ thống thông báo cho bệnh nhân\". Vì sao đây là vấn đề?",
+   "opts": [
+    "Không nói rõ khi nào, qua kênh nào, hay phải làm gì nếu thông báo thất bại",
+    "Quá dài và nên tách ra",
+    "Dùng từ hệ thống, nên tránh",
+    "Không phải vấn đề: đủ rõ ràng"
+   ],
+   "hint": "Hãy tưởng tượng hai người cùng triển khai câu đó mà không trao đổi. Liệu họ có xây dựng giống nhau không?",
+   "why": "Một yêu cầu mơ hồ là yêu cầu cho phép nhiều hơn một cách hiểu hợp lý. Thông báo trước một ngày qua tin nhắn khác với thông báo ngay lập tức qua email, và cả hai đều phù hợp với câu đó.",
+   "analogy": "Giống như nói với bạn \"báo cho tôi biết\": họ có thể gọi lúc sáu giờ sáng hoặc nhắn qua hàng xóm. Không thống nhất trước thì mỗi người làm theo cách của mình."
+  },
+  "q10": {
+   "title": "Tiêu chí chấp nhận",
+   "prompt": "Điều gì biến một câu chuyện người dùng thành việc mà nhóm biết là đã hoàn thành?",
+   "opts": [
+    "Tiêu chí chấp nhận: các điều kiện kiểm chứng được cho biết khi nào xong",
+    "Ước lượng theo giờ của lập trình viên",
+    "Tên người yêu cầu tính năng",
+    "Bản vẽ của nhà thiết kế"
+   ],
+   "hint": "Nghĩ xem điều gì cho phép bạn trả lời có hoặc không cho câu hỏi: đã xong chưa?",
+   "why": "Tiêu chí chấp nhận mô tả hành vi mong đợi bằng các điều kiện kiểm chứng được. Không có chúng, \"hoàn thành\" trở thành vấn đề ý kiến.",
+   "analogy": "Giống như danh sách kiểm tra khi bàn giao nhà: không có nó, việc trao chìa khóa biến thành tranh cãi về những gì đã thỏa thuận."
+  },
+  "q11": {
+   "title": "Hai yêu cầu mâu thuẫn nhau",
+   "prompt": "Giám đốc muốn hồ sơ bệnh nhân đầy đủ; quầy lễ tân muốn đặt lịch dưới một phút. Hướng hành động tốt nhất là gì?",
+   "opts": [
+    "Đưa mâu thuẫn cho cả hai bên và thương lượng giải pháp rõ ràng, ví dụ hồ sơ tối thiểu trước, đầy đủ sau",
+    "Theo phía giám đốc vì có quyền cao hơn",
+    "Theo phía lễ tân vì gần vấn đề hơn",
+    "Triển khai cả hai rồi để thực tế giải quyết"
+   ],
+   "hint": "Mâu thuẫn giữa các yêu cầu là vấn đề cần giải quyết trong phân tích, không phải trong code.",
+   "why": "Các yêu cầu mâu thuẫn phải được hòa giải với các bên liên quan trước khi viết code. Chọn im lặng sẽ đưa mâu thuẫn vào sản phẩm, nơi chi phí sửa chữa cao hơn nhiều.",
+   "analogy": "Hai phòng đang tranh chấp cùng một bức tường trên bản vẽ. Kiến trúc sư ngồi lại với gia đình và quyết định trước; một khi đã xây, bức tường tốn chi phí cải tạo."
+  },
+  "g7": {
+   "title": "Hoàn tác mà không xóa lịch sử",
+   "prompt": "Một thay đổi đã phát hành làm hỏng hệ thống tiệm bánh. Sắp xếp các bước hoàn tác an toàn theo thứ tự.",
+   "lines": [
+    "Xác định commit gây lỗi trong lịch sử",
+    "Tạo commit revert để hoàn tác các thay đổi đó",
+    "Chạy kiểm thử để xác nhận hệ thống trở lại bình thường",
+    "Push commit revert lên repository từ xa",
+    "Điều tra nguyên nhân một cách bình tĩnh và chuẩn bị bản vá dứt điểm"
+   ],
+   "hint": "Khôi phục dịch vụ trước; hiểu nguyên nhân để sau, khi hệ thống đã ổn định.",
+   "why": "Revert tạo một commit mới hoàn tác commit trước, không xóa lịch sử mà người khác đã pull. Việc điều tra sau đó an toàn vì hệ thống đã hoạt động trở lại.",
+   "analogy": "Trong kế toán, bạn không gạch bỏ bút toán sai: bạn ghi một bút toán đảo. Sai sót vẫn còn trong sổ sách, và số dư trở về đúng."
+  },
+  "g8": {
+   "title": "Fetch hay đã merge",
+   "prompt": "Sự khác biệt giữa fetch và pull trong Git là gì?",
+   "opts": [
+    "Fetch chỉ lấy thay đổi từ remote; pull lấy thay đổi và merge vào nhánh của bạn",
+    "Hai tên gọi cho cùng một thao tác",
+    "Fetch gửi thay đổi; pull nhận thay đổi",
+    "Fetch chỉ hoạt động trên nhánh main; pull trên mọi nhánh"
+   ],
+   "hint": "Một trong hai thay đổi file của bạn ngay lập tức. Đó là cái nào?",
+   "why": "Fetch cập nhật cái nhìn của bạn về repository từ xa mà không động vào công việc của bạn, cho phép bạn thấy những gì thay đổi trước khi tích hợp. Pull làm cả hai cùng lúc và có thể gây xung đột ngay lập tức.",
+   "analogy": "Giống như sự khác biệt giữa nhận thư và mở phong bì ngay trên bàn làm việc. Fetch để thư trong hộp; pull trải nó ra ngay bây giờ."
+  },
+  "g9": {
+   "title": "Những gì thuộc về repository",
+   "prompt": "Phân loại từng file của dự án tiệm bánh.",
+   "bins": [
+    "Quản lý phiên bản",
+    "Loại ra (.gitignore)"
+   ],
+   "cards": [
+    "Mã nguồn của tính năng tính tiền thối",
+    "File chứa mật khẩu database",
+    "README hướng dẫn cài đặt",
+    "Thư mục thư viện tải tự động"
+   ],
+   "hint": "Hỏi xem nhóm có viết file đó không và liệu ai có quyền truy cập repository có được xem nó không.",
+   "why": "Bạn quản lý phiên bản những gì nhóm viết và cần chia sẻ. Bí mật không bao giờ đưa vào vì lịch sử Git là vĩnh viễn; các dependency tải về cũng không, vì chúng có thể xây dựng lại từ file khai báo.",
+   "analogy": "Giống như xếp vali: quần áo của bạn cho vào, dầu gội khách sạn để lại. Và chìa khóa nhà chắc chắn không để trong va li mở."
+  },
+  "g10": {
+   "title": "Force push",
+   "prompt": "Một đồng nghiệp đề xuất force push lên nhánh main để \"dọn dẹp\" lịch sử. Vì sao việc đó nguy hiểm?",
+   "opts": [
+    "Nó viết lại lịch sử mà người khác đã pull và có thể xóa công việc của họ",
+    "Nó làm repository chậm hơn",
+    "Nó chỉ hoạt động với quyền admin",
+    "Không nguy hiểm: đó là cách được khuyến nghị để tổ chức commit"
+   ],
+   "hint": "Điều gì xảy ra với người đã pull phiên bản cũ và tiếp tục làm việc trên đó?",
+   "why": "Force push thay thế lịch sử từ xa. Các commit người khác đã pull biến mất khỏi dòng thời gian, và công việc xây dựng trên chúng trở nên mồ côi. Trên nhánh chia sẻ, hãy dùng revert.",
+   "analogy": "Giống như in lại biên bản cuộc họp mà mọi người đã mang về nhà. Ai đã ghi chú trên bản cũ sẽ giữ một tài liệu không còn tồn tại."
+  },
+  "g11": {
+   "title": "Commit làm mọi thứ",
+   "prompt": "Một commit thay đổi tính năng tính tiền thối, đổi tên hai mươi biến và thêm một màn hình mới. Vấn đề là gì?",
+   "opts": [
+    "Không thể xem xét, hoàn tác hoặc truy vết riêng lẻ nguồn gốc lỗi",
+    "Không vấn đề gì: commit lớn tiết kiệm thời gian",
+    "Git có giới hạn số file mỗi commit",
+    "Thông điệp sẽ quá dài"
+   ],
+   "hint": "Nghĩ đến ngày chỉ một trong ba thay đổi đó phải được hoàn tác.",
+   "why": "Mỗi commit nên chứa một thay đổi mạch lạc. Trộn ba thay đổi, một revert sẽ kéo theo cả những phần đúng, và việc xem xét bị lạc giữa việc đổi tên và logic mới.",
+   "analogy": "Giống như đóng gói nhà bếp, phòng tắm và văn phòng vào cùng một thùng. Để tìm một cái tách bạn phải lật tung mọi thứ, và bạn không thể trả lại chỉ món đồ bị sai."
   }
  },
  "game": {

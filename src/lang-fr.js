@@ -1456,62 +1456,292 @@ LANG.fr = {
    "why": "L'IC construit le projet à partir de zéro et exécute les tests à chaque changement. La valeur réside dans la rapidité de l'alerte : des minutes, pas des semaines.",
    "analogy": "C'est le détecteur de métaux à l'entrée : il vérifie chaque personne au passage, au lieu de fouiller tout le bâtiment à la fin du mois."
   },
+  "v10": {
+   "title": "Nombre entier ou décimal",
+   "prompt": "Classez chaque donnée de boulangerie selon le type numérique qui convient le mieux.",
+   "bins": [
+    "Nombre entier",
+    "Nombre décimal"
+   ],
+   "cards": [
+    "Nombre de pains vendus aujourd'hui",
+    "Prix au kilo de la farine",
+    "Nombre de clients dans la file",
+    "Poids de la pâte en kilos"
+   ],
+   "hint": "Demandez-vous si la moitié de cette chose a un sens.",
+   "why": "Ce que vous comptez une unité à la fois demande un entier ; ce que vous mesurez en parties demande un décimal. Un demi-client n'existe pas ; un demi-kilo, si.",
+   "analogy": "C'est la différence entre compter des œufs et peser de la farine : l'un se range dans une boîte, l'autre a besoin d'une balance."
+  },
+  "c6": {
+   "title": "Une question dans une autre",
+   "prompt": "Qu'affiche le programme ?",
+   "hint": "Le deuxième test n'a lieu que si le premier est vrai.",
+   "why": "5 > 3 est vrai, donc on entre dans le bloc interne. Là, 5 > 10 est faux et le programme va au else interne. Le else externe n'est jamais atteint.",
+   "analogy": "C'est un triage derrière deux portes : celui qui passe la première rencontre encore une décision plus loin, et celui qui ne passe pas ne la voit jamais."
+  },
+  "c7": {
+   "title": "Un patient âgé sans priorité",
+   "prompt": "Les patients de 65 ans ou plus, ainsi que les enfants jusqu'à 12 ans, devraient avoir la priorité. Le programme ne signale jamais personne. Quelle ligne faut-il corriger ?",
+   "hint": "Existe-t-il un âge qui soit à la fois supérieur à 65 et inférieur à 12 ?",
+   "why": "Avec ET, les deux conditions doivent être vraies en même temps, ce qui est impossible. La règle réunit deux groupes distincts, il faut donc utiliser OU.",
+   "analogy": "C'est le panneau « entrée pour les personnes âgées et les enfants » : personne n'est les deux à la fois. Remplacer « et » par « ou » ouvre la porte aux deux groupes."
+  },
+  "c8": {
+   "title": "La limite compte-t-elle ou non",
+   "prompt": "Classez chaque condition de triage selon ce qu'elle fait avec la valeur limite exacte.",
+   "bins": [
+    "Inclut la limite",
+    "Exclut la limite"
+   ],
+   "cards": [
+    "température >= 39",
+    "température > 39",
+    "âge <= 12",
+    "âge < 12"
+   ],
+   "hint": "La barre sous le signe est ce qui porte le « ou égal ».",
+   "why": "Les signes >= et <= incluent la valeur limite ; > et < excluent exactement cette valeur. C'est là que naissent les erreurs de frontière.",
+   "analogy": "C'est la différence entre « à partir de 65 » et « plus de 65 » : quelqu'un qui a exactement 65 ans est inclus dans une règle et exclu de l'autre."
+  },
+  "c9": {
+   "title": "Le triage de Rosa, en trois niveaux",
+   "prompt": "Assemblez le triage : une fièvre de 39 ou plus est rouge ; sinon, un âge de 65 ans ou plus est jaune ; tous les autres sont verts.",
+   "hint": "La règle la plus grave vient en premier, et chaque patient repart avec un seul niveau.",
+   "why": "La chaîne if, elif et else garantit qu'un seul niveau est attribué et que la règle la plus grave est testée en premier. Les données doivent exister avant le test, et l'affichage vient après la décision.",
+   "analogy": "C'est le protocole affiché au mur de la clinique : vous le lisez de haut en bas et vous vous arrêtez à la première ligne qui s'applique."
+  },
+  "c10": {
+   "title": "La division qui n'a jamais lieu",
+   "prompt": "Avec x égal à zéro, diviser par x échouerait. Qu'affiche le programme ?",
+   "hint": "Quand le premier test d'un ET est déjà faux, le deuxième est-il évalué ?",
+   "why": "L'opérateur ET court-circuite : puisque x != 0 est faux, la division n'est jamais exécutée et le programme va au else, sans erreur. Ce modèle protège les opérations risquées.",
+   "analogy": "C'est vérifier le carburant avant de tourner la clé : s'il n'y en a pas, personne n'essaie de démarrer le moteur. L'ordre des tests est la protection."
+  },
+  "q7": {
+   "title": "Découvrir ou vérifier",
+   "prompt": "Classez chaque activité d'ingénierie des exigences.",
+   "bins": [
+    "Élicitation (découverte)",
+    "Validation (vérification)"
+   ],
+   "cards": [
+    "Interroger la réceptionniste sur sa routine quotidienne",
+    "Revoir la liste des exigences avec le directeur avant de coder",
+    "Observer les patients utiliser la borne de tickets",
+    "Montrer un prototype et vérifier si c'est vraiment ce qui est attendu"
+   ],
+   "hint": "Demandez-vous si l'activité cherche de nouvelles informations ou confirme ce qui a déjà été écrit.",
+   "why": "Interroger et observer font émerger des exigences qui n'étaient pas encore sur le papier. Revoir et vérifier des prototypes confirment si ce qui a été écrit correspond au besoin réel.",
+   "analogy": "C'est la différence entre prendre les mesures du client et lui essayer le vêtement. Le premier découvre ; le second confirme."
+  },
+  "q8": {
+   "title": "Le chemin d'une exigence",
+   "prompt": "Mettez les étapes de l'ingénierie des exigences dans l'ordre.",
+   "lines": [
+    "Élicitation : découvrir ce dont les gens ont besoin",
+    "Analyse : résoudre les conflits et fixer les priorités",
+    "Spécification : écrire les exigences de manière vérifiable",
+    "Validation : vérifier avec les demandeurs si c'est correct",
+    "Gestion : contrôler les changements tout au long du projet"
+   ],
+   "hint": "D'abord vous découvrez, ensuite vous organisez, écrivez et vérifiez ; le contrôle des changements accompagne tout le reste.",
+   "why": "Chaque étape alimente la suivante : on ne priorise pas ce qui n'a jamais été soulevé, ni ne valide ce qui n'a jamais été écrit. La gestion commence quand les exigences commencent à changer, et elles changent toujours.",
+   "analogy": "C'est construire une maison : parler avec la famille, décider de ce qui tient dans le budget, dessiner le plan, montrer le dessin, puis noter chaque changement d'avis."
+  },
   "o2": {
    "title": "Le chemin vers la production",
-   "prompt": "Mettez les étapes d’un pipeline de livraison continue dans l’ordre.",
+   "prompt": "Remettez dans l'ordre les étapes d'un pipeline de livraison continue.",
    "lines": [
     "Le développeur pousse le code",
     "Le serveur CI récupère le code et installe les dépendances",
-    "Les tests automatisés s’exécutent",
+    "Les tests automatisés s'exécutent",
     "Le paquet de livraison est construit",
-    "La version est publiée en production"
+    "La version est mise en production"
    ],
-   "hint": "Rien n’est empaqueté avant d’avoir réussi les tests, et rien n’est publié avant d’être empaqueté.",
-   "why": "Chaque étape est un portillon : seul ce qui a réussi les tests est empaqueté, et seul ce qui a été empaqueté de manière reproductible est publié.",
-   "analogy": "Une chaîne de montage : la pièce arrive, elle est assemblée, passe au contrôle qualité, est mise en boîte, et seulement ensuite part pour le magasin."
+   "hint": "Rien n'est empaqueté avant d'avoir passé les tests, et rien n'est livré avant d'être empaqueté.",
+   "why": "Chaque étape est un portail : seul ce qui a passé les tests est empaqueté, et seul ce qui a été empaqueté de manière reproductible est livré.",
+   "analogy": "Une chaîne de montage : la pièce arrive, est assemblée, passe au contrôle qualité, est mise en boîte, et seulement ensuite part au magasin."
   },
   "o3": {
    "title": "« Ça marche sur ma machine »",
-   "prompt": "L’application fonctionne sur l’ordinateur portable de Bia et plante sur le serveur. Quelle est la cause la plus probable et la bonne correction ?",
+   "prompt": "L'application fonctionne sur l'ordinateur portable de Bia et plante sur le serveur. Quelle est la cause la plus probable et la bonne correction ?",
    "opts": [
     "Des environnements différents ; déclarez les dépendances et les versions dans un fichier et utilisez le même environnement partout",
     "Un serveur défectueux ; achetez-en un autre",
     "Pas de chance ; réessayez demain",
     "Un mauvais langage ; réécrivez-le dans un autre"
    ],
-   "hint": "Le code est le même aux deux endroits. Qu’est-ce qui change autour de lui ?",
-   "why": "Le même code se comporte différemment quand les versions et les réglages changent. Des dépendances déclarées et des environnements standardisés rendent l’exécution reproductible.",
+   "hint": "Le code est le même aux deux endroits. Qu'est-ce qui change autour ?",
+   "why": "Le même code se comporte différemment lorsque les versions et les paramètres changent. Les dépendances déclarées et les environnements standardisés rendent l'exécution reproductible.",
    "analogy": "La recette fonctionne dans votre cuisine et échoue chez le voisin parce que son four indique une température différente. Standardisez le four ; ne blâmez pas le gâteau."
   },
   "o4": {
-   "title": "Risque de publication",
-   "prompt": "Classez chaque pratique selon son effet sur le risque de publication.",
+   "title": "Risque de livraison",
+   "prompt": "Classez chaque pratique selon son effet sur le risque de livraison.",
    "bins": [
     "Réduit le risque",
     "Augmente le risque"
    ],
    "cards": [
-    "Publier de petits changements plusieurs fois par semaine",
-    "Accumuler trois mois de changements dans une seule publication",
+    "Livrer de petits changements plusieurs fois par semaine",
+    "Accumuler trois mois de changements dans une seule livraison",
     "Avoir une commande de retour en arrière qui a été testée",
     "Modifier les fichiers directement sur le serveur de production"
    ],
-   "hint": "Demandez-vous : si ça échoue, sera-t-il facile de trouver la cause et de revenir en arrière ?",
-   "why": "Un petit changement a une cause facile à trouver, et un retour en arrière testé donne un moyen rapide de revenir. Une publication géante et des modifications manuelles en production rendent l’erreur difficile à localiser et à annuler.",
-   "analogy": "Traverser la rivière pierre par pierre permet de reculer. Sauter d’une berge à l’autre, c’est tout ou rien."
+   "hint": "Demandez-vous : si ça tourne mal, sera-t-il facile de trouver la cause et de revenir en arrière ?",
+   "why": "Un petit changement a une cause facile à trouver, et un retour en arrière testé offre un moyen rapide de revenir. Une livraison géante et des modifications manuelles en production rendent l'erreur difficile à localiser et à annuler.",
+   "analogy": "Traverser la rivière pierre par pierre permet de reculer. Sauter d'une rive à l'autre, c'est tout ou rien."
   },
   "o5": {
    "title": "La CI est rouge depuis trois jours",
-   "prompt": "Un test échoue dans la CI depuis trois jours et l’équipe continue de pousser du code. Quelle est la bonne conduite à tenir ?",
+   "prompt": "Un test échoue dans la CI depuis trois jours et l'équipe continue de pousser du code. Quelle est la bonne conduite à tenir ?",
    "opts": [
-    "S’arrêter et réparer d’abord le build : une alarme ignorée ne protège plus",
-    "Désactiver le test en échec",
-    "Continuer et tout corriger à la fin du mois",
-    "Supprimer la CI, qui ne fait que gêner"
+    "Arrêtez-vous et réparez d'abord la compilation : une alarme ignorée ne protège plus",
+    "Désactivez le test en échec",
+    "Continuez et réparez tout à la fin du mois",
+    "Supprimez la CI, qui ne fait que gêner"
    ],
-   "hint": "Que vaut une alarme une fois que tout le monde a appris à l’ignorer ?",
-   "why": "Avec un build rouge, de nouveaux défauts se glissent cachés derrière le premier. Réparer le build devient la priorité de toute l’équipe ; désactiver le test ne fait qu’éteindre le voyant du tableau de bord.",
-   "analogy": "C’est le voyant d’huile sur le tableau de bord : le recouvrir de ruban adhésif ne répare pas le moteur."
+   "hint": "Que vaut une alarme une fois que tout le monde a appris à l'ignorer ?",
+   "why": "Avec une compilation rouge, de nouveaux défauts se glissent cachés derrière le premier. Réparer la compilation devient la priorité de toute l'équipe ; désactiver le test ne fait qu'éteindre le voyant du tableau de bord.",
+   "analogy": "C'est le voyant d'huile sur le tableau de bord : le masquer avec du ruban adhésif ne répare pas le moteur."
+  },
+  "v6": {
+   "title": "Les maths du comptoir",
+   "prompt": "Deux pains à 4 réais et une addition faite de tête. Qu'affiche le programme ?",
+   "hint": "En programmation, comme en maths, la multiplication est effectuée avant l'addition.",
+   "why": "D'abord 3 × 4 = 12, puis 2 + 12 = 14. Pour additionner d'abord, il faudrait écrire (2 + 3) * 4.",
+   "analogy": "C'est la file prioritaire à la caisse : celui qui a la priorité passe en premier, même s'il est arrivé plus tard. Les parenthèses sont le laissez-passer qui change l'ordre."
+  },
+  "v7": {
+   "title": "Les centimes qui disparaissent",
+   "prompt": "Dona Lúcia additionne deux montants et les compare avec ce qu'elle attendait. Qu'affiche le programme ?",
+   "hint": "Les nombres décimaux sont stockés en binaire, et tous les décimaux ne tiennent pas exactement sous cette forme.",
+   "why": "En binaire, 0,1 et 0,2 sont des fractions périodiques : la somme donne 0,30000000000000004 et la comparaison exacte échoue. Pour l'argent, comparez avec une tolérance ou travaillez en centimes, avec des nombres entiers.",
+   "analogy": "C'est comme mesurer un centimètre coupé avec une règle en pouces : chaque conversion laisse un reste invisible, et l'addition des restes fausse le total."
+  },
+  "v8": {
+   "title": "Des grammes transformés en tonnes",
+   "prompt": "La recette utilise 500 grammes de farine, mais le programme affiche 500000. Quelle ligne est fausse ?",
+   "hint": "Un kilo fait mille grammes. Pour passer des grammes aux kilos, multiplie-t-on ou divise-t-on ?",
+   "why": "La conversion est inversée : des grammes aux kilos, on divise par 1000. Multiplier va dans le sens opposé.",
+   "analogy": "C'est convertir une monnaie dans le mauvais sens : le nombre devient énorme et les calculs semblent justes jusqu'à ce que quelqu'un vérifie le montant final."
+  },
+  "v9": {
+   "title": "Échanger les pots sans renverser",
+   "prompt": "Assemblez le programme qui échange les valeurs de a et b à l'aide d'une variable temporaire et affiche le résultat.",
+   "hint": "Stockez l'une des valeurs avant qu'elle ne soit écrasée.",
+   "why": "La variable temporaire conserve la première valeur pendant qu'elle est remplacée. Sans elle, l'une des deux est perdue, comme dans le ticket de caisse où l'échange a mal tourné.",
+   "analogy": "Pour échanger le contenu de deux verres pleins, on utilise un troisième, vide. C'est le même geste, en code."
+  },
+  "q9": {
+   "title": "« Le système notifie le patient »",
+   "prompt": "L'exigence dit seulement : « le système notifie le patient ». Pourquoi est-ce un problème ?",
+   "opts": [
+    "Elle ne dit pas quand, par quel canal, ni quoi faire si la notification échoue",
+    "Elle est trop longue et devrait être découpée",
+    "Elle utilise le mot système, qu'il faudrait éviter",
+    "Ce n'est pas un problème : c'est assez clair"
+   ],
+   "hint": "Imaginez deux personnes qui implémentent cette phrase sans se parler. Construiraient-elles la même chose ?",
+   "why": "Une exigence ambiguë est celle qui permet plus d'une lecture raisonnable. Notifier la veille par SMS est différent de notifier au moment même par e-mail, et les deux correspondent à cette phrase.",
+   "analogy": "C'est comme dire à un ami « préviens-moi » : il peut appeler à six heures du matin ou laisser un mot chez le voisin. Sans se mettre d'accord, chacun fait à sa manière."
+  },
+  "q10": {
+   "title": "Critères d'acceptation",
+   "prompt": "Qu'est-ce qui transforme une user story en quelque chose dont l'équipe sait qu'elle est terminée ?",
+   "opts": [
+    "Les critères d'acceptation : des conditions vérifiables qui disent quand c'est fini",
+    "L'estimation du développeur en heures",
+    "Le nom de la personne qui a demandé la fonctionnalité",
+    "La maquette dessinée par le designer"
+   ],
+   "hint": "Pensez à ce qui permet de répondre par oui ou par non à : est-ce fini ?",
+   "why": "Les critères d'acceptation décrivent le comportement attendu en conditions vérifiables. Sans eux, « fini » devient une question d'opinion.",
+   "analogy": "C'est la liste des réserves lors de la remise des clés d'un logement : sans elle, la remise des clés se transforme en dispute sur ce qui avait été convenu."
+  },
+  "q11": {
+   "title": "Deux demandes qui se contredisent",
+   "prompt": "La directrice veut un dossier patient complet ; l'accueil veut une prise de rendez-vous en moins d'une minute. Quelle est la meilleure chose à faire ?",
+   "opts": [
+    "Porter le conflit devant les deux parties et négocier une solution explicite, comme un dossier minimal maintenant et le complet plus tard",
+    "Donner raison à la directrice, car elle a plus d'autorité",
+    "Donner raison à l'accueil, car ils sont plus proches du problème",
+    "Implémenter les deux et laisser faire le terrain"
+   ],
+   "hint": "Un conflit entre exigences est un problème à régler en analyse, pas dans le code.",
+   "why": "Les exigences contradictoires doivent être réconciliées avec les parties prenantes avant de devenir du code. Choisir en silence déplace le conflit dans le produit, où il coûte beaucoup plus cher.",
+   "analogy": "Deux pièces se disputent le même mur sur le plan. L'architecte s'assoit avec la famille et décide avant ; une fois construit, le mur coûte une rénovation."
+  },
+  "g7": {
+   "title": "Défaire sans effacer l'historique",
+   "prompt": "Un changement déjà livré a cassé le système de la boulangerie. Remettez les étapes pour le défaire en toute sécurité dans l'ordre.",
+   "lines": [
+    "Identifier le commit qui a causé la panne dans l'historique",
+    "Créer un commit de revert qui annule ces changements",
+    "Lancer les tests pour confirmer que le système est revenu à la normale",
+    "Pousser le revert vers le dépôt distant",
+    "Enquêter calmement sur la cause et préparer le correctif définitif"
+   ],
+   "hint": "Rétablissez d'abord le service ; comprendre pourquoi vient ensuite, une fois le système stable.",
+   "why": "Un revert crée un nouveau commit qui annule le précédent, sans effacer l'historique que d'autres ont déjà récupéré. Enquêter ensuite est sans risque car le système fonctionne de nouveau.",
+   "analogy": "En comptabilité, on ne raye pas une écriture erronée : on passe une écriture d'annulation. L'erreur reste enregistrée, et le solde redevient juste."
+  },
+  "g8": {
+   "title": "Fetch ou déjà merge",
+   "prompt": "Quelle est la différence entre fetch et pull dans Git ?",
+   "opts": [
+    "Fetch ramène seulement les changements du dépôt distant ; pull les ramène et les fusionne dans votre branche",
+    "Ce sont deux noms pour la même opération",
+    "Fetch envoie les changements ; pull les reçoit",
+    "Fetch ne fonctionne que sur main ; pull sur n'importe quelle branche"
+   ],
+   "hint": "L'un des deux modifie vos fichiers tout de suite. Lequel ?",
+   "why": "Fetch met à jour votre vue du dépôt distant sans toucher à votre travail, vous permettant de voir ce qui a changé avant d'intégrer. Pull fait les deux à la fois et peut provoquer un conflit immédiatement.",
+   "analogy": "C'est la différence entre relever le courrier et ouvrir les enveloppes sur le bureau où vous travaillez. Fetch le laisse dans la boîte ; pull l'étale maintenant."
+  },
+  "g9": {
+   "title": "Ce qui appartient au dépôt",
+   "prompt": "Classez chaque fichier du projet de boulangerie.",
+   "bins": [
+    "Le versionner",
+    "Le laisser de côté (.gitignore)"
+   ],
+   "cards": [
+    "Le code source du calcul de la monnaie",
+    "Le fichier avec le mot de passe de la base de données",
+    "Le README avec les instructions d'installation",
+    "Le dossier des bibliothèques téléchargées automatiquement"
+   ],
+   "hint": "Demandez-vous si l'équipe a écrit le fichier et si toute personne ayant accès au dépôt peut le voir.",
+   "why": "On versionne ce que l'équipe écrit et doit partager. Les secrets n'y vont jamais, car l'historique Git est permanent ; les dépendances téléchargées non plus, car elles peuvent être reconstruites à partir du fichier de dépendances.",
+   "analogy": "C'est comme faire une valise : vos vêtements y vont, le shampooing de l'hôtel reste. Et votre clé de maison ne voyage certainement pas dans une valise ouverte."
+  },
+  "g10": {
+   "title": "Le force push",
+   "prompt": "Un collègue suggère de faire un force push sur la branche main pour « ranger » l'historique. Pourquoi est-ce dangereux ?",
+   "opts": [
+    "Il réécrit l'historique que d'autres ont déjà récupéré et peut effacer leur travail",
+    "Il rend le dépôt plus lent",
+    "Il ne fonctionne qu'avec des droits d'administrateur",
+    "Ce n'est pas dangereux : c'est la façon recommandée d'organiser les commits"
+   ],
+   "hint": "Que se passe-t-il pour quelqu'un qui a déjà récupéré l'ancienne version et a continué à travailler dessus ?",
+   "why": "Un force push remplace l'historique distant. Les commits que d'autres ont déjà récupérés disparaissent de la chronologie, et le travail construit dessus devient orphelin. Sur une branche partagée, utilisez plutôt revert.",
+   "analogy": "C'est comme réimprimer le compte rendu d'une réunion que tout le monde a déjà emporté chez soi. Celui qui a annoté l'ancienne version se retrouve avec un document qui n'existe plus."
+  },
+  "g11": {
+   "title": "Le commit qui fait tout",
+   "prompt": "Un commit modifie le calcul de la monnaie, renomme vingt variables et ajoute un nouvel écran. Quel est le problème ?",
+   "opts": [
+    "Il ne peut pas être revu, annulé ou retracé à l'origine d'un défaut isolément",
+    "Aucun : les gros commits font gagner du temps",
+    "Git a une limite de fichiers par commit",
+    "Le message sera beaucoup trop long"
+   ],
+   "hint": "Pensez au jour où un seul de ces trois changements doit être annulé.",
+   "why": "Chaque commit devrait contenir un seul changement cohérent. En mélangeant trois, un revert emporte aussi ce qui était correct, et la revue se perd entre les renommages et la nouvelle logique.",
+   "analogy": "C'est comme emballer la cuisine, la salle de bain et le bureau dans le même carton. Pour trouver une tasse, on renverse tout, et on ne peut pas renvoyer seulement ce qui est arrivé cassé."
   }
  },
  "game": {

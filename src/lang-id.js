@@ -1458,34 +1458,34 @@ LANG.id = {
   },
   "o2": {
    "title": "Jalan menuju produksi",
-   "prompt": "Urutkan tahapan pipeline continuous delivery.",
+   "prompt": "Urutkan tahapan dari alur continuous delivery.",
    "lines": [
-    "Developer melakukan push kode",
+    "Pengembang melakukan push kode",
     "Server CI mengambil kode dan memasang dependensi",
     "Tes otomatis dijalankan",
     "Paket rilis dibangun",
     "Versi dirilis ke produksi"
    ],
-   "hint": "Tidak ada yang dikemas sebelum lulus tes, dan tidak ada yang dirilis sebelum dikemas.",
-   "why": "Setiap tahap adalah gerbang: hanya yang lulus tes yang dikemas, dan hanya yang dikemas secara reproducible yang dirilis.",
-   "analogy": "Lini perakitan: komponen datang, dirakit, melalui kontrol kualitas, dikemas, dan baru kemudian dikirim ke toko."
+   "hint": "Tidak ada yang dikemas sebelum lolos tes, dan tidak ada yang dirilis sebelum dikemas.",
+   "why": "Setiap tahap adalah gerbang: hanya yang lolos tes yang dikemas, dan hanya yang dikemas secara konsisten yang dirilis.",
+   "analogy": "Lini perakitan: komponen tiba, dirakit, melalui kontrol kualitas, dikemas, dan baru kemudian keluar menuju toko."
   },
   "o3": {
-   "title": "\"Di komputer saya jalan\"",
+   "title": "\"Di komputernya jalan\"",
    "prompt": "Aplikasi berjalan di laptop Bia dan rusak di server. Apa penyebab paling mungkin dan perbaikan yang tepat?",
    "opts": [
-    "Lingkungan berbeda; deklarasikan dependensi dan versi dalam file dan gunakan lingkungan yang sama di semua tempat",
+    "Lingkungan berbeda; deklarasikan dependensi dan versinya dalam berkas dan gunakan lingkungan yang sama di mana pun",
     "Server rusak; beli yang baru",
-    "Nasib buruk; coba lagi besok",
-    "Bahasa pemrogramannya buruk; tulis ulang dengan bahasa lain"
+    "Sial; coba lagi besok",
+    "Bahasa pemrograman yang buruk; tulis ulang dengan bahasa lain"
    ],
    "hint": "Kodenya sama di kedua tempat. Apa yang berubah di sekitarnya?",
-   "why": "Kode yang sama berperilaku berbeda ketika versi dan pengaturan berubah. Dependensi yang dideklarasikan dan lingkungan yang terstandarisasi membuat eksekusi reproducible.",
-   "analogy": "Resep berhasil di dapurmu dan gagal di dapur tetangga karena oven mereka menunjukkan suhu berbeda. Standarkan ovennya; jangan salahkan kuenya."
+   "why": "Kode yang sama berperilaku berbeda saat versi dan pengaturan berubah. Dependensi yang dideklarasikan dan lingkungan yang distandarkan membuat eksekusi dapat diulang.",
+   "analogy": "Resep berhasil di dapurmu dan gagal di dapur tetangga karena oven mereka menunjukkan suhu yang berbeda. Standarkan ovennya, jangan salahkan kuenya."
   },
   "o4": {
    "title": "Risiko rilis",
-   "prompt": "Klasifikasikan setiap praktik berdasarkan efeknya terhadap risiko rilis.",
+   "prompt": "Klasifikasikan setiap praktik berdasarkan dampaknya terhadap risiko rilis.",
    "bins": [
     "Menurunkan risiko",
     "Menaikkan risiko"
@@ -1494,24 +1494,254 @@ LANG.id = {
     "Merilis perubahan kecil beberapa kali seminggu",
     "Menumpuk perubahan tiga bulan menjadi satu rilis",
     "Memiliki perintah rollback yang sudah diuji",
-    "Mengedit file langsung di server produksi"
+    "Mengedit berkas langsung di server produksi"
    ],
-   "hint": "Tanyakan: jika terjadi kesalahan, apakah mudah menemukan penyebabnya dan kembali?",
-   "why": "Perubahan kecil memiliki penyebab yang mudah ditemukan, dan rollback yang teruji memberi jalan kembali yang cepat. Rilis raksasa dan edit manual di produksi membuat kesalahan sulit ditemukan dan dibatalkan.",
-   "analogy": "Menyeberangi sungai batu demi batu memungkinkanmu melangkah mundur. Melompat dari satu tepi ke tepi lainnya adalah semua atau tidak sama sekali."
+   "hint": "Tanyakan: jika terjadi kesalahan, apakah mudah menemukan penyebab dan kembali?",
+   "why": "Perubahan kecil mudah ditemukan penyebabnya, dan rollback yang teruji memberi jalan kembali dengan cepat. Rilis raksasa dan edit manual di produksi membuat kesalahan sulit dilacak dan sulit dibatalkan.",
+   "analogy": "Menyebrangi sungai batu demi batu memungkinkanmu mundur. Melompat dari satu tepi ke tepi lain adalah semua atau tidak sama sekali."
   },
   "o5": {
-   "title": "CI sudah merah selama tiga hari",
-   "prompt": "Sebuah tes sudah gagal di CI selama tiga hari dan tim terus melakukan push kode. Apa tindakan yang benar?",
+   "title": "CI merah selama tiga hari",
+   "prompt": "Tes telah gagal di CI selama tiga hari dan tim terus melakukan push kode. Apa tindakan yang tepat?",
    "opts": [
     "Berhenti dan perbaiki build terlebih dahulu: alarm yang diabaikan berhenti melindungi",
     "Nonaktifkan tes yang gagal",
-    "Lanjutkan saja dan perbaiki semuanya di akhir bulan",
-    "Hapus CI, karena hanya menghalangi"
+    "Lanjutkan dan perbaiki semuanya di akhir bulan",
+    "Hapus CI, yang hanya menghalangi"
    ],
-   "hint": "Apa gunanya alarm setelah semua orang belajar mengabaikannya?",
-   "why": "Dengan build merah, cacat baru lolos tersembunyi di belakang cacat pertama. Memperbaiki build menjadi prioritas seluruh tim; menonaktifkan tes hanya mematikan lampu di dashboard.",
-   "analogy": "Itu lampu oli di dashboard: menutupnya dengan lakban tidak memperbaiki mesin."
+   "hint": "Apa gunanya alarm jika semua orang sudah belajar mengabaikannya?",
+   "why": "Dengan build merah, cacat baru menyelinap masuk tersembunyi di balik yang pertama. Memperbaiki build menjadi prioritas seluruh tim; menonaktifkan tes hanya mematikan lampu dasbor.",
+   "analogy": "Ini lampu oli di dasbor: menutupnya dengan lakban tidak memperbaiki mesin."
+  },
+  "v6": {
+   "title": "Matematika di konter",
+   "prompt": "Dua roti seharga 4 real dan penjumlahan yang dihitung di kepala. Apa yang dicetak program?",
+   "hint": "Dalam pemrograman, seperti dalam matematika, perkalian dihitung sebelum penjumlahan.",
+   "why": "Pertama 3 × 4 = 12, lalu 2 + 12 = 14. Untuk menjumlahkan terlebih dahulu, kamu harus menulis (2 + 3) * 4.",
+   "analogy": "Ini jalur prioritas di kasir: siapa pun yang punya prioritas maju lebih dulu, meskipun datang belakangan. Tanda kurung adalah tiket yang mengubah urutan."
+  },
+  "v7": {
+   "title": "Sen yang hilang",
+   "prompt": "Dona Lúcia menambahkan dua angka dan membandingkannya dengan yang dia harapkan. Apa yang dicetak program?",
+   "hint": "Angka desimal disimpan dalam biner, dan tidak semua desimal dapat direpresentasikan secara persis dalam bentuk itu.",
+   "why": "Dalam biner, 0.1 dan 0.2 adalah pecahan berulang: jumlahnya menghasilkan 0.30000000000000004 dan perbandingan persisnya gagal. Untuk uang, bandingkan dengan toleransi atau gunakan satuan sen, dengan bilangan bulat.",
+   "analogy": "Ini seperti mengukur potongan sentimeter dengan penggaris inci: setiap konversi meninggalkan sisa yang tak terlihat, dan menjumlahkan sisa membuat totalnya meleset."
+  },
+  "v8": {
+   "title": "Gram berubah menjadi ton",
+   "prompt": "Resep menggunakan 500 gram tepung, tetapi program mencetak 500000. Baris mana yang salah?",
+   "hint": "Satu kilo sama dengan seribu gram. Untuk mengubah dari gram ke kilo, kamu mengalikan atau membagi?",
+   "why": "Konversinya terbalik: dari gram ke kilo kamu membagi dengan 1000. Mengalikan justru sebaliknya.",
+   "analogy": "Ini mengonversi mata uang ke arah yang salah: angkanya menjadi besar dan matematikanya terlihat benar sampai seseorang memeriksa jumlah akhirnya."
+  },
+  "v9": {
+   "title": "Menukar stoples tanpa tumpah",
+   "prompt": "Susun program yang menukar nilai a dan b menggunakan variabel sementara dan mencetak hasilnya.",
+   "hint": "Simpan salah satu nilai sebelum tertimpa.",
+   "why": "Variabel sementara menahan nilai pertama saat digantikan. Tanpa itu, salah satu dari keduanya akan hilang, seperti pada tiket kasir saat penukaran gagal.",
+   "analogy": "Untuk menukar isi dua gelas penuh, kamu menggunakan gelas ketiga yang kosong. Gerakan yang sama, dalam kode."
+  },
+  "v10": {
+   "title": "Bilangan bulat atau desimal",
+   "prompt": "Kelompokkan setiap data toko roti berdasarkan jenis angka yang paling sesuai.",
+   "bins": [
+    "Bilangan bulat",
+    "Bilangan desimal"
+   ],
+   "cards": [
+    "Jumlah roti yang terjual hari ini",
+    "Harga per kilo tepung",
+    "Jumlah pelanggan dalam antrean",
+    "Berat adonan dalam kilo"
+   ],
+   "hint": "Tanyakan apakah separuh dari benda itu masuk akal.",
+   "why": "Yang kamu hitung satu per satu memerlukan bilangan bulat; yang kamu ukur bagian-bagiannya memerlukan bilangan desimal. Setengah pelanggan tidak ada; setengah kilo ada.",
+   "analogy": "Ini bedanya menghitung telur dan menimbang tepung: yang satu muat di kotak, yang lain butuh timbangan."
+  },
+  "c6": {
+   "title": "Pertanyaan di dalam pertanyaan",
+   "prompt": "Apa yang dicetak program?",
+   "hint": "Pengujian kedua hanya terjadi jika yang pertama bernilai benar.",
+   "why": "5 > 3 bernilai benar, jadi ia masuk ke blok dalam. Di sana, 5 > 10 bernilai salah dan program jatuh ke else bagian dalam. Else bagian luar tidak pernah dicapai.",
+   "analogy": "Ini seperti triase di balik dua pintu: siapa pun yang lolos dari yang pertama masih menemui keputusan lain di depan, dan yang tidak lolos tidak akan pernah melihatnya."
+  },
+  "c7": {
+   "title": "Pasien lansia tanpa prioritas",
+   "prompt": "Pasien berusia 65 tahun atau lebih, dan juga anak-anak hingga 12 tahun, seharusnya mendapat prioritas. Program tidak pernah menandai siapa pun. Baris mana yang perlu diperbaiki?",
+   "hint": "Adakah usia yang sekaligus di atas 65 dan di bawah 12?",
+   "why": "Dengan AND, kedua kondisi harus terpenuhi bersamaan, yang mustahil. Aturan itu menggabungkan dua kelompok terpisah, jadi perlu OR.",
+   "analogy": "Ini seperti papan pengumuman \"pintu masuk untuk lansia dan anak-anak\": tidak ada orang yang menjadi keduanya sekaligus. Mengganti \"dan\" dengan \"atau\" membuka pintu untuk kedua kelompok."
+  },
+  "c8": {
+   "title": "Apakah batasnya ikut dihitung atau tidak",
+   "prompt": "Kelompokkan setiap kondisi triase berdasarkan apa yang dilakukannya terhadap nilai batas yang tepat.",
+   "bins": [
+    "Menyertakan batas",
+    "Tidak menyertakan batas"
+   ],
+   "cards": [
+    "temperature >= 39",
+    "temperature > 39",
+    "age <= 12",
+    "age < 12"
+   ],
+   "hint": "Garis di bawah tanda itulah yang berarti \"atau sama dengan\".",
+   "why": "Tanda >= dan <= menyertakan nilai batas; > dan < justru meninggalkan nilai tersebut. Di sinilah kesalahan batas muncul.",
+   "analogy": "Ini bedanya antara \"mulai 65\" dan \"di atas 65\": seseorang yang tepat berusia 65 masuk menurut aturan yang satu dan tidak menurut aturan yang lain."
+  },
+  "c9": {
+   "title": "Triase Rosa, dalam tiga tingkat",
+   "prompt": "Susun triase: demam 39 atau lebih berarti merah; jika tidak, usia 65 atau lebih berarti kuning; semua yang lain berarti hijau.",
+   "hint": "Aturan yang paling serius didahulukan, dan setiap pasien keluar dengan satu tingkat saja.",
+   "why": "Rantai if, elif, dan else menjamin hanya satu tingkat yang diberikan dan aturan paling serius diuji lebih dulu. Data harus ada sebelum pengujian, dan pencetakan dilakukan setelah keputusan.",
+   "analogy": "Ini seperti protokol yang ditempel di dinding klinik: kamu membacanya dari atas ke bawah dan berhenti di baris pertama yang berlaku."
+  },
+  "c10": {
+   "title": "Pembagian yang tidak pernah terjadi",
+   "prompt": "Dengan x sama dengan nol, membagi dengan x akan gagal. Apa yang dicetak program?",
+   "hint": "Ketika pengujian pertama dari AND sudah salah, apakah pengujian kedua dievaluasi sama sekali?",
+   "why": "Operator AND melakukan short-circuit: karena x != 0 salah, pembagian tidak pernah dijalankan dan program menuju ke else, tanpa kesalahan. Pola ini melindungi operasi yang berisiko.",
+   "analogy": "Ini seperti memeriksa bensin sebelum memutar kunci kontak: jika tidak ada, tidak ada yang mencoba menyalakan mesin. Urutan pengujian itulah perlindungannya."
+  },
+  "q7": {
+   "title": "Mencari tahu atau memeriksa",
+   "prompt": "Kelompokkan setiap kegiatan rekayasa kebutuhan.",
+   "bins": [
+    "Elisitasi (mencari tahu)",
+    "Validasi (memeriksa)"
+   ],
+   "cards": [
+    "Mewawancarai resepsionis tentang rutinitas harian",
+    "Meninjau daftar kebutuhan dengan direktur sebelum pengodean",
+    "Mengamati pasien menggunakan kios tiket",
+    "Menunjukkan prototipe dan memeriksa apakah ini benar-benar yang diharapkan"
+   ],
+   "hint": "Tanyakan apakah kegiatan itu mencari informasi baru atau mengonfirmasi apa yang sudah ditulis.",
+   "why": "Wawancara dan pengamatan mengungkap kebutuhan yang belum ada di atas kertas. Meninjau dan memeriksa prototipe memverifikasi apakah yang ditulis sesuai dengan kebutuhan nyata.",
+   "analogy": "Ini bedanya antara mengukur badan klien dan mencoba pakaian pada mereka. Yang pertama menemukan; yang kedua mengonfirmasi."
+  },
+  "q8": {
+   "title": "Jalur sebuah kebutuhan",
+   "prompt": "Urutkan tahapan rekayasa kebutuhan.",
+   "lines": [
+    "Elisitasi: mencari tahu apa yang dibutuhkan orang",
+    "Analisis: menyelesaikan konflik dan menetapkan prioritas",
+    "Spesifikasi: menulis kebutuhan dengan cara yang dapat diverifikasi",
+    "Validasi: memeriksa dengan orang yang meminta apakah ini sudah benar",
+    "Manajemen: mengendalikan perubahan sepanjang proyek"
+   ],
+   "hint": "Pertama kamu mencari tahu, lalu mengorganisasi, menulis, dan memeriksa; pengendalian perubahan berjalan bersamaan dengan semua yang lain.",
+   "why": "Setiap tahap memberi masukan ke tahap berikutnya: kamu tidak memprioritaskan apa yang tidak pernah diungkapkan, juga tidak memvalidasi apa yang tidak pernah ditulis. Manajemen dimulai saat kebutuhan mulai berubah, dan kebutuhan selalu berubah.",
+   "analogy": "Ini seperti membangun rumah: berbicara dengan keluarga, memutuskan apa yang sesuai anggaran, menggambar denah, menunjukkan gambar itu, lalu mencatat setiap perubahan pikiran."
+  },
+  "q9": {
+   "title": "\"Sistem memberi tahu pasien\"",
+   "prompt": "Kebutuhan hanya menyebutkan: \"sistem memberi tahu pasien\". Mengapa itu menjadi masalah?",
+   "opts": [
+    "Tidak menyebutkan kapan, lewat saluran apa, atau apa yang harus dilakukan jika pemberitahuan gagal",
+    "Terlalu panjang dan sebaiknya dipecah",
+    "Menggunakan kata sistem, yang sebaiknya dihindari",
+    "Bukan masalah: sudah cukup jelas"
+   ],
+   "hint": "Bayangkan dua orang mengimplementasikan kalimat itu tanpa berbicara satu sama lain. Apakah mereka akan membuat hal yang sama?",
+   "why": "Kebutuhan yang ambigu memungkinkan lebih dari satu penafsiran yang masuk akal. Memberi tahu sehari sebelumnya lewat SMS berbeda dengan memberi tahu saat itu juga lewat email, dan keduanya cocok dengan kalimat itu.",
+   "analogy": "Ini seperti memberi tahu teman \"beri kabar saja\": dia bisa menelepon jam enam pagi atau menitip pesan lewat tetangga. Tanpa kesepakatan sebelumnya, masing-masing menyampaikan dengan caranya sendiri."
+  },
+  "q10": {
+   "title": "Kriteria penerimaan",
+   "prompt": "Apa yang mengubah user story menjadi sesuatu yang diketahui tim telah selesai?",
+   "opts": [
+    "Kriteria penerimaan: kondisi yang dapat diverifikasi yang menyatakan kapan selesai",
+    "Estimasi pengembang dalam jam",
+    "Nama orang yang meminta fitur",
+    "Gambar layar yang dibuat desainer"
+   ],
+   "hint": "Pikirkan apa yang memungkinkan kamu menjawab ya atau tidak untuk: apakah ini sudah selesai?",
+   "why": "Kriteria penerimaan menggambarkan perilaku yang diharapkan dalam kondisi yang dapat diverifikasi. Tanpa kriteria itu, \"selesai\" menjadi masalah opini.",
+   "analogy": "Ini seperti daftar periksa pada serah terima properti: tanpa daftar itu, menyerahkan kunci berubah menjadi perdebatan tentang apa yang sudah disepakati."
+  },
+  "q11": {
+   "title": "Dua permintaan yang saling bertentangan",
+   "prompt": "Direktur menginginkan rekam medis pasien yang lengkap; meja depan menginginkan penjadwalan di bawah satu menit. Apa tindakan terbaik?",
+   "opts": [
+    "Bawa konflik itu ke kedua belah pihak dan negosiasikan solusi yang eksplisit, seperti rekam medis minimal sekarang dan lengkap nanti",
+    "Berpihak pada direktur, karena dia punya wewenang lebih besar",
+    "Berpihak pada meja depan, karena mereka lebih dekat dengan masalah",
+    "Implementasikan keduanya dan biarkan mereka menyelesaikannya dalam praktik"
+   ],
+   "hint": "Konflik antara kebutuhan adalah masalah untuk diselesaikan di tahap analisis, bukan di kode.",
+   "why": "Kebutuhan yang bertentangan harus didamaikan dengan pemangku kepentingan sebelum menjadi kode. Memilih diam-diam memindahkan konflik ke dalam produk, yang biayanya jauh lebih mahal.",
+   "analogy": "Dua ruangan berebut dinding yang sama pada denah. Arsitek duduk bersama keluarga dan memutuskan sebelumnya; begitu sudah dibangun, dinding itu butuh renovasi."
+  },
+  "g7": {
+   "title": "Membatalkan tanpa menghapus riwayat",
+   "prompt": "Perubahan yang sudah dirilis membuat sistem toko roti rusak. Susun langkah-langkah untuk membatalkannya dengan aman secara berurutan.",
+   "lines": [
+    "Identifikasi commit yang menyebabkan kegagalan di riwayat",
+    "Buat commit revert yang membatalkan perubahan itu",
+    "Jalankan pengujian untuk memastikan sistem kembali normal",
+    "Push revert ke repositori remote",
+    "Selidiki penyebabnya dengan tenang dan siapkan perbaikan definitif"
+   ],
+   "hint": "Pulihkan layanan dulu; memahami penyebabnya belakangan, setelah sistem stabil.",
+   "why": "Revert membuat commit baru yang membatalkan commit sebelumnya, tanpa menghapus riwayat yang sudah ditarik orang lain. Menyelidiki sesudahnya aman karena sistem sudah bekerja kembali.",
+   "analogy": "Dalam pembukuan, entri yang salah tidak dicoret: kamu memposting entri pembalik. Kesalahan tetap tercatat, dan saldo menjadi benar."
+  },
+  "g8": {
+   "title": "Fetch atau sudah merge",
+   "prompt": "Apa perbedaan antara fetch dan pull di Git?",
+   "opts": [
+    "Fetch hanya membawa perubahan dari remote; pull membawa perubahan itu dan menggabungkannya ke cabangmu",
+    "Dua nama untuk operasi yang sama",
+    "Fetch mengirim perubahan; pull menerima perubahan",
+    "Fetch hanya bekerja di main; pull di cabang mana pun"
+   ],
+   "hint": "Salah satu dari keduanya langsung mengubah berkasmu. Yang mana?",
+   "why": "Fetch memperbarui pandanganmu tentang repositori remote tanpa menyentuh pekerjaanmu, sehingga kamu bisa melihat apa yang berubah sebelum mengintegrasikan. Pull melakukan keduanya sekaligus dan bisa memunculkan konflik saat itu juga.",
+   "analogy": "Ini perbedaan antara mengambil surat dari kotak pos dan membuka amplopnya di meja tempat kamu bekerja. Fetch meninggalkannya di kotak; pull langsung membukanya sekarang."
+  },
+  "g9": {
+   "title": "Apa yang masuk ke repositori",
+   "prompt": "Kelompokkan setiap berkas proyek toko roti.",
+   "bins": [
+    "Masukkan ke versi",
+    "Jangan masukkan (.gitignore)"
+   ],
+   "cards": [
+    "Kode sumber perhitungan kembalian",
+    "Berkas berisi kata sandi basis data",
+    "README berisi instruksi instalasi",
+    "Folder pustaka yang diunduh otomatis"
+   ],
+   "hint": "Tanyakan apakah tim yang menulis berkas itu dan apakah siapa pun yang punya akses ke repositori boleh melihatnya.",
+   "why": "Kamu memasukkan ke versi apa yang ditulis tim dan perlu dibagikan. Rahasia tidak pernah masuk, karena riwayat Git permanen; dependensi yang diunduh juga tidak, karena bisa dibangun ulang dari berkas dependensi.",
+   "analogy": "Ini seperti mengemas koper: bajumu masuk, sampo hotel tetap tinggal. Dan kunci rumahmu tentu tidak ikut dalam koper terbuka."
+  },
+  "g10": {
+   "title": "Force push",
+   "prompt": "Seorang rekan menyarankan force push ke cabang main untuk \"merapikan\" riwayat. Mengapa itu berbahaya?",
+   "opts": [
+    "Itu menulis ulang riwayat yang sudah ditarik orang lain dan bisa menghapus pekerjaan mereka",
+    "Membuat repositori menjadi lebih lambat",
+    "Hanya bekerja dengan hak admin",
+    "Tidak berbahaya: itu cara yang disarankan untuk mengatur commit"
+   ],
+   "hint": "Apa yang terjadi pada seseorang yang sudah menarik versi lama dan terus bekerja di atasnya?",
+   "why": "Force push mengganti riwayat remote. Commit yang sudah ditarik orang lain hilang dari linimasa, dan pekerjaan yang dibangun di atasnya menjadi yatim. Pada cabang bersama, gunakan revert.",
+   "analogy": "Ini seperti mencetak ulang notulen rapat yang sudah dibawa pulang semua orang. Siapa pun yang mencoret-coret versi lama akan memegang dokumen yang tidak ada lagi."
+  },
+  "g11": {
+   "title": "Commit yang melakukan segalanya",
+   "prompt": "Satu commit mengubah perhitungan kembalian, mengganti nama dua puluh variabel, dan menambah layar baru. Apa masalahnya?",
+   "opts": [
+    "Tidak bisa ditinjau, dibatalkan, atau dilacak kembali ke sumber cacat secara terpisah",
+    "Tidak masalah: commit besar menghemat waktu",
+    "Git punya batas jumlah berkas per commit",
+    "Pesan commit akan terlalu panjang"
+   ],
+   "hint": "Pikirkan hari ketika hanya satu dari tiga perubahan itu yang harus dibatalkan.",
+   "why": "Setiap commit seharusnya berisi satu perubahan yang koheren. Dengan mencampur tiga perubahan, revert akan menyeret perubahan yang benar, dan tinjauan tersesat di antara penggantian nama dan logika baru.",
+   "analogy": "Ini seperti mengemas dapur, kamar mandi, dan kantor dalam satu kotak. Untuk mencari satu cangkir kamu harus membongkar semuanya, dan kamu tidak bisa mengembalikan hanya barang yang datang salah."
   }
  },
  "game": {

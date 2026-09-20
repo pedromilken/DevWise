@@ -57,9 +57,12 @@ const PARALLEL = Math.max(1, +(process.env.DEVWISE_PARALLEL || 4));
 const usage = { in: 0, out: 0, think: 0 }, MAXTOK = +(process.env.DEVWISE_MAX_TOKENS || 16000);
 /* Detecta tradução que não aconteceu: valores longos idênticos à fonte e, em escritas não latinas, texto sem a escrita esperada. */
 const KEEP = /(^|\.)(provAnthropic|provOpenAI|t3\.title|hardcore|models\.\w+)$/;
+/* Um texto que é só código, símbolos e números (por exemplo "temperature >= 39") não tem o que traduzir além do identificador,
+   e cobrar tradução dele faz o bloco inteiro ser refeito à toa. */
+const CODEY = s => s.length <= 30 && /[<>]=?|==|!=|[+\-*/%]\s*\d/.test(s) && !/[A-Za-z][a-z]+\s+[a-z]+\s+[a-z]+/.test(s) && (s.match(/[A-Za-z_]{3,}/g) || []).length <= 2 && !/\{[a-z]\}/.test(s) && !/^[A-Z][a-z]+([ -][a-z]+)*$/.test(s);
 function untranslated(a, b, where, meta, errs) {
   if (typeof a === "string") { if (typeof b !== "string") return; const latin = meta.script === "Latin", re = SCRIPT_RE[meta.script];
-    if (KEEP.test(where) || a.length <= 12) return;
+    if (KEEP.test(where) || a.length <= 12 || CODEY(a)) return;
     if (a === b && (!latin || a.length > 40)) errs.push(where + ": ficou em inglês");
     else if (re && a.length > 40 && !re.test(b)) errs.push(where + ": sem a escrita " + meta.script);
     return; }
@@ -255,4 +258,4 @@ async function romanize(code) {
     if (!mock) console.log("   tokens acumulados nesta execução: entrada " + usage.in + ", saída " + usage.out + (usage.think ? " (dos quais " + usage.think + " de raciocínio)" : ""));
   }
   console.log("\nConcluídos: " + (list.length - falhas.length) + " de " + list.length + (falhas.length ? ". Pendentes: " + falhas.join(", ") : ""));
-})().catch(e => { console.error("\nERRO: " + e.message); process.exit(1); });
+})().then(() => setTimeout(() => process.exit(0), 50)).catch(e => { console.error("\nERRO: " + e.message); setTimeout(() => process.exit(1), 50); });
