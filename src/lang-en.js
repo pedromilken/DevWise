@@ -298,3 +298,23 @@ o5:{title:"CI has been red for three days",prompt:"A test has been failing in CI
 LANG.en.ui.rom="Show romanised text (Latin alphabet)";
 
 LANG.en.game.bounties.b2="Solve a ticket on {d} or {h} mode"; LANG.en.game.shop.time[1]="Adds 30 seconds to the clock in {h} mode."; delete LANG.en.ui.of; /* nomes de modo entram por marcador ({d}, {h}); frações usam a/b, neutro em qualquer idioma */
+
+/* ---------- v7: Elo/Rasch pilot, shadow models, next-day confirmation and printable report ---------- */
+["studyH","studyP","available","pending","colLang","colScript","colTok","langH"].forEach(k=>delete LANG.en.ui[k]);
+Object.assign(LANG.en.ui,{
+ modelH:"Knowledge tracing model", pilot:"Model that drives the game",
+ pilotNote:"One model drives the game: it computes mastery, unlocks stages and adjusts difficulty. The others run in the background and only record what they predicted before each answer, for later comparison. The percentage next to each name is that model's mastery threshold.",
+ models:{elo:"Elo/Rasch",irt:"3PL IRT with EAP",bkt:"BKT",pfa:"PFA",afm:"AFM"}, rolePilot:"drives", roleShadow:"observes",
+ cmpH:"Model comparison on this history",
+ cmpP:"Before each answer, the five models record the probability of a correct response they predicted. Brier measures prediction error (lower is better); AUC measures whether the model separates correct answers from mistakes (0.5 is chance and 1 is perfect).",
+ cmpNote:"With few answers from a single student these numbers swing a lot. A valid comparison uses the exported logs of many students, split by student.",
+ colModel:"Model", colRole:"Role", colAcc:"Accuracy",
+ confirmRule:"Require mastery to be confirmed by a correct answer on another day",
+ confirmNote:"Mastery reached today. To confirm it, get a ticket of this skill right on another day: a single session mixes knowledge with momentum.",
+ stC:"To be confirmed on another day", confirmTag:"Confirmation",
+ printBtn:"Print or save as PDF", studentName:"Student name (optional, shown on the printed report)", printedOn:"Generated on {d}", repFor:"Student: {n}",
+ evoP:"Each line is the estimated mastery of one skill across the tickets you answered. Tap a skill to highlight it: green dots are correct answers and amber dots are mistakes. Dashed lines mark unlocking (60%) and mastery ({m}).",
+ howP:"The tutor uses an Elo/Rasch model. Each of your skills has a rating, and each ticket has a difficulty on the same scale. The gap between the two gives the chance of a correct answer; after you answer, the rating moves up or down in proportion to the surprise. The mastery shown is your chance of solving a ticket of average difficulty without guessing, and a skill counts as mastered from {m}.",
+ howA:"it is the chess rating. Beating a strong opponent is worth a lot, beating a weak one is worth little, and losing to a weak one is costly. Here the opponent is the ticket.",
+ howParams:"Design parameters, not yet calibrated on data: tickets of level 1, 2 and 3 have difficulty -1.2, 0 and +1.2 logits; initial gain 1.8, shrinking with each answer, with mistakes weighted at 70% to tolerate slips; guessing by format (1 in 4 for options, 1 per line for bugs, 1 in 16 when classifying, 5% when ordering, 3% for typed answers and 50% with a hint). Unlock at 60%, mastery at {m}, confirmed on another day. 3PL IRT, BKT, PFA and AFM only observe."
+});

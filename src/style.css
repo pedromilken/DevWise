@@ -252,3 +252,21 @@ ol.steps{margin:0 0 18px;padding-left:22px}
 ruby{ruby-position:over}
 rt{font-size:.55em;color:var(--muted);font-weight:400;letter-spacing:0}
 [lang="ja"] .story,[lang="ja"] .theory div,[lang="ja"] .prompt,[lang="ja"] .fb p{line-height:2}
+
+/* ---- v7: relatório imprimível (PDF) ---- */
+.printhead{display:none}
+@media print{
+  :root,:root[data-theme="dark"],:root:not([data-theme="light"]){--bg:#fff;--surface:#fff;--sunken:#f1f3f5;--ink:#111;--muted:#444;--line:#bbb;--prog:#0F7C7C;--se:#5546B0;--gold:#9a6a00;--ok:#1B7F53;--prog-soft:#e6f2f1;--se-soft:#ecebf7;--gold-soft:#fbf1d9;--ok-soft:#e3f3ea}
+  body{background:#fff;font-size:11pt}
+  .top,.noprint,.nav,.langbar,.fx,.xpfloat{display:none!important}
+  .wrap{max-width:none;padding:0}
+  .printhead{display:block;font-size:10pt;color:#333;border-bottom:1px solid #999;padding-bottom:6px;margin-bottom:10px}
+  .panel{border:1px solid #bbb;box-shadow:none;break-inside:avoid;page-break-inside:avoid}
+  .grid2{display:block}.grid2>*{margin-bottom:12px}
+  .tabs button:not([aria-pressed="true"]){display:none}
+  .mapwrap svg{min-width:0}
+  table{font-size:9.5pt} th,td{white-space:normal;padding:4px 6px}
+  .bar{border:1px solid #999} .bar i{-webkit-print-color-adjust:exact;print-color-adjust:exact}
+  a{color:inherit;text-decoration:none}
+  @page{margin:16mm}
+}

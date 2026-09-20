@@ -298,3 +298,23 @@ o5:{title:"A CI está vermelha há três dias",prompt:"Um teste falha na CI há 
 LANG.pt.ui.rom="Mostrar o texto romanizado (alfabeto latino)";
 
 LANG.pt.game.bounties.b2="Resolver um ticket no modo {d} ou no {h}"; LANG.pt.game.shop.time[1]="Soma 30 segundos ao relógio no modo {h}."; delete LANG.pt.ui.of; /* nomes de modo entram por marcador ({d}, {h}); frações usam a/b, neutro em qualquer idioma */
+
+/* ---------- v7: piloto Elo/Rasch, modelos-sombra, confirmação em outro dia e relatório imprimível ---------- */
+["studyH","studyP","available","pending","colLang","colScript","colTok","langH"].forEach(k=>delete LANG.pt.ui[k]);
+Object.assign(LANG.pt.ui,{
+ modelH:"Modelo de rastreamento do conhecimento", pilot:"Modelo que decide o jogo",
+ pilotNote:"Um modelo pilota o jogo: calcula o domínio, libera fases e ajusta a dificuldade. Os outros rodam em segundo plano e só registram o que previam antes de cada resposta, para comparação posterior. O percentual ao lado de cada nome é o limiar de domínio daquele modelo.",
+ models:{elo:"Elo/Rasch",irt:"TRI 3PL com EAP",bkt:"BKT",pfa:"PFA",afm:"AFM"}, rolePilot:"decide", roleShadow:"observa",
+ cmpH:"Comparação dos modelos neste histórico",
+ cmpP:"Antes de cada resposta, os cinco modelos registram a probabilidade de acerto que previam. Brier mede o erro da previsão (quanto menor, melhor); AUC mede se o modelo separa acertos de erros (0,5 é acaso e 1 é perfeito).",
+ cmpNote:"Com poucas respostas de um único estudante, esses números oscilam muito. A comparação válida usa os registros exportados de muitos estudantes, com partição por estudante.",
+ colModel:"Modelo", colRole:"Papel", colAcc:"Acurácia",
+ confirmRule:"Exigir confirmação do domínio com acerto em outro dia",
+ confirmNote:"Domínio alcançado hoje. Para confirmá-lo, acerte um ticket desta habilidade em outro dia: uma sessão só mistura conhecimento com embalo.",
+ stC:"A confirmar em outro dia", confirmTag:"Confirmação",
+ printBtn:"Imprimir ou salvar em PDF", studentName:"Nome do estudante (opcional, aparece no relatório impresso)", printedOn:"Gerado em {d}", repFor:"Estudante: {n}",
+ evoP:"Cada linha é o domínio estimado de uma habilidade ao longo dos tickets respondidos. Toque numa habilidade para destacá-la: pontos verdes são acertos e pontos âmbar são erros. As linhas tracejadas marcam o desbloqueio (60%) e o domínio ({m}).",
+ howP:"O tutor usa um modelo Elo/Rasch. Cada habilidade sua tem uma nota, e cada ticket tem uma dificuldade na mesma escala. A diferença entre as duas dá a chance de acerto; depois da resposta, a nota sobe ou desce em proporção à surpresa. O domínio exibido é a chance de você acertar, sem chutar, um ticket de dificuldade média, e a habilidade conta como dominada a partir de {m}.",
+ howA:"é o ranking do xadrez. Vencer um adversário forte vale muito, vencer um fraco vale pouco, e perder para um fraco custa caro. Aqui o adversário é o ticket.",
+ howParams:"Parâmetros de projeto, ainda não calibrados com dados: tickets de nível 1, 2 e 3 com dificuldade de -1,2, 0 e +1,2 logits; ganho inicial de 1,8, que diminui a cada resposta, com os erros pesando 70% para tolerar deslizes; chute conforme o formato (1 em 4 nas opções, 1 por linha no bug, 1 em 16 ao classificar, 5% ao ordenar, 3% na resposta digitada e 50% com dica). Desbloqueio com 60%, domínio com {m} e confirmação em outro dia. TRI 3PL, BKT, PFA e AFM apenas observam."
+});

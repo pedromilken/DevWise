@@ -16,6 +16,7 @@
    tools/pos-edicao.json  correções manuais, reaplicadas ao fim de cada geração
 
    Provedor (variáveis de ambiente; nada é lido de arquivos .env, de propósito):
+     DEEPSEEK_API_KEY                                    usa o DeepSeek (URL e modelo já configurados; tem precedência)
      ANTHROPIC_API_KEY                                   usa a API da Anthropic
      OPENAI_API_KEY [+ OPENAI_BASE_URL]                  qualquer API compatível (OpenAI, DeepSeek, Qwen, Ollama)
      DEVWISE_MODEL                                       nome do modelo (padrão: claude-sonnet-5 ou gpt-4o-mini)
@@ -55,7 +56,7 @@ let jsonMode = true, noThink = (process.env.DEVWISE_THINKING || "off").toLowerCa
 const PARALLEL = Math.max(1, +(process.env.DEVWISE_PARALLEL || 4));
 const usage = { in: 0, out: 0, think: 0 }, MAXTOK = +(process.env.DEVWISE_MAX_TOKENS || 16000);
 /* Detecta tradução que não aconteceu: valores longos idênticos à fonte e, em escritas não latinas, texto sem a escrita esperada. */
-const KEEP = /(^|\.)(provAnthropic|provOpenAI|t3\.title|hardcore)$/;
+const KEEP = /(^|\.)(provAnthropic|provOpenAI|t3\.title|hardcore|models\.\w+)$/;
 function untranslated(a, b, where, meta, errs) {
   if (typeof a === "string") { if (typeof b !== "string") return; const latin = meta.script === "Latin", re = SCRIPT_RE[meta.script];
     if (KEEP.test(where) || a.length <= 12) return;
@@ -81,10 +82,12 @@ async function callLLM(prompt) {
     const d = await r.json(); if (d.usage) { usage.in += d.usage.input_tokens || 0; usage.out += d.usage.output_tokens || 0; }
     return d.content.map(c => c.text || "").join("");
   }
-  if (process.env.OPENAI_API_KEY || process.env.OPENAI_BASE_URL) {
-    const base = (process.env.OPENAI_BASE_URL || "https://api.openai.com/v1").replace(/\/+$/, ""), hd = { "content-type": "application/json" };
-    if (process.env.OPENAI_API_KEY) hd.authorization = "Bearer " + process.env.OPENAI_API_KEY;
-    const body = { model: model || "gpt-4o-mini", max_tokens: MAXTOK, messages: [{ role: "user", content: prompt }] };
+  /* DEEPSEEK_API_KEY tem precedência e dispensa as outras variáveis: evita que uma OPENAI_API_KEY de outro projeto, gravada no sistema, seja enviada ao provedor errado. */
+  const ds = process.env.DEEPSEEK_API_KEY;
+  if (ds || process.env.OPENAI_API_KEY || process.env.OPENAI_BASE_URL) {
+    const base = (ds ? "https://api.deepseek.com" : process.env.OPENAI_BASE_URL || "https://api.openai.com/v1").replace(/\/+$/, ""), hd = { "content-type": "application/json" }, keyUsed = ds || process.env.OPENAI_API_KEY;
+    if (keyUsed) hd.authorization = "Bearer " + keyUsed;
+    const body = { model: model || (ds ? "deepseek-v4-pro" : "gpt-4o-mini"), max_tokens: MAXTOK, messages: [{ role: "user", content: prompt }] };
     if (jsonMode) body.response_format = { type: "json_object" };
     /* DeepSeek V4 "pensa" por padrão e cobra o raciocínio como saída (5x mais tokens numa tradução). Desligado, salvo DEVWISE_THINKING=on. */
     if (noThink && /deepseek/i.test(base + " " + body.model)) body.thinking = { type: "disabled" };
@@ -92,15 +95,18 @@ async function callLLM(prompt) {
     if (r.status === 400 && body.thinking) { noThink = false; delete body.thinking; r = await fetch(base + "/chat/completions", { method: "POST", headers: hd, body: JSON.stringify(body) }); }
     if (r.status === 400 && jsonMode) { jsonMode = false; delete body.response_format; r = await fetch(base + "/chat/completions", { method: "POST", headers: hd, body: JSON.stringify(body) }); }
     if (r.status === 429 || r.status >= 500) { await new Promise(z => setTimeout(z, 8000)); r = await fetch(base + "/chat/completions", { method: "POST", headers: hd, body: JSON.stringify(body) }); }
+    if (r.status === 401 || r.status === 403) { console.error("\nERRO: o provedor recusou a chave (HTTP " + r.status + ") em " + base + ".\n  Nesta janela do PowerShell, defina:  $env:DEEPSEEK_API_KEY=\"sua-chave\"\n  (variáveis definidas com $env: valem só para a janela em que foram digitadas). Nada foi cobrado."); process.exit(1); }
     if (!r.ok) throw new Error("HTTP " + r.status + " " + (await r.text()).slice(0, 200));
     const d = await r.json(); if (d.usage) { usage.in += d.usage.prompt_tokens || 0; usage.out += d.usage.completion_tokens || 0; usage.think += (d.usage.completion_tokens_details || {}).reasoning_tokens || 0; }
     return d.choices[0].message.content;
   }
-  throw new Error("Defina ANTHROPIC_API_KEY ou OPENAI_API_KEY (ou use --mock).");
+  throw new Error("Defina DEEPSEEK_API_KEY, ANTHROPIC_API_KEY ou OPENAI_API_KEY (ou use --mock).");
 }
 function mockTranslate(o, tag) { if (typeof o === "string") return "[" + tag + "] " + o; if (Array.isArray(o)) return o.map(x => mockTranslate(x, tag)); const r = {}; for (const k in o) r[k] = mockTranslate(o[k], tag); return r; }
 
-function cachePath(name, chunk, meta) { const key = crypto.createHash("sha256").update(JSON.stringify([meta.code, from, process.env.DEVWISE_MODEL || "", chunk])).digest("hex").slice(0, 24); return path.join(cacheDir, meta.code + "-" + name + "-" + key + ".json"); }
+/* A chave do cache usa o nome EFETIVO do modelo: com DEEPSEEK_API_KEY e sem DEVWISE_MODEL vale "deepseek-v4-pro", o mesmo nome das execuções anteriores, para o cache antigo continuar valendo. */
+const MODEL_KEY = process.env.DEVWISE_MODEL || (process.env.DEEPSEEK_API_KEY ? "deepseek-v4-pro" : "");
+function cachePath(name, chunk, meta) { const key = crypto.createHash("sha256").update(JSON.stringify([meta.code, from, MODEL_KEY, chunk])).digest("hex").slice(0, 24); return path.join(cacheDir, meta.code + "-" + name + "-" + key + ".json"); }
 async function translateChunk(name, chunk, meta) {
   const cf = cachePath(name, chunk, meta);
   if (!mock && fs.existsSync(cf)) { let c = JSON.parse(fs.readFileSync(cf, "utf8")); const aceito = c && c.__aceito; if (aceito) c = c.data; const e = [];
@@ -123,7 +129,17 @@ ${JSON.stringify(chunk)}`;
   let best = null;
   for (let attempt = 1; attempt <= 3; attempt++) {
     const raw = await callLLM(prompt), m = raw.replace(/```json|```/g, "").trim();
-    try { const out = JSON.parse(m.slice(m.indexOf("{"), m.lastIndexOf("}") + 1)), errs = []; validate(chunk, out, name, errs); if (from === "en") untranslated(chunk, out, name, meta, errs);
+    try { const out = JSON.parse(m.slice(m.indexOf("{"), m.lastIndexOf("}") + 1)); let errs = []; validate(chunk, out, name, errs); if (from === "en") untranslated(chunk, out, name, meta, errs);
+      /* Reparo barato: se só faltam (ou vieram vazias) poucas chaves de primeiro nível, pede apenas elas em vez de refazer o bloco inteiro. */
+      const lost = Object.keys(chunk).filter(k => typeof chunk[k] === "string" && (typeof out[k] !== "string" || !out[k].trim()));
+      if (errs.length && lost.length && lost.length <= 5 && errs.every(e => /vazio ou tipo errado/.test(e))) {
+        try { const mini = Object.fromEntries(lost.map(k => [k, chunk[k]])), raw2 = await callLLM(prompt.slice(0, prompt.lastIndexOf("JSON:\n") + 6) + JSON.stringify(mini)), m2 = raw2.replace(/```json|```/g, "").trim(), fix = JSON.parse(m2.slice(m2.indexOf("{"), m2.lastIndexOf("}") + 1));
+          for (const k of lost) if (typeof fix[k] === "string" && fix[k].trim()) out[k] = fix[k]; errs = []; validate(chunk, out, name, errs); if (from === "en") untranslated(chunk, out, name, meta, errs);
+          if (!errs.length) console.log("   reparo em " + name + ": " + lost.join(", ")); } catch (e3) {}
+        /* Último recurso, só para rótulos curtos: melhor um rótulo em inglês, com aviso, do que o idioma inteiro falhar por uma palavra. */
+        const still = lost.filter(k => typeof out[k] !== "string" || !out[k].trim());
+        if (still.length && still.every(k => chunk[k].length <= 20)) { for (const k of still) out[k] = chunk[k]; errs = []; validate(chunk, out, name, errs);
+          if (!errs.length) console.log("   AVISO: " + meta.code + " ficou com rótulo(s) em inglês em " + name + ": " + still.join(", ") + ". Corrija à mão em tools/pos-edicao.json se quiser."); } }
       if (!errs.length) { const hits = styleHits(chunk, out, meta.code); if (!best || hits < best.hits) best = { out, hits };
         if (!hits || attempt >= 2) break; console.log("   tentativa " + attempt + " em " + name + ": " + hits + " trecho(s) fora do guia de estilo"); continue; }
       console.log("   tentativa " + attempt + " reprovada em " + name + ": " + errs.slice(0, 3).join("; "));
@@ -142,7 +158,9 @@ async function generate(code, opts) {
   console.log("Gerando " + meta.native + " (" + code + ") a partir de " + from + (mock ? " [ensaio]" : ""));
   const out = { name: meta.native, llmName: meta.en, ui: {}, sbc: null, skills: {}, items: {}, game: null };
   const uiKeys = Object.keys(src.ui), itemKeys = Object.keys(src.items), chunks = [];
-  for (let i = 0; i < uiKeys.length; i += 60) chunks.push(["ui" + i, Object.fromEntries(uiKeys.slice(i, i + 60).map(k => [k, src.ui[k]])), r => Object.assign(out.ui, r)]);
+  /* Blocos de interface por "balde" estável: a chave cai sempre no mesmo bloco, então acrescentar ou remover um texto refaz um bloco só, e não todos os seguintes. */
+  const bucket = k => "ABCDEF"[[...k].reduce((a, c) => a + c.charCodeAt(0), 0) % 6];
+  for (const B of "ABCDEF") { const ks = uiKeys.filter(k => bucket(k) === B); if (ks.length) chunks.push(["ui" + B, Object.fromEntries(ks.map(k => [k, src.ui[k]])), r => Object.assign(out.ui, r)]); }
   chunks.push(["sbc", src.sbc, r => out.sbc = r], ["game", src.game, r => out.game = r]);
   for (const k of Object.keys(src.skills)) chunks.push(["skill-" + k, { [k]: src.skills[k] }, r => Object.assign(out.skills, r)]);
   for (let i = 0; i < itemKeys.length; i += 8) chunks.push(["items" + i, Object.fromEntries(itemKeys.slice(i, i + 8).map(k => [k, src.items[k]])), r => Object.assign(out.items, r)]);

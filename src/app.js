@@ -1,7 +1,10 @@
 /* DevWise - motor do jogo */
 const SK = Object.fromEntries(SKILLS.map(s=>[s.id,s]));
 const IT = Object.fromEntries(ITEMS.concat(BOSS_ITEMS).map(i=>[i.id,i]));
-const KEY="devwise-v2", L0=0.15, T=0.2, SLIP=0.1, MASTER=0.95, UNLOCK=0.6, SPRINT=5;
+const KEY="devwise-v2", L0=0.15, UNLOCK=0.6, SPRINT=5;
+const pilot=()=>(S&&KT.PILOTS.includes(S.pilot))?S.pilot:"elo";
+const master=()=>KT.master(pilot());            // limiar de domínio do modelo que pilota (85% no Elo/Rasch, 95% no BKT)
+const today=()=>{const d=new Date();return d.getFullYear()+"-"+(d.getMonth()+1)+"-"+d.getDate()};
 let evoSel=null, evoPl=null;
 let S, view="home", boss=null, tick=null, cur=null, selSkill=null, briefId=null, resetArmed=false, showJson=false, setMsg="";
 
@@ -12,9 +15,9 @@ const TRANSFER=0.5;
 const isProg=id=>SK[id].area==="prog";
 const tkey=(id,pl)=>isProg(id)?id+"@"+(pl||S.pl):id;
 function trk(id,pl){
-  const e=S.skills[id]; if(!isProg(id))return e; pl=pl||S.pl;
+  const e=S.skills[id]; if(!isProg(id))return KT.ensure(e); pl=pl||S.pl;
   if(!e.pl[pl]){const best=Math.max(L0,...Object.values(e.pl).map(x=>x.L)); e.pl[pl]={L:L0+TRANSFER*(best-L0),n:0,c:0,prior:+(L0+TRANSFER*(best-L0)).toFixed(3)};}
-  return e.pl[pl];
+  return KT.ensure(e.pl[pl]);
 }
 const practiced=(id,pl)=>isProg(id)?(S.skills[id].pl[pl]||null):S.skills[id];
 function snapshot(){const o={};SKILLS.forEach(s=>o[tkey(s.id)]=trk(s.id).L);return o}
@@ -22,14 +25,14 @@ function guessLang(){const n=(navigator.language||"pt").slice(0,2).toLowerCase()
 function newSprint(n){return {n,done:[],start:snapshot(),b:{},run:0}}
 function blankSkills(){const skills={}; SKILLS.forEach(s=>skills[s.id]=s.area==="prog"?{pl:{}}:{L:L0,n:0,c:0}); return skills}
 function fresh(){
-  const o={v:2,started:false,lang:guessLang(),pl:"py",skills:blankSkills(),brief:{},seen:{},log:[],xp:0,xpTotal:0,mode:"normal",inv:{shield:0,fifty:0,time:0},boost:0,titles:[],title:null,bosses:{},daily:{date:"",item:null,done:false},streak:0,best:0,board:[],
+  const o={v:2,started:false,lang:guessLang(),pl:"py",skills:blankSkills(),brief:{},seen:{},log:[],xp:0,xpTotal:0,mode:"normal",inv:{shield:0,fifty:0,time:0},boost:0,titles:[],title:null,bosses:{},daily:{date:"",item:null,done:false},streak:0,best:0,board:[],pilot:"elo",confirm:true,name:"",session:{id:0,day:"",n:0,last:0},
     sprint:{n:1,done:[],start:{},b:{},run:0},ai:{provider:"anthropic",key:"",model:"",base:""}};
   return o;
 }
 function load(){
   try{const d=JSON.parse(localStorage.getItem(KEY)||"null");
     if(d&&d.v===2&&d.skills){const f=fresh();SKILLS.forEach(s=>{const e=d.skills[s.id]; if(!e)d.skills[s.id]=f.skills[s.id]; else if(s.area==="prog"&&!e.pl){const pl=PLS[d.pl]?d.pl:"py";d.skills[s.id]={pl:{[pl]:{L:e.L,n:e.n,c:e.c}}}}}); // migra o domínio único da v3 para a linguagem em uso
-      if(d.xpTotal===undefined)d.xpTotal=d.xp||0; for(const k in f)if(d[k]===undefined)d[k]=f[k]; d.sprint.b=d.sprint.b||{}; d.sprint.run=d.sprint.run||0; if(!MODES[d.mode])d.mode="normal"; if(!LANG[d.lang])d.lang="pt"; if(!PLS[d.pl])d.pl="py"; d.ai=d.ai||f.ai; d.brief=d.brief||{}; return d;}}catch(e){}
+      if(d.xpTotal===undefined)d.xpTotal=d.xp||0; for(const k in f)if(d[k]===undefined)d[k]=f[k]; d.sprint.b=d.sprint.b||{}; d.sprint.run=d.sprint.run||0; if(!MODES[d.mode])d.mode="normal"; if(!KT.MODELS[d.pilot])d.pilot="elo"; if(!d.session)d.session=f.session; if(!LANG[d.lang])d.lang="pt"; if(!PLS[d.pl])d.pl="py"; d.ai=d.ai||f.ai; d.brief=d.brief||{}; return d;}}catch(e){}
   return fresh();
 }
 function save(){try{localStorage.setItem(KEY,JSON.stringify(S))}catch(e){}}
@@ -59,7 +62,11 @@ function itemCode(it){return it.shared||(it.code?it.code[S.pl]||it.code.py:null)
 function itemOpts(it){return (it.opts||itT(it.id).opts).map(o=>o==="@err"?t("err"):o==="@none"?t("none"):o)}
 
 /* ---------- Motor adaptativo (BKT) ---------- */
-const mastered=id=>trk(id).L>=MASTER;
+const mastered=id=>trk(id).L>=master();
+/* Sessão única tem embalo e fadiga que não são conhecimento: o domínio só se confirma com acerto em pelo menos dois dias diferentes. */
+const confirmed=id=>!S.confirm||(trk(id).days||[]).length>=2;
+const awaitsConfirm=id=>mastered(id)&&!confirmed(id);
+const confirmToday=id=>awaitsConfirm(id)&&!(trk(id).days||[]).includes(today());
 const preOk=id=>SK[id].pre.every(p=>trk(p).L>=UNLOCK);
 const gateOk=id=>S.xpTotal>=(GATES[id]||0)||!!S.brief[id];
 const unlocked=id=>preOk(id)&&gateOk(id);
@@ -68,7 +75,7 @@ const gt=()=>Lg().game||LANG.pt.game;
 const isTyped=it=>MODES[S.mode].typed&&it.type==="mc"&&it.mono&&!!it.code;
 const normOut=s=>String(s).replace(/,/g," ").replace(/\s+/g," ").trim();
 const bossOpen=b=>b.need.every(k=>trk(k).L>=UNLOCK)&&S.xpTotal>=b.gate;
-const allMastered=()=>SKILLS.every(s=>mastered(s.id));
+const allMastered=()=>SKILLS.every(s=>mastered(s.id)&&confirmed(s.id));
 const avgL=()=>SKILLS.reduce((a,s)=>a+trk(s.id).L,0)/SKILLS.length;
 function career(){const r=t("roles"); if(allMastered())return r[4]; const a=avgL(); return a>=.8?r[3]:a>=.55?r[2]:a>=.3?r[1]:r[0]}
 function shuffle(a){a=a.slice();for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]]}return a}
@@ -83,7 +90,7 @@ function pickItem(skillId,avoid){
 }
 function pendingMissions(){return SKILLS.filter(s=>unlocked(s.id)&&!S.brief[s.id]&&!mastered(s.id))}
 function fillBoard(lastId){
-  let eligible=SKILLS.filter(s=>unlocked(s.id)&&!mastered(s.id)&&S.brief[s.id]).map(s=>s.id);
+  let eligible=SKILLS.filter(s=>unlocked(s.id)&&S.brief[s.id]&&(!mastered(s.id)||confirmToday(s.id))).map(s=>s.id);
   if(!eligible.length&&!pendingMissions().length)eligible=SKILLS.filter(s=>S.brief[s.id]||allMastered()).map(s=>s.id); // revisão: mantém o XP fluindo até o próximo portão
   S.board=S.board.filter(id=>IT[id]&&id!==lastId&&eligible.includes(IT[id].skill));
   const used=S.board.map(id=>IT[id].skill);
@@ -92,15 +99,17 @@ function fillBoard(lastId){
   if(!S.board.length&&eligible.length){const it=pickItem(eligible[0],[]); if(it)S.board.push(it.id);}
 }
 function guessProb(it){return it.type==="mc"?1/itemOpts(it).length:it.type==="bug"?1/itemCode(it).split("\n").length:it.type==="sort"?1/Math.pow(2,it.key.length):0.05}
-function bkt(L,ok,g){const post=ok? L*(1-SLIP)/(L*(1-SLIP)+(1-L)*g) : L*SLIP/(L*SLIP+(1-L)*(1-g)); return Math.min(.995,post+(1-post)*T)}
 function resolve(ok){
   stopTimer();
   const it=cur.item, sk=trk(it.skill), before=sk.L, roleBefore=career(), m=MODES[cur.mode];
   const openBefore=SKILLS.filter(s=>unlocked(s.id)).map(s=>s.id);
   let g=guessProb(it); if(cur.typed)g=0.03; else if(cur.fifty||cur.hint)g=Math.max(.5,g);
-  sk.L=bkt(before,ok,g); sk.n++; if(ok)sk.c++;
-  const res={ok,before,after:sk.L,mi:Math.floor(Math.random()*4),comeback:0,streak:0,xp:0,pen:0,shield:false,bounties:[],newly:[],promo:null,masteredNow:before<MASTER&&sk.L>=MASTER};
-  S.log.push({i:S.log.length+1,sprint:S.sprint.n,item:it.id,skill:it.skill,bloom:it.bloom,d:it.d,ok,hint:cur.hint,ai:!!cur.aiUsed,mode:cur.mode,typed:!!cur.typed,timeout:!!cur.timeout,boss:it.boss||null,lang:S.lang,pl:isProg(it.skill)?S.pl:null,before:+before.toFixed(3),after:+sk.L.toFixed(3),t:Date.now()});
+  const now=Date.now(), ses=S.session; if(ses.day!==today()||now-ses.last>30*60000){ses.id++;ses.day=today();ses.n=0} ses.n++; ses.last=now;
+  const preds=KT.predictAll(sk,it,g);                       // cada modelo registra o que previa ANTES de ver a resposta
+  KT.updateAll(sk,it,g,ok?1:0); sk.L=KT.mastery(sk,pilot()); sk.n++; if(ok){sk.c++; sk.days=sk.days||[]; if(!sk.days.includes(today()))sk.days.push(today())}
+  const res={ok,before,after:sk.L,awaits:false,mi:Math.floor(Math.random()*4),comeback:0,streak:0,xp:0,pen:0,shield:false,bounties:[],newly:[],promo:null,masteredNow:before<master()&&sk.L>=master()};
+  S.log.push({i:S.log.length+1,sprint:S.sprint.n,item:it.id,skill:it.skill,bloom:it.bloom,d:it.d,ok,hint:cur.hint,ai:!!cur.aiUsed,mode:cur.mode,typed:!!cur.typed,timeout:!!cur.timeout,boss:it.boss||null,lang:S.lang,pl:isProg(it.skill)?S.pl:null,before:+before.toFixed(3),after:+sk.L.toFixed(3),pilot:pilot(),preds,b:+KT.itemB(it).toFixed(2),c:+g.toFixed(3),session:ses.id,pos:ses.n,rt:cur.t0?now-cur.t0:null,t:now});
+  res.awaits=awaitsConfirm(it.skill);
   if(it.boss){ if(!ok)boss.errors++; }
   else{
     S.streak=ok?S.streak+1:0; S.best=Math.max(S.best,S.streak);
@@ -243,11 +252,11 @@ function home(){
     h("ol",{class:"loop"},t("steps").map(s=>h("li",null,h("div",null,h("strong",null,s[0]),s[1])))));
 }
 function ticketCard(it,daily){
-  const se=SK[it.skill].area==="se", rev=mastered(it.skill)&&!daily;
+  const se=SK[it.skill].area==="se", conf=confirmToday(it.skill)&&!daily, rev=mastered(it.skill)&&!daily&&!conf;
   return h("button",{class:"ticket"+(se?" se":"")+(daily?" daily":""),onclick:()=>openTicket(it.id,{daily})},
     h("span",{class:"id"},"DW-"+it.id.toUpperCase()+"  "+skT(it.skill).client),
     h("span",{class:"tt"},itT(it.id).title),
-    h("span",{class:"meta"},daily&&h("span",{class:"tag",style:"background:var(--gold-soft)"},t("dailyTag")),rev&&h("span",{class:"tag plain"},t("review")),
+    h("span",{class:"meta"},daily&&h("span",{class:"tag",style:"background:var(--gold-soft)"},t("dailyTag")),rev&&h("span",{class:"tag plain"},t("review")),conf&&h("span",{class:"tag",style:"background:var(--ok-soft)"},"✅ "+t("confirmTag")),
       h("span",{class:"tag"+(se?" se":"")},skT(it.skill).name),h("span",{class:"tag plain"},t("types")[it.type]),h("span",{class:"tag plain"},t("bloom")[it.bloom-1]),
       h("span",{class:"pts",role:"img","aria-label":t("diff",{d:it.d})},"●".repeat(it.d)+"○".repeat(3-it.d))));
 }
@@ -302,7 +311,7 @@ function skillMap(){
 function skillInfo(){
   if(!selSkill)return h("p",{class:"skillinfo empty"},t("mapHint"));
   const s=SK[selSkill],x=skT(selSkill),st=trk(selSkill),un=unlocked(selSkill),pre=s.pre.map(p=>skT(p).name).join(t("and")),gate=GATES[selSkill]||0;
-  const why=un?(mastered(selSkill)?t("masteredTxt"):t("estTxt",{p:pct(st.L)}))+t("hits",{c:st.c,n:st.n})
+  const why=un?(awaitsConfirm(selSkill)?t("stC")+". ":mastered(selSkill)?t("masteredTxt"):t("estTxt",{p:pct(st.L)}))+t("hits",{c:st.c,n:st.n})
     :preOk(selSkill)?t("lockedXpOnly",{x:gate,y:S.xpTotal}):gate?t("lockedXp",{p:pre,x:gate,y:S.xpTotal}):t("locked",{p:pre});
   return h("div",{class:"skillinfo","aria-live":"polite"},h("h4",null,x.name),h("p",null,x.about),h("p",{class:"note"},why),
     un&&h("button",{class:"btn ghost small",onclick:()=>{briefId=selSkill;go("brief")}},t("reread")));
@@ -339,7 +348,7 @@ function brief(){
 }
 function openTicket(id,o){
   const it=IT[id]; o=o||{};
-  cur={item:it,sel:null,hint:false,done:false,result:null,aiText:null,aiAfter:null,aiUsed:false,mode:S.mode,daily:!!o.daily,typed:isTyped(it),text:"",fifty:false,timeout:false};
+  cur={t0:Date.now(),item:it,sel:null,hint:false,done:false,result:null,aiText:null,aiAfter:null,aiUsed:false,mode:S.mode,daily:!!o.daily,typed:isTyped(it),text:"",fifty:false,timeout:false};
   if(it.type==="mc")cur.order=shuffle(itemOpts(it).map((_,i)=>i));
   if(it.type==="bug"||it.type==="parsons"){cur.prose=!itemCode(it);cur.lines=cur.prose?itT(it.id).lines.slice():itemCode(it).split("\n");}
   if(it.type==="sort")cur.pick=it.key.map(()=>null);
@@ -448,6 +457,7 @@ function ticket(){
       !r.ok&&r.after>r.before&&h("p",{class:"note"},t("roseNote")),
       r.bounties.map(bn=>h("p",{class:"promo"},"🎯 "+t("bountyDone",{s:fill(gt().bounties[bn.id]),x:bn.xp}))),
       r.masteredNow&&h("p",{class:"promo"},"🏅 "+t("masteredNow",{s:skT(it.skill).name})),
+      r.ok&&r.awaits&&h("p",{class:"note"},"📅 "+t("confirmNote")),
       r.newly.length>0&&h("p",{class:"promo"},"🔓 "+t("unlockedNow",{s:r.newly.join(", ")})),
       r.promo&&h("p",{class:"promo"},"📈 "+t("promo",{r:r.promo})),
       h("div",{class:"row"},
@@ -477,14 +487,14 @@ function evolution(){
   if(!list.length)return h("section",{class:"panel",style:"margin-top:20px"},h("h3",null,"📈 "+t("evoH")),tabs,h("p",{class:"empty"},t("evoEmpty")));
   const svg=sv("svg",{viewBox:`0 0 ${W} ${H}`,role:"img","aria-label":t("evoH")});
   [0,.5,1].forEach(v=>{svg.append(sv("line",{x1:pl_,x2:W-pr,y1:Y(v),y2:Y(v),stroke:"var(--line)","stroke-width":"1"}),sv("text",{x:pl_-6,y:Y(v)+4,"text-anchor":"end","font-size":"11",fill:"var(--muted)"},Math.round(v*100)+"%"))});
-  [[UNLOCK,"var(--gold)"],[MASTER,"var(--ok)"]].forEach(([v,c])=>{svg.append(sv("line",{x1:pl_,x2:W-pr,y1:Y(v),y2:Y(v),stroke:c,"stroke-width":"1.5","stroke-dasharray":"5 5"}),sv("text",{x:W-pr,y:Y(v)-4,"text-anchor":"end","font-size":"11",fill:c},Math.round(v*100)+"%"))});
+  [[UNLOCK,"var(--gold)"],[master(),"var(--ok)"]].forEach(([v,c])=>{svg.append(sv("line",{x1:pl_,x2:W-pr,y1:Y(v),y2:Y(v),stroke:c,"stroke-width":"1.5","stroke-dasharray":"5 5"}),sv("text",{x:W-pr,y:Y(v)-4,"text-anchor":"end","font-size":"11",fill:c},Math.round(v*100)+"%"))});
   svg.append(sv("text",{x:(W+pl_)/2,y:H-6,"text-anchor":"middle","font-size":"11",fill:"var(--muted)"},t("evoX")+" (1 - "+rows.length+")"));
   const path=z=>"M"+X(z.pts[0].x-1)+" "+Y(z.pts[0].b)+z.pts.map(p=>" L"+X(p.x)+" "+Y(p.y)).join("");
   list.filter(z=>z.k!==evoSel).forEach(z=>svg.append(sv("path",{d:path(z),fill:"none",stroke:"var(--muted)","stroke-width":"1.5",opacity:".35"})));
   const sel=series[evoSel], col=SK[sel.skill].area==="se"?"var(--se)":"var(--prog)";
   svg.append(sv("path",{d:path(sel),fill:"none",stroke:col,"stroke-width":"3.5","stroke-linejoin":"round"}));
   sel.pts.forEach(p=>svg.append(sv("circle",{cx:X(p.x),cy:Y(p.y),r:"5",fill:p.ok?"var(--ok)":"var(--gold)",stroke:"var(--surface)","stroke-width":"2"})));
-  return h("section",{class:"panel",style:"margin-top:20px"},h("h3",null,"📈 "+t("evoH")),h("p",{class:"note"},t("evoP")),tabs,
+  return h("section",{class:"panel",style:"margin-top:20px"},h("h3",null,"📈 "+t("evoH")),h("p",{class:"note"},t("evoP",{m:pct(master())})),tabs,
     h("div",{class:"mapwrap"},svg),
     h("div",{class:"tabs",style:"margin-top:10px"},list.map(z=>h("button",{"aria-pressed":String(z.k===evoSel),onclick:()=>{evoSel=z.k;render()}},label(z)))),
     h("div",{class:"tblwrap",style:"margin-top:12px"},h("table",null,h("thead",null,h("tr",null,h("th",null,t("colSkill")),h("th",null,t("colFirst")),h("th",null,t("colNow")),h("th",null,t("colGain")),h("th",null,t("colTries")))),
@@ -498,12 +508,12 @@ function plPanel(){
         h("tr",null,h("td",null,h("b",null,t("plAcc"))),pls.map(p=>h("td",null,acc(p))))))),
     h("div",{class:"analogy",style:"background:var(--sunken)"},h("b",null,t("analogy")),t("plA")));
 }
-function langPanel(){
-  const used=[...new Set(S.log.map(l=>l.lang))];
-  return h("section",{class:"panel"},h("h3",null,"🌍 "+t("studyH")),h("p",{class:"note"},t("studyP")),
-    used.length>0&&h("p",null,h("b",null,t("langH")+": "),used.map(l=>{const ls=S.log.filter(x=>x.lang===l);return (LANG[l]?LANG[l].name:l)+" "+frac(ls.filter(x=>x.ok).length,ls.length)}).join("; ")),
-    h("div",{class:"tblwrap"},h("table",null,h("thead",null,h("tr",null,h("th",null,t("colLang")),h("th",null,t("colScript")),h("th",null,"FLORES-200"),h("th",null,t("colTok")),h("th",null,t("colStatus")))),
-      h("tbody",null,STUDY_LANGS.map(x=>h("tr",null,h("td",{"data-raw":1},x.native+(x.native===x.label?"":" ("+x.label+")")),h("td",null,x.script),h("td",{class:"note"},x.flores),h("td",null,String(x.tok)),h("td",null,LANG[x.code]?"✅ "+t("available"):"⏳ "+t("pending"))))))));
+function modelPanel(){
+  const rows=KT.IDS.map(k=>[k,KT.score(S.log,k)]), f=x=>x==null?"-":x.toFixed(3);
+  return h("section",{class:"panel"},h("h3",null,"🧪 "+t("cmpH")),h("p",{class:"note"},t("cmpP")),
+    h("div",{class:"tblwrap"},h("table",null,h("thead",null,h("tr",null,h("th",null,t("colModel")),h("th",null,t("colRole")),h("th",null,"Brier"),h("th",null,"AUC"),h("th",null,t("colAcc")),h("th",null,"n"))),
+      h("tbody",null,rows.map(([k,r])=>h("tr",null,h("td",null,k===pilot()?h("b",null,t("models")[k]):t("models")[k]),h("td",null,k===pilot()?t("rolePilot"):t("roleShadow")),h("td",null,r?f(r.brier):"-"),h("td",null,r?f(r.auc):"-"),h("td",null,r?pct(r.acc):"-"),h("td",null,r?String(r.n):"0")))))),
+    h("p",{class:"note"},t("cmpNote")));
 }
 function exportData(){return JSON.stringify({app:"DevWise",version:3,skills:S.skills,log:S.log},null,1)}
 function report(){
@@ -516,8 +526,11 @@ function report(){
     const hints=S.log.filter(l=>l.hint).length; if(hints/n>.4)recs.push(t("recHints",{p:pct(hints/n)}));
     const bl=SKILLS.filter(s=>!unlocked(s.id)); if(bl.length)recs.push(t("recLocked",{s:bl.map(s=>skT(s.id).name).join(", ")}));
   }
-  const status=s=>mastered(s.id)?t("stM"):!unlocked(s.id)?t("stL"):!S.brief[s.id]?t("stB"):t("stP");
-  return h("main",null,h("h2",{style:"font-size:1.9rem;font-weight:800"},t("repH")),h("p",{class:"note"},t("repSub")),
+  const status=s=>awaitsConfirm(s.id)?t("stC"):mastered(s.id)?t("stM"):!unlocked(s.id)?t("stL"):!S.brief[s.id]?t("stB"):t("stP");
+  return h("main",{class:"report"},
+    h("div",{class:"row",style:"justify-content:space-between"},h("h2",{style:"font-size:1.9rem;font-weight:800"},t("repH")),h("button",{class:"btn noprint",onclick:()=>window.print()},"🖨️ "+t("printBtn"))),
+    h("p",{class:"printhead"},[S.name&&t("repFor",{n:S.name}),t("printedOn",{d:new Date().toLocaleDateString(S.lang)}),LANG[S.lang].name,PLS[S.pl],t("pilot")+": "+t("models")[pilot()]].filter(Boolean).join("   |   ")),
+    h("p",{class:"note"},t("repSub")),
     h("div",{class:"kpis"},h("div",null,h("b",null,String(n)),t("k1")),h("div",null,h("b",null,n?pct(c/n):"0%"),t("k2")),
       h("div",null,h("b",null,frac(SKILLS.filter(s=>mastered(s.id)).length,SKILLS.length)),t("k3")),h("div",null,h("b",null,String(S.best)),t("k4")),h("div",null,h("b",null,String(S.xpTotal)),t("kTotal")),h("div",null,h("b",null,frac(Object.keys(S.bosses).length,BOSSES.length)),t("kBosses"))),
     evolution(),
@@ -531,13 +544,13 @@ function report(){
         h("h3",{style:"margin-top:20px"},t("bloomAcc")),h("div",{class:"tblwrap"},h("table",null,h("tbody",null,bloom.map(b=>h("tr",null,h("td",null,b.name),
           h("td",null,h("div",{class:"bar"},h("i",{style:"width:"+(b.n?pct(b.c/b.n):"0%")}))),h("td",null,b.n?frac(b.c,b.n):t("noData")))))))),
       h("section",{class:"panel"},h("h3",null,"🏆 "+t("trophies")),Object.keys(S.bosses).length?h("ul",{style:"margin:0;padding-left:20px"},Object.keys(S.bosses).map(k=>h("li",null,h("b",null,gt().bosses[k].trophy),"  ("+gt().bosses[k].name+")"))):h("p",{class:"empty"},t("noTrophies"))),
-      h("section",{class:"panel"},h("h3",null,t("how")),h("p",null,t("howP")),h("div",{class:"analogy",style:"background:var(--sunken)"},h("b",null,t("analogy")),t("howA")),h("p",{class:"note"},t("howParams"))),
-      langPanel(),
-      h("section",{class:"panel"},h("h3",null,t("data")),h("p",{class:"note"},t("dataP")),
+      h("section",{class:"panel"},h("h3",null,t("how")),h("p",null,t("howP",{m:pct(master())})),h("div",{class:"analogy",style:"background:var(--sunken)"},h("b",null,t("analogy")),t("howA")),h("p",{class:"note"},t("howParams",{m:pct(master())}))),
+      modelPanel(),
+      h("section",{class:"panel noprint"},h("h3",null,t("data")),h("p",{class:"note"},t("dataP")),
         h("div",{class:"row"},
           h("button",{class:"btn ghost small",onclick:()=>{showJson=!showJson;render()}},showJson?t("hideJson"):t("showJson")),
           h("button",{class:"btn ghost small",onclick:()=>{try{const a=document.createElement("a");a.href=URL.createObjectURL(new Blob([exportData()],{type:"application/json"}));a.download="devwise-log.json";a.click()}catch(e){} showJson=true;render()}},t("download")),
-          h("button",{class:"btn ghost small",onclick:()=>{ if(!resetArmed){resetArmed=true;render();return;} const keep={lang:S.lang,pl:S.pl,ai:S.ai,mode:S.mode}; S=Object.assign(fresh(),keep);save();selSkill=null;cur=null;go("home") }},resetArmed?t("resetConfirm"):t("reset"))),
+          h("button",{class:"btn ghost small",onclick:()=>{ if(!resetArmed){resetArmed=true;render();return;} const keep={lang:S.lang,pl:S.pl,ai:S.ai,mode:S.mode,pilot:S.pilot,confirm:S.confirm,name:S.name}; S=Object.assign(fresh(),keep);save();selSkill=null;cur=null;go("home") }},resetArmed?t("resetConfirm"):t("reset"))),
         showJson&&h("textarea",{readonly:true,"aria-label":"JSON",style:"margin-top:12px",onfocus:e=>e.target.select()},exportData()))));
 }
 function settings(){
@@ -549,6 +562,11 @@ function settings(){
       h("label",null,t("uiLang"),h("select",{onchange:e=>setLang(e.target.value)},Object.keys(LANG).map(l=>h("option",{value:l,selected:S.lang===l,"data-raw":1},langName(l))))),
       ROMANIZER.available(S.lang)&&h("label",{class:"chk"},h("input",{type:"checkbox",checked:!!S.rom,onchange:e=>{S.rom=e.target.checked;save();render()}}),t("rom")),
       h("label",null,t("codeLang"),h("select",{onchange:e=>setPl(e.target.value)},Object.keys(PLS).map(p=>h("option",{value:p,selected:S.pl===p},PLS[p]))))),
+    h("h2",{style:"margin-top:34px;font-size:1.6rem"},t("modelH")),h("p",null,t("pilotNote")),
+    h("div",{class:"form"},
+      h("label",null,t("pilot"),h("select",{onchange:e=>{S.pilot=e.target.value;SKILLS.forEach(sk=>{const e2=S.skills[sk.id];(sk.area==="prog"?Object.values(e2.pl):[e2]).forEach(tr=>{KT.ensure(tr);tr.L=KT.mastery(tr,pilot())})});fillBoard();save();render()}},KT.PILOTS.map(k=>h("option",{value:k,selected:pilot()===k},t("models")[k]+" ("+pct(KT.master(k))+")")))),
+      h("label",{class:"chk"},h("input",{type:"checkbox",checked:!!S.confirm,onchange:e=>{S.confirm=e.target.checked;save();render()}}),t("confirmRule")),
+      h("label",null,t("studentName"),h("input",{type:"text",value:S.name||"",maxlength:"80",onchange:e=>{S.name=e.target.value.trim();save()}}))),
     h("h2",{style:"margin-top:34px;font-size:1.6rem"},t("aiH")),h("p",null,t("aiP")),h("p",{class:"delta"},status),
     !AI.sample&&h("div",{class:"form"},
       h("label",null,t("provider"),f.provider),

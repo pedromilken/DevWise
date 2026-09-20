@@ -14,7 +14,7 @@ Você entra na Ponte, uma pequena casa de software que atende a padaria, o posto
 
 | Recurso | Detalhe |
 |---|---|
-| Modelo do estudante | Bayesian Knowledge Tracing por habilidade; chute ajustado ao tipo de item; pedido de dica enfraquece a evidência |
+| Modelo do estudante | **Elo/Rasch** com dificuldade de item e chute pilota o jogo; **TRI 3PL com EAP, BKT, PFA e AFM** rodam como sombras e registram no log a previsão feita antes de cada resposta |
 | Sequenciamento | Grafo de pré-requisitos (60% libera, 95% domina); item escolhido pela dificuldade mais próxima do domínio atual |
 | Banco de itens | 75 itens (30 de programação e 45 de engenharia de software), com nível de Bloom e dificuldade |
 | Idiomas | Português, inglês e espanhol completos; registro dos 20 idiomas do estudo e gerador de pacotes para os demais |
@@ -35,6 +35,22 @@ Você entra na Ponte, uma pequena casa de software que atende a padaria, o posto
 | Loja | Poderes (Escudo, Eliminar duas, Tempo extra, XP em dobro) e títulos |
 
 A resposta digitada reduz a probabilidade de chute do BKT de 25% para 3%, então acertos nos modos difíceis são evidência mais forte de domínio. Poderes que facilitam a resposta (dica, Eliminar duas) enfraquecem a evidência.
+
+### Modelos de rastreamento: um piloto e quatro sombras
+
+A escolha segue o estudo de confundidores com o ENEM (estrutura do lado do item sustenta a acurácia; BKT, AFM e PFA preveem mal e leem dependência serial como aprendizagem). Elo/Rasch **não** foi testado naquele estudo: é a inferência de projeto para um jogo sem dados de treino, e por isso os demais modelos ficam registrando previsões para validação posterior.
+
+| Modelo | Papel | Observação |
+|---|---|---|
+| Elo/Rasch (`elo`) | piloto padrão, domínio em 85% | Rasch online com chute por formato; ganho decrescente; erro pesa 70% |
+| TRI 3PL com EAP (`irt`) | só sombra | grade de 81 pontos, só respostas anteriores, como o teto do estudo; é estático e por isso nunca pilota |
+| BKT, PFA, AFM | sombra, ou piloto por escolha em Ajustes | parâmetros a priori |
+
+- Cada linha do log traz `preds` (previsão de cada modelo antes da resposta), `pilot`, `b` e `c` do item, `session`, `pos` (posição na sessão) e `rt` (tempo de resposta em ms). Posição e tempo existem para os testes de efeito de posição e de chute rápido que o ENEM não permite.
+- **Confirmação em outro dia**: alcançar o limiar numa sessão deixa a habilidade "a confirmar"; ela só conta como dominada com acerto em pelo menos dois dias. Sessão única tem embalo e fadiga que não são conhecimento.
+- DKT, DKVMN, SAKT, AKT, SAINT e SimpleKT exigem treino com muitos alunos: treine-os fora do jogo com o log exportado, que já está no formato (estudante, posição, item, habilidade, acerto).
+- Todos os parâmetros em `src/models.js` são a priori de projeto. Recalibre as dificuldades em `ITEM_B` com os logs reais.
+- O relatório tem botão **Imprimir ou salvar em PDF**, com nome do estudante opcional, para uso do próprio aluno ou de docentes.
 
 ### Evolução e linguagens de programação
 
@@ -88,6 +104,7 @@ index.html        arquivo único gerado, é o que o GitHub Pages serve
 build.py          junta src/ em index.html
 tools/gerar-idioma.js  gera o pacote de um idioma do estudo via LLM, com validação
 tests.js          consistência do banco (3 idiomas x 4 linguagens) e simulação do motor
+src/models.js     modelos de rastreamento (piloto e sombras)
 src/game.js       modos, portões de XP, loja, desafios e chefões
 src/data.js       habilidades, mapeamento SBC, exemplos e itens com código
 src/lang-pt.js    textos em português (en e es seguem o mesmo formato)

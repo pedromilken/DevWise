@@ -4,7 +4,7 @@ global.localStorage={getItem(){return null},setItem(){}};global.window={scrollTo
 global.document={documentElement:{},getElementById(){return {append(){},set textContent(v){}}},createElement(){return {append(){},setAttribute(){},addEventListener(){},set className(v){}}},createElementNS(){return {append(){},setAttribute(){},addEventListener(){}}},createTextNode(){return {}}};
 const langFiles=fs.readdirSync(__dirname+"/src").filter(f=>/^lang-.*\.js$/.test(f)&&!f.includes(".mock.")).sort((a,b)=>(a==="lang-pt.js"?-1:b==="lang-pt.js"?1:a.localeCompare(b)));
 const romFiles=fs.readdirSync(__dirname+"/src").filter(f=>/^rom-.*\.js$/.test(f));
-let src=["data.js","game.js","rom.js",...langFiles,...romFiles,"app.js"].map(f=>fs.readFileSync(__dirname+"/src/"+f,"utf8")).join("\n");
+let src=["data.js","game.js","rom.js","models.js",...langFiles,...romFiles,"app.js"].map(f=>fs.readFileSync(__dirname+"/src/"+f,"utf8")).join("\n");
 src=src.replace('"use strict";','').replace(/S=load\(\);[\s\S]*$/,"");
 src+=`
 let errs=[];
@@ -31,7 +31,7 @@ for(const it of ITEMS.concat(BOSS_ITEMS)){
 }
 const flatT=(o,p,out)=>{if(typeof o==="string")out[p]=o;else for(const k in o)flatT(o[k],p+"."+k,out);return out};
 {const enF=flatT(LANG.en,"",{}); for(const l of Object.keys(LANG)){ if(["pt","en","es"].includes(l))continue; const meta=STUDY_LANGS.find(x=>x.code===l)||{}, f=flatT(LANG[l],"",{}), latin=meta.script==="Latin";
-  const same=Object.keys(enF).filter(k=>enF[k]===f[k]&&enF[k].length>(latin?40:12)&&!/provAnthropic|provOpenAI|t3\.title|hardcore/.test(k));
+  const same=Object.keys(enF).filter(k=>enF[k]===f[k]&&enF[k].length>(latin?40:12)&&!/provAnthropic|provOpenAI|t3\.title|hardcore|\.models\./.test(k));
   if(same.length) errs.push(l+": "+same.length+" textos ficaram em inglês (ex.: "+same[0]+"). Rode: node tools/gerar-idioma.js "+l); }}
 for(const l of Object.keys(LANG)){const g=LANG[l].game; if(!g){errs.push(l+": falta game");continue}
   SHOP.forEach(p=>{if(!g.shop[p.id])errs.push(l+": loja "+p.id)}); BOUNTIES.forEach(b=>{if(!g.bounties[b.id])errs.push(l+": desafio "+b.id)});
@@ -43,16 +43,19 @@ const area={prog:0,se:0}; ITEMS.forEach(i=>area[SK[i.skill].area]++); console.lo
 const per={}; ITEMS.forEach(i=>per[i.skill]=(per[i.skill]||0)+1);
 console.log("idiomas com pacote:",Object.keys(LANG).join(", "),"de",STUDY_LANGS.length,"do estudo");
 console.log("itens:",ITEMS.length,JSON.stringify(per));
-// simulação: aluno com 75% de acerto, em cada modo
+// simulação: iniciante que aprende a cada ticket (resposta gerada por um 3PL com a habilidade verdadeira), em cada modo
 for(const mode of Object.keys(MODES)){ let tot=0,xpT=0,bal=0,stuck=0,runs=150;
-  for(let r=0;r<runs;r++){ S=fresh(); S.started=true; S.mode=mode; let n=0;
-    while(!allMastered()&&n<900){ pendingMissions().forEach(m=>S.brief[m.id]=true); fillBoard();
+  for(let r=0;r<runs;r++){ S=fresh(); S.started=true; S.mode=mode; let n=0; const TRUE={};
+    while(!SKILLS.every(s=>mastered(s.id))&&n<900){ pendingMissions().forEach(m=>S.brief[m.id]=true); fillBoard();
       if(!S.board.length){stuck++;break}
-      cur={item:IT[S.board[0]],hint:false,mode:S.mode,typed:isTyped(IT[S.board[0]])}; resolve(Math.random()<.75); n++;
+      const it0=IT[S.board[0]], key0=tkey(it0.skill); TRUE[key0]=(TRUE[key0]??0); const c0=isTyped(it0)?0.03:guessProb(it0), p0=c0+(1-c0)/(1+Math.exp(-(TRUE[key0]-KT.itemB(it0))));
+      cur={item:it0,hint:false,mode:S.mode,typed:isTyped(it0)}; resolve(Math.random()<p0); TRUE[key0]+=0.3; n++;   // aluno realista: habilidade verdadeira por habilidade, começa em 0 logit e aprende 0,3 por ticket
       if(S.sprint.done.length>=5)S.sprint=newSprint(S.sprint.n+1,S.skills); }
     tot+=n; xpT+=S.xpTotal; bal+=S.xp; }
-  console.log(mode.padEnd(9),"tickets até dominar tudo:",(tot/runs).toFixed(1)," XP acumulado:",Math.round(xpT/runs)," saldo:",Math.round(bal/runs)," travou:",stuck);
+  console.log(mode.padEnd(9),"["+pilot()+"] tickets até dominar tudo:",(tot/runs).toFixed(1)," XP acumulado:",Math.round(xpT/runs)," saldo:",Math.round(bal/runs)," travou:",stuck);
   if(stuck)errs.push("quadro vazio no modo "+mode); }
-errs=[...new Set(errs)]; console.log(errs.length?"ERROS:\\n"+errs.join("\\n"):"OK: sem inconsistências"); process.exit(errs.length?1:0);
+errs=[...new Set(errs)];
+{const miss={},rest=[];for(const e of errs){const m=/^(\\w+): falta ui\\.(.+)$/.exec(e);if(m)(miss[m[1]]=miss[m[1]]||[]).push(m[2]);else rest.push(e)}
+ const ls=Object.keys(miss);if(ls.length){const n=miss[ls[0]].length;rest.unshift(ls.length+" pacotes sem "+n+" textos novos da interface ("+miss[ls[0]].slice(0,4).join(", ")+"...): "+ls.join(", ")+". Enquanto isso aparecem em inglês. Rode: node tools/gerar-idioma.js revisar")}errs=rest} console.log(errs.length?"ERROS:\\n"+errs.join("\\n"):"OK: sem inconsistências"); process.exit(errs.length?1:0);
 `;
 eval(src);
