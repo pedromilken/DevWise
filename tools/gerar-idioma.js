@@ -35,7 +35,9 @@ const target = args.find(a => !a.startsWith("--") && a !== from) || "";
 
 /* carrega dados e pacotes existentes, como o tests.js faz */
 global.four = undefined;
-const files = ["data.js", "game.js", ...fs.readdirSync(srcDir).filter(f => /^lang-.*\.js$/.test(f) && !f.includes(".mock."))];
+const langList = fs.readdirSync(srcDir).filter(f => /^lang-.*\.js$/.test(f) && !f.includes(".mock."));
+/* .patch.js guarda traduções feitas fora do gerador e é carregado por último, para o gerador enxergar o texto final sem nunca sobrescrevê-lo. */
+const files = ["data.js", "game.js", ...langList.filter(f => !f.includes(".patch.")), ...langList.filter(f => f.includes(".patch."))];
 const code = files.map(f => fs.readFileSync(path.join(srcDir, f), "utf8")).join("\n").replace('"use strict";', "");
 const { LANG, STUDY_LANGS } = new Function(code + ";return {LANG, STUDY_LANGS};")();
 
@@ -251,7 +253,12 @@ async function romanize(code) {
     for (const c of list) { await romanize(c); if (!mock) console.log("   tokens acumulados nesta execução: entrada " + usage.in + ", saída " + usage.out); } return; }
   if (!target) { console.log("Uso: node tools/gerar-idioma.js <código|todos> [--from en|pt|es] [--mock]\nIdiomas do estudo: " + STUDY_LANGS.map(x => x.code + (LANG[x.code] ? "*" : "")).join(" ") + "   (* já tem pacote)"); return; }
   /* "todos": só os que faltam. "revisar": repassa todos os pacotes gerados; o cache torna gratuito o que já está bom e só os blocos reprovados são refeitos. */
-  const list = target === "todos" ? STUDY_LANGS.filter(x => !LANG[x.code]).map(x => x.code) : target === "revisar" ? STUDY_LANGS.map(x => x.code).filter(c => !["pt", "en", "es"].includes(c)) : [target];
+  /* "revisar" pula o idioma que já está completo (inclusive por lang-xx.patch.js), para não pagar de novo por texto pronto. */
+  const completo = c => { const en = flatP(LANG[from], "", {}), f = flatP(LANG[c] || {}, "", {}), meta = STUDY_LANGS.find(x => x.code === c) || {}, latin = meta.script === "Latin";
+    return !Object.keys(en).some(k => f[k] === undefined || (f[k] === en[k] && en[k].length > (latin ? 40 : 12) && !KEEP.test(k.split("\u0001").join(".")) && !CODEY(en[k]))); };
+  let list = target === "todos" ? STUDY_LANGS.filter(x => !LANG[x.code]).map(x => x.code) : target === "revisar" ? STUDY_LANGS.map(x => x.code).filter(c => !["pt", "en", "es"].includes(c)) : [target];
+  if (target === "revisar" && !args.includes("--forcar")) { const prontos = list.filter(completo); list = list.filter(c => !completo(c));
+    if (prontos.length) console.log("Já completos, pulados: " + prontos.join(", ") + "  (use --forcar para refazê-los)"); }
   const falhas = [];
   for (const c of list) {
     try { await generate(c); } catch (e) { falhas.push(c); console.log("\n   FALHOU " + c + ": " + e.message.split("\n")[0] + " (rode de novo; o cache preserva os blocos prontos)"); }
