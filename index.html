@@ -294,6 +294,23 @@ rt{font-size:.55em;color:var(--muted);font-weight:400;letter-spacing:0}
 .homepage .grid2{margin-top:0}
 @media (max-width:820px){.hero{grid-template-columns:1fr}.numbers{grid-template-columns:repeat(4,1fr)}.numbers b{font-size:1.5rem}}
 
+/* ---- v9: código livre ---- */
+.sig{font-family:var(--mono);font-size:.95rem;background:var(--sunken);border-radius:8px;padding:8px 12px;margin-bottom:10px}
+textarea.editor{width:100%;min-height:230px;font-family:var(--mono);font-size:.95rem;line-height:1.55;tab-size:4;background:var(--code-bg);color:var(--code-ink);border:2px solid var(--line);border-radius:10px;padding:14px;white-space:pre;overflow-wrap:normal;overflow-x:auto}
+textarea.editor:focus{border-color:var(--gold)}
+.score{display:flex;align-items:center;gap:12px;flex-wrap:wrap;margin:16px 0 10px;font-family:var(--display)}
+.bar.big{width:220px;height:16px;border-radius:8px}
+.bar i.b0{background:var(--bad)}.bar i.b1{background:var(--gold)}.bar i.b2{background:var(--prog)}.bar i.b3{background:var(--se)}.bar i.b4{background:var(--ok)}
+.cases{display:grid;gap:6px;margin-bottom:10px}
+.case{display:flex;gap:12px;justify-content:space-between;align-items:baseline;background:var(--surface);border:1px solid var(--line);border-left:5px solid var(--line);border-radius:4px 8px 8px 4px;padding:7px 12px;font-size:.92rem}
+.case code{font-family:var(--mono);font-size:.9rem}
+.case.ok{border-left-color:var(--ok)}.case.no{border-left-color:var(--gold);background:var(--gold-soft)}
+
+/* ---- v9.1: ajustes separados em estudante e docente ---- */
+.teacher-toggle{display:block;width:100%;text-align:left;margin-top:30px;padding:14px 16px;background:var(--sunken);border:1px solid var(--line);border-radius:10px;font-family:var(--display);font-weight:800;font-size:1.15rem}
+.teacher{border:1px solid var(--line);border-top:0;border-radius:0 0 10px 10px;padding:6px 18px 18px;margin-top:-6px;background:var(--surface)}
+.teacher h3{font-size:1.2rem;font-weight:800;margin:22px 0 8px}
+
 </style>
 </head>
 <body>
@@ -1284,7 +1301,52 @@ if (x != 0 && 10 / x > 2) {
 {id:"g8",skill:"git",type:"mc",d:2,bloom:2},
 {id:"g9",skill:"git",type:"sort",d:2,bloom:4,key:[0,1,0,1]},
 {id:"g10",skill:"git",type:"mc",d:3,bloom:5},
-{id:"g11",skill:"git",type:"mc",d:2,bloom:3}
+{id:"g11",skill:"git",type:"mc",d:2,bloom:3},
+/* ---------- Itens de código livre: o estudante escreve a função e ela é executada contra casos de teste ----------
+   fn: nome exato que a função deve ter. tests: casos [{args, out, peso, oculto}]. checks: verificações estruturais
+   (usadas como 20% da nota quando há execução, e como nota inteira em Java e C, onde não há execução no navegador). */
+{id:"w1",skill:"func",type:"code",d:2,bloom:3,sig:{args:["int"],ret:"int"},fn:"freight",
+ tests:[{args:[0],out:5},{args:[10],out:25},{args:[3],out:11},{args:[100],out:205,oculto:true}],
+ checks:[{id:"return",re:"return|printf|System\\.out|console"}],
+ stub:four(`def freight(km):\n    # devolva 5 + 2 * km\n    `,
+`function freight(km) {\n  // devolva 5 + 2 * km\n  \n}`,
+`static int freight(int km) {\n  // devolva 5 + 2 * km\n  \n}`,
+`int freight(int km) {\n  /* devolva 5 + 2 * km */\n  \n}`)},
+{id:"w2",skill:"loop",type:"code",d:2,bloom:3,sig:{args:["int[]"],ret:"int"},fn:"total",
+ tests:[{args:[[1,2,3]],out:6},{args:[[]],out:0},{args:[[10]],out:10},{args:[[4,-2,8,5]],out:15,oculto:true}],
+ checks:[{id:"loop",re:"for|while"}],
+ stub:four(`def total(values):\n    # some todos os valores da lista e devolva o total\n    `,
+`function total(values) {\n  // some todos os valores da lista e devolva o total\n  \n}`,
+`static int total(int[] values) {\n  // some todos os valores e devolva o total\n  \n}`,
+`int total(int values[], int n) {\n  /* some todos os valores e devolva o total */\n  \n}`)},
+{id:"w3",skill:"cond",type:"code",d:2,bloom:3,sig:{args:["double"],ret:"String"},fn:"level",
+ tests:[{args:[39],out:"red"},{args:[38.5],out:"yellow"},{args:[36],out:"green"},{args:[37.5],out:"yellow",oculto:true},{args:[40.2],out:"red",oculto:true}],
+ checks:[{id:"cond",re:"if"}],
+ stub:four(`def level(temp):\n    # 39 ou mais: "red"; de 37.5 a 38.9: "yellow"; abaixo de 37.5: "green"\n    `,
+`function level(temp) {\n  // 39 ou mais: "red"; de 37.5 a 38.9: "yellow"; abaixo de 37.5: "green"\n  \n}`,
+`static String level(double temp) {\n  // 39 ou mais: "red"; de 37.5 a 38.9: "yellow"; abaixo: "green"\n  \n}`,
+`const char *level(double temp) {\n  /* 39 ou mais: "red"; de 37.5 a 38.9: "yellow"; abaixo: "green" */\n  \n}`)},
+{id:"w4",skill:"col",type:"code",d:3,bloom:3,sig:{args:["int[]","int"],ret:"int"},fn:"count_big",
+ tests:[{args:[[3,9,12],5],out:2},{args:[[],0],out:0},{args:[[1,2,3],10],out:0},{args:[[5,5,6],5],out:1,oculto:true}],
+ checks:[{id:"loop",re:"for|while"},{id:"cond",re:"if"}],
+ stub:four(`def count_big(values, limit):\n    # conte quantos valores da lista são maiores que limit\n    `,
+`function count_big(values, limit) {\n  // conte quantos valores da lista são maiores que limit\n  \n}`,
+`static int count_big(int[] values, int limit) {\n  // conte quantos valores são maiores que limit\n  \n}`,
+`int count_big(int values[], int n, int limit) {\n  /* conte quantos valores são maiores que limit */\n  \n}`)},
+{id:"w5",skill:"rec",type:"code",d:3,bloom:3,sig:{args:["int"],ret:"int"},fn:"fact",
+ tests:[{args:[0],out:1},{args:[1],out:1},{args:[5],out:120},{args:[10],out:3628800,oculto:true}],
+ checks:[{id:"rec",re:"fact\\s*\\("},{id:"base",re:"if|elif|else"}],
+ stub:four(`def fact(n):\n    # devolva n! usando recursão: fact(0) é 1\n    `,
+`function fact(n) {\n  // devolva n! usando recursão: fact(0) é 1\n  \n}`,
+`static int fact(int n) {\n  // devolva n! usando recursão: fact(0) é 1\n  \n}`,
+`int fact(int n) {\n  /* devolva n! usando recursão: fact(0) é 1 */\n  \n}`)},
+{id:"w6",skill:"var",type:"code",d:1,bloom:3,sig:{args:["int","int"],ret:"int"},fn:"change",
+ tests:[{args:[64,100],out:36},{args:[100,100],out:0},{args:[10,50],out:40},{args:[7,20],out:13,oculto:true}],
+ checks:[{id:"return",re:"return|printf|System\\.out|console"}],
+ stub:four(`def change(price, paid):\n    # devolva o troco: quanto sobra do valor pago\n    `,
+`function change(price, paid) {\n  // devolva o troco: quanto sobra do valor pago\n  \n}`,
+`static int change(int price, int paid) {\n  // devolva o troco: quanto sobra do valor pago\n  \n}`,
+`int change(int price, int paid) {\n  /* devolva o troco: quanto sobra do valor pago */\n  \n}`)}
 ];
 
 /* DevWise - camada de jogo: economia de XP, dificuldade, loja, desafios e chefões */
@@ -1631,6 +1693,157 @@ const KT = (() => {
       const pos = rows.filter(l => l.ok).map(l => l.preds[k]), neg = rows.filter(l => !l.ok).map(l => l.preds[k]); let auc = null;
       if (pos.length && neg.length) { let w = 0; for (const a of pos) for (const b of neg) w += a > b ? 1 : a === b ? .5 : 0; auc = w / (pos.length * neg.length); }
       return { n: rows.length, brier, auc, acc }; }
+  };
+})();
+
+/* DevWise - execução e avaliação de código escrito pelo estudante.
+
+   Onde cada linguagem roda:
+     js    no próprio navegador, num Web Worker isolado (sem DOM, sem rede), com limite de tempo;
+     py    no próprio navegador, com Pyodide (Python compilado para WebAssembly), baixado de um CDN na primeira vez;
+     java, c   NÃO rodam no navegador. Só são avaliadas se um docente configurar um serviço de execução compatível com o
+           Piston (servidor próprio, ou a API pública com token de autorização). Sem serviço, o exercício fica indisponível
+           nessas linguagens: nada de nota "aproximada".
+
+   Dois tipos de falha, tratados de forma diferente:
+     falha do código do estudante (erro de sintaxe, compilação, exceção, laço infinito, função com outro nome):
+           todos os casos contam como errados e a nota é 0;
+     falha da infraestrutura (sem Worker, Pyodide não baixou, serviço fora do ar ou sem autorização):
+           a entrega não é avaliada, o estudante não perde nada e a tela explica o motivo. */
+const RUN = (() => {
+  const TIMEOUT = 4000, PYODIDE = "https://cdn.jsdelivr.net/pyodide/v0.26.4/full/pyodide.js";
+
+  /* comparação tolerante: número com margem, lista e objeto por conteúdo, texto exato sem espaços nas pontas */
+  function same(a, b) {
+    if (typeof b === "number" && typeof a === "number") return Math.abs(a - b) < 1e-9 || (Math.abs(b) > 1 && Math.abs(a - b) / Math.abs(b) < 1e-9);
+    if (Array.isArray(b)) return Array.isArray(a) && a.length === b.length && a.every((x, i) => same(x, b[i]));
+    if (b && typeof b === "object") { if (!a || typeof a !== "object") return false; const kb = Object.keys(b), ka = Object.keys(a);
+      return kb.length === ka.length && kb.every(k => same(a[k], b[k])); }
+    if (typeof b === "string") return String(a).trim() === b.trim();
+    return a === b;
+  }
+  const show = v => v === undefined ? "undefined" : typeof v === "string" ? v : JSON.stringify(v);
+
+  /* ---------- JavaScript: Web Worker descartável ---------- */
+  function runJS(code, fn, cases) {
+    return new Promise(resolve => {
+      const src = `self.onmessage=function(e){var out=[];try{${""}
+        var f=(function(){ ${"\u0000CODE\u0000"} ; return typeof ${"\u0000FN\u0000"}==="function"?${"\u0000FN\u0000"}:null; })();
+        if(!f){self.postMessage({erro:"noFn"});return}
+        for(var i=0;i<e.data.length;i++){ try{ out.push({v:f.apply(null,e.data[i])}) }catch(err){ out.push({e:String(err&&err.message||err)}) } }
+        self.postMessage({out:out});
+      }catch(err){ self.postMessage({erro:String(err&&err.message||err)}) }};`
+        .split("\u0000CODE\u0000").join(code).split("\u0000FN\u0000").join(fn);
+      let w, done = false;
+      const finish = r => { if (done) return; done = true; try { w && w.terminate(); } catch (e) {} resolve(r); };
+      try { w = new Worker(URL.createObjectURL(new Blob([src], { type: "text/javascript" }))); }
+      catch (e) { return finish({ infra: "worker" }); }
+      const timer = setTimeout(() => finish({ erro: "timeout" }), TIMEOUT);
+      w.onmessage = e => { clearTimeout(timer); finish(e.data); };
+      w.onerror = e => { clearTimeout(timer); finish({ erro: String((e && e.message) || "erro") }); };
+      w.postMessage(cases.map(c => c.args));
+    });
+  }
+
+  /* ---------- Python: Pyodide sob demanda ---------- */
+  let pyLoading = null;
+  function loadPyodide() {
+    if (window.loadPyodide) return window.loadPyodide({ indexURL: PYODIDE.replace(/pyodide\.js$/, "") });
+    if (!pyLoading) pyLoading = new Promise((ok, fail) => { const s = document.createElement("script"); s.src = PYODIDE; s.onload = ok; s.onerror = () => fail(new Error("rede")); document.head.append(s); })
+      .then(() => window.loadPyodide({ indexURL: PYODIDE.replace(/pyodide\.js$/, "") }));
+    return pyLoading;
+  }
+  let pyReady = null;
+  async function runPY(code, fn, cases) {
+    let py;
+    try { if (!pyReady) pyReady = loadPyodide(); py = await pyReady; }
+    catch (e) { pyReady = null; return { infra: "pyodide" }; }
+    try {
+      const prog = code + "\nimport json as _json\ndef _dw(cases):\n    out=[]\n    for a in cases:\n        try:\n            out.append({'v': " + fn + "(*a)})\n        except Exception as _e:\n            out.append({'e': str(_e)})\n    return _json.dumps(out)\n";
+      py.runPython(prog);
+      if (py.globals.get(fn) === undefined) return { erro: "noFn" };
+      return { out: JSON.parse(py.runPython("_dw(" + JSON.stringify(cases.map(c => c.args)) + ")")) };
+    } catch (e) { return { erro: String((e && e.message) || e).split("\n").filter(Boolean).slice(-2).join(" ").slice(0, 200) }; }
+  }
+
+  /* ---------- Serviço externo: Java e C ---------- */
+  const jLit = (t, v) => t === "int[]" ? "new int[]{" + v.join(",") + "}" : t === "double" ? String(Number(v).toFixed(4)) : t === "String" ? JSON.stringify(v) : String(v);
+  function javaProgram(code, item, cases) {
+    const calls = cases.map(c => '    try { o.append("{\\"v\\":" + J(' + item.fn + "(" + c.args.map((a, k) => jLit(item.sig.args[k], a)).join(", ") + '))+"}"); }\n' +
+      '    catch (Throwable e) { o.append("{\\"e\\":\\"" + String.valueOf(e).replace("\\\\","/").replace("\\"","\'") + "\\"}"); }').join('\n    o.append(",");\n');
+    return "import java.util.*;\npublic class Main {\n" + code + "\n" +
+      '  static String J(int x){return String.valueOf(x);}\n  static String J(long x){return String.valueOf(x);}\n  static String J(double x){return String.valueOf(x);}\n' +
+      '  static String J(String s){return s==null?"null":"\\""+s.replace("\\\\","\\\\\\\\").replace("\\"","\\\\\\"")+"\\"";}\n' +
+      '  public static void main(String[] argv){\n    StringBuilder o = new StringBuilder("[");\n' + calls + '\n    System.out.println(o.append("]"));\n  }\n}\n';
+  }
+  function cProgram(code, item, cases) {
+    const fmt = item.sig.ret === "String" ? '\\"%s\\"' : item.sig.ret === "double" ? "%g" : "%d";
+    const calls = cases.map((c, i) => {
+      const decl = [], args = [];
+      c.args.forEach((a, k) => { const t = item.sig.args[k];
+        if (t === "int[]") { decl.push("int a" + i + "_" + k + "[" + Math.max(1, a.length) + "] = {" + (a.length ? a.join(",") : "0") + "};"); args.push("a" + i + "_" + k, String(a.length)); }
+        else args.push(t === "double" ? Number(a).toFixed(4) : String(a)); });
+      return '  { ' + decl.join(" ") + ' printf("{\\"v\\":' + fmt + '}", ' + item.fn + "(" + args.join(", ") + ")); }";
+    }).join('\n  printf(",");\n');
+    return "#include <stdio.h>\n#include <string.h>\n#include <stdlib.h>\n" + code + '\nint main(void) {\n  printf("[");\n' + calls + '\n  printf("]\\n");\n  return 0;\n}\n';
+  }
+  async function runRemote(cfg, lang, item, code, cases) {
+    const src = lang === "java" ? javaProgram(code, item, cases) : cProgram(code, item, cases);
+    const headers = { "content-type": "application/json" }; if (cfg.token) headers.authorization = cfg.token;
+    let d;
+    try {
+      const r = await fetch(cfg.url, { method: "POST", headers,
+        body: JSON.stringify({ language: lang, version: "*", files: [{ name: lang === "java" ? "Main.java" : "main.c", content: src }], run_timeout: 3000, compile_timeout: 10000 }) });
+      if (r.status === 401 || r.status === 403) return { infra: "auth" };
+      if (!r.ok) return { infra: "HTTP " + r.status };
+      d = await r.json();
+    } catch (e) { return { infra: "rede" }; }
+    if (d.compile && d.compile.code) return { erro: (d.compile.stderr || d.compile.output || "compilação").split("\n").filter(Boolean).slice(0, 2).join(" ").slice(0, 200) };
+    const run = d.run || {};
+    try { return { out: JSON.parse((run.stdout || "").trim()) }; }
+    catch (e) { return { erro: (run.stderr || run.output || (run.signal ? "interrompido: " + run.signal : "sem saída")).split("\n").filter(Boolean).slice(0, 2).join(" ").slice(0, 200) }; }
+  }
+
+  /* ---------- Verificação estrutural (Java, C, ou quando a execução falha) ---------- */
+  function structural(code, checks) {
+    const limpo = code.replace(/\/\*[\s\S]*?\*\//g, " ").replace(/\/\/[^\n]*/g, " ").replace(/#[^\n]*/g, " ");
+    return (checks || []).map(c => ({ id: c.id, ok: c.absent ? !new RegExp(c.re, "m").test(limpo) : new RegExp(c.re, "m").test(limpo), peso: c.peso || 1 }));
+  }
+
+  return {
+    /* Avalia o código e devolve { modo, pct, casos, checks, erro }. modo: "exec" (rodou) ou "estrutura". */
+    /* Avalia e devolve { modo, pct, casos, checks, erro }.
+       modo "exec": rodou (a nota vale, mesmo que seja 0 por erro no código);
+       modo "indisponivel": a infraestrutura falhou ou não existe, e a entrega não é avaliada. */
+    async evaluate(item, lang, code, cfg) {
+      const cases = item.tests || [];
+      let r;
+      if (lang === "java" || lang === "c") r = cfg && cfg.url ? await runRemote(cfg, lang, item, code, cases) : { infra: "semServico" };
+      else if (lang === "js") r = typeof Worker !== "undefined" ? await runJS(code, item.fn, cases) : { infra: "worker" };
+      else r = await runPY(code, item.fn, cases);
+      if (r.infra) return { modo: "indisponivel", erro: r.infra, casos: [], checks: [], pct: null };
+      const st = structural(code, item.checks), pesoS = st.reduce((a, x) => a + x.peso, 0);
+      if (r.erro) {   /* o código não rodou: nota 0, com o motivo em cada caso */
+        const casos = cases.map(c => ({ nome: c.nome || (item.fn + "(" + c.args.map(show).join(", ") + ")"), esperado: show(c.out), obtido: "", ok: false, peso: c.peso || 1, oculto: !!c.oculto }));
+        return { modo: "exec", erro: r.erro, casos, checks: st, pct: 0 };
+      }
+      const casos = cases.map((c, i) => { const got = r.out[i] || {}; const ok = !("e" in got) && same(got.v, c.out);
+        return { nome: c.nome || (item.fn + "(" + c.args.map(show).join(", ") + ")"), esperado: show(c.out), obtido: "e" in got ? got.e : show(got.v), ok, peso: c.peso || 1, oculto: !!c.oculto }; });
+      const peso = casos.reduce((a, x) => a + x.peso, 0) || 1, pctCasos = casos.reduce((a, x) => a + (x.ok ? x.peso : 0), 0) / peso;
+      /* a estrutura só entra quando o código de fato rodou: 20% da nota */
+      const pct = pesoS ? 0.8 * pctCasos + 0.2 * (st.reduce((a, x) => a + (x.ok ? x.peso : 0), 0) / pesoS) : pctCasos;
+      return { modo: "exec", casos, checks: st, pct };
+    },
+    /* A linguagem executa neste momento? (JS e Python sempre; Java e C só com serviço configurado) */
+    canRun: (lang, cfg) => lang === "js" || lang === "py" || !!(cfg && cfg.url),
+    javaProgram, cProgram,
+    /* Impressão digital do que foi enviado: prova o conteúdo e o instante, não a autoria. */
+    async hash(txt) {
+      try { const b = new TextEncoder().encode(txt), d = await crypto.subtle.digest("SHA-256", b);
+        return [...new Uint8Array(d)].map(x => x.toString(16).padStart(2, "0")).join("").slice(0, 32); }
+      catch (e) { let h = 0; for (let i = 0; i < txt.length; i++) { h = (h * 31 + txt.charCodeAt(i)) | 0; } return "fnv" + (h >>> 0).toString(16); }
+    },
+    same, structural
   };
 })();
 
@@ -1985,6 +2198,50 @@ Object.assign(LANG.pt.ui,{
  homeI18n:"O jogo existe em 20 idiomas, os mesmos da análise de tradução e tokenização que orienta o projeto. Escritas da direita para a esquerda são suportadas, e idiomas com escrita própria oferecem versão romanizada."
 });
 
+/* ---------- v9: exercícios de código livre ---------- */
+Object.assign(LANG.pt.ui,{
+ bands:["Irregular","Regular","Bom","Ótimo","Excelente"],
+ codeFn:"Escreva a função {f}. O nome precisa ser exatamente esse.",
+ runBtn:"Executar", submit:"Enviar para avaliação", running:"Executando o seu código...",
+ noExecH:"Sem execução nesta linguagem.", noExecP:"{l} não roda dentro do navegador. A nota virá de uma verificação da estrutura do código (se há laço, condição, retorno), que mede a forma e não o funcionamento. Para executar de verdade, escolha Python ou JavaScript, ou peça ao docente para configurar um serviço de execução nos Ajustes.",
+ structOnly:"apenas estrutura", runErr:"O código não rodou: {e}",
+ gotExp:"obtido {g}, esperado {e}", hidden:"Casos ocultos: {a} de {b} corretos. Eles existem para que a solução funcione de verdade, e não só para os exemplos visíveis.",
+ checks:"Estrutura:", checkN:{loop:"usa laço",cond:"usa condição",rec:"chama a si mesma",base:"tem caso base",return:"devolve valor"},
+ aiDebug:"Pedir ajuda ao tutor", scored:"Nota: {p} ({b})",
+ telLive:"Seu processo até aqui: {p} colagens, {r} execuções, {s} s.",
+ telDone:"Registro desta entrega: {p} colagens (maior com {m} caracteres), {r} execuções, {s} s no total. Impressão digital do código: {h}",
+ codeH:"Exercícios de código livre", colScore:"Nota", colPaste:"Colagens", colRuns:"Execuções", colTime:"Tempo", colHash:"Impressão digital",
+ codeP:"Cada entrega guarda a nota, o processo até chegar nela e uma impressão digital do código enviado.",
+ codeEmpty:"Nenhum exercício de código respondido ainda.",
+ codeAuth:"O que isto prova e o que não prova: a impressão digital e a data provam que aquele código foi enviado naquele instante; o número de colagens e o tempo descrevem o processo. Nada disso prova autoria, porque tudo é registrado no navegador do estudante. Para avaliação com peso em nota, use também prova presencial ou a defesa do próprio código.",
+ runnerUrl:"Serviço de execução de código (opcional)",
+ runnerNote:"Em branco, JavaScript e Python rodam no próprio navegador e Java e C recebem apenas verificação de estrutura. Com a URL de um serviço compatível com o Piston, as quatro linguagens passam a ser executadas, mas o código dos estudantes é enviado a terceiros."
+});
+Object.assign(LANG.pt.items,{
+w1:{title:"O frete da cooperativa",prompt:"Escreva a função de frete: 5 reais fixos mais 2 reais por quilômetro.",hint:"Uma linha basta: devolva o resultado da conta, sem imprimir.",why:"A regra vira uma função com nome, que pode ser chamada do site, do aplicativo e da planilha sem cópias divergentes.",analogy:"É a tabela de preços na parede: uma só, e todo mundo consulta a mesma."},
+w2:{title:"Somar a lista de vendas",prompt:"Escreva a função que soma todos os valores de uma lista e devolve o total. Com a lista vazia, o total é zero.",hint:"Comece com um acumulador em zero e percorra a lista somando.",why:"É o padrão acumulador: valor neutro no início, uma soma por volta, resultado devolvido depois do laço.",analogy:"É o cofrinho: começa vazio, recebe uma moeda por vez, e só no fim você conta o que há dentro."},
+w3:{title:"A triagem do posto",prompt:"Escreva a função de triagem: 39 ou mais devolve \"red\"; de 37,5 a 38,9 devolve \"yellow\"; abaixo de 37,5 devolve \"green\".",hint:"A regra mais grave vem primeiro, e cada paciente sai com um único nível.",why:"A cadeia de condições garante uma só saída por paciente. Os valores de fronteira, 39 e 37,5, são justamente onde os erros aparecem.",analogy:"É o protocolo na parede do posto: lido de cima para baixo, parando na primeira linha que se aplica."},
+w4:{title:"Quantos passam do limite",prompt:"Escreva a função que conta quantos valores da lista são maiores que o limite recebido.",hint:"Um contador antes do laço, uma condição dentro dele, o resultado depois.",why:"Contar é diferente de somar: o contador anda de um em um, sem olhar o tamanho do valor. Maior que o limite exclui o valor igual a ele.",analogy:"É o porteiro com contador de mão: um clique por pessoa que atende ao critério."},
+w5:{title:"Fatorial, sem laço",prompt:"Escreva a função fatorial usando recursão. O fatorial de 0 é 1.",hint:"Trate o caso base primeiro; depois devolva n vezes o fatorial de n menos 1.",why:"Sem caso base, a função se chama para sempre. Com ele, cada chamada se aproxima de zero e as respostas voltam multiplicando.",analogy:"São as bonecas russas: você para ao chegar à boneca maciça, e volta fechando uma a uma."},
+w6:{title:"O troco da padaria",prompt:"Escreva a função que devolve o troco: quanto sobra do valor pago depois de descontar o preço.",hint:"Uma subtração e um retorno. Preço e pago chegam como parâmetros.",why:"Os dois valores chegam de fora, a função devolve o resultado e não imprime nada: assim ela serve ao caixa, ao recibo e ao relatório.",analogy:"É a calculadora do balcão: recebe os dois números, mostra a diferença e não guarda nada para si."}
+});
+
+LANG.pt.ui.structPct="{p} da estrutura esperada";
+void "Linhas com * foram avaliadas apenas pela estrutura do código, sem execução.";
+Object.assign(LANG.pt.ui,{
+ aiStatusShort:"Tutor com IA:",
+ teacherH:"Para docentes e pesquisa", teacherP:"Configurações técnicas. Quem só joga não precisa mexer em nada aqui.",
+ pilotFixed:"O {m} decide o jogo: calcula o domínio, libera fases e escolhe a dificuldade, com domínio a partir de {p}. BKT, PFA, AFM e TRI 3PL rodam em segundo plano em toda resposta e só registram o que previam, para comparação na aba Relatório e nos dados exportados.",
+ pilotUrl:"Modo de pesquisa ativo: o endereço desta página define {m} como modelo que decide. Remova o parâmetro ?piloto= para voltar ao padrão.",
+ runnerH:"Execução de código", runnerP:"JavaScript e Python rodam no próprio navegador. Java e C precisam de um servidor que compile e execute o código; sem ele, recebem apenas verificação de estrutura. O Piston é um serviço desse tipo, com instância pública gratuita."
+});
+LANG.pt.ui.aiClaude="Conectado pelo Claude neste link. Na versão publicada no GitHub, o tutor precisa de uma chave de API.";
+LANG.pt.ui.aiOff="Desligado: o jogo usa as dicas escritas pelos autores. Para ligar, informe um provedor abaixo.";
+
+/* v9.2: Java e C só com serviço de execução */
+Object.assign(LANG.pt.ui,{"noExecH": "{l} não roda dentro do navegador.", "noExecP": "Este exercício só pode ser avaliado com um serviço de execução de código, que um docente configura em Ajustes, na seção Para docentes e pesquisa. Enquanto isso, escolha Python ou JavaScript em Ajustes para resolver os exercícios de código.", "infraH": "Não foi possível avaliar agora.", "infra": {"semServico": "Não há serviço de execução configurado para esta linguagem.", "auth": "O serviço de execução recusou o acesso. Confira o token em Ajustes.", "rede": "O serviço de execução não respondeu. Verifique a conexão e tente de novo.", "pyodide": "O Python não pôde ser baixado. Ele precisa de internet na primeira vez; verifique a conexão e tente de novo.", "worker": "Este navegador não permite executar JavaScript isolado. Tente outro navegador.", "outro": "O serviço de execução devolveu um erro. Tente de novo em instantes."}, "runErr": "O código não rodou, por isso a nota é 0: {e}", "codeHidden": "Os exercícios de código livre em {l} ficam ocultos até um docente configurar um serviço de execução. Em Python e JavaScript eles aparecem normalmente.", "runnerH": "Execução de código", "runnerP": "JavaScript e Python rodam no próprio navegador. Java e C precisam de um servidor que compile e execute o código; sem ele, os exercícios de código nessas linguagens ficam ocultos. Use um servidor Piston próprio, ou a API pública do Piston, que desde fevereiro de 2026 exige um token concedido a projetos educacionais sem fins comerciais.", "runnerUrl": "Endereço do serviço de execução", "runnerToken": "Token de autorização (se o serviço exigir)", "runnerNote": "O código dos estudantes em Java e C é enviado a esse servidor para ser compilado e executado. Com o campo vazio, nada sai do navegador.", "runnerOn": "Java e C: execução ligada.", "runnerOff": "Java e C: sem execução. Os exercícios de código nessas linguagens ficam ocultos."});
+["structOnly","structPct"].forEach(k=>delete LANG.pt.ui[k]);
+
 LANG.en = {
 name:"English", llmName:"English",
 ui:{
@@ -2336,6 +2593,50 @@ Object.assign(LANG.en.ui,{
  homeI18n:"The game exists in 20 languages, the same ones from the translation and tokenisation analysis that guides the project. Right-to-left scripts are supported, and languages with their own script offer a romanised version."
 });
 
+/* ---------- v9: free-code exercises ---------- */
+Object.assign(LANG.en.ui,{
+ bands:["Irregular","Fair","Good","Very good","Excellent"],
+ codeFn:"Write the function {f}. The name must be exactly that.",
+ runBtn:"Run", submit:"Submit for grading", running:"Running your code...",
+ noExecH:"No execution in this language.", noExecP:"{l} does not run inside the browser. The score will come from a check of the code structure (is there a loop, a condition, a return), which measures form rather than behaviour. To really run it, choose Python or JavaScript, or ask your teacher to configure an execution service in Settings.",
+ structOnly:"structure only", runErr:"The code did not run: {e}",
+ gotExp:"got {g}, expected {e}", hidden:"Hidden cases: {a} of {b} correct. They exist so that the solution really works, not only for the visible examples.",
+ checks:"Structure:", checkN:{loop:"uses a loop",cond:"uses a condition",rec:"calls itself",base:"has a base case",return:"returns a value"},
+ aiDebug:"Ask the tutor for help", scored:"Score: {p} ({b})",
+ telLive:"Your process so far: {p} pastes, {r} runs, {s} s.",
+ telDone:"Record of this submission: {p} pastes (largest with {m} characters), {r} runs, {s} s in total. Code fingerprint: {h}",
+ codeH:"Free-code exercises", colScore:"Score", colPaste:"Pastes", colRuns:"Runs", colTime:"Time", colHash:"Fingerprint",
+ codeP:"Each submission stores the score, the process that led to it and a fingerprint of the code sent.",
+ codeEmpty:"No code exercise answered yet.",
+ codeAuth:"What this proves and what it does not: the fingerprint and the timestamp prove that this code was submitted at that moment; the number of pastes and the time describe the process. None of it proves authorship, because everything is recorded in the student's own browser. For graded assessment, add supervised work or a defence of the code itself.",
+ runnerUrl:"Code execution service (optional)",
+ runnerNote:"Left blank, JavaScript and Python run in the browser itself and Java and C get a structure check only. With the URL of a Piston-compatible service, all four languages are executed, but the students' code is sent to a third party."
+});
+Object.assign(LANG.en.items,{
+w1:{title:"The co-op's shipping fee",prompt:"Write the shipping function: 5 reais fixed plus 2 reais per kilometre.",hint:"One line is enough: return the result of the calculation, do not print it.",why:"The rule becomes a named function that can be called from the website, the app and the spreadsheet without diverging copies.",analogy:"It is the price list on the wall: only one, and everybody reads the same one."},
+w2:{title:"Adding up the sales list",prompt:"Write the function that adds all the values of a list and returns the total. With an empty list, the total is zero.",hint:"Start with an accumulator at zero and walk through the list adding.",why:"This is the accumulator pattern: a neutral value at the start, one addition per round, the result returned after the loop.",analogy:"It is the piggy bank: it starts empty, takes one coin at a time, and only at the end do you count what is inside."},
+w3:{title:"The clinic triage",prompt:"Write the triage function: 39 or more returns \"red\"; from 37.5 to 38.9 returns \"yellow\"; below 37.5 returns \"green\".",hint:"The most serious rule comes first, and each patient leaves with a single level.",why:"The chain of conditions guarantees one outcome per patient. The boundary values, 39 and 37.5, are exactly where mistakes show up.",analogy:"It is the protocol on the clinic wall: read top to bottom, stopping at the first line that applies."},
+w4:{title:"How many pass the limit",prompt:"Write the function that counts how many values in the list are greater than the given limit.",hint:"A counter before the loop, a condition inside it, the result afterwards.",why:"Counting differs from adding: the counter moves one at a time, regardless of how large the value is. Greater than the limit excludes the value equal to it.",analogy:"It is the doorman with a hand clicker: one click per person who meets the rule."},
+w5:{title:"Factorial, without a loop",prompt:"Write the factorial function using recursion. The factorial of 0 is 1.",hint:"Handle the base case first; then return n times the factorial of n minus 1.",why:"Without a base case, the function calls itself forever. With it, each call moves towards zero and the answers come back multiplying.",analogy:"They are the Russian dolls: you stop at the solid one and come back closing them one by one."},
+w6:{title:"The bakery change",prompt:"Write the function that returns the change: how much is left from the amount paid after subtracting the price.",hint:"One subtraction and one return. Price and paid arrive as parameters.",why:"Both values arrive from outside, the function returns the result and prints nothing: that way it serves the till, the receipt and the report.",analogy:"It is the calculator on the counter: it takes the two numbers, shows the difference and keeps nothing for itself."}
+});
+
+LANG.en.ui.structPct="{p} of the expected structure";
+void "Rows marked with * were graded by code structure only, with no execution.";
+Object.assign(LANG.en.ui,{
+ aiStatusShort:"AI tutor:",
+ teacherH:"For teachers and research", teacherP:"Technical settings. Players do not need to change anything here.",
+ pilotFixed:"{m} drives the game: it computes mastery, unlocks stages and picks the difficulty, with mastery from {p}. BKT, PFA, AFM and 3PL IRT run in the background on every answer and only record what they predicted, for comparison in the Report tab and in the exported data.",
+ pilotUrl:"Research mode on: this page's address sets {m} as the driving model. Remove the ?piloto= parameter to go back to the default.",
+ runnerH:"Code execution", runnerP:"JavaScript and Python run in the browser itself. Java and C need a server that compiles and runs the code; without one, they get a structure check only. Piston is a service of this kind, with a free public instance."
+});
+LANG.en.ui.aiClaude="Connected through Claude on this link. On the version published on GitHub, the tutor needs an API key.";
+LANG.en.ui.aiOff="Off: the game uses the hints written by the authors. To turn it on, enter a provider below.";
+
+/* v9.2: Java e C só com serviço de execução */
+Object.assign(LANG.en.ui,{"noExecH": "{l} does not run inside the browser.", "noExecP": "This exercise can only be graded with a code execution service, which a teacher sets up in Settings, under For teachers and research. Meanwhile, choose Python or JavaScript in Settings to solve the code exercises.", "infraH": "It could not be graded right now.", "infra": {"semServico": "No execution service is configured for this language.", "auth": "The execution service refused access. Check the token in Settings.", "rede": "The execution service did not respond. Check the connection and try again.", "pyodide": "Python could not be downloaded. It needs the internet the first time; check the connection and try again.", "worker": "This browser does not allow isolated JavaScript execution. Try another browser.", "outro": "The execution service returned an error. Try again in a moment."}, "runErr": "The code did not run, so the score is 0: {e}", "codeHidden": "Free-code exercises in {l} stay hidden until a teacher sets up an execution service. In Python and JavaScript they appear as usual.", "runnerH": "Code execution", "runnerP": "JavaScript and Python run in the browser itself. Java and C need a server that compiles and runs the code; without one, the code exercises in those languages stay hidden. Use your own Piston server, or Piston's public API, which since February 2026 requires a token granted to non-commercial educational projects.", "runnerUrl": "Execution service address", "runnerToken": "Authorisation token (if the service requires one)", "runnerNote": "Students' Java and C code is sent to that server to be compiled and run. With the field empty, nothing leaves the browser.", "runnerOn": "Java and C: execution on.", "runnerOff": "Java and C: no execution. The code exercises in those languages stay hidden."});
+["structOnly","structPct"].forEach(k=>delete LANG.en.ui[k]);
+
 LANG.es = {
 name:"Español", llmName:"Latin American Spanish",
 ui:{
@@ -2686,6 +2987,50 @@ Object.assign(LANG.es.ui,{
  homeSbc:"Las 14 misiones cubren programación e ingeniería de software, y cada una declara las competencias de los Referenciales de Formación de la SBC (2017) que entrena. El mismo concepto aparece en cuatro lenguajes de programación, con la misma clave de respuesta.",
  homeI18n:"El juego existe en 20 idiomas, los mismos del análisis de traducción y tokenización que orienta el proyecto. Se admiten escrituras de derecha a izquierda, y los idiomas con escritura propia ofrecen una versión romanizada."
 });
+
+/* ---------- v9: ejercicios de código libre ---------- */
+Object.assign(LANG.es.ui,{
+ bands:["Irregular","Regular","Bueno","Muy bueno","Excelente"],
+ codeFn:"Escribe la función {f}. El nombre tiene que ser exactamente ese.",
+ runBtn:"Ejecutar", submit:"Enviar para evaluación", running:"Ejecutando tu código...",
+ noExecH:"Sin ejecución en este lenguaje.", noExecP:"{l} no se ejecuta dentro del navegador. La nota saldrá de una revisión de la estructura del código (si hay bucle, condición, retorno), que mide la forma y no el funcionamiento. Para ejecutarlo de verdad, elige Python o JavaScript, o pídele al docente que configure un servicio de ejecución en Ajustes.",
+ structOnly:"solo estructura", runErr:"El código no se ejecutó: {e}",
+ gotExp:"obtenido {g}, esperado {e}", hidden:"Casos ocultos: {a} de {b} correctos. Existen para que la solución funcione de verdad, y no solo con los ejemplos visibles.",
+ checks:"Estructura:", checkN:{loop:"usa bucle",cond:"usa condición",rec:"se llama a sí misma",base:"tiene caso base",return:"devuelve un valor"},
+ aiDebug:"Pedir ayuda al tutor", scored:"Nota: {p} ({b})",
+ telLive:"Tu proceso hasta ahora: {p} pegados, {r} ejecuciones, {s} s.",
+ telDone:"Registro de esta entrega: {p} pegados (el mayor con {m} caracteres), {r} ejecuciones, {s} s en total. Huella del código: {h}",
+ codeH:"Ejercicios de código libre", colScore:"Nota", colPaste:"Pegados", colRuns:"Ejecuciones", colTime:"Tiempo", colHash:"Huella",
+ codeP:"Cada entrega guarda la nota, el proceso que llevó a ella y una huella del código enviado.",
+ codeEmpty:"Todavía no respondiste ningún ejercicio de código.",
+ codeAuth:"Qué prueba esto y qué no: la huella y la fecha prueban que ese código se envió en ese instante; la cantidad de pegados y el tiempo describen el proceso. Nada de eso prueba la autoría, porque todo se registra en el navegador del propio estudiante. Para una evaluación con peso en la nota, suma trabajo supervisado o una defensa del propio código.",
+ runnerUrl:"Servicio de ejecución de código (opcional)",
+ runnerNote:"En blanco, JavaScript y Python se ejecutan en el propio navegador y Java y C reciben solo una revisión de estructura. Con la URL de un servicio compatible con Piston, los cuatro lenguajes se ejecutan, pero el código de los estudiantes se envía a terceros."
+});
+Object.assign(LANG.es.items,{
+w1:{title:"El envío de la cooperativa",prompt:"Escribe la función de envío: 5 reales fijos más 2 reales por kilómetro.",hint:"Con una línea alcanza: devuelve el resultado de la cuenta, no lo imprimas.",why:"La regla se convierte en una función con nombre, que se puede llamar desde el sitio, la aplicación y la planilla sin copias que se desincronizan.",analogy:"Es la lista de precios en la pared: una sola, y todos consultan la misma."},
+w2:{title:"Sumar la lista de ventas",prompt:"Escribe la función que suma todos los valores de una lista y devuelve el total. Con la lista vacía, el total es cero.",hint:"Empieza con un acumulador en cero y recorre la lista sumando.",why:"Es el patrón acumulador: valor neutro al principio, una suma por vuelta, resultado devuelto después del bucle.",analogy:"Es la alcancía: empieza vacía, recibe una moneda por vez, y recién al final cuentas lo que hay adentro."},
+w3:{title:"El triaje del centro de salud",prompt:"Escribe la función de triaje: 39 o más devuelve \"red\"; de 37,5 a 38,9 devuelve \"yellow\"; por debajo de 37,5 devuelve \"green\".",hint:"La regla más grave va primero, y cada paciente sale con un único nivel.",why:"La cadena de condiciones garantiza una sola salida por paciente. Los valores de frontera, 39 y 37,5, son justamente donde aparecen los errores.",analogy:"Es el protocolo en la pared del centro: se lee de arriba abajo y se para en la primera línea que aplica."},
+w4:{title:"Cuántos superan el límite",prompt:"Escribe la función que cuenta cuántos valores de la lista son mayores que el límite recibido.",hint:"Un contador antes del bucle, una condición adentro, el resultado después.",why:"Contar es distinto de sumar: el contador avanza de a uno, sin mirar el tamaño del valor. Mayor que el límite excluye al valor igual a él.",analogy:"Es el portero con contador de mano: un clic por cada persona que cumple el criterio."},
+w5:{title:"Factorial, sin bucle",prompt:"Escribe la función factorial usando recursión. El factorial de 0 es 1.",hint:"Atiende primero el caso base; después devuelve n por el factorial de n menos 1.",why:"Sin caso base, la función se llama a sí misma para siempre. Con él, cada llamada se acerca a cero y las respuestas vuelven multiplicando.",analogy:"Son las muñecas rusas: paras al llegar a la maciza y vuelves cerrándolas una por una."},
+w6:{title:"El vuelto de la panadería",prompt:"Escribe la función que devuelve el vuelto: cuánto sobra del monto pagado después de descontar el precio.",hint:"Una resta y un retorno. El precio y lo pagado llegan como parámetros.",why:"Los dos valores llegan de afuera, la función devuelve el resultado y no imprime nada: así sirve a la caja, al recibo y al informe.",analogy:"Es la calculadora del mostrador: recibe los dos números, muestra la diferencia y no se guarda nada."}
+});
+
+LANG.es.ui.structPct="{p} de la estructura esperada";
+void "Las filas con * se evaluaron solo por la estructura del código, sin ejecución.";
+Object.assign(LANG.es.ui,{
+ aiStatusShort:"Tutor con IA:",
+ teacherH:"Para docentes e investigación", teacherP:"Configuraciones técnicas. Quien solo juega no necesita tocar nada aquí.",
+ pilotFixed:"{m} dirige el juego: calcula el dominio, abre las fases y elige la dificultad, con dominio desde el {p}. BKT, PFA, AFM y TRI 3PL corren en segundo plano en cada respuesta y solo registran lo que predecían, para compararlos en la pestaña Informe y en los datos exportados.",
+ pilotUrl:"Modo de investigación activo: la dirección de esta página define {m} como modelo que dirige. Quita el parámetro ?piloto= para volver al valor por defecto.",
+ runnerH:"Ejecución de código", runnerP:"JavaScript y Python se ejecutan en el propio navegador. Java y C necesitan un servidor que compile y ejecute el código; sin él, reciben solo una revisión de estructura. Piston es un servicio de ese tipo, con una instancia pública gratuita."
+});
+LANG.es.ui.aiClaude="Conectado a través de Claude en este enlace. En la versión publicada en GitHub, el tutor necesita una clave de API.";
+LANG.es.ui.aiOff="Apagado: el juego usa las pistas escritas por los autores. Para encenderlo, indica un proveedor abajo.";
+
+/* v9.2: Java e C só com serviço de execução */
+Object.assign(LANG.es.ui,{"noExecH": "{l} no se ejecuta dentro del navegador.", "noExecP": "Este ejercicio solo puede evaluarse con un servicio de ejecución de código, que un docente configura en Ajustes, en la sección Para docentes e investigación. Mientras tanto, elige Python o JavaScript en Ajustes para resolver los ejercicios de código.", "infraH": "No se pudo evaluar ahora.", "infra": {"semServico": "No hay un servicio de ejecución configurado para este lenguaje.", "auth": "El servicio de ejecución rechazó el acceso. Revisa el token en Ajustes.", "rede": "El servicio de ejecución no respondió. Revisa la conexión e inténtalo de nuevo.", "pyodide": "No se pudo descargar Python. Necesita internet la primera vez; revisa la conexión e inténtalo de nuevo.", "worker": "Este navegador no permite ejecutar JavaScript aislado. Prueba con otro navegador.", "outro": "El servicio de ejecución devolvió un error. Inténtalo de nuevo en un momento."}, "runErr": "El código no se ejecutó, por eso la nota es 0: {e}", "codeHidden": "Los ejercicios de código libre en {l} quedan ocultos hasta que un docente configure un servicio de ejecución. En Python y JavaScript aparecen normalmente.", "runnerH": "Ejecución de código", "runnerP": "JavaScript y Python se ejecutan en el propio navegador. Java y C necesitan un servidor que compile y ejecute el código; sin él, los ejercicios de código en esos lenguajes quedan ocultos. Usa un servidor Piston propio, o la API pública de Piston, que desde febrero de 2026 exige un token otorgado a proyectos educativos sin fines comerciales.", "runnerUrl": "Dirección del servicio de ejecución", "runnerToken": "Token de autorización (si el servicio lo exige)", "runnerNote": "El código de los estudiantes en Java y C se envía a ese servidor para compilarlo y ejecutarlo. Con el campo vacío, nada sale del navegador.", "runnerOn": "Java y C: ejecución activada.", "runnerOff": "Java y C: sin ejecución. Los ejercicios de código en esos lenguajes quedan ocultos."});
+["structOnly","structPct"].forEach(k=>delete LANG.es.ui[k]);
 
 /* Pacote gerado por tools/gerar-idioma.js a partir de "en". REVISAR com um falante nativo antes de publicar. */
 LANG.ar = {
@@ -34585,7 +34930,10 @@ ROM.zh = {};
 const SK = Object.fromEntries(SKILLS.map(s=>[s.id,s]));
 const IT = Object.fromEntries(ITEMS.concat(BOSS_ITEMS).map(i=>[i.id,i]));
 const KEY="devwise-v2", L0=0.15, UNLOCK=0.6, SPRINT=5;
-const pilot=()=>(S&&KT.PILOTS.includes(S.pilot))?S.pilot:"elo";
+/* Elo/Rasch pilota sempre. Os demais modelos rodam em segundo plano em toda resposta.
+   Para experimentos de pesquisa, o piloto pode ser trocado só pelo endereço (?piloto=bkt), fora do alcance do estudante. */
+const URL_PILOT=(()=>{try{const p=new URLSearchParams(location.search).get("piloto");return p&&KT.PILOTS.includes(p)?p:null}catch(e){return null}})();
+const pilot=()=>URL_PILOT||"elo";
 const master=()=>KT.master(pilot());            // limiar de domínio do modelo que pilota (85% no Elo/Rasch, 95% no BKT)
 const today=()=>{const d=new Date();return d.getFullYear()+"-"+(d.getMonth()+1)+"-"+d.getDate()};
 let evoSel=null, evoPl=null;
@@ -34608,14 +34956,14 @@ function guessLang(){const n=(navigator.language||"pt").slice(0,2).toLowerCase()
 function newSprint(n){return {n,done:[],start:snapshot(),b:{},run:0}}
 function blankSkills(){const skills={}; SKILLS.forEach(s=>skills[s.id]=s.area==="prog"?{pl:{}}:{L:L0,n:0,c:0}); return skills}
 function fresh(){
-  const o={v:2,started:false,lang:guessLang(),pl:"py",skills:blankSkills(),brief:{},seen:{},log:[],xp:0,xpTotal:0,mode:"normal",inv:{shield:0,fifty:0,time:0},boost:0,titles:[],title:null,bosses:{},daily:{date:"",item:null,done:false},streak:0,best:0,board:[],pilot:"elo",confirm:true,name:"",session:{id:0,day:"",n:0,last:0},
+  const o={v:2,started:false,lang:guessLang(),pl:"py",skills:blankSkills(),brief:{},seen:{},log:[],xp:0,xpTotal:0,mode:"normal",inv:{shield:0,fifty:0,time:0},boost:0,titles:[],title:null,bosses:{},daily:{date:"",item:null,done:false},streak:0,best:0,board:[],pilot:"elo",confirm:true,runner:{url:"",langs:["py","js","java","c"]},name:"",session:{id:0,day:"",n:0,last:0},
     sprint:{n:1,done:[],start:{},b:{},run:0},ai:{provider:"anthropic",key:"",model:"",base:""}};
   return o;
 }
 function load(){
   try{const d=JSON.parse(localStorage.getItem(KEY)||"null");
     if(d&&d.v===2&&d.skills){const f=fresh();SKILLS.forEach(s=>{const e=d.skills[s.id]; if(!e)d.skills[s.id]=f.skills[s.id]; else if(s.area==="prog"&&!e.pl){const pl=PLS[d.pl]?d.pl:"py";d.skills[s.id]={pl:{[pl]:{L:e.L,n:e.n,c:e.c}}}}}); // migra o domínio único da v3 para a linguagem em uso
-      if(d.xpTotal===undefined)d.xpTotal=d.xp||0; for(const k in f)if(d[k]===undefined)d[k]=f[k]; d.sprint.b=d.sprint.b||{}; d.sprint.run=d.sprint.run||0; if(!MODES[d.mode])d.mode="normal"; if(!KT.MODELS[d.pilot])d.pilot="elo"; if(!d.session)d.session=f.session; if(!LANG[d.lang])d.lang="pt"; if(!PLS[d.pl])d.pl="py"; d.ai=d.ai||f.ai; d.brief=d.brief||{}; return d;}}catch(e){}
+      if(d.xpTotal===undefined)d.xpTotal=d.xp||0; for(const k in f)if(d[k]===undefined)d[k]=f[k]; d.sprint.b=d.sprint.b||{}; d.sprint.run=d.sprint.run||0; if(!MODES[d.mode])d.mode="normal"; if(!KT.MODELS[d.pilot])d.pilot="elo"; if(!d.runner)d.runner=f.runner; if(!d.session)d.session=f.session; if(!LANG[d.lang])d.lang="pt"; if(!PLS[d.pl])d.pl="py"; d.ai=d.ai||f.ai; d.brief=d.brief||{}; return d;}}catch(e){}
   return fresh();
 }
 function save(){try{localStorage.setItem(KEY,JSON.stringify(S))}catch(e){}}
@@ -34664,7 +35012,7 @@ function career(){const r=t("roles"); if(allMastered())return r[4]; const a=avgL
 function shuffle(a){a=a.slice();for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]]}return a}
 function pickItem(skillId,avoid){
   const L=trk(skillId).L, target=L<.4?1:L<.7?2:3;
-  let pool=ITEMS.filter(i=>i.skill===skillId&&!avoid.includes(i.id));
+  let pool=ITEMS.filter(i=>i.skill===skillId&&!avoid.includes(i.id)&&(i.type!=="code"||RUN.canRun(S.pl,S.runner)));
   if(!pool.length)return null;
   const unseen=pool.filter(i=>!S.seen[i.id]), missed=pool.filter(i=>S.seen[i.id]&&!S.seen[i.id].ok);
   pool=unseen.length?unseen:missed.length?missed:pool;
@@ -34681,22 +35029,26 @@ function fillBoard(lastId){
   for(const k of order){ if(S.board.length>=3)break; const it=pickItem(k,lastId?[lastId]:[]); if(it)S.board.push(it.id); }
   if(!S.board.length&&eligible.length){const it=pickItem(eligible[0],[]); if(it)S.board.push(it.id);}
 }
-function guessProb(it){return it.type==="mc"?1/itemOpts(it).length:it.type==="bug"?1/itemCode(it).split("\n").length:it.type==="sort"?1/Math.pow(2,it.key.length):0.05}
+const PASS=0.6;                      // a partir daqui conta como acerto para o modelo
+const BANDS=[[0.95,4],[0.8,3],[0.6,2],[0.4,1],[0,0]];   // excelente, ótimo, bom, regular, irregular
+const band=p=>BANDS.find(b=>p>=b[0])[1];
+function guessProb(it){return it.type==="code"?0.02:it.type==="mc"?1/itemOpts(it).length:it.type==="bug"?1/itemCode(it).split("\n").length:it.type==="sort"?1/Math.pow(2,it.key.length):0.05}
 function resolve(ok){
   stopTimer();
   const it=cur.item, sk=trk(it.skill), before=sk.L, roleBefore=career(), m=MODES[cur.mode];
   const openBefore=SKILLS.filter(s=>unlocked(s.id)).map(s=>s.id);
   let g=guessProb(it); if(cur.typed)g=0.03; else if(cur.fifty||cur.hint)g=Math.max(.5,g);
   const now=Date.now(), ses=S.session; if(ses.day!==today()||now-ses.last>30*60000){ses.id++;ses.day=today();ses.n=0} ses.n++; ses.last=now;
+  const pct=cur.res?cur.res.pct:null;
   const preds=KT.predictAll(sk,it,g);                       // cada modelo registra o que previa ANTES de ver a resposta
   KT.updateAll(sk,it,g,ok?1:0); sk.L=KT.mastery(sk,pilot()); sk.n++; if(ok){sk.c++; sk.days=sk.days||[]; if(!sk.days.includes(today()))sk.days.push(today())}
-  const res={ok,before,after:sk.L,awaits:false,mi:Math.floor(Math.random()*4),comeback:0,streak:0,xp:0,pen:0,shield:false,bounties:[],newly:[],promo:null,masteredNow:before<master()&&sk.L>=master()};
-  S.log.push({i:S.log.length+1,sprint:S.sprint.n,item:it.id,skill:it.skill,bloom:it.bloom,d:it.d,ok,hint:cur.hint,ai:!!cur.aiUsed,mode:cur.mode,typed:!!cur.typed,timeout:!!cur.timeout,boss:it.boss||null,lang:S.lang,pl:isProg(it.skill)?S.pl:null,before:+before.toFixed(3),after:+sk.L.toFixed(3),pilot:pilot(),preds,b:+KT.itemB(it).toFixed(2),c:+g.toFixed(3),session:ses.id,pos:ses.n,rt:cur.t0?now-cur.t0:null,t:now});
+  const res={ok,before,after:sk.L,pct,awaits:false,mi:Math.floor(Math.random()*4),comeback:0,streak:0,xp:0,pen:0,shield:false,bounties:[],newly:[],promo:null,masteredNow:before<master()&&sk.L>=master()};
+  S.log.push({i:S.log.length+1,sprint:S.sprint.n,item:it.id,skill:it.skill,bloom:it.bloom,d:it.d,ok,hint:cur.hint,ai:!!cur.aiUsed,mode:cur.mode,typed:!!cur.typed,timeout:!!cur.timeout,boss:it.boss||null,lang:S.lang,pl:isProg(it.skill)?S.pl:null,before:+before.toFixed(3),after:+sk.L.toFixed(3),pilot:pilot(),preds,pct:pct==null?null:+pct.toFixed(3),code:it.type==="code"?{hash:cur.hash||null,chars:(cur.code||"").length,lang:S.pl,modo:cur.res&&cur.res.modo,tel:cur.tel}:null,b:+KT.itemB(it).toFixed(2),c:+g.toFixed(3),session:ses.id,pos:ses.n,rt:cur.t0?now-cur.t0:null,t:now});
   res.awaits=awaitsConfirm(it.skill);
   if(it.boss){ if(!ok)boss.errors++; }
   else{
     S.streak=ok?S.streak+1:0; S.best=Math.max(S.best,S.streak);
-    if(ok){ let xp=Math.round(it.d*10*m.mult); if(cur.hint)xp=Math.ceil(xp/2); if(S.streak>=3){xp+=5;res.streak=S.streak} if(S.lastWrong){xp+=COMEBACK;res.comeback=COMEBACK} if(S.boost>0)xp*=2; if(cur.daily)xp*=2; res.xp=xp; earn(xp); }
+    if(ok){ let xp=Math.round(it.d*10*m.mult*(pct==null?1:Math.max(.5,pct))); if(cur.hint)xp=Math.ceil(xp/2); if(S.streak>=3){xp+=5;res.streak=S.streak} if(S.lastWrong){xp+=COMEBACK;res.comeback=COMEBACK} if(S.boost>0)xp*=2; if(cur.daily)xp*=2; res.xp=xp; earn(xp); }
     else{ const pen=m.pen*it.d; if(S.inv.shield>0){S.inv.shield--;res.shield=true} else {res.pen=Math.min(S.xp,pen);S.xp-=res.pen} }
     S.lastWrong=!ok;
     if(S.boost>0)S.boost--;
@@ -34735,7 +35087,7 @@ function startTimer(){
 }
 function ensureDaily(){
   const d=new Date(), today=d.getFullYear()+"-"+(d.getMonth()+1)+"-"+d.getDate(); if(S.daily.date===today)return;
-  const pool=ITEMS.filter(i=>S.brief[i.skill]&&unlocked(i.skill)); if(!pool.length)return;
+  const pool=ITEMS.filter(i=>S.brief[i.skill]&&unlocked(i.skill)&&i.type!=="code"); if(!pool.length)return;   // o desafio do dia não depende de execução de código
   S.daily={date:today,item:shuffle(pool)[0].id,done:false};
 }
 function buy(p){
@@ -34771,6 +35123,19 @@ async function aiHint(){
   cur.hint=true; cur.aiUsed=true; cur.aiText=t("aiThinking"); render();
   try{cur.aiText=(await AI.ask(aiContext(cur.item)+"Give ONE Socratic hint of at most 55 words built on a practical everyday analogy. Never reveal the answer, never name or quote the correct option or line. Plain text, no markdown. Reply in "+Lg().llmName+".")).trim();}
   catch(e){cur.aiText=t("aiFail")+" "+t("tutorHint")+itT(cur.item.id).hint;}
+  if(view==="ticket")render();
+}
+async function aiDebug(){
+  const it=cur.item, r=cur.res, falhas=(r&&r.casos||[]).filter(c=>!c.ok).slice(0,3);
+  cur.aiDebug=t("aiThinking"); render();
+  const ctx="You are the tutor inside DevWise, helping an adult beginner debug their own code.\n"+
+    "Task: "+itT(it.id).prompt+"\nLanguage: "+PLS[S.pl]+". Required function: "+it.fn+"\n"+
+    "Student's code:\n"+cur.code+"\n"+
+    (r&&r.erro?"The code did not run. Error: "+r.erro+"\n":"")+
+    (falhas.length?"Failing cases:\n"+falhas.map(c=>"  "+c.nome+" -> expected "+c.esperado+", got "+c.obtido).join("\n")+"\n":"")+
+    (r&&r.modo==="estrutura"?"Note: this language is not executed in the browser; only structure was checked.\n":"");
+  try{cur.aiDebug=(await AI.ask(ctx+"Explain in at most 90 words what is happening in THIS code and where the reasoning goes wrong. Point at the line or the idea, ask one question that leads the student to the fix, and do NOT write the corrected code. Plain text, no markdown. Reply in "+Lg().llmName+".")).trim();}
+  catch(e){cur.aiDebug=t("aiFail");}
   if(view==="ticket")render();
 }
 async function aiExplain(){
@@ -34928,6 +35293,7 @@ function skillInfo(){
   return h("div",{class:"skillinfo","aria-live":"polite"},h("h4",null,x.name),h("p",null,x.about),h("p",{class:"note"},why),
     un&&h("button",{class:"btn ghost small",onclick:()=>{briefId=selSkill;go("brief")}},t("reread")));
 }
+function codeHiddenNote(){return !RUN.canRun(S.pl,S.runner)&&ITEMS.some(i=>i.type==="code")?h("p",{class:"note"},"⌨️ "+t("codeHidden",{l:PLS[S.pl]})):null}
 function board(){
   if(S.sprint.done.length>=SPRINT)return retro();
   fillBoard(); ensureDaily(); save();
@@ -34939,6 +35305,7 @@ function board(){
         miss.length>0&&[h("h3",null,t("missions")),h("div",{class:"tickets"},miss.map(missionCard))],
         h("h3",{class:miss.length?"gap":null},t("todo")),
         S.board.length?h("div",{class:"tickets"},S.board.map(id=>ticketCard(IT[id]))):h("p",{class:"empty"},t("todoEmpty")),
+        codeHiddenNote(),
         dl&&[h("h3",{class:"gap"},"📅 "+t("dailyH")),S.daily.done?h("p",{class:"empty"},t("dailyDone")):h("div",{class:"tickets"},ticketCard(dl,true))],
         h("h3",{class:"gap"},"⚔️ "+t("bossesH")),h("div",{class:"tickets"},BOSSES.map(bossCard)),
         h("div",{class:"done"},h("h3",null,t("doneSprint")),
@@ -34964,6 +35331,7 @@ function openTicket(id,o){
   if(it.type==="mc")cur.order=shuffle(itemOpts(it).map((_,i)=>i));
   if(it.type==="bug"||it.type==="parsons"){cur.prose=!itemCode(it);cur.lines=cur.prose?itT(it.id).lines.slice():itemCode(it).split("\n");}
   if(it.type==="sort")cur.pick=it.key.map(()=>null);
+  if(it.type==="code"){cur.code=(it.stub[S.pl]||it.stub.py);cur.tel={t0:Date.now(),first:null,pastes:0,maxPaste:0,runs:0};cur.res=null;cur.aiDebug=null}
   if(it.type==="parsons"){let b;do{b=shuffle(cur.lines.map((_,i)=>i))}while(b.every((v,i)=>v===i));cur.bank=b;cur.sol=[]}
   go("ticket"); startTimer();
 }
@@ -34996,7 +35364,14 @@ function shop(){
 }
 function ticket(){
   const it=cur.item, tx=itT(it.id), se=SK[it.skill].area==="se", r=cur.result, body=[], opts=it.type==="mc"?itemOpts(it):null, m=MODES[cur.mode], isBoss=!!it.boss;
+  const runCode=async(enviar)=>{
+    if(cur.running)return; cur.running=true; cur.tel.runs++; render();
+    cur.res=await RUN.evaluate(it,S.pl,cur.code,S.runner); cur.hash=await RUN.hash(cur.code);
+    cur.running=false; render();
+    if(enviar&&cur.res.modo==="exec"){cur.tel.ms=Date.now()-cur.tel.t0; resolve(cur.res.pct>=PASS); render(); const fb=document.getElementById("fb"); if(fb){fb.focus();fb.scrollIntoView({block:"nearest",behavior:"smooth"})}}
+  };
   const check=()=>{
+    if(it.type==="code")return runCode(true);
     if(cur.typed&&!normOut(cur.text))return;
     const ok=cur.typed?normOut(cur.text)===normOut(opts[0]):it.type==="mc"?cur.sel===0:it.type==="bug"?cur.sel===it.answer:it.type==="sort"?cur.pick.every((p,i)=>p===it.key[i]):cur.sol.map(i=>cur.lines[i]).join("\n")===cur.lines.join("\n");
     resolve(ok); render(); celebrate(cur.result,isBoss); const fb=document.getElementById("fb"); if(fb){fb.focus();fb.scrollIntoView({block:"nearest",behavior:"smooth"})}
@@ -35016,6 +35391,31 @@ function ticket(){
       let cls="cl"; if(cur.done){ if(i===it.answer)cls+=" right"; else if(i===cur.sel)cls+=" wrong"; }
       return h("button",{class:cls,"aria-pressed":String(cur.sel===i),disabled:cur.done,onclick:()=>{cur.sel=i;render()}},h("span",{class:"n"},String(i+1)),h("span",null,ln));})));
   }
+  if(it.type==="code"){
+    const r=cur.res, pode=RUN.canRun(S.pl,S.runner);
+    const onKey=e=>{const ta=e.target; if(!cur.tel.first)cur.tel.first=Date.now()-cur.tel.t0;
+      if(e.key==="Tab"){e.preventDefault();const p=ta.selectionStart;ta.value=ta.value.slice(0,p)+"    "+ta.value.slice(ta.selectionEnd);ta.selectionStart=ta.selectionEnd=p+4;cur.code=ta.value}};
+    body.push(h("p",{class:"sig"},t("codeFn",{f:it.fn})));
+    if(!pode)body.push(h("div",{class:"hint"},h("b",null,t("noExecH",{l:PLS[S.pl]})+" "),t("noExecP")));
+    body.push(h("textarea",{class:"editor",spellcheck:"false",disabled:cur.done,"aria-label":t("codeFn",{f:it.fn}),
+      oninput:e=>{cur.code=e.target.value; if(!cur.tel.first)cur.tel.first=Date.now()-cur.tel.t0},
+      onkeydown:onKey, onpaste:e=>{const txt=(e.clipboardData||window.clipboardData).getData("text")||""; cur.tel.pastes++; cur.tel.maxPaste=Math.max(cur.tel.maxPaste,txt.length)}},cur.code));
+    if(cur.running)body.push(h("p",{class:"note"},t("running")));
+    if(r&&r.modo==="indisponivel")body.push(h("div",{class:"hint"},h("b",null,t("infraH")+" "),t("infra")[r.erro]||t("infra").outro));
+    if(r&&r.modo==="exec"){
+      const vis=r.casos.filter(c=>!c.oculto), oc=r.casos.filter(c=>c.oculto);
+      body.push(h("div",{class:"score"},
+        h("div",{class:"bar big"},h("i",{class:"b"+band(r.pct),style:"width:"+pct(r.pct)})),
+        h("b",null,pct(r.pct)+" "+t("bands")[band(r.pct)])));
+      if(r.erro)body.push(h("p",{class:"note"},t("runErr",{e:r.erro})));
+      if(vis.length&&!r.erro)body.push(h("div",{class:"cases"},vis.map(c=>h("div",{class:"case "+(c.ok?"ok":"no")},
+        h("code",null,c.nome),h("span",null,c.ok?"✓":t("gotExp",{g:c.obtido,e:c.esperado}))))));
+      if(oc.length&&!r.erro)body.push(h("p",{class:"note"},t("hidden",{a:oc.filter(c=>c.ok).length,b:oc.length})));
+      if(r.checks&&r.checks.length&&!r.erro)body.push(h("p",{class:"note"},t("checks")+" "+r.checks.map(c=>(c.ok?"✓ ":"✗ ")+t("checkN")[c.id]).join("   ")));
+    }
+    if(cur.aiDebug)body.push(h("div",{class:"ai"},h("b",null,t("aiLabel")),cur.aiDebug));
+    if(!cur.done)body.push(h("p",{class:"note"},t("telLive",{p:cur.tel.pastes,r:cur.tel.runs,s:Math.round((Date.now()-cur.tel.t0)/1000)})));
+  }
   if(it.type==="sort"){
     body.push(h("p",{class:"note"},t("sortHint")));
     body.push(h("div",{class:"sortcards"},tx.cards.map((c,i)=>{const okc=cur.done&&cur.pick[i]===it.key[i];
@@ -35032,7 +35432,7 @@ function ticket(){
         !cur.done&&h("button",{class:"mv","aria-label":t("down"),onclick:()=>move(pos,1)},"↓"))))));
     if(cur.done&&!r.ok)body.push(h("p",{class:"note"},t("correctOrder")),cur.prose?h("ol",{class:"steps"},cur.lines.map(l=>h("li",null,l))):h("pre",{class:"code"},cur.lines.join("\n")));
   }
-  const ready=cur.typed?true:it.type==="parsons"?cur.sol.length===cur.lines.length:it.type==="sort"?cur.pick.every(p=>p!==null):cur.sel!==null;
+  const ready=it.type==="code"?!!(cur.code||"").trim():cur.typed?true:it.type==="parsons"?cur.sol.length===cur.lines.length:it.type==="sort"?cur.pick.every(p=>p!==null):cur.sel!==null;
   const over=S.sprint.done.length>=SPRINT, busy=cur.aiText===t("aiThinking")||cur.aiAfter===t("aiThinking");
   const hints=isBoss?"none":m.hint, canPay=hints!=="paid"||S.xp>=HINT_COST, payHint=()=>{if(hints==="paid"){S.xp-=HINT_COST;save()}};
   const timed=m.timer>0&&!cur.done, b=isBoss&&BOSSES.find(x=>x.id===it.boss);
@@ -35048,7 +35448,9 @@ function ticket(){
     cur.hint&&!cur.aiUsed&&h("div",{class:"hint"},h("b",null,t("tutorHint")),tx.hint),
     cur.aiText&&h("div",{class:"ai","aria-live":"polite"},h("b",null,t("aiLabel")),cur.aiText),
     !cur.done&&h("div",{class:"row"},
-      h("button",{class:"btn",disabled:!ready,onclick:check},t("check")),
+      it.type==="code"&&h("button",{class:"btn ghost",disabled:!ready||cur.running||!RUN.canRun(S.pl,S.runner),onclick:()=>runCode(false)},"▶ "+t("runBtn")),
+      h("button",{class:"btn",disabled:!ready||cur.running||(it.type==="code"&&!RUN.canRun(S.pl,S.runner)),onclick:check},it.type==="code"?t("submit"):t("check")),
+      it.type==="code"&&cur.res&&cur.res.modo==="exec"&&!cur.done&&AI.ready()&&h("button",{class:"btn ghost",disabled:busy,onclick:aiDebug},"🔍 "+t("aiDebug")),
       hints!=="none"&&!cur.hint&&h("button",{class:"btn ghost",disabled:!canPay,onclick:()=>{payHint();cur.hint=true;render()}},hints==="paid"?t("hintPaid",{c:HINT_COST}):t("hint")),
       hints!=="none"&&!cur.aiUsed&&!cur.hint&&AI.ready()&&h("button",{class:"btn ghost",disabled:busy||!canPay,onclick:()=>{payHint();aiHint()}},t("aiHint")),
       !isBoss&&!cur.typed&&it.type==="mc"&&!cur.fifty&&S.inv.fifty>0&&h("button",{class:"btn ghost",onclick:useFifty},"✂️ "+t("useFifty",{n:S.inv.fifty})),
@@ -35061,6 +35463,8 @@ function ticket(){
       h("p",null,h("b",null,t("why")),tx.why),
       h("div",{class:"analogy"},h("b",null,t("analogy")),tx.analogy),
       cur.aiAfter&&h("div",{class:"ai"},h("b",null,t("aiLabel")),cur.aiAfter),
+      r.pct!=null&&h("p",{class:"delta"},t("scored",{p:pct(r.pct),b:t("bands")[band(r.pct)]})),
+      it.type==="code"&&h("p",{class:"note"},t("telDone",{p:cur.tel.pastes,m:cur.tel.maxPaste,r:cur.tel.runs,s:Math.round(cur.tel.ms/1000),h:cur.hash})),
       h("p",{class:"delta"},t("delta",{s:skT(it.skill).name,a:pct(r.before),b:pct(r.after),x:r.xp})),
       r.streak>0&&h("p",{class:"promo"},"🔥 "+t("streakMsg",{n:r.streak})),
       r.comeback>0&&h("p",{class:"promo"},"💪 "+t("comeback",{x:r.comeback})),
@@ -35120,6 +35524,19 @@ function plPanel(){
         h("tr",null,h("td",null,h("b",null,t("plAcc"))),pls.map(p=>h("td",null,acc(p))))))),
     h("div",{class:"analogy",style:"background:var(--sunken)"},h("b",null,t("analogy")),t("plA")));
 }
+function codePanel(){
+  const rows=S.log.filter(l=>l.code);
+  return h("section",{class:"panel"},h("h3",null,"⌨️ "+t("codeH")),h("p",{class:"note"},t("codeP")),
+    rows.length?h("div",{class:"tblwrap"},h("table",null,
+      h("thead",null,h("tr",null,h("th",null,t("colSkill")),h("th",null,PLS[S.pl]&&t("codeLang")),h("th",null,t("colScore")),h("th",null,t("colPaste")),h("th",null,t("colRuns")),h("th",null,t("colTime")),h("th",null,t("colHash")))),
+      h("tbody",null,rows.slice(-12).reverse().map(l=>{const tel=l.code.tel||{};return h("tr",null,
+        h("td",null,skT(l.skill).name),h("td",null,PLS[l.code.lang]||l.code.lang),
+        h("td",null,l.pct==null?"-":pct(l.pct)+" "+t("bands")[band(l.pct)]),
+        h("td",null,(tel.pastes||0)+(tel.maxPaste?" ("+tel.maxPaste+")":"")),h("td",null,String(tel.runs||0)),
+        h("td",null,Math.round((tel.ms||0)/1000)+" s"),h("td",{class:"note"},(l.code.hash||"").slice(0,10)))}))))
+    :h("p",{class:"empty"},t("codeEmpty")),
+    h("p",{class:"note"},t("codeAuth")));
+}
 function modelPanel(){
   const rows=KT.IDS.map(k=>[k,KT.score(S.log,k)]), f=x=>x==null?"-":x.toFixed(3);
   return h("section",{class:"panel"},h("h3",null,"🧪 "+t("cmpH")),h("p",{class:"note"},t("cmpP")),
@@ -35157,39 +35574,53 @@ function report(){
           h("td",null,h("div",{class:"bar"},h("i",{style:"width:"+(b.n?pct(b.c/b.n):"0%")}))),h("td",null,b.n?frac(b.c,b.n):t("noData")))))))),
       h("section",{class:"panel"},h("h3",null,"🏆 "+t("trophies")),Object.keys(S.bosses).length?h("ul",{style:"margin:0;padding-left:20px"},Object.keys(S.bosses).map(k=>h("li",null,h("b",null,gt().bosses[k].trophy),"  ("+gt().bosses[k].name+")"))):h("p",{class:"empty"},t("noTrophies"))),
       h("section",{class:"panel"},h("h3",null,t("how")),h("p",null,t("howP",{m:pct(master())})),h("div",{class:"analogy",style:"background:var(--sunken)"},h("b",null,t("analogy")),t("howA")),h("p",{class:"note"},t("howParams",{m:pct(master())}))),
+      codePanel(),
       modelPanel(),
       h("section",{class:"panel noprint"},h("h3",null,t("data")),h("p",{class:"note"},t("dataP")),
         h("div",{class:"row"},
           h("button",{class:"btn ghost small",onclick:()=>{showJson=!showJson;render()}},showJson?t("hideJson"):t("showJson")),
           h("button",{class:"btn ghost small",onclick:()=>{try{const a=document.createElement("a");a.href=URL.createObjectURL(new Blob([exportData()],{type:"application/json"}));a.download="devwise-log.json";a.click()}catch(e){} showJson=true;render()}},t("download")),
-          h("button",{class:"btn ghost small",onclick:()=>{ if(!resetArmed){resetArmed=true;render();return;} const keep={lang:S.lang,pl:S.pl,ai:S.ai,mode:S.mode,pilot:S.pilot,confirm:S.confirm,name:S.name}; S=Object.assign(fresh(),keep);save();selSkill=null;cur=null;go("home") }},resetArmed?t("resetConfirm"):t("reset"))),
+          h("button",{class:"btn ghost small",onclick:()=>{ if(!resetArmed){resetArmed=true;render();return;} const keep={lang:S.lang,pl:S.pl,ai:S.ai,mode:S.mode,pilot:S.pilot,confirm:S.confirm,name:S.name,runner:S.runner}; S=Object.assign(fresh(),keep);save();selSkill=null;cur=null;go("home") }},resetArmed?t("resetConfirm"):t("reset"))),
         showJson&&h("textarea",{readonly:true,"aria-label":"JSON",style:"margin-top:12px",onfocus:e=>e.target.select()},exportData()))));
 }
 function settings(){
   const a=S.ai, f={}; const inp=(k,type,ph)=>f[k]=h("input",{type,value:a[k]||"",placeholder:ph,autocomplete:"off"});
   f.provider=h("select",{onchange:e=>{a.provider=e.target.value;render()}},h("option",{value:"anthropic",selected:a.provider==="anthropic"},t("provAnthropic")),h("option",{value:"openai",selected:a.provider==="openai"},t("provOpenAI")));
   const status=AI.sample?t("aiClaude"):AI.ready()?t("aiKeyOn",{m:a.model||(a.provider==="anthropic"?"claude-haiku-4-5":"gpt-4o-mini")}):t("aiOff");
+  const open=!!S.teacherOpen;
   return h("main",{class:"work"},h("h2",null,t("setH")),
     h("div",{class:"form"},
       h("label",null,t("uiLang"),h("select",{onchange:e=>setLang(e.target.value)},Object.keys(LANG).map(l=>h("option",{value:l,selected:S.lang===l,"data-raw":1},langName(l))))),
       ROMANIZER.available(S.lang)&&h("label",{class:"chk"},h("input",{type:"checkbox",checked:!!S.rom,onchange:e=>{S.rom=e.target.checked;save();render()}}),t("rom")),
-      h("label",null,t("codeLang"),h("select",{onchange:e=>setPl(e.target.value)},Object.keys(PLS).map(p=>h("option",{value:p,selected:S.pl===p},PLS[p]))))),
-    h("h2",{style:"margin-top:34px;font-size:1.6rem"},t("modelH")),h("p",null,t("pilotNote")),
-    h("div",{class:"form"},
-      h("label",null,t("pilot"),h("select",{onchange:e=>{S.pilot=e.target.value;SKILLS.forEach(sk=>{const e2=S.skills[sk.id];(sk.area==="prog"?Object.values(e2.pl):[e2]).forEach(tr=>{KT.ensure(tr);tr.L=KT.mastery(tr,pilot())})});fillBoard();save();render()}},KT.PILOTS.map(k=>h("option",{value:k,selected:pilot()===k},t("models")[k]+" ("+pct(KT.master(k))+")")))),
-      h("label",{class:"chk"},h("input",{type:"checkbox",checked:!!S.confirm,onchange:e=>{S.confirm=e.target.checked;save();render()}}),t("confirmRule")),
+      h("label",null,t("codeLang"),h("select",{onchange:e=>setPl(e.target.value)},Object.keys(PLS).map(p=>h("option",{value:p,selected:S.pl===p},PLS[p])))),
       h("label",null,t("studentName"),h("input",{type:"text",value:S.name||"",maxlength:"80",onchange:e=>{S.name=e.target.value.trim();save()}}))),
-    h("h2",{style:"margin-top:34px;font-size:1.6rem"},t("aiH")),h("p",null,t("aiP")),h("p",{class:"delta"},status),
-    !AI.sample&&h("div",{class:"form"},
-      h("label",null,t("provider"),f.provider),
-      a.provider==="openai"&&h("label",null,t("base"),inp("base","url","https://api.openai.com/v1")),
-      h("label",null,t("key"),inp("key","password","sk-...")),
-      h("label",null,t("model"),inp("model","text",a.provider==="anthropic"?"claude-haiku-4-5-20251001":"gpt-4o-mini")),
-      h("div",{class:"row"},
-        h("button",{class:"btn",onclick:()=>{["base","key","model"].forEach(k=>{if(f[k])a[k]=f[k].value.trim()});save();setMsg=t("saved");render()}},t("save")),
-        h("button",{class:"btn ghost",onclick:()=>{a.key="";save();render()}},t("clear"))),
-      setMsg&&h("p",{class:"delta",role:"status"},setMsg),
-      h("p",{class:"note"},t("keyNote"))));
+    h("p",{class:"note",style:"margin-top:14px"},t("aiStatusShort")+" "+status),
+    h("button",{class:"teacher-toggle","aria-expanded":String(open),onclick:()=>{S.teacherOpen=!open;save();render()}},(open?"▾ ":"▸ ")+t("teacherH")),
+    open&&h("section",{class:"teacher"},
+      h("p",{class:"note"},t("teacherP")),
+      h("h3",null,t("modelH")),
+      h("p",null,t("pilotFixed",{m:t("models").elo,p:pct(master())})),
+      URL_PILOT&&h("p",{class:"hint"},t("pilotUrl",{m:t("models")[URL_PILOT]})),
+      h("div",{class:"form"},
+        h("label",{class:"chk"},h("input",{type:"checkbox",checked:!!S.confirm,onchange:e=>{S.confirm=e.target.checked;save();render()}}),t("confirmRule"))),
+      h("h3",null,t("runnerH")),
+      h("p",null,t("runnerP")),
+      h("div",{class:"form"},
+        h("label",null,t("runnerUrl"),h("input",{type:"url",value:(S.runner&&S.runner.url)||"",placeholder:"https://emkc.org/api/v2/piston/execute",onchange:e=>{S.runner.url=e.target.value.trim();save();render()}})),
+        h("label",null,t("runnerToken"),h("input",{type:"password",value:(S.runner&&S.runner.token)||"",autocomplete:"off",placeholder:"opcional",onchange:e=>{S.runner.token=e.target.value.trim();save()}})),
+        h("p",{class:"note",style:"margin:0"},t("runnerNote")),
+        h("p",{class:"delta"},S.runner&&S.runner.url?t("runnerOn"):t("runnerOff"))),
+      h("h3",null,t("aiH")),h("p",null,t("aiP")),h("p",{class:"delta"},status),
+      !AI.sample&&h("div",{class:"form"},
+        h("label",null,t("provider"),f.provider),
+        a.provider==="openai"&&h("label",null,t("base"),inp("base","url","https://api.deepseek.com")),
+        h("label",null,t("key"),inp("key","password","sk-...")),
+        h("label",null,t("model"),inp("model","text",a.provider==="anthropic"?"claude-haiku-4-5-20251001":"deepseek-v4-pro")),
+        h("div",{class:"row"},
+          h("button",{class:"btn",onclick:()=>{["base","key","model"].forEach(k=>{if(f[k])a[k]=f[k].value.trim()});save();setMsg=t("saved");render()}},t("save")),
+          h("button",{class:"btn ghost",onclick:()=>{a.key="";save();render()}},t("clear"))),
+        setMsg&&h("p",{class:"delta",role:"status"},setMsg),
+        h("p",{class:"note"},t("keyNote")))));
 }
 function render(){
   const app=document.getElementById("app"); app.textContent="";

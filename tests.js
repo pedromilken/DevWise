@@ -5,7 +5,7 @@ global.document={documentElement:{},getElementById(){return {append(){},set text
 const langFiles=fs.readdirSync(__dirname+"/src").filter(f=>/^lang-.*\.js$/.test(f)&&!f.includes(".mock.")&&!f.includes(".patch.")).sort((a,b)=>(a==="lang-pt.js"?-1:b==="lang-pt.js"?1:a.localeCompare(b)));
 const patchFiles=fs.readdirSync(__dirname+"/src").filter(f=>/^lang-.*\.patch\.js$/.test(f)).sort();
 const romFiles=fs.readdirSync(__dirname+"/src").filter(f=>/^rom-.*\.js$/.test(f));
-let src=["data.js","game.js","rom.js","models.js",...langFiles,...patchFiles,...romFiles,"app.js"].map(f=>fs.readFileSync(__dirname+"/src/"+f,"utf8")).join("\n");
+let src=["data.js","game.js","rom.js","models.js","run.js",...langFiles,...patchFiles,...romFiles,"app.js"].map(f=>fs.readFileSync(__dirname+"/src/"+f,"utf8")).join("\n");
 src=src.replace('"use strict";','').replace(/S=load\(\);[\s\S]*$/,"");
 src+=`
 let errs=[];
@@ -17,6 +17,7 @@ for(const l of Object.keys(LANG)){
   for(const it of ITEMS.concat(BOSS_ITEMS)){const x=LANG[l].items[it.id]; if(!x){errs.push(l+": falta item "+it.id);continue}
     for(const f of ["title","prompt","hint","why","analogy"]) if(!x[f]&&!(f==="hint"&&it.boss)) errs.push(l+": "+it.id+"."+f);
     if(it.type==="mc"&&!it.opts&&(!x.opts||x.opts.length!==4)) errs.push(l+": opts "+it.id);
+    if(it.type==="code"&&LANG[l].ui.bands&&LANG[l].ui.bands.length!==5) errs.push(l+": faixas de nota");
     if(it.type==="sort"&&(!x.bins||x.bins.length!==2||!x.cards||x.cards.length!==it.key.length)) errs.push(l+": cartões "+it.id);
     if(it.type==="parsons"&&!it.code&&!it.shared){ if(!x.lines||x.lines.length<3||new Set(x.lines).size!==x.lines.length||x.lines.length!==LANG.pt.items[it.id].lines.length) errs.push(l+": etapas "+it.id); }
     if(["pt","en","es"].includes(l)&&/\\u2014/.test(JSON.stringify(x))) errs.push(l+": travessão em "+it.id);} // em russo e outros idiomas o travessão é ortografia, não estilo
@@ -28,6 +29,11 @@ for(const it of ITEMS.concat(BOSS_ITEMS)){
     if(it.type==="parsons"&&new Set(n).size!==n.length) errs.push(it.id+": linhas repetidas "+p);}
   if(it.type==="bug"&&!it.code) errs.push(it.id+": sem linhas");
   if(it.type==="sort"&&it.key.filter(k=>k===0).length===0) errs.push(it.id+": chave");
+  if(it.type==="code"){ if(!it.fn) errs.push(it.id+": sem nome de função");
+    if(!it.stub||Object.keys(PLS).some(p=>!it.stub[p])) errs.push(it.id+": falta esqueleto em alguma linguagem");
+    if(!it.tests||it.tests.length<3) errs.push(it.id+": menos de 3 casos de teste");
+    if(it.tests&&!it.tests.some(c=>c.oculto)) errs.push(it.id+": sem caso oculto");
+    if(it.stub&&Object.keys(PLS).some(p=>it.stub[p]&&it.stub[p].indexOf(it.fn)<0)) errs.push(it.id+": esqueleto sem o nome da função"); }
   if(it.opts&&new Set(it.opts).size!==it.opts.length) errs.push(it.id+": opções repetidas");
 }
 const CODEY=s=>s.length<=30&&(s.includes("<")||s.includes(">")||s.includes("==")||s.includes("!="));   // expressões de código dispensam tradução, como no gerador

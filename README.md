@@ -26,6 +26,26 @@ Você entra na Ponte, uma pequena casa de software que atende a padaria, o posto
 | Tutor com IA | Dicas socráticas e novas analogias via Anthropic, qualquer API compatível com OpenAI ou servidor local (Ollama); sem IA, usa as dicas autorais |
 | Relatório | Domínio por habilidade, acerto por nível de Bloom, recomendações e exportação do registro em formato longo de KT |
 
+### Exercícios de código livre
+
+O estudante escreve a função pedida e recebe uma nota em porcentagem, calculada pelos casos de teste (alguns ocultos, para impedir soluções decoradas) mais 20% de verificação estrutural quando o item a define.
+
+| Linguagem | Como é avaliada |
+|---|---|
+| JavaScript | Executa num Web Worker isolado, sem DOM nem rede, com limite de 4 s |
+| Python | Executa com Pyodide, baixado de um CDN na primeira vez que um exercício de código em Python é aberto |
+| Java e C | **Não rodam no navegador.** Só são avaliadas com um serviço de execução compatível com o Piston, configurado em Ajustes > Para docentes e pesquisa (endereço e, se exigido, token). Sem serviço, os exercícios de código nessas linguagens ficam ocultos no quadro e no desafio do dia, e um aviso explica o motivo |
+
+O programa de teste em Java e C é gerado a partir da assinatura tipada de cada item (`sig`), compilado e executado no servidor; cada caso roda isolado, então uma exceção num caso não derruba os outros. Código que não compila ou não roda vale **0**, com a mensagem do compilador. Falha da infraestrutura (serviço fora do ar, sem autorização, Python sem download) **não gera nota**: a entrega simplesmente não é registrada.
+
+Sobre o Piston: a API pública em `emkc.org` deixou de ser aberta em 15/02/2026 e passou a exigir um token, concedido pelo mantenedor a projetos educacionais sem fins comerciais. A alternativa é rodar uma instância própria (o projeto é de código aberto e roda em Docker).
+
+Faixas: Irregular (até 39%), Regular (40 a 59%), Bom (60 a 79%), Ótimo (80 a 94%), Excelente (95% ou mais). A partir de **60%** conta como acerto para o modelo, e o XP é proporcional à nota. O chute nesses itens é de 2%, o menor do jogo, o que faz deles a evidência mais forte. A verificação estrutural (laço, condição, retorno) só entra como 20% da nota quando o código de fato executou.
+
+O botão **Pedir ajuda ao tutor** manda ao LLM o código do estudante, o erro e os casos que falharam, pedindo que explique o que está acontecendo e faça uma pergunta que leve à correção, sem escrever a solução.
+
+**Registro e limites.** Cada entrega guarda nota, resultado por caso, data, um SHA-256 do código e o processo (colagens, tamanho da maior colagem, execuções, tempo até a primeira tecla, tempo total). Isso aparece para o estudante e no relatório do docente. Prova que aquele código foi enviado naquele instante; **não prova autoria**, porque tudo é registrado no navegador do próprio estudante. Para avaliação com peso em nota, combine com trabalho supervisado ou defesa do código.
+
 ### Camada de jogo
 
 | Mecânica | Regra |
@@ -42,13 +62,15 @@ A resposta digitada reduz a probabilidade de chute do BKT de 25% para 3%, então
 
 ### Modelos de rastreamento: um piloto e quatro sombras
 
+O estudante não escolhe o modelo: o Elo/Rasch pilota sempre, e as sombras registram previsões em toda resposta. Para um experimento, o pesquisador pode trocar o piloto só pelo endereço, com `?piloto=bkt`, `?piloto=pfa` ou `?piloto=afm` (a TRI é estática e nunca pilota). A seção **Para docentes e pesquisa**, recolhida nos Ajustes, reúne as configurações técnicas: regra de confirmação em outro dia, serviço de execução de código e tutor com IA.
+
 A escolha segue o estudo de confundidores com o ENEM (estrutura do lado do item sustenta a acurácia; BKT, AFM e PFA preveem mal e leem dependência serial como aprendizagem). Elo/Rasch **não** foi testado naquele estudo: é a inferência de projeto para um jogo sem dados de treino, e por isso os demais modelos ficam registrando previsões para validação posterior.
 
 | Modelo | Papel | Observação |
 |---|---|---|
-| Elo/Rasch (`elo`) | piloto padrão, domínio em 85% | Rasch online com chute por formato; ganho decrescente; erro pesa 70% |
+| Elo/Rasch (`elo`) | **piloto fixo**, domínio em 85% | Rasch online com chute por formato; ganho decrescente; erro pesa 70% |
 | TRI 3PL com EAP (`irt`) | só sombra | grade de 81 pontos, só respostas anteriores, como o teto do estudo; é estático e por isso nunca pilota |
-| BKT, PFA, AFM | sombra, ou piloto por escolha em Ajustes | parâmetros a priori |
+| BKT, PFA, AFM | sombra em toda resposta | parâmetros a priori |
 
 - Cada linha do log traz `preds` (previsão de cada modelo antes da resposta), `pilot`, `b` e `c` do item, `session`, `pos` (posição na sessão) e `rt` (tempo de resposta em ms). Posição e tempo existem para os testes de efeito de posição e de chute rápido que o ENEM não permite.
 - **Confirmação em outro dia**: alcançar o limiar numa sessão deixa a habilidade "a confirmar"; ela só conta como dominada com acerto em pelo menos dois dias. Sessão única tem embalo e fadiga que não são conhecimento.

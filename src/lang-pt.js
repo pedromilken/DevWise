@@ -348,3 +348,47 @@ Object.assign(LANG.pt.ui,{
  homeSbc:"As 14 missões cobrem programação e engenharia de software, e cada uma declara as competências dos Referenciais de Formação da SBC (2017) que treina. O mesmo conceito aparece em quatro linguagens de programação, com o mesmo gabarito.",
  homeI18n:"O jogo existe em 20 idiomas, os mesmos da análise de tradução e tokenização que orienta o projeto. Escritas da direita para a esquerda são suportadas, e idiomas com escrita própria oferecem versão romanizada."
 });
+
+/* ---------- v9: exercícios de código livre ---------- */
+Object.assign(LANG.pt.ui,{
+ bands:["Irregular","Regular","Bom","Ótimo","Excelente"],
+ codeFn:"Escreva a função {f}. O nome precisa ser exatamente esse.",
+ runBtn:"Executar", submit:"Enviar para avaliação", running:"Executando o seu código...",
+ noExecH:"Sem execução nesta linguagem.", noExecP:"{l} não roda dentro do navegador. A nota virá de uma verificação da estrutura do código (se há laço, condição, retorno), que mede a forma e não o funcionamento. Para executar de verdade, escolha Python ou JavaScript, ou peça ao docente para configurar um serviço de execução nos Ajustes.",
+ structOnly:"apenas estrutura", runErr:"O código não rodou: {e}",
+ gotExp:"obtido {g}, esperado {e}", hidden:"Casos ocultos: {a} de {b} corretos. Eles existem para que a solução funcione de verdade, e não só para os exemplos visíveis.",
+ checks:"Estrutura:", checkN:{loop:"usa laço",cond:"usa condição",rec:"chama a si mesma",base:"tem caso base",return:"devolve valor"},
+ aiDebug:"Pedir ajuda ao tutor", scored:"Nota: {p} ({b})",
+ telLive:"Seu processo até aqui: {p} colagens, {r} execuções, {s} s.",
+ telDone:"Registro desta entrega: {p} colagens (maior com {m} caracteres), {r} execuções, {s} s no total. Impressão digital do código: {h}",
+ codeH:"Exercícios de código livre", colScore:"Nota", colPaste:"Colagens", colRuns:"Execuções", colTime:"Tempo", colHash:"Impressão digital",
+ codeP:"Cada entrega guarda a nota, o processo até chegar nela e uma impressão digital do código enviado.",
+ codeEmpty:"Nenhum exercício de código respondido ainda.",
+ codeAuth:"O que isto prova e o que não prova: a impressão digital e a data provam que aquele código foi enviado naquele instante; o número de colagens e o tempo descrevem o processo. Nada disso prova autoria, porque tudo é registrado no navegador do estudante. Para avaliação com peso em nota, use também prova presencial ou a defesa do próprio código.",
+ runnerUrl:"Serviço de execução de código (opcional)",
+ runnerNote:"Em branco, JavaScript e Python rodam no próprio navegador e Java e C recebem apenas verificação de estrutura. Com a URL de um serviço compatível com o Piston, as quatro linguagens passam a ser executadas, mas o código dos estudantes é enviado a terceiros."
+});
+Object.assign(LANG.pt.items,{
+w1:{title:"O frete da cooperativa",prompt:"Escreva a função de frete: 5 reais fixos mais 2 reais por quilômetro.",hint:"Uma linha basta: devolva o resultado da conta, sem imprimir.",why:"A regra vira uma função com nome, que pode ser chamada do site, do aplicativo e da planilha sem cópias divergentes.",analogy:"É a tabela de preços na parede: uma só, e todo mundo consulta a mesma."},
+w2:{title:"Somar a lista de vendas",prompt:"Escreva a função que soma todos os valores de uma lista e devolve o total. Com a lista vazia, o total é zero.",hint:"Comece com um acumulador em zero e percorra a lista somando.",why:"É o padrão acumulador: valor neutro no início, uma soma por volta, resultado devolvido depois do laço.",analogy:"É o cofrinho: começa vazio, recebe uma moeda por vez, e só no fim você conta o que há dentro."},
+w3:{title:"A triagem do posto",prompt:"Escreva a função de triagem: 39 ou mais devolve \"red\"; de 37,5 a 38,9 devolve \"yellow\"; abaixo de 37,5 devolve \"green\".",hint:"A regra mais grave vem primeiro, e cada paciente sai com um único nível.",why:"A cadeia de condições garante uma só saída por paciente. Os valores de fronteira, 39 e 37,5, são justamente onde os erros aparecem.",analogy:"É o protocolo na parede do posto: lido de cima para baixo, parando na primeira linha que se aplica."},
+w4:{title:"Quantos passam do limite",prompt:"Escreva a função que conta quantos valores da lista são maiores que o limite recebido.",hint:"Um contador antes do laço, uma condição dentro dele, o resultado depois.",why:"Contar é diferente de somar: o contador anda de um em um, sem olhar o tamanho do valor. Maior que o limite exclui o valor igual a ele.",analogy:"É o porteiro com contador de mão: um clique por pessoa que atende ao critério."},
+w5:{title:"Fatorial, sem laço",prompt:"Escreva a função fatorial usando recursão. O fatorial de 0 é 1.",hint:"Trate o caso base primeiro; depois devolva n vezes o fatorial de n menos 1.",why:"Sem caso base, a função se chama para sempre. Com ele, cada chamada se aproxima de zero e as respostas voltam multiplicando.",analogy:"São as bonecas russas: você para ao chegar à boneca maciça, e volta fechando uma a uma."},
+w6:{title:"O troco da padaria",prompt:"Escreva a função que devolve o troco: quanto sobra do valor pago depois de descontar o preço.",hint:"Uma subtração e um retorno. Preço e pago chegam como parâmetros.",why:"Os dois valores chegam de fora, a função devolve o resultado e não imprime nada: assim ela serve ao caixa, ao recibo e ao relatório.",analogy:"É a calculadora do balcão: recebe os dois números, mostra a diferença e não guarda nada para si."}
+});
+
+LANG.pt.ui.structPct="{p} da estrutura esperada";
+void "Linhas com * foram avaliadas apenas pela estrutura do código, sem execução.";
+Object.assign(LANG.pt.ui,{
+ aiStatusShort:"Tutor com IA:",
+ teacherH:"Para docentes e pesquisa", teacherP:"Configurações técnicas. Quem só joga não precisa mexer em nada aqui.",
+ pilotFixed:"O {m} decide o jogo: calcula o domínio, libera fases e escolhe a dificuldade, com domínio a partir de {p}. BKT, PFA, AFM e TRI 3PL rodam em segundo plano em toda resposta e só registram o que previam, para comparação na aba Relatório e nos dados exportados.",
+ pilotUrl:"Modo de pesquisa ativo: o endereço desta página define {m} como modelo que decide. Remova o parâmetro ?piloto= para voltar ao padrão.",
+ runnerH:"Execução de código", runnerP:"JavaScript e Python rodam no próprio navegador. Java e C precisam de um servidor que compile e execute o código; sem ele, recebem apenas verificação de estrutura. O Piston é um serviço desse tipo, com instância pública gratuita."
+});
+LANG.pt.ui.aiClaude="Conectado pelo Claude neste link. Na versão publicada no GitHub, o tutor precisa de uma chave de API.";
+LANG.pt.ui.aiOff="Desligado: o jogo usa as dicas escritas pelos autores. Para ligar, informe um provedor abaixo.";
+
+/* v9.2: Java e C só com serviço de execução */
+Object.assign(LANG.pt.ui,{"noExecH": "{l} não roda dentro do navegador.", "noExecP": "Este exercício só pode ser avaliado com um serviço de execução de código, que um docente configura em Ajustes, na seção Para docentes e pesquisa. Enquanto isso, escolha Python ou JavaScript em Ajustes para resolver os exercícios de código.", "infraH": "Não foi possível avaliar agora.", "infra": {"semServico": "Não há serviço de execução configurado para esta linguagem.", "auth": "O serviço de execução recusou o acesso. Confira o token em Ajustes.", "rede": "O serviço de execução não respondeu. Verifique a conexão e tente de novo.", "pyodide": "O Python não pôde ser baixado. Ele precisa de internet na primeira vez; verifique a conexão e tente de novo.", "worker": "Este navegador não permite executar JavaScript isolado. Tente outro navegador.", "outro": "O serviço de execução devolveu um erro. Tente de novo em instantes."}, "runErr": "O código não rodou, por isso a nota é 0: {e}", "codeHidden": "Os exercícios de código livre em {l} ficam ocultos até um docente configurar um serviço de execução. Em Python e JavaScript eles aparecem normalmente.", "runnerH": "Execução de código", "runnerP": "JavaScript e Python rodam no próprio navegador. Java e C precisam de um servidor que compile e execute o código; sem ele, os exercícios de código nessas linguagens ficam ocultos. Use um servidor Piston próprio, ou a API pública do Piston, que desde fevereiro de 2026 exige um token concedido a projetos educacionais sem fins comerciais.", "runnerUrl": "Endereço do serviço de execução", "runnerToken": "Token de autorização (se o serviço exigir)", "runnerNote": "O código dos estudantes em Java e C é enviado a esse servidor para ser compilado e executado. Com o campo vazio, nada sai do navegador.", "runnerOn": "Java e C: execução ligada.", "runnerOff": "Java e C: sem execução. Os exercícios de código nessas linguagens ficam ocultos."});
+["structOnly","structPct"].forEach(k=>delete LANG.pt.ui[k]);

@@ -2,7 +2,10 @@
 const SK = Object.fromEntries(SKILLS.map(s=>[s.id,s]));
 const IT = Object.fromEntries(ITEMS.concat(BOSS_ITEMS).map(i=>[i.id,i]));
 const KEY="devwise-v2", L0=0.15, UNLOCK=0.6, SPRINT=5;
-const pilot=()=>(S&&KT.PILOTS.includes(S.pilot))?S.pilot:"elo";
+/* Elo/Rasch pilota sempre. Os demais modelos rodam em segundo plano em toda resposta.
+   Para experimentos de pesquisa, o piloto pode ser trocado só pelo endereço (?piloto=bkt), fora do alcance do estudante. */
+const URL_PILOT=(()=>{try{const p=new URLSearchParams(location.search).get("piloto");return p&&KT.PILOTS.includes(p)?p:null}catch(e){return null}})();
+const pilot=()=>URL_PILOT||"elo";
 const master=()=>KT.master(pilot());            // limiar de domínio do modelo que pilota (85% no Elo/Rasch, 95% no BKT)
 const today=()=>{const d=new Date();return d.getFullYear()+"-"+(d.getMonth()+1)+"-"+d.getDate()};
 let evoSel=null, evoPl=null;
@@ -25,14 +28,14 @@ function guessLang(){const n=(navigator.language||"pt").slice(0,2).toLowerCase()
 function newSprint(n){return {n,done:[],start:snapshot(),b:{},run:0}}
 function blankSkills(){const skills={}; SKILLS.forEach(s=>skills[s.id]=s.area==="prog"?{pl:{}}:{L:L0,n:0,c:0}); return skills}
 function fresh(){
-  const o={v:2,started:false,lang:guessLang(),pl:"py",skills:blankSkills(),brief:{},seen:{},log:[],xp:0,xpTotal:0,mode:"normal",inv:{shield:0,fifty:0,time:0},boost:0,titles:[],title:null,bosses:{},daily:{date:"",item:null,done:false},streak:0,best:0,board:[],pilot:"elo",confirm:true,name:"",session:{id:0,day:"",n:0,last:0},
+  const o={v:2,started:false,lang:guessLang(),pl:"py",skills:blankSkills(),brief:{},seen:{},log:[],xp:0,xpTotal:0,mode:"normal",inv:{shield:0,fifty:0,time:0},boost:0,titles:[],title:null,bosses:{},daily:{date:"",item:null,done:false},streak:0,best:0,board:[],pilot:"elo",confirm:true,runner:{url:"",langs:["py","js","java","c"]},name:"",session:{id:0,day:"",n:0,last:0},
     sprint:{n:1,done:[],start:{},b:{},run:0},ai:{provider:"anthropic",key:"",model:"",base:""}};
   return o;
 }
 function load(){
   try{const d=JSON.parse(localStorage.getItem(KEY)||"null");
     if(d&&d.v===2&&d.skills){const f=fresh();SKILLS.forEach(s=>{const e=d.skills[s.id]; if(!e)d.skills[s.id]=f.skills[s.id]; else if(s.area==="prog"&&!e.pl){const pl=PLS[d.pl]?d.pl:"py";d.skills[s.id]={pl:{[pl]:{L:e.L,n:e.n,c:e.c}}}}}); // migra o domínio único da v3 para a linguagem em uso
-      if(d.xpTotal===undefined)d.xpTotal=d.xp||0; for(const k in f)if(d[k]===undefined)d[k]=f[k]; d.sprint.b=d.sprint.b||{}; d.sprint.run=d.sprint.run||0; if(!MODES[d.mode])d.mode="normal"; if(!KT.MODELS[d.pilot])d.pilot="elo"; if(!d.session)d.session=f.session; if(!LANG[d.lang])d.lang="pt"; if(!PLS[d.pl])d.pl="py"; d.ai=d.ai||f.ai; d.brief=d.brief||{}; return d;}}catch(e){}
+      if(d.xpTotal===undefined)d.xpTotal=d.xp||0; for(const k in f)if(d[k]===undefined)d[k]=f[k]; d.sprint.b=d.sprint.b||{}; d.sprint.run=d.sprint.run||0; if(!MODES[d.mode])d.mode="normal"; if(!KT.MODELS[d.pilot])d.pilot="elo"; if(!d.runner)d.runner=f.runner; if(!d.session)d.session=f.session; if(!LANG[d.lang])d.lang="pt"; if(!PLS[d.pl])d.pl="py"; d.ai=d.ai||f.ai; d.brief=d.brief||{}; return d;}}catch(e){}
   return fresh();
 }
 function save(){try{localStorage.setItem(KEY,JSON.stringify(S))}catch(e){}}
@@ -81,7 +84,7 @@ function career(){const r=t("roles"); if(allMastered())return r[4]; const a=avgL
 function shuffle(a){a=a.slice();for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]]}return a}
 function pickItem(skillId,avoid){
   const L=trk(skillId).L, target=L<.4?1:L<.7?2:3;
-  let pool=ITEMS.filter(i=>i.skill===skillId&&!avoid.includes(i.id));
+  let pool=ITEMS.filter(i=>i.skill===skillId&&!avoid.includes(i.id)&&(i.type!=="code"||RUN.canRun(S.pl,S.runner)));
   if(!pool.length)return null;
   const unseen=pool.filter(i=>!S.seen[i.id]), missed=pool.filter(i=>S.seen[i.id]&&!S.seen[i.id].ok);
   pool=unseen.length?unseen:missed.length?missed:pool;
@@ -98,22 +101,26 @@ function fillBoard(lastId){
   for(const k of order){ if(S.board.length>=3)break; const it=pickItem(k,lastId?[lastId]:[]); if(it)S.board.push(it.id); }
   if(!S.board.length&&eligible.length){const it=pickItem(eligible[0],[]); if(it)S.board.push(it.id);}
 }
-function guessProb(it){return it.type==="mc"?1/itemOpts(it).length:it.type==="bug"?1/itemCode(it).split("\n").length:it.type==="sort"?1/Math.pow(2,it.key.length):0.05}
+const PASS=0.6;                      // a partir daqui conta como acerto para o modelo
+const BANDS=[[0.95,4],[0.8,3],[0.6,2],[0.4,1],[0,0]];   // excelente, ótimo, bom, regular, irregular
+const band=p=>BANDS.find(b=>p>=b[0])[1];
+function guessProb(it){return it.type==="code"?0.02:it.type==="mc"?1/itemOpts(it).length:it.type==="bug"?1/itemCode(it).split("\n").length:it.type==="sort"?1/Math.pow(2,it.key.length):0.05}
 function resolve(ok){
   stopTimer();
   const it=cur.item, sk=trk(it.skill), before=sk.L, roleBefore=career(), m=MODES[cur.mode];
   const openBefore=SKILLS.filter(s=>unlocked(s.id)).map(s=>s.id);
   let g=guessProb(it); if(cur.typed)g=0.03; else if(cur.fifty||cur.hint)g=Math.max(.5,g);
   const now=Date.now(), ses=S.session; if(ses.day!==today()||now-ses.last>30*60000){ses.id++;ses.day=today();ses.n=0} ses.n++; ses.last=now;
+  const pct=cur.res?cur.res.pct:null;
   const preds=KT.predictAll(sk,it,g);                       // cada modelo registra o que previa ANTES de ver a resposta
   KT.updateAll(sk,it,g,ok?1:0); sk.L=KT.mastery(sk,pilot()); sk.n++; if(ok){sk.c++; sk.days=sk.days||[]; if(!sk.days.includes(today()))sk.days.push(today())}
-  const res={ok,before,after:sk.L,awaits:false,mi:Math.floor(Math.random()*4),comeback:0,streak:0,xp:0,pen:0,shield:false,bounties:[],newly:[],promo:null,masteredNow:before<master()&&sk.L>=master()};
-  S.log.push({i:S.log.length+1,sprint:S.sprint.n,item:it.id,skill:it.skill,bloom:it.bloom,d:it.d,ok,hint:cur.hint,ai:!!cur.aiUsed,mode:cur.mode,typed:!!cur.typed,timeout:!!cur.timeout,boss:it.boss||null,lang:S.lang,pl:isProg(it.skill)?S.pl:null,before:+before.toFixed(3),after:+sk.L.toFixed(3),pilot:pilot(),preds,b:+KT.itemB(it).toFixed(2),c:+g.toFixed(3),session:ses.id,pos:ses.n,rt:cur.t0?now-cur.t0:null,t:now});
+  const res={ok,before,after:sk.L,pct,awaits:false,mi:Math.floor(Math.random()*4),comeback:0,streak:0,xp:0,pen:0,shield:false,bounties:[],newly:[],promo:null,masteredNow:before<master()&&sk.L>=master()};
+  S.log.push({i:S.log.length+1,sprint:S.sprint.n,item:it.id,skill:it.skill,bloom:it.bloom,d:it.d,ok,hint:cur.hint,ai:!!cur.aiUsed,mode:cur.mode,typed:!!cur.typed,timeout:!!cur.timeout,boss:it.boss||null,lang:S.lang,pl:isProg(it.skill)?S.pl:null,before:+before.toFixed(3),after:+sk.L.toFixed(3),pilot:pilot(),preds,pct:pct==null?null:+pct.toFixed(3),code:it.type==="code"?{hash:cur.hash||null,chars:(cur.code||"").length,lang:S.pl,modo:cur.res&&cur.res.modo,tel:cur.tel}:null,b:+KT.itemB(it).toFixed(2),c:+g.toFixed(3),session:ses.id,pos:ses.n,rt:cur.t0?now-cur.t0:null,t:now});
   res.awaits=awaitsConfirm(it.skill);
   if(it.boss){ if(!ok)boss.errors++; }
   else{
     S.streak=ok?S.streak+1:0; S.best=Math.max(S.best,S.streak);
-    if(ok){ let xp=Math.round(it.d*10*m.mult); if(cur.hint)xp=Math.ceil(xp/2); if(S.streak>=3){xp+=5;res.streak=S.streak} if(S.lastWrong){xp+=COMEBACK;res.comeback=COMEBACK} if(S.boost>0)xp*=2; if(cur.daily)xp*=2; res.xp=xp; earn(xp); }
+    if(ok){ let xp=Math.round(it.d*10*m.mult*(pct==null?1:Math.max(.5,pct))); if(cur.hint)xp=Math.ceil(xp/2); if(S.streak>=3){xp+=5;res.streak=S.streak} if(S.lastWrong){xp+=COMEBACK;res.comeback=COMEBACK} if(S.boost>0)xp*=2; if(cur.daily)xp*=2; res.xp=xp; earn(xp); }
     else{ const pen=m.pen*it.d; if(S.inv.shield>0){S.inv.shield--;res.shield=true} else {res.pen=Math.min(S.xp,pen);S.xp-=res.pen} }
     S.lastWrong=!ok;
     if(S.boost>0)S.boost--;
@@ -152,7 +159,7 @@ function startTimer(){
 }
 function ensureDaily(){
   const d=new Date(), today=d.getFullYear()+"-"+(d.getMonth()+1)+"-"+d.getDate(); if(S.daily.date===today)return;
-  const pool=ITEMS.filter(i=>S.brief[i.skill]&&unlocked(i.skill)); if(!pool.length)return;
+  const pool=ITEMS.filter(i=>S.brief[i.skill]&&unlocked(i.skill)&&i.type!=="code"); if(!pool.length)return;   // o desafio do dia não depende de execução de código
   S.daily={date:today,item:shuffle(pool)[0].id,done:false};
 }
 function buy(p){
@@ -188,6 +195,19 @@ async function aiHint(){
   cur.hint=true; cur.aiUsed=true; cur.aiText=t("aiThinking"); render();
   try{cur.aiText=(await AI.ask(aiContext(cur.item)+"Give ONE Socratic hint of at most 55 words built on a practical everyday analogy. Never reveal the answer, never name or quote the correct option or line. Plain text, no markdown. Reply in "+Lg().llmName+".")).trim();}
   catch(e){cur.aiText=t("aiFail")+" "+t("tutorHint")+itT(cur.item.id).hint;}
+  if(view==="ticket")render();
+}
+async function aiDebug(){
+  const it=cur.item, r=cur.res, falhas=(r&&r.casos||[]).filter(c=>!c.ok).slice(0,3);
+  cur.aiDebug=t("aiThinking"); render();
+  const ctx="You are the tutor inside DevWise, helping an adult beginner debug their own code.\n"+
+    "Task: "+itT(it.id).prompt+"\nLanguage: "+PLS[S.pl]+". Required function: "+it.fn+"\n"+
+    "Student's code:\n"+cur.code+"\n"+
+    (r&&r.erro?"The code did not run. Error: "+r.erro+"\n":"")+
+    (falhas.length?"Failing cases:\n"+falhas.map(c=>"  "+c.nome+" -> expected "+c.esperado+", got "+c.obtido).join("\n")+"\n":"")+
+    (r&&r.modo==="estrutura"?"Note: this language is not executed in the browser; only structure was checked.\n":"");
+  try{cur.aiDebug=(await AI.ask(ctx+"Explain in at most 90 words what is happening in THIS code and where the reasoning goes wrong. Point at the line or the idea, ask one question that leads the student to the fix, and do NOT write the corrected code. Plain text, no markdown. Reply in "+Lg().llmName+".")).trim();}
+  catch(e){cur.aiDebug=t("aiFail");}
   if(view==="ticket")render();
 }
 async function aiExplain(){
@@ -345,6 +365,7 @@ function skillInfo(){
   return h("div",{class:"skillinfo","aria-live":"polite"},h("h4",null,x.name),h("p",null,x.about),h("p",{class:"note"},why),
     un&&h("button",{class:"btn ghost small",onclick:()=>{briefId=selSkill;go("brief")}},t("reread")));
 }
+function codeHiddenNote(){return !RUN.canRun(S.pl,S.runner)&&ITEMS.some(i=>i.type==="code")?h("p",{class:"note"},"⌨️ "+t("codeHidden",{l:PLS[S.pl]})):null}
 function board(){
   if(S.sprint.done.length>=SPRINT)return retro();
   fillBoard(); ensureDaily(); save();
@@ -356,6 +377,7 @@ function board(){
         miss.length>0&&[h("h3",null,t("missions")),h("div",{class:"tickets"},miss.map(missionCard))],
         h("h3",{class:miss.length?"gap":null},t("todo")),
         S.board.length?h("div",{class:"tickets"},S.board.map(id=>ticketCard(IT[id]))):h("p",{class:"empty"},t("todoEmpty")),
+        codeHiddenNote(),
         dl&&[h("h3",{class:"gap"},"📅 "+t("dailyH")),S.daily.done?h("p",{class:"empty"},t("dailyDone")):h("div",{class:"tickets"},ticketCard(dl,true))],
         h("h3",{class:"gap"},"⚔️ "+t("bossesH")),h("div",{class:"tickets"},BOSSES.map(bossCard)),
         h("div",{class:"done"},h("h3",null,t("doneSprint")),
@@ -381,6 +403,7 @@ function openTicket(id,o){
   if(it.type==="mc")cur.order=shuffle(itemOpts(it).map((_,i)=>i));
   if(it.type==="bug"||it.type==="parsons"){cur.prose=!itemCode(it);cur.lines=cur.prose?itT(it.id).lines.slice():itemCode(it).split("\n");}
   if(it.type==="sort")cur.pick=it.key.map(()=>null);
+  if(it.type==="code"){cur.code=(it.stub[S.pl]||it.stub.py);cur.tel={t0:Date.now(),first:null,pastes:0,maxPaste:0,runs:0};cur.res=null;cur.aiDebug=null}
   if(it.type==="parsons"){let b;do{b=shuffle(cur.lines.map((_,i)=>i))}while(b.every((v,i)=>v===i));cur.bank=b;cur.sol=[]}
   go("ticket"); startTimer();
 }
@@ -413,7 +436,14 @@ function shop(){
 }
 function ticket(){
   const it=cur.item, tx=itT(it.id), se=SK[it.skill].area==="se", r=cur.result, body=[], opts=it.type==="mc"?itemOpts(it):null, m=MODES[cur.mode], isBoss=!!it.boss;
+  const runCode=async(enviar)=>{
+    if(cur.running)return; cur.running=true; cur.tel.runs++; render();
+    cur.res=await RUN.evaluate(it,S.pl,cur.code,S.runner); cur.hash=await RUN.hash(cur.code);
+    cur.running=false; render();
+    if(enviar&&cur.res.modo==="exec"){cur.tel.ms=Date.now()-cur.tel.t0; resolve(cur.res.pct>=PASS); render(); const fb=document.getElementById("fb"); if(fb){fb.focus();fb.scrollIntoView({block:"nearest",behavior:"smooth"})}}
+  };
   const check=()=>{
+    if(it.type==="code")return runCode(true);
     if(cur.typed&&!normOut(cur.text))return;
     const ok=cur.typed?normOut(cur.text)===normOut(opts[0]):it.type==="mc"?cur.sel===0:it.type==="bug"?cur.sel===it.answer:it.type==="sort"?cur.pick.every((p,i)=>p===it.key[i]):cur.sol.map(i=>cur.lines[i]).join("\n")===cur.lines.join("\n");
     resolve(ok); render(); celebrate(cur.result,isBoss); const fb=document.getElementById("fb"); if(fb){fb.focus();fb.scrollIntoView({block:"nearest",behavior:"smooth"})}
@@ -433,6 +463,31 @@ function ticket(){
       let cls="cl"; if(cur.done){ if(i===it.answer)cls+=" right"; else if(i===cur.sel)cls+=" wrong"; }
       return h("button",{class:cls,"aria-pressed":String(cur.sel===i),disabled:cur.done,onclick:()=>{cur.sel=i;render()}},h("span",{class:"n"},String(i+1)),h("span",null,ln));})));
   }
+  if(it.type==="code"){
+    const r=cur.res, pode=RUN.canRun(S.pl,S.runner);
+    const onKey=e=>{const ta=e.target; if(!cur.tel.first)cur.tel.first=Date.now()-cur.tel.t0;
+      if(e.key==="Tab"){e.preventDefault();const p=ta.selectionStart;ta.value=ta.value.slice(0,p)+"    "+ta.value.slice(ta.selectionEnd);ta.selectionStart=ta.selectionEnd=p+4;cur.code=ta.value}};
+    body.push(h("p",{class:"sig"},t("codeFn",{f:it.fn})));
+    if(!pode)body.push(h("div",{class:"hint"},h("b",null,t("noExecH",{l:PLS[S.pl]})+" "),t("noExecP")));
+    body.push(h("textarea",{class:"editor",spellcheck:"false",disabled:cur.done,"aria-label":t("codeFn",{f:it.fn}),
+      oninput:e=>{cur.code=e.target.value; if(!cur.tel.first)cur.tel.first=Date.now()-cur.tel.t0},
+      onkeydown:onKey, onpaste:e=>{const txt=(e.clipboardData||window.clipboardData).getData("text")||""; cur.tel.pastes++; cur.tel.maxPaste=Math.max(cur.tel.maxPaste,txt.length)}},cur.code));
+    if(cur.running)body.push(h("p",{class:"note"},t("running")));
+    if(r&&r.modo==="indisponivel")body.push(h("div",{class:"hint"},h("b",null,t("infraH")+" "),t("infra")[r.erro]||t("infra").outro));
+    if(r&&r.modo==="exec"){
+      const vis=r.casos.filter(c=>!c.oculto), oc=r.casos.filter(c=>c.oculto);
+      body.push(h("div",{class:"score"},
+        h("div",{class:"bar big"},h("i",{class:"b"+band(r.pct),style:"width:"+pct(r.pct)})),
+        h("b",null,pct(r.pct)+" "+t("bands")[band(r.pct)])));
+      if(r.erro)body.push(h("p",{class:"note"},t("runErr",{e:r.erro})));
+      if(vis.length&&!r.erro)body.push(h("div",{class:"cases"},vis.map(c=>h("div",{class:"case "+(c.ok?"ok":"no")},
+        h("code",null,c.nome),h("span",null,c.ok?"✓":t("gotExp",{g:c.obtido,e:c.esperado}))))));
+      if(oc.length&&!r.erro)body.push(h("p",{class:"note"},t("hidden",{a:oc.filter(c=>c.ok).length,b:oc.length})));
+      if(r.checks&&r.checks.length&&!r.erro)body.push(h("p",{class:"note"},t("checks")+" "+r.checks.map(c=>(c.ok?"✓ ":"✗ ")+t("checkN")[c.id]).join("   ")));
+    }
+    if(cur.aiDebug)body.push(h("div",{class:"ai"},h("b",null,t("aiLabel")),cur.aiDebug));
+    if(!cur.done)body.push(h("p",{class:"note"},t("telLive",{p:cur.tel.pastes,r:cur.tel.runs,s:Math.round((Date.now()-cur.tel.t0)/1000)})));
+  }
   if(it.type==="sort"){
     body.push(h("p",{class:"note"},t("sortHint")));
     body.push(h("div",{class:"sortcards"},tx.cards.map((c,i)=>{const okc=cur.done&&cur.pick[i]===it.key[i];
@@ -449,7 +504,7 @@ function ticket(){
         !cur.done&&h("button",{class:"mv","aria-label":t("down"),onclick:()=>move(pos,1)},"↓"))))));
     if(cur.done&&!r.ok)body.push(h("p",{class:"note"},t("correctOrder")),cur.prose?h("ol",{class:"steps"},cur.lines.map(l=>h("li",null,l))):h("pre",{class:"code"},cur.lines.join("\n")));
   }
-  const ready=cur.typed?true:it.type==="parsons"?cur.sol.length===cur.lines.length:it.type==="sort"?cur.pick.every(p=>p!==null):cur.sel!==null;
+  const ready=it.type==="code"?!!(cur.code||"").trim():cur.typed?true:it.type==="parsons"?cur.sol.length===cur.lines.length:it.type==="sort"?cur.pick.every(p=>p!==null):cur.sel!==null;
   const over=S.sprint.done.length>=SPRINT, busy=cur.aiText===t("aiThinking")||cur.aiAfter===t("aiThinking");
   const hints=isBoss?"none":m.hint, canPay=hints!=="paid"||S.xp>=HINT_COST, payHint=()=>{if(hints==="paid"){S.xp-=HINT_COST;save()}};
   const timed=m.timer>0&&!cur.done, b=isBoss&&BOSSES.find(x=>x.id===it.boss);
@@ -465,7 +520,9 @@ function ticket(){
     cur.hint&&!cur.aiUsed&&h("div",{class:"hint"},h("b",null,t("tutorHint")),tx.hint),
     cur.aiText&&h("div",{class:"ai","aria-live":"polite"},h("b",null,t("aiLabel")),cur.aiText),
     !cur.done&&h("div",{class:"row"},
-      h("button",{class:"btn",disabled:!ready,onclick:check},t("check")),
+      it.type==="code"&&h("button",{class:"btn ghost",disabled:!ready||cur.running||!RUN.canRun(S.pl,S.runner),onclick:()=>runCode(false)},"▶ "+t("runBtn")),
+      h("button",{class:"btn",disabled:!ready||cur.running||(it.type==="code"&&!RUN.canRun(S.pl,S.runner)),onclick:check},it.type==="code"?t("submit"):t("check")),
+      it.type==="code"&&cur.res&&cur.res.modo==="exec"&&!cur.done&&AI.ready()&&h("button",{class:"btn ghost",disabled:busy,onclick:aiDebug},"🔍 "+t("aiDebug")),
       hints!=="none"&&!cur.hint&&h("button",{class:"btn ghost",disabled:!canPay,onclick:()=>{payHint();cur.hint=true;render()}},hints==="paid"?t("hintPaid",{c:HINT_COST}):t("hint")),
       hints!=="none"&&!cur.aiUsed&&!cur.hint&&AI.ready()&&h("button",{class:"btn ghost",disabled:busy||!canPay,onclick:()=>{payHint();aiHint()}},t("aiHint")),
       !isBoss&&!cur.typed&&it.type==="mc"&&!cur.fifty&&S.inv.fifty>0&&h("button",{class:"btn ghost",onclick:useFifty},"✂️ "+t("useFifty",{n:S.inv.fifty})),
@@ -478,6 +535,8 @@ function ticket(){
       h("p",null,h("b",null,t("why")),tx.why),
       h("div",{class:"analogy"},h("b",null,t("analogy")),tx.analogy),
       cur.aiAfter&&h("div",{class:"ai"},h("b",null,t("aiLabel")),cur.aiAfter),
+      r.pct!=null&&h("p",{class:"delta"},t("scored",{p:pct(r.pct),b:t("bands")[band(r.pct)]})),
+      it.type==="code"&&h("p",{class:"note"},t("telDone",{p:cur.tel.pastes,m:cur.tel.maxPaste,r:cur.tel.runs,s:Math.round(cur.tel.ms/1000),h:cur.hash})),
       h("p",{class:"delta"},t("delta",{s:skT(it.skill).name,a:pct(r.before),b:pct(r.after),x:r.xp})),
       r.streak>0&&h("p",{class:"promo"},"🔥 "+t("streakMsg",{n:r.streak})),
       r.comeback>0&&h("p",{class:"promo"},"💪 "+t("comeback",{x:r.comeback})),
@@ -537,6 +596,19 @@ function plPanel(){
         h("tr",null,h("td",null,h("b",null,t("plAcc"))),pls.map(p=>h("td",null,acc(p))))))),
     h("div",{class:"analogy",style:"background:var(--sunken)"},h("b",null,t("analogy")),t("plA")));
 }
+function codePanel(){
+  const rows=S.log.filter(l=>l.code);
+  return h("section",{class:"panel"},h("h3",null,"⌨️ "+t("codeH")),h("p",{class:"note"},t("codeP")),
+    rows.length?h("div",{class:"tblwrap"},h("table",null,
+      h("thead",null,h("tr",null,h("th",null,t("colSkill")),h("th",null,PLS[S.pl]&&t("codeLang")),h("th",null,t("colScore")),h("th",null,t("colPaste")),h("th",null,t("colRuns")),h("th",null,t("colTime")),h("th",null,t("colHash")))),
+      h("tbody",null,rows.slice(-12).reverse().map(l=>{const tel=l.code.tel||{};return h("tr",null,
+        h("td",null,skT(l.skill).name),h("td",null,PLS[l.code.lang]||l.code.lang),
+        h("td",null,l.pct==null?"-":pct(l.pct)+" "+t("bands")[band(l.pct)]),
+        h("td",null,(tel.pastes||0)+(tel.maxPaste?" ("+tel.maxPaste+")":"")),h("td",null,String(tel.runs||0)),
+        h("td",null,Math.round((tel.ms||0)/1000)+" s"),h("td",{class:"note"},(l.code.hash||"").slice(0,10)))}))))
+    :h("p",{class:"empty"},t("codeEmpty")),
+    h("p",{class:"note"},t("codeAuth")));
+}
 function modelPanel(){
   const rows=KT.IDS.map(k=>[k,KT.score(S.log,k)]), f=x=>x==null?"-":x.toFixed(3);
   return h("section",{class:"panel"},h("h3",null,"🧪 "+t("cmpH")),h("p",{class:"note"},t("cmpP")),
@@ -574,39 +646,53 @@ function report(){
           h("td",null,h("div",{class:"bar"},h("i",{style:"width:"+(b.n?pct(b.c/b.n):"0%")}))),h("td",null,b.n?frac(b.c,b.n):t("noData")))))))),
       h("section",{class:"panel"},h("h3",null,"🏆 "+t("trophies")),Object.keys(S.bosses).length?h("ul",{style:"margin:0;padding-left:20px"},Object.keys(S.bosses).map(k=>h("li",null,h("b",null,gt().bosses[k].trophy),"  ("+gt().bosses[k].name+")"))):h("p",{class:"empty"},t("noTrophies"))),
       h("section",{class:"panel"},h("h3",null,t("how")),h("p",null,t("howP",{m:pct(master())})),h("div",{class:"analogy",style:"background:var(--sunken)"},h("b",null,t("analogy")),t("howA")),h("p",{class:"note"},t("howParams",{m:pct(master())}))),
+      codePanel(),
       modelPanel(),
       h("section",{class:"panel noprint"},h("h3",null,t("data")),h("p",{class:"note"},t("dataP")),
         h("div",{class:"row"},
           h("button",{class:"btn ghost small",onclick:()=>{showJson=!showJson;render()}},showJson?t("hideJson"):t("showJson")),
           h("button",{class:"btn ghost small",onclick:()=>{try{const a=document.createElement("a");a.href=URL.createObjectURL(new Blob([exportData()],{type:"application/json"}));a.download="devwise-log.json";a.click()}catch(e){} showJson=true;render()}},t("download")),
-          h("button",{class:"btn ghost small",onclick:()=>{ if(!resetArmed){resetArmed=true;render();return;} const keep={lang:S.lang,pl:S.pl,ai:S.ai,mode:S.mode,pilot:S.pilot,confirm:S.confirm,name:S.name}; S=Object.assign(fresh(),keep);save();selSkill=null;cur=null;go("home") }},resetArmed?t("resetConfirm"):t("reset"))),
+          h("button",{class:"btn ghost small",onclick:()=>{ if(!resetArmed){resetArmed=true;render();return;} const keep={lang:S.lang,pl:S.pl,ai:S.ai,mode:S.mode,pilot:S.pilot,confirm:S.confirm,name:S.name,runner:S.runner}; S=Object.assign(fresh(),keep);save();selSkill=null;cur=null;go("home") }},resetArmed?t("resetConfirm"):t("reset"))),
         showJson&&h("textarea",{readonly:true,"aria-label":"JSON",style:"margin-top:12px",onfocus:e=>e.target.select()},exportData()))));
 }
 function settings(){
   const a=S.ai, f={}; const inp=(k,type,ph)=>f[k]=h("input",{type,value:a[k]||"",placeholder:ph,autocomplete:"off"});
   f.provider=h("select",{onchange:e=>{a.provider=e.target.value;render()}},h("option",{value:"anthropic",selected:a.provider==="anthropic"},t("provAnthropic")),h("option",{value:"openai",selected:a.provider==="openai"},t("provOpenAI")));
   const status=AI.sample?t("aiClaude"):AI.ready()?t("aiKeyOn",{m:a.model||(a.provider==="anthropic"?"claude-haiku-4-5":"gpt-4o-mini")}):t("aiOff");
+  const open=!!S.teacherOpen;
   return h("main",{class:"work"},h("h2",null,t("setH")),
     h("div",{class:"form"},
       h("label",null,t("uiLang"),h("select",{onchange:e=>setLang(e.target.value)},Object.keys(LANG).map(l=>h("option",{value:l,selected:S.lang===l,"data-raw":1},langName(l))))),
       ROMANIZER.available(S.lang)&&h("label",{class:"chk"},h("input",{type:"checkbox",checked:!!S.rom,onchange:e=>{S.rom=e.target.checked;save();render()}}),t("rom")),
-      h("label",null,t("codeLang"),h("select",{onchange:e=>setPl(e.target.value)},Object.keys(PLS).map(p=>h("option",{value:p,selected:S.pl===p},PLS[p]))))),
-    h("h2",{style:"margin-top:34px;font-size:1.6rem"},t("modelH")),h("p",null,t("pilotNote")),
-    h("div",{class:"form"},
-      h("label",null,t("pilot"),h("select",{onchange:e=>{S.pilot=e.target.value;SKILLS.forEach(sk=>{const e2=S.skills[sk.id];(sk.area==="prog"?Object.values(e2.pl):[e2]).forEach(tr=>{KT.ensure(tr);tr.L=KT.mastery(tr,pilot())})});fillBoard();save();render()}},KT.PILOTS.map(k=>h("option",{value:k,selected:pilot()===k},t("models")[k]+" ("+pct(KT.master(k))+")")))),
-      h("label",{class:"chk"},h("input",{type:"checkbox",checked:!!S.confirm,onchange:e=>{S.confirm=e.target.checked;save();render()}}),t("confirmRule")),
+      h("label",null,t("codeLang"),h("select",{onchange:e=>setPl(e.target.value)},Object.keys(PLS).map(p=>h("option",{value:p,selected:S.pl===p},PLS[p])))),
       h("label",null,t("studentName"),h("input",{type:"text",value:S.name||"",maxlength:"80",onchange:e=>{S.name=e.target.value.trim();save()}}))),
-    h("h2",{style:"margin-top:34px;font-size:1.6rem"},t("aiH")),h("p",null,t("aiP")),h("p",{class:"delta"},status),
-    !AI.sample&&h("div",{class:"form"},
-      h("label",null,t("provider"),f.provider),
-      a.provider==="openai"&&h("label",null,t("base"),inp("base","url","https://api.openai.com/v1")),
-      h("label",null,t("key"),inp("key","password","sk-...")),
-      h("label",null,t("model"),inp("model","text",a.provider==="anthropic"?"claude-haiku-4-5-20251001":"gpt-4o-mini")),
-      h("div",{class:"row"},
-        h("button",{class:"btn",onclick:()=>{["base","key","model"].forEach(k=>{if(f[k])a[k]=f[k].value.trim()});save();setMsg=t("saved");render()}},t("save")),
-        h("button",{class:"btn ghost",onclick:()=>{a.key="";save();render()}},t("clear"))),
-      setMsg&&h("p",{class:"delta",role:"status"},setMsg),
-      h("p",{class:"note"},t("keyNote"))));
+    h("p",{class:"note",style:"margin-top:14px"},t("aiStatusShort")+" "+status),
+    h("button",{class:"teacher-toggle","aria-expanded":String(open),onclick:()=>{S.teacherOpen=!open;save();render()}},(open?"▾ ":"▸ ")+t("teacherH")),
+    open&&h("section",{class:"teacher"},
+      h("p",{class:"note"},t("teacherP")),
+      h("h3",null,t("modelH")),
+      h("p",null,t("pilotFixed",{m:t("models").elo,p:pct(master())})),
+      URL_PILOT&&h("p",{class:"hint"},t("pilotUrl",{m:t("models")[URL_PILOT]})),
+      h("div",{class:"form"},
+        h("label",{class:"chk"},h("input",{type:"checkbox",checked:!!S.confirm,onchange:e=>{S.confirm=e.target.checked;save();render()}}),t("confirmRule"))),
+      h("h3",null,t("runnerH")),
+      h("p",null,t("runnerP")),
+      h("div",{class:"form"},
+        h("label",null,t("runnerUrl"),h("input",{type:"url",value:(S.runner&&S.runner.url)||"",placeholder:"https://emkc.org/api/v2/piston/execute",onchange:e=>{S.runner.url=e.target.value.trim();save();render()}})),
+        h("label",null,t("runnerToken"),h("input",{type:"password",value:(S.runner&&S.runner.token)||"",autocomplete:"off",placeholder:"opcional",onchange:e=>{S.runner.token=e.target.value.trim();save()}})),
+        h("p",{class:"note",style:"margin:0"},t("runnerNote")),
+        h("p",{class:"delta"},S.runner&&S.runner.url?t("runnerOn"):t("runnerOff"))),
+      h("h3",null,t("aiH")),h("p",null,t("aiP")),h("p",{class:"delta"},status),
+      !AI.sample&&h("div",{class:"form"},
+        h("label",null,t("provider"),f.provider),
+        a.provider==="openai"&&h("label",null,t("base"),inp("base","url","https://api.deepseek.com")),
+        h("label",null,t("key"),inp("key","password","sk-...")),
+        h("label",null,t("model"),inp("model","text",a.provider==="anthropic"?"claude-haiku-4-5-20251001":"deepseek-v4-pro")),
+        h("div",{class:"row"},
+          h("button",{class:"btn",onclick:()=>{["base","key","model"].forEach(k=>{if(f[k])a[k]=f[k].value.trim()});save();setMsg=t("saved");render()}},t("save")),
+          h("button",{class:"btn ghost",onclick:()=>{a.key="";save();render()}},t("clear"))),
+        setMsg&&h("p",{class:"delta",role:"status"},setMsg),
+        h("p",{class:"note"},t("keyNote")))));
 }
 function render(){
   const app=document.getElementById("app"); app.textContent="";

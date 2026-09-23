@@ -348,3 +348,47 @@ Object.assign(LANG.es.ui,{
  homeSbc:"Las 14 misiones cubren programación e ingeniería de software, y cada una declara las competencias de los Referenciales de Formación de la SBC (2017) que entrena. El mismo concepto aparece en cuatro lenguajes de programación, con la misma clave de respuesta.",
  homeI18n:"El juego existe en 20 idiomas, los mismos del análisis de traducción y tokenización que orienta el proyecto. Se admiten escrituras de derecha a izquierda, y los idiomas con escritura propia ofrecen una versión romanizada."
 });
+
+/* ---------- v9: ejercicios de código libre ---------- */
+Object.assign(LANG.es.ui,{
+ bands:["Irregular","Regular","Bueno","Muy bueno","Excelente"],
+ codeFn:"Escribe la función {f}. El nombre tiene que ser exactamente ese.",
+ runBtn:"Ejecutar", submit:"Enviar para evaluación", running:"Ejecutando tu código...",
+ noExecH:"Sin ejecución en este lenguaje.", noExecP:"{l} no se ejecuta dentro del navegador. La nota saldrá de una revisión de la estructura del código (si hay bucle, condición, retorno), que mide la forma y no el funcionamiento. Para ejecutarlo de verdad, elige Python o JavaScript, o pídele al docente que configure un servicio de ejecución en Ajustes.",
+ structOnly:"solo estructura", runErr:"El código no se ejecutó: {e}",
+ gotExp:"obtenido {g}, esperado {e}", hidden:"Casos ocultos: {a} de {b} correctos. Existen para que la solución funcione de verdad, y no solo con los ejemplos visibles.",
+ checks:"Estructura:", checkN:{loop:"usa bucle",cond:"usa condición",rec:"se llama a sí misma",base:"tiene caso base",return:"devuelve un valor"},
+ aiDebug:"Pedir ayuda al tutor", scored:"Nota: {p} ({b})",
+ telLive:"Tu proceso hasta ahora: {p} pegados, {r} ejecuciones, {s} s.",
+ telDone:"Registro de esta entrega: {p} pegados (el mayor con {m} caracteres), {r} ejecuciones, {s} s en total. Huella del código: {h}",
+ codeH:"Ejercicios de código libre", colScore:"Nota", colPaste:"Pegados", colRuns:"Ejecuciones", colTime:"Tiempo", colHash:"Huella",
+ codeP:"Cada entrega guarda la nota, el proceso que llevó a ella y una huella del código enviado.",
+ codeEmpty:"Todavía no respondiste ningún ejercicio de código.",
+ codeAuth:"Qué prueba esto y qué no: la huella y la fecha prueban que ese código se envió en ese instante; la cantidad de pegados y el tiempo describen el proceso. Nada de eso prueba la autoría, porque todo se registra en el navegador del propio estudiante. Para una evaluación con peso en la nota, suma trabajo supervisado o una defensa del propio código.",
+ runnerUrl:"Servicio de ejecución de código (opcional)",
+ runnerNote:"En blanco, JavaScript y Python se ejecutan en el propio navegador y Java y C reciben solo una revisión de estructura. Con la URL de un servicio compatible con Piston, los cuatro lenguajes se ejecutan, pero el código de los estudiantes se envía a terceros."
+});
+Object.assign(LANG.es.items,{
+w1:{title:"El envío de la cooperativa",prompt:"Escribe la función de envío: 5 reales fijos más 2 reales por kilómetro.",hint:"Con una línea alcanza: devuelve el resultado de la cuenta, no lo imprimas.",why:"La regla se convierte en una función con nombre, que se puede llamar desde el sitio, la aplicación y la planilla sin copias que se desincronizan.",analogy:"Es la lista de precios en la pared: una sola, y todos consultan la misma."},
+w2:{title:"Sumar la lista de ventas",prompt:"Escribe la función que suma todos los valores de una lista y devuelve el total. Con la lista vacía, el total es cero.",hint:"Empieza con un acumulador en cero y recorre la lista sumando.",why:"Es el patrón acumulador: valor neutro al principio, una suma por vuelta, resultado devuelto después del bucle.",analogy:"Es la alcancía: empieza vacía, recibe una moneda por vez, y recién al final cuentas lo que hay adentro."},
+w3:{title:"El triaje del centro de salud",prompt:"Escribe la función de triaje: 39 o más devuelve \"red\"; de 37,5 a 38,9 devuelve \"yellow\"; por debajo de 37,5 devuelve \"green\".",hint:"La regla más grave va primero, y cada paciente sale con un único nivel.",why:"La cadena de condiciones garantiza una sola salida por paciente. Los valores de frontera, 39 y 37,5, son justamente donde aparecen los errores.",analogy:"Es el protocolo en la pared del centro: se lee de arriba abajo y se para en la primera línea que aplica."},
+w4:{title:"Cuántos superan el límite",prompt:"Escribe la función que cuenta cuántos valores de la lista son mayores que el límite recibido.",hint:"Un contador antes del bucle, una condición adentro, el resultado después.",why:"Contar es distinto de sumar: el contador avanza de a uno, sin mirar el tamaño del valor. Mayor que el límite excluye al valor igual a él.",analogy:"Es el portero con contador de mano: un clic por cada persona que cumple el criterio."},
+w5:{title:"Factorial, sin bucle",prompt:"Escribe la función factorial usando recursión. El factorial de 0 es 1.",hint:"Atiende primero el caso base; después devuelve n por el factorial de n menos 1.",why:"Sin caso base, la función se llama a sí misma para siempre. Con él, cada llamada se acerca a cero y las respuestas vuelven multiplicando.",analogy:"Son las muñecas rusas: paras al llegar a la maciza y vuelves cerrándolas una por una."},
+w6:{title:"El vuelto de la panadería",prompt:"Escribe la función que devuelve el vuelto: cuánto sobra del monto pagado después de descontar el precio.",hint:"Una resta y un retorno. El precio y lo pagado llegan como parámetros.",why:"Los dos valores llegan de afuera, la función devuelve el resultado y no imprime nada: así sirve a la caja, al recibo y al informe.",analogy:"Es la calculadora del mostrador: recibe los dos números, muestra la diferencia y no se guarda nada."}
+});
+
+LANG.es.ui.structPct="{p} de la estructura esperada";
+void "Las filas con * se evaluaron solo por la estructura del código, sin ejecución.";
+Object.assign(LANG.es.ui,{
+ aiStatusShort:"Tutor con IA:",
+ teacherH:"Para docentes e investigación", teacherP:"Configuraciones técnicas. Quien solo juega no necesita tocar nada aquí.",
+ pilotFixed:"{m} dirige el juego: calcula el dominio, abre las fases y elige la dificultad, con dominio desde el {p}. BKT, PFA, AFM y TRI 3PL corren en segundo plano en cada respuesta y solo registran lo que predecían, para compararlos en la pestaña Informe y en los datos exportados.",
+ pilotUrl:"Modo de investigación activo: la dirección de esta página define {m} como modelo que dirige. Quita el parámetro ?piloto= para volver al valor por defecto.",
+ runnerH:"Ejecución de código", runnerP:"JavaScript y Python se ejecutan en el propio navegador. Java y C necesitan un servidor que compile y ejecute el código; sin él, reciben solo una revisión de estructura. Piston es un servicio de ese tipo, con una instancia pública gratuita."
+});
+LANG.es.ui.aiClaude="Conectado a través de Claude en este enlace. En la versión publicada en GitHub, el tutor necesita una clave de API.";
+LANG.es.ui.aiOff="Apagado: el juego usa las pistas escritas por los autores. Para encenderlo, indica un proveedor abajo.";
+
+/* v9.2: Java e C só com serviço de execução */
+Object.assign(LANG.es.ui,{"noExecH": "{l} no se ejecuta dentro del navegador.", "noExecP": "Este ejercicio solo puede evaluarse con un servicio de ejecución de código, que un docente configura en Ajustes, en la sección Para docentes e investigación. Mientras tanto, elige Python o JavaScript en Ajustes para resolver los ejercicios de código.", "infraH": "No se pudo evaluar ahora.", "infra": {"semServico": "No hay un servicio de ejecución configurado para este lenguaje.", "auth": "El servicio de ejecución rechazó el acceso. Revisa el token en Ajustes.", "rede": "El servicio de ejecución no respondió. Revisa la conexión e inténtalo de nuevo.", "pyodide": "No se pudo descargar Python. Necesita internet la primera vez; revisa la conexión e inténtalo de nuevo.", "worker": "Este navegador no permite ejecutar JavaScript aislado. Prueba con otro navegador.", "outro": "El servicio de ejecución devolvió un error. Inténtalo de nuevo en un momento."}, "runErr": "El código no se ejecutó, por eso la nota es 0: {e}", "codeHidden": "Los ejercicios de código libre en {l} quedan ocultos hasta que un docente configure un servicio de ejecución. En Python y JavaScript aparecen normalmente.", "runnerH": "Ejecución de código", "runnerP": "JavaScript y Python se ejecutan en el propio navegador. Java y C necesitan un servidor que compile y ejecute el código; sin él, los ejercicios de código en esos lenguajes quedan ocultos. Usa un servidor Piston propio, o la API pública de Piston, que desde febrero de 2026 exige un token otorgado a proyectos educativos sin fines comerciales.", "runnerUrl": "Dirección del servicio de ejecución", "runnerToken": "Token de autorización (si el servicio lo exige)", "runnerNote": "El código de los estudiantes en Java y C se envía a ese servidor para compilarlo y ejecutarlo. Con el campo vacío, nada sale del navegador.", "runnerOn": "Java y C: ejecución activada.", "runnerOff": "Java y C: sin ejecución. Los ejercicios de código en esos lenguajes quedan ocultos."});
+["structOnly","structPct"].forEach(k=>delete LANG.es.ui[k]);

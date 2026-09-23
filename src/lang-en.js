@@ -348,3 +348,47 @@ Object.assign(LANG.en.ui,{
  homeSbc:"The 14 missions cover programming and software engineering, and each one states the competencies from the SBC Curriculum Guidelines (2017) that it trains. The same concept appears in four programming languages, with the same answer key.",
  homeI18n:"The game exists in 20 languages, the same ones from the translation and tokenisation analysis that guides the project. Right-to-left scripts are supported, and languages with their own script offer a romanised version."
 });
+
+/* ---------- v9: free-code exercises ---------- */
+Object.assign(LANG.en.ui,{
+ bands:["Irregular","Fair","Good","Very good","Excellent"],
+ codeFn:"Write the function {f}. The name must be exactly that.",
+ runBtn:"Run", submit:"Submit for grading", running:"Running your code...",
+ noExecH:"No execution in this language.", noExecP:"{l} does not run inside the browser. The score will come from a check of the code structure (is there a loop, a condition, a return), which measures form rather than behaviour. To really run it, choose Python or JavaScript, or ask your teacher to configure an execution service in Settings.",
+ structOnly:"structure only", runErr:"The code did not run: {e}",
+ gotExp:"got {g}, expected {e}", hidden:"Hidden cases: {a} of {b} correct. They exist so that the solution really works, not only for the visible examples.",
+ checks:"Structure:", checkN:{loop:"uses a loop",cond:"uses a condition",rec:"calls itself",base:"has a base case",return:"returns a value"},
+ aiDebug:"Ask the tutor for help", scored:"Score: {p} ({b})",
+ telLive:"Your process so far: {p} pastes, {r} runs, {s} s.",
+ telDone:"Record of this submission: {p} pastes (largest with {m} characters), {r} runs, {s} s in total. Code fingerprint: {h}",
+ codeH:"Free-code exercises", colScore:"Score", colPaste:"Pastes", colRuns:"Runs", colTime:"Time", colHash:"Fingerprint",
+ codeP:"Each submission stores the score, the process that led to it and a fingerprint of the code sent.",
+ codeEmpty:"No code exercise answered yet.",
+ codeAuth:"What this proves and what it does not: the fingerprint and the timestamp prove that this code was submitted at that moment; the number of pastes and the time describe the process. None of it proves authorship, because everything is recorded in the student's own browser. For graded assessment, add supervised work or a defence of the code itself.",
+ runnerUrl:"Code execution service (optional)",
+ runnerNote:"Left blank, JavaScript and Python run in the browser itself and Java and C get a structure check only. With the URL of a Piston-compatible service, all four languages are executed, but the students' code is sent to a third party."
+});
+Object.assign(LANG.en.items,{
+w1:{title:"The co-op's shipping fee",prompt:"Write the shipping function: 5 reais fixed plus 2 reais per kilometre.",hint:"One line is enough: return the result of the calculation, do not print it.",why:"The rule becomes a named function that can be called from the website, the app and the spreadsheet without diverging copies.",analogy:"It is the price list on the wall: only one, and everybody reads the same one."},
+w2:{title:"Adding up the sales list",prompt:"Write the function that adds all the values of a list and returns the total. With an empty list, the total is zero.",hint:"Start with an accumulator at zero and walk through the list adding.",why:"This is the accumulator pattern: a neutral value at the start, one addition per round, the result returned after the loop.",analogy:"It is the piggy bank: it starts empty, takes one coin at a time, and only at the end do you count what is inside."},
+w3:{title:"The clinic triage",prompt:"Write the triage function: 39 or more returns \"red\"; from 37.5 to 38.9 returns \"yellow\"; below 37.5 returns \"green\".",hint:"The most serious rule comes first, and each patient leaves with a single level.",why:"The chain of conditions guarantees one outcome per patient. The boundary values, 39 and 37.5, are exactly where mistakes show up.",analogy:"It is the protocol on the clinic wall: read top to bottom, stopping at the first line that applies."},
+w4:{title:"How many pass the limit",prompt:"Write the function that counts how many values in the list are greater than the given limit.",hint:"A counter before the loop, a condition inside it, the result afterwards.",why:"Counting differs from adding: the counter moves one at a time, regardless of how large the value is. Greater than the limit excludes the value equal to it.",analogy:"It is the doorman with a hand clicker: one click per person who meets the rule."},
+w5:{title:"Factorial, without a loop",prompt:"Write the factorial function using recursion. The factorial of 0 is 1.",hint:"Handle the base case first; then return n times the factorial of n minus 1.",why:"Without a base case, the function calls itself forever. With it, each call moves towards zero and the answers come back multiplying.",analogy:"They are the Russian dolls: you stop at the solid one and come back closing them one by one."},
+w6:{title:"The bakery change",prompt:"Write the function that returns the change: how much is left from the amount paid after subtracting the price.",hint:"One subtraction and one return. Price and paid arrive as parameters.",why:"Both values arrive from outside, the function returns the result and prints nothing: that way it serves the till, the receipt and the report.",analogy:"It is the calculator on the counter: it takes the two numbers, shows the difference and keeps nothing for itself."}
+});
+
+LANG.en.ui.structPct="{p} of the expected structure";
+void "Rows marked with * were graded by code structure only, with no execution.";
+Object.assign(LANG.en.ui,{
+ aiStatusShort:"AI tutor:",
+ teacherH:"For teachers and research", teacherP:"Technical settings. Players do not need to change anything here.",
+ pilotFixed:"{m} drives the game: it computes mastery, unlocks stages and picks the difficulty, with mastery from {p}. BKT, PFA, AFM and 3PL IRT run in the background on every answer and only record what they predicted, for comparison in the Report tab and in the exported data.",
+ pilotUrl:"Research mode on: this page's address sets {m} as the driving model. Remove the ?piloto= parameter to go back to the default.",
+ runnerH:"Code execution", runnerP:"JavaScript and Python run in the browser itself. Java and C need a server that compiles and runs the code; without one, they get a structure check only. Piston is a service of this kind, with a free public instance."
+});
+LANG.en.ui.aiClaude="Connected through Claude on this link. On the version published on GitHub, the tutor needs an API key.";
+LANG.en.ui.aiOff="Off: the game uses the hints written by the authors. To turn it on, enter a provider below.";
+
+/* v9.2: Java e C só com serviço de execução */
+Object.assign(LANG.en.ui,{"noExecH": "{l} does not run inside the browser.", "noExecP": "This exercise can only be graded with a code execution service, which a teacher sets up in Settings, under For teachers and research. Meanwhile, choose Python or JavaScript in Settings to solve the code exercises.", "infraH": "It could not be graded right now.", "infra": {"semServico": "No execution service is configured for this language.", "auth": "The execution service refused access. Check the token in Settings.", "rede": "The execution service did not respond. Check the connection and try again.", "pyodide": "Python could not be downloaded. It needs the internet the first time; check the connection and try again.", "worker": "This browser does not allow isolated JavaScript execution. Try another browser.", "outro": "The execution service returned an error. Try again in a moment."}, "runErr": "The code did not run, so the score is 0: {e}", "codeHidden": "Free-code exercises in {l} stay hidden until a teacher sets up an execution service. In Python and JavaScript they appear as usual.", "runnerH": "Code execution", "runnerP": "JavaScript and Python run in the browser itself. Java and C need a server that compiles and runs the code; without one, the code exercises in those languages stay hidden. Use your own Piston server, or Piston's public API, which since February 2026 requires a token granted to non-commercial educational projects.", "runnerUrl": "Execution service address", "runnerToken": "Authorisation token (if the service requires one)", "runnerNote": "Students' Java and C code is sent to that server to be compiled and run. With the field empty, nothing leaves the browser.", "runnerOn": "Java and C: execution on.", "runnerOff": "Java and C: no execution. The code exercises in those languages stay hidden."});
+["structOnly","structPct"].forEach(k=>delete LANG.en.ui[k]);
