@@ -301,3 +301,14 @@ textarea.editor:focus{border-color:var(--gold)}
 .teacher-toggle{display:block;width:100%;text-align:left;margin-top:30px;padding:14px 16px;background:var(--sunken);border:1px solid var(--line);border-radius:10px;font-family:var(--display);font-weight:800;font-size:1.15rem}
 .teacher{border:1px solid var(--line);border-top:0;border-radius:0 0 10px 10px;padding:6px 18px 18px;margin-top:-6px;background:var(--surface)}
 .teacher h3{font-size:1.2rem;font-weight:800;margin:22px 0 8px}
+
+/* ---- v10: desafios extras e Oficina ---- */
+.rules{background:var(--sunken);border-radius:10px;padding:10px 14px;margin-bottom:12px}
+.rule{display:inline-block;margin:4px 8px 0 0;padding:3px 10px;border-radius:99px;border:1px solid var(--line);font-size:.88rem;background:var(--surface)}
+.rule.ok{border-color:var(--ok);background:var(--ok-soft)}.rule.no{border-color:var(--bad);background:var(--gold-soft);text-decoration:line-through}
+.warnrule{color:var(--ink);background:var(--gold-soft);border-radius:8px;padding:8px 12px}
+.ticket.bonus{border:2px dashed var(--gold);background:linear-gradient(135deg,var(--gold-soft),var(--surface))}
+.ticket.labcard .tags,.ticket.bonus .tags{display:flex;gap:6px;flex-wrap:wrap;margin-top:8px}
+.ticket.locked{opacity:.55;cursor:not-allowed}
+.labgroup{margin-top:24px}.labgroup h3{font-size:1.25rem;font-weight:800;margin-bottom:10px}
+.labLang{display:inline-flex;align-items:center;gap:8px;margin-bottom:10px;font-weight:600}

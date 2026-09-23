@@ -84,7 +84,7 @@ const RUN = (() => {
       const decl = [], args = [];
       c.args.forEach((a, k) => { const t = item.sig.args[k];
         if (t === "int[]") { decl.push("int a" + i + "_" + k + "[" + Math.max(1, a.length) + "] = {" + (a.length ? a.join(",") : "0") + "};"); args.push("a" + i + "_" + k, String(a.length)); }
-        else args.push(t === "double" ? Number(a).toFixed(4) : String(a)); });
+        else args.push(t === "double" ? Number(a).toFixed(4) : t === "String" ? JSON.stringify(a) : String(a)); });
       return '  { ' + decl.join(" ") + ' printf("{\\"v\\":' + fmt + '}", ' + item.fn + "(" + args.join(", ") + ")); }";
     }).join('\n  printf(",");\n');
     return "#include <stdio.h>\n#include <string.h>\n#include <stdlib.h>\n" + code + '\nint main(void) {\n  printf("[");\n' + calls + '\n  printf("]\\n");\n  return 0;\n}\n';
@@ -105,6 +105,26 @@ const RUN = (() => {
     try { return { out: JSON.parse((run.stdout || "").trim()) }; }
     catch (e) { return { erro: (run.stderr || run.output || (run.signal ? "interrompido: " + run.signal : "sem saída")).split("\n").filter(Boolean).slice(0, 2).join(" ").slice(0, 200) }; }
   }
+
+  /* ---------- Restrições dos desafios ----------
+     O código é limpo de comentários e de textos entre aspas antes da busca, para que um "*" dentro de uma mensagem
+     não conte como multiplicação. É verificação estática: um estudante determinado consegue driblar, e para aprender basta. */
+  function strip(code, lang) {
+    let c = code;
+    if (lang === "py") c = c.replace(/("""|''')[\s\S]*?\1/g, " ").replace(/#[^\n]*/g, " ");
+    else c = c.replace(/\/\*[\s\S]*?\*\//g, " ").replace(/\/\/[^\n]*/g, " ");
+    return c.replace(/"(?:\\.|[^"\\\n])*"/g, '""').replace(/'(?:\\.|[^'\\\n])*'/g, "''").replace(/`(?:\\.|[^`\\])*`/g, "``");
+  }
+  function rules(code, lang, list) {
+    const c = strip(code, lang);
+    return (list || []).map(r => {
+      const spec = r.forbid || r.require, re = spec[lang] || spec.all;
+      if (!re) return null;                                   /* regra que não se aplica a esta linguagem */
+      const n = (c.match(new RegExp(re, "g")) || []).length;
+      return { id: r.id, ok: r.forbid ? n === 0 : n >= (spec.min || 1) };
+    }).filter(Boolean);
+  }
+  const CAP = 0.59;   /* código que funciona mas quebra a regra fica, no máximo, em Regular */
 
   /* ---------- Verificação estrutural (Java, C, ou quando a execução falha) ---------- */
   function structural(code, checks) {
@@ -127,18 +147,19 @@ const RUN = (() => {
       const st = structural(code, item.checks), pesoS = st.reduce((a, x) => a + x.peso, 0);
       if (r.erro) {   /* o código não rodou: nota 0, com o motivo em cada caso */
         const casos = cases.map(c => ({ nome: c.nome || (item.fn + "(" + c.args.map(show).join(", ") + ")"), esperado: show(c.out), obtido: "", ok: false, peso: c.peso || 1, oculto: !!c.oculto }));
-        return { modo: "exec", erro: r.erro, casos, checks: st, pct: 0 };
+        return { modo: "exec", erro: r.erro, casos, checks: st, regras: rules(code, lang, item.rules), pct: 0 };
       }
       const casos = cases.map((c, i) => { const got = r.out[i] || {}; const ok = !("e" in got) && same(got.v, c.out);
         return { nome: c.nome || (item.fn + "(" + c.args.map(show).join(", ") + ")"), esperado: show(c.out), obtido: "e" in got ? got.e : show(got.v), ok, peso: c.peso || 1, oculto: !!c.oculto }; });
       const peso = casos.reduce((a, x) => a + x.peso, 0) || 1, pctCasos = casos.reduce((a, x) => a + (x.ok ? x.peso : 0), 0) / peso;
       /* a estrutura só entra quando o código de fato rodou: 20% da nota */
       const pct = pesoS ? 0.8 * pctCasos + 0.2 * (st.reduce((a, x) => a + (x.ok ? x.peso : 0), 0) / pesoS) : pctCasos;
-      return { modo: "exec", casos, checks: st, pct };
+      const rg = rules(code, lang, item.rules), violou = rg.some(x => !x.ok);
+      return { modo: "exec", casos, checks: st, regras: rg, violou, pct: violou ? Math.min(pct, CAP) : pct };
     },
     /* A linguagem executa neste momento? (JS e Python sempre; Java e C só com serviço configurado) */
     canRun: (lang, cfg) => lang === "js" || lang === "py" || !!(cfg && cfg.url),
-    javaProgram, cProgram,
+    javaProgram, cProgram, rules, strip,
     /* Impressão digital do que foi enviado: prova o conteúdo e o instante, não a autoria. */
     async hash(txt) {
       try { const b = new TextEncoder().encode(txt), d = await crypto.subtle.digest("SHA-256", b);

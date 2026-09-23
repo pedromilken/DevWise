@@ -46,6 +46,24 @@ O botão **Pedir ajuda ao tutor** manda ao LLM o código do estudante, o erro e 
 
 **Registro e limites.** Cada entrega guarda nota, resultado por caso, data, um SHA-256 do código e o processo (colagens, tamanho da maior colagem, execuções, tempo até a primeira tecla, tempo total). Isso aparece para o estudante e no relatório do docente. Prova que aquele código foi enviado naquele instante; **não prova autoria**, porque tudo é registrado no navegador do próprio estudante. Para avaliação com peso em nota, combine com trabalho supervisado ou defesa do código.
 
+### Desafios extras: bônus no quadro e Oficina
+
+Doze desafios de código (`extra:true` em `data.js`), dois por habilidade de programação, em dois tipos:
+
+| Tipo | O que avalia | Exemplos |
+|---|---|---|
+| **Com restrição** (`kind:"rule"`) | o fundamento, sem as ferramentas prontas | multiplicar só com soma e `for`; potência sem `**`/`pow`; maior valor sem `max`; média sem `sum`/`reduce`; par ou ímpar sem `%`; inverter texto sem `reverse`; calculadora sem `eval`; soma de dígitos sem laço |
+| **Livre** (`kind:"free"`) | a resolução do problema, do jeito do estudante | IMC com classificação; contar vogais; FizzBuzz; segundos em hh:mm:ss |
+
+As restrições são escritas por linguagem (`forbid`/`require`, com `all` quando valem para todas) e verificadas no código **sem comentários e sem textos entre aspas**, para que um `*` numa mensagem não conte. Código que funciona mas quebra uma regra tem a nota **limitada a Regular (59%)**, abaixo do corte de acerto. É verificação estática: um estudante determinado consegue driblar; para aprender basta, para prova não.
+
+- **Bônus no quadro**: um desafio por vez, da habilidade cuja missão já foi aberta. Vale **XP ×1,5** e **conta para o domínio** no Elo. Serve para juntar XP antes de um chefão.
+- **Oficina** (aba própria): todos os desafios, abertos por habilidade conforme as missões. Treino livre: o estudante escolhe a linguagem dentro do desafio, erra e tenta de novo à vontade. **Não altera o domínio**; o XP vem só na primeira vez que o desafio passa de 60%, para não virar fonte de XP infinito.
+- **Relatório**: o perfil de competências mostra, por habilidade, a nota média nos desafios bônus com restrição e nos livres, e a atividade na Oficina à parte.
+- Exercícios de código não têm relógio em nenhum modo: escrever um programa em 60 segundos não mede competência.
+
+As soluções de referência dos 12 desafios foram executadas nas quatro linguagens (48 combinações) contra todos os casos e todas as regras.
+
 ### Camada de jogo
 
 | Mecânica | Regra |
