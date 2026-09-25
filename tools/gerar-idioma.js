@@ -89,7 +89,7 @@ async function callLLM(prompt) {
   }
   /* DEEPSEEK_API_KEY tem precedência e dispensa as outras variáveis: evita que uma OPENAI_API_KEY de outro projeto, gravada no sistema, seja enviada ao provedor errado. */
   const ds = process.env.DEEPSEEK_API_KEY;
-  if (ds || process.env.OPENAI_API_KEY || process.env.OPENAI_BASE_URL) {
+  if (ds || process.env.OPENAI_BASE_URL) {
     const base = (ds ? "https://api.deepseek.com" : process.env.OPENAI_BASE_URL || "https://api.openai.com/v1").replace(/\/+$/, ""), hd = { "content-type": "application/json" }, keyUsed = ds || process.env.OPENAI_API_KEY;
     if (keyUsed) hd.authorization = "Bearer " + keyUsed;
     const body = { model: model || (ds ? "deepseek-v4-pro" : "gpt-4o-mini"), max_tokens: MAXTOK, messages: [{ role: "user", content: prompt }] };
@@ -105,7 +105,7 @@ async function callLLM(prompt) {
     const d = await r.json(); if (d.usage) { usage.in += d.usage.prompt_tokens || 0; usage.out += d.usage.completion_tokens || 0; usage.think += (d.usage.completion_tokens_details || {}).reasoning_tokens || 0; }
     return d.choices[0].message.content;
   }
-  throw new Error("Defina DEEPSEEK_API_KEY, ANTHROPIC_API_KEY ou OPENAI_API_KEY (ou use --mock).");
+  throw new Error("Defina DEEPSEEK_API_KEY, ANTHROPIC_API_KEY ou OPENAI_BASE_URL com OPENAI_API_KEY (ou use --mock).");
 }
 function mockTranslate(o, tag) { if (typeof o === "string") return "[" + tag + "] " + o; if (Array.isArray(o)) return o.map(x => mockTranslate(x, tag)); const r = {}; for (const k in o) r[k] = mockTranslate(o[k], tag); return r; }
 
@@ -245,7 +245,27 @@ async function romanize(code) {
   console.log("\n   gravado: " + path.relative(root, file) + " (" + Object.keys(map).length + " de " + all.size + " textos)");
 }
 
+/* Sem chave definida, o gerador pede a do DeepSeek na hora, sem mostrar o que é colado. Uma OPENAI_API_KEY solta no sistema
+   (de outro projeto) não é usada por engano: para usar a OpenAI de propósito, defina também OPENAI_BASE_URL. */
+function askKey() {
+  return new Promise(resolve => {
+    const rl = require("readline").createInterface({ input: process.stdin, output: process.stdout, terminal: true });
+    const write = rl._writeToOutput; let muted = false;
+    rl._writeToOutput = function (s) { if (muted) { if (s.includes("\n") || s.includes("\r")) write.call(rl, "\n"); } else write.call(rl, s); };
+    rl.question("Cole a chave do DeepSeek e dê Enter (clique com o botão direito para colar; ela não aparece na tela): ", k => { rl.close(); resolve(String(k || "").trim()); });
+    muted = true;
+  });
+}
+async function ensureKey() {
+  const needs = !mock && !["pos-edicao", undefined].includes(target);
+  if (!needs || process.env.DEEPSEEK_API_KEY || process.env.ANTHROPIC_API_KEY || process.env.OPENAI_BASE_URL) return;
+  const k = await askKey();
+  if (!/^sk-[A-Za-z0-9]{20,}$/.test(k)) { console.error("\nIsso não parece uma chave do DeepSeek (esperado: sk- seguido de letras e números, " + (k.length ? k.length + " caracteres recebidos" : "nada foi colado") + "). Nada foi enviado."); process.exit(1); }
+  process.env.DEEPSEEK_API_KEY = k;
+  console.log("Chave recebida (" + k.length + " caracteres). Vale só para esta execução.\n");
+}
 (async () => {
+  await ensureKey();
   if (target === "pos-edicao") { for (const c of Object.keys(POS)) if (c !== "_") { const n = applyPostEdits(c, path.join(srcDir, "lang-" + c + ".js")); if (n) console.log(c + ": " + n + " correções aplicadas"); } return; }
   if (target === "avaliar" || args.includes("--avaliar")) { const list = target === "avaliar" ? STUDY_LANGS.map(x => x.code).filter(c => !["pt", "en", "es"].includes(c) && LANG[c]) : [target];
     for (const c of list) { try { await generate(c, { review: true }); } catch (e) { console.log("\n   FALHOU " + c + ": " + e.message.split("\n")[0]); } if (!mock) console.log("   tokens acumulados nesta execução: entrada " + usage.in + ", saída " + usage.out); } return; }

@@ -268,3 +268,6 @@ Object.assign(LANG.zh.items, {
   "analogy": "就像把厨房、浴室和办公室的东西装进同一个箱子。要找一只杯子得把所有东西翻出来，而且没法只退回装错的那部分。"
  }
 });
+
+/* Traduções feitas à mão para a exportação de pesquisa (sem API). */
+Object.assign(LANG.zh.ui, {"csvBtn": "下载研究数据表（CSV）", "csvNote": "每次作答一行，包含化名标识符 {s}、游戏中记录的每个模型的预测，以及为所有模型从头重建的预测。其中没有任何能识别学生个人身份的信息。", "sidLabel": "此浏览器的化名标识符："});

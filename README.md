@@ -26,6 +26,10 @@ Você entra na Ponte, uma pequena casa de software que atende a padaria, o posto
 | Tutor com IA | Dicas socráticas e novas analogias via Anthropic, qualquer API compatível com OpenAI ou servidor local (Ollama); sem IA, usa as dicas autorais |
 | Relatório | Domínio por habilidade, acerto por nível de Bloom, recomendações e exportação do registro em formato longo de KT |
 
+### Chave da API no gerador
+
+`node tools/gerar-idioma.js revisar` pede a chave do DeepSeek na hora, sem exibi-la, quando nenhuma chave está definida, e recusa o que não tiver o formato `sk-...`. Uma `OPENAI_API_KEY` gravada no sistema por outro projeto **não é usada por engano**: para usar a OpenAI de propósito, defina também `OPENAI_BASE_URL`. `--mock` e `pos-edicao` não pedem chave.
+
 ### Exercícios de código livre
 
 O estudante escreve a função pedida e recebe uma nota em porcentagem, calculada pelos casos de teste (alguns ocultos, para impedir soluções decoradas) mais 20% de verificação estrutural quando o item a define.

@@ -268,3 +268,6 @@ Object.assign(LANG.ko.items, {
   "analogy": "주방, 욕실, 사무실을 같은 상자에 포장하는 것과 같습니다. 컵 하나를 찾으려면 모든 것을 뒤져야 하고, 잘못 도착한 것만 돌려보낼 수 없습니다."
  }
 });
+
+/* Traduções feitas à mão para a exportação de pesquisa (sem API). */
+Object.assign(LANG.ko.ui, {"csvBtn": "연구용 데이터 표 다운로드(CSV)", "csvNote": "답변마다 한 줄씩 기록되며, 가명 식별자 {s}, 게임에서 기록된 각 모델의 예측, 모든 모델에 대해 처음부터 다시 계산한 예측이 담깁니다. 학습자 개인을 식별할 수 있는 정보는 없습니다.", "sidLabel": "이 브라우저의 가명 식별자:"});
