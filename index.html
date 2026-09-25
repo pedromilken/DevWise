@@ -1758,7 +1758,7 @@ const KT = (() => {
       init: L => ({ mu: logit(clamp(L, .02, .98)), r: [] }),
       post(m) { let w = GRID.map(t => Math.exp(-0.5 * Math.pow((t - m.mu) / 1.2, 2))); for (const [b, c, y] of m.r) w = w.map((x, i) => { const p = c + (1 - c) * sig(GRID[i] - b); return x * (y ? p : 1 - p); }); const s = w.reduce((a, b) => a + b, 0) || 1; return w.map(x => x / s); },
       predict(m, it, c) { const w = this.post(m), b = itemB(it); return w.reduce((a, x, i) => a + x * (c + (1 - c) * sig(GRID[i] - b)), 0); },
-      update(m, it, c, y) { m.r.push([+itemB(it).toFixed(2), +c.toFixed(3), y ? 1 : 0]); if (m.r.length > 60) m.r.shift(); },
+      update(m, it, c, y) { m.r.push([+itemB(it).toFixed(2), +c.toFixed(3), y ? 1 : 0]); },   /* sem janela: a EAP usa todo o histórico, como no teto do estudo do ENEM */
       mastery(m) { const w = this.post(m); return sig(w.reduce((a, x, i) => a + x * GRID[i], 0)); } },
     bkt: { master: 0.95, T: 0.2, SLIP: 0.1,
       init: L => ({ L }),
@@ -1786,6 +1786,15 @@ const KT = (() => {
     updateAll(tr, it, c, y) { this.ensure(tr); for (const k of IDS) MODELS[k].update(tr.m[k], it, c, y); },
     mastery(tr, pilot) { this.ensure(tr); return clamp(MODELS[pilot].mastery(tr.m[pilot]), .001, .999); },
     master: pilot => MODELS[pilot].master,
+    /* Replay: reconstrói os cinco modelos do zero, a partir do mesmo prior neutro, reprocessando o registro na ordem.
+       Devolve, para cada linha, a previsão que cada modelo teria feito ANTES daquela resposta. Serve à pesquisa:
+       independe do piloto, cobre linhas antigas sem previsão gravada e é reprodutível a partir do registro. */
+    replay(rows, L0) {
+      const st = {};
+      return rows.map(r => {
+        const k = r.key; if (!st[k]) st[k] = this.ensure({ L: L0 });
+        const p = this.predictAll(st[k], r.item, r.c); this.updateAll(st[k], r.item, r.c, r.y); return p; });
+    },
     /* métricas de previsão sobre um log: Brier, AUC (Mann-Whitney) e acurácia a 0,5 */
     score(log, k) { const rows = log.filter(l => l.preds && l.preds[k] != null); if (!rows.length) return null;
       const brier = rows.reduce((a, l) => a + Math.pow(l.preds[k] - (l.ok ? 1 : 0), 2), 0) / rows.length, acc = rows.filter(l => (l.preds[k] >= .5) === !!l.ok).length / rows.length;
@@ -2397,6 +2406,9 @@ x11:{title:"Soma dos dígitos, sem laço",prompt:"Escreva digit_sum(n), que devo
 x12:{title:"Segundos no relógio",prompt:"Escreva hms(seconds), que converte uma quantidade de segundos no formato \"hh:mm:ss\", sempre com dois dígitos em cada parte.",hint:"Horas são segundos divididos por 3600; minutos vêm do que sobra das horas, divididos por 60.",why:"Cada parte sai do que sobra da anterior: é o mesmo raciocínio de trocar dinheiro em notas maiores primeiro. Os zeros à esquerda são formatação, não cálculo.",analogy:"É dar troco com o menor número de cédulas: primeiro as de cem, depois as de dez, e o que sobra em moedas."}
 });
 
+/* v10.1: exportação para pesquisa */
+Object.assign(LANG.pt.ui,{"csvBtn": "Baixar tabela para pesquisa (CSV)", "csvNote": "Uma linha por resposta, com o identificador pseudônimo {s}, a previsão de cada modelo gravada no jogo e a previsão reconstruída do zero para todos os modelos. Nada identifica o estudante pessoalmente.", "sidLabel": "Identificador pseudônimo deste navegador:"});
+
 LANG.en = {
 name:"English", llmName:"English",
 ui:{
@@ -2827,6 +2839,9 @@ x11:{title:"Digit sum, without a loop",prompt:"Write digit_sum(n), which returns
 x12:{title:"Seconds on the clock",prompt:"Write hms(seconds), which converts a number of seconds into the format \"hh:mm:ss\", always with two digits in each part.",hint:"Hours are seconds divided by 3600; minutes come from what is left after the hours, divided by 60.",why:"Each part comes from what is left of the previous one: the same reasoning as giving change in the largest notes first. The leading zeros are formatting, not calculation.",analogy:"It is giving change with the fewest notes: first the hundreds, then the tens, and what is left in coins."}
 });
 
+/* v10.1: exportação para pesquisa */
+Object.assign(LANG.en.ui,{"csvBtn": "Download research table (CSV)", "csvNote": "One row per answer, with the pseudonymous identifier {s}, each model's prediction recorded in the game and the prediction rebuilt from scratch for all models. Nothing identifies the student personally.", "sidLabel": "Pseudonymous identifier for this browser:"});
+
 LANG.es = {
 name:"Español", llmName:"Latin American Spanish",
 ui:{
@@ -3256,6 +3271,9 @@ x10:{title:"FizzBuzz",prompt:"Escribe fizzbuzz(n): devuelve \"FizzBuzz\" si n es
 x11:{title:"Suma de dígitos, sin bucle",prompt:"Escribe digit_sum(n), que devuelve la suma de los dígitos de n (mayor o igual a cero) usando recursión. for y while están prohibidos.",hint:"El último dígito es n % 10; el resto del número es n dividido por 10, sin la parte decimal.",why:"Sin bucle, la repetición viene de la propia función. El caso base (un número de un solo dígito) es lo que hace que las llamadas se detengan.",analogy:"Es pelar una cebolla: sacas una capa, miras lo que queda y repites hasta llegar al centro."},
 x12:{title:"Segundos en el reloj",prompt:"Escribe hms(seconds), que convierte una cantidad de segundos al formato \"hh:mm:ss\", siempre con dos dígitos en cada parte.",hint:"Las horas son los segundos divididos por 3600; los minutos salen de lo que sobra de las horas, divididos por 60.",why:"Cada parte sale de lo que sobra de la anterior: es el mismo razonamiento que dar el vuelto con los billetes más grandes primero. Los ceros a la izquierda son formato, no cálculo.",analogy:"Es dar el vuelto con la menor cantidad de billetes: primero los de cien, después los de diez, y lo que sobra en monedas."}
 });
+
+/* v10.1: exportação para pesquisa */
+Object.assign(LANG.es.ui,{"csvBtn": "Descargar tabla para investigación (CSV)", "csvNote": "Una fila por respuesta, con el identificador seudónimo {s}, la predicción de cada modelo registrada en el juego y la predicción reconstruida desde cero para todos los modelos. Nada identifica personalmente al estudiante.", "sidLabel": "Identificador seudónimo de este navegador:"});
 
 /* Pacote gerado por tools/gerar-idioma.js a partir de "en". REVISAR com um falante nativo antes de publicar. */
 LANG.ar = {
@@ -39064,14 +39082,14 @@ function guessLang(){const n=(navigator.language||"pt").slice(0,2).toLowerCase()
 function newSprint(n){return {n,done:[],start:snapshot(),b:{},run:0}}
 function blankSkills(){const skills={}; SKILLS.forEach(s=>skills[s.id]=s.area==="prog"?{pl:{}}:{L:L0,n:0,c:0}); return skills}
 function fresh(){
-  const o={v:2,started:false,lang:guessLang(),pl:"py",skills:blankSkills(),brief:{},seen:{},log:[],xp:0,xpTotal:0,mode:"normal",inv:{shield:0,fifty:0,time:0},boost:0,titles:[],title:null,bosses:{},daily:{date:"",item:null,done:false},streak:0,best:0,board:[],pilot:"elo",confirm:true,runner:{url:"",langs:["py","js","java","c"]},lab:{},labLog:[],bonusDone:{},name:"",session:{id:0,day:"",n:0,last:0},
+  const o={v:2,started:false,lang:guessLang(),pl:"py",skills:blankSkills(),brief:{},seen:{},log:[],xp:0,xpTotal:0,mode:"normal",inv:{shield:0,fifty:0,time:0},boost:0,titles:[],title:null,bosses:{},daily:{date:"",item:null,done:false},streak:0,best:0,board:[],pilot:"elo",confirm:true,runner:{url:"",langs:["py","js","java","c"]},lab:{},labLog:[],bonusDone:{},sid:newSid(),name:"",session:{id:0,day:"",n:0,last:0},
     sprint:{n:1,done:[],start:{},b:{},run:0},ai:{provider:"anthropic",key:"",model:"",base:""}};
   return o;
 }
 function load(){
   try{const d=JSON.parse(localStorage.getItem(KEY)||"null");
     if(d&&d.v===2&&d.skills){const f=fresh();SKILLS.forEach(s=>{const e=d.skills[s.id]; if(!e)d.skills[s.id]=f.skills[s.id]; else if(s.area==="prog"&&!e.pl){const pl=PLS[d.pl]?d.pl:"py";d.skills[s.id]={pl:{[pl]:{L:e.L,n:e.n,c:e.c}}}}}); // migra o domínio único da v3 para a linguagem em uso
-      if(d.xpTotal===undefined)d.xpTotal=d.xp||0; for(const k in f)if(d[k]===undefined)d[k]=f[k]; d.sprint.b=d.sprint.b||{}; d.sprint.run=d.sprint.run||0; if(!MODES[d.mode])d.mode="normal"; if(!KT.MODELS[d.pilot])d.pilot="elo"; if(!d.runner)d.runner=f.runner; if(!d.lab)d.lab={}; if(!d.labLog)d.labLog=[]; if(!d.bonusDone)d.bonusDone={}; if(!d.session)d.session=f.session; if(!LANG[d.lang])d.lang="pt"; if(!PLS[d.pl])d.pl="py"; d.ai=d.ai||f.ai; d.brief=d.brief||{}; return d;}}catch(e){}
+      if(d.xpTotal===undefined)d.xpTotal=d.xp||0; for(const k in f)if(d[k]===undefined)d[k]=f[k]; d.sprint.b=d.sprint.b||{}; d.sprint.run=d.sprint.run||0; if(!MODES[d.mode])d.mode="normal"; if(!KT.MODELS[d.pilot])d.pilot="elo"; if(!d.runner)d.runner=f.runner; if(!d.sid)d.sid=newSid(); if(!d.lab)d.lab={}; if(!d.labLog)d.labLog=[]; if(!d.bonusDone)d.bonusDone={}; if(!d.session)d.session=f.session; if(!LANG[d.lang])d.lang="pt"; if(!PLS[d.pl])d.pl="py"; d.ai=d.ai||f.ai; d.brief=d.brief||{}; return d;}}catch(e){}
   return fresh();
 }
 function save(){try{localStorage.setItem(KEY,JSON.stringify(S))}catch(e){}}
@@ -39109,6 +39127,8 @@ const confirmToday=id=>awaitsConfirm(id)&&!(trk(id).days||[]).includes(today());
 const preOk=id=>SK[id].pre.every(p=>trk(p).L>=UNLOCK);
 const gateOk=id=>S.xpTotal>=(GATES[id]||0)||!!S.brief[id];
 const unlocked=id=>preOk(id)&&gateOk(id);
+/* Identificador pseudônimo, aleatório, gerado uma vez por navegador. Não deriva de nada pessoal e permite juntar exportações de muitos estudantes. */
+function newSid(){try{const a=new Uint8Array(8);crypto.getRandomValues(a);return "s"+[...a].map(x=>x.toString(36).padStart(2,"0")).join("").slice(0,12)}catch(e){return "s"+Math.random().toString(36).slice(2,14)}}
 function earn(x){S.xp+=x;S.xpTotal+=x}
 const gt=()=>Lg().game||LANG.pt.game;
 const isTyped=it=>MODES[S.mode].typed&&it.type==="mc"&&it.mono&&!!it.code;
@@ -39151,7 +39171,7 @@ function resolve(ok){
   const preds=KT.predictAll(sk,it,g);                       // cada modelo registra o que previa ANTES de ver a resposta
   KT.updateAll(sk,it,g,ok?1:0); sk.L=KT.mastery(sk,pilot()); sk.n++; if(ok){sk.c++; sk.days=sk.days||[]; if(!sk.days.includes(today()))sk.days.push(today())}
   const res={ok,before,after:sk.L,pct,awaits:false,mi:Math.floor(Math.random()*4),comeback:0,streak:0,xp:0,pen:0,shield:false,bounties:[],newly:[],promo:null,masteredNow:before<master()&&sk.L>=master()};
-  S.log.push({i:S.log.length+1,sprint:S.sprint.n,item:it.id,skill:it.skill,bloom:it.bloom,d:it.d,ok,hint:cur.hint,ai:!!cur.aiUsed,mode:cur.mode,typed:!!cur.typed,timeout:!!cur.timeout,boss:it.boss||null,lang:S.lang,pl:isProg(it.skill)?S.pl:null,before:+before.toFixed(3),after:+sk.L.toFixed(3),pilot:pilot(),preds,pct:pct==null?null:+pct.toFixed(3),code:it.type==="code"?{hash:cur.hash||null,chars:(cur.code||"").length,lang:cur.lang||S.pl,modo:cur.res&&cur.res.modo,tel:cur.tel,extra:!!it.extra,kind:it.kind||null,bonus:!!cur.bonus,regras:(cur.res&&cur.res.regras||[]).map(x=>[x.id,x.ok])}:null,b:+KT.itemB(it).toFixed(2),c:+g.toFixed(3),session:ses.id,pos:ses.n,rt:cur.t0?now-cur.t0:null,t:now});
+  S.log.push({i:S.log.length+1,sprint:S.sprint.n,item:it.id,skill:it.skill,bloom:it.bloom,d:it.d,ok,hint:cur.hint,ai:!!cur.aiUsed,mode:cur.mode,typed:!!cur.typed,timeout:!!cur.timeout,boss:it.boss||null,lang:S.lang,pl:isProg(it.skill)?S.pl:null,before:+before.toFixed(3),after:+sk.L.toFixed(3),v:2,pilot:pilot(),preds,pct:pct==null?null:+pct.toFixed(3),code:it.type==="code"?{hash:cur.hash||null,chars:(cur.code||"").length,lang:cur.lang||S.pl,modo:cur.res&&cur.res.modo,tel:cur.tel,extra:!!it.extra,kind:it.kind||null,bonus:!!cur.bonus,regras:(cur.res&&cur.res.regras||[]).map(x=>[x.id,x.ok])}:null,b:+KT.itemB(it).toFixed(2),c:+g.toFixed(3),session:ses.id,pos:ses.n,rt:cur.t0?now-cur.t0:null,t:now});
   res.awaits=awaitsConfirm(it.skill);
   if(it.boss){ if(!ok)boss.errors++; }
   else{
@@ -39721,7 +39741,27 @@ function modelPanel(){
       h("tbody",null,rows.map(([k,r])=>h("tr",null,h("td",null,k===pilot()?h("b",null,t("models")[k]):t("models")[k]),h("td",null,k===pilot()?t("rolePilot"):t("roleShadow")),h("td",null,r?f(r.brier):"-"),h("td",null,r?f(r.auc):"-"),h("td",null,r?pct(r.acc):"-"),h("td",null,r?String(r.n):"0")))))),
     h("p",{class:"note"},t("cmpNote")));
 }
-function exportData(){return JSON.stringify({app:"DevWise",version:3,skills:S.skills,log:S.log},null,1)}
+function exportData(){return JSON.stringify({app:"DevWise",version:4,student:S.sid,skills:S.skills,log:S.log},null,1)}
+/* Tabela longa para pesquisa: uma linha por resposta. pred_* = previsão gravada no jogo (só em registros v2);
+   rpred_* = previsão reconstruída por replay, a partir do mesmo prior neutro para todos os modelos. */
+const RESEARCH_COLS=["schema","student","row","timestamp","session","position","sprint","item","skill","area","pl","item_type","bloom","difficulty","b","c","correct","score","mode","hint","typed","ai","bonus","boss","pilot","log_version","pred_elo","pred_irt","pred_bkt","pred_pfa","pred_afm","rpred_elo","rpred_irt","rpred_bkt","rpred_pfa","rpred_afm"];
+function researchRows(){
+  const rows=S.log.filter(l=>IT[l.item]);
+  let ses=0,last=0,pos=0,lastPl=null;   /* linguagem ausente em linha antiga: usa a última registrada, que era a do jogo naquele momento */
+  const base=rows.map(l=>{const it=IT[l.item],prog=isProg(l.skill);
+    if(l.session!=null){ses=l.session;pos=l.pos}else{if(!last||l.t-last>30*60000){ses++;pos=0}pos++}   /* sessão derivada nas linhas antigas: mesma regra do jogo */
+    last=l.t;
+    let c=l.c!=null?l.c:guessProb(it); if(l.c==null){if(l.typed)c=0.03; else if(l.hint)c=Math.max(.5,c)}
+    const pl=prog?(l.pl||lastPl||S.pl):""; if(prog&&l.pl)lastPl=l.pl;
+    return {l,it,ses,pos,c,pl,key:l.skill+"|"+(prog?pl:"-"),y:l.ok?1:0};});
+  const rp=KT.replay(base.map(x=>({key:x.key,item:x.it,c:x.c,y:x.y})),L0);
+  const f=v=>v==null?"":typeof v==="number"?String(+v.toFixed(4)):String(v);
+  return base.map((x,i)=>{const l=x.l,p=l.preds||{},r=rp[i];
+    return ["devwise-kt-1",S.sid,i+1,new Date(l.t).toISOString(),x.ses,x.pos,l.sprint,l.item,l.skill,SK[l.skill].area,x.pl,x.it.type,l.bloom,l.d,
+      KT.itemB(x.it),x.c,x.y,l.pct==null?"":l.pct,l.mode,l.hint?1:0,l.typed?1:0,l.ai?1:0,l.code&&l.code.bonus?1:0,l.boss||"",l.pilot||"",l.v||1,
+      p.elo,p.irt,p.bkt,p.pfa,p.afm,r.elo,r.irt,r.bkt,r.pfa,r.afm].map(f);});
+}
+function exportCSV(){const q=v=>/[",\n]/.test(v)?'"'+v.replace(/"/g,'""')+'"':v;return [RESEARCH_COLS.join(","),...researchRows().map(r=>r.map(q).join(","))].join("\n")}
 function report(){
   const n=S.log.length, c=S.log.filter(l=>l.ok).length, w=weakest();
   const bloom=t("bloom").map((name,i)=>{const ls=S.log.filter(l=>l.bloom===i+1);return {name,n:ls.length,c:ls.filter(l=>l.ok).length}});
@@ -39758,7 +39798,9 @@ function report(){
         h("div",{class:"row"},
           h("button",{class:"btn ghost small",onclick:()=>{showJson=!showJson;render()}},showJson?t("hideJson"):t("showJson")),
           h("button",{class:"btn ghost small",onclick:()=>{try{const a=document.createElement("a");a.href=URL.createObjectURL(new Blob([exportData()],{type:"application/json"}));a.download="devwise-log.json";a.click()}catch(e){} showJson=true;render()}},t("download")),
-          h("button",{class:"btn ghost small",onclick:()=>{ if(!resetArmed){resetArmed=true;render();return;} const keep={lang:S.lang,pl:S.pl,ai:S.ai,mode:S.mode,pilot:S.pilot,confirm:S.confirm,name:S.name,runner:S.runner}; S=Object.assign(fresh(),keep);save();selSkill=null;cur=null;go("home") }},resetArmed?t("resetConfirm"):t("reset"))),
+          h("button",{class:"btn ghost small",onclick:()=>{ if(!resetArmed){resetArmed=true;render();return;} const keep={sid:S.sid,lang:S.lang,pl:S.pl,ai:S.ai,mode:S.mode,pilot:S.pilot,confirm:S.confirm,name:S.name,runner:S.runner}; S=Object.assign(fresh(),keep);save();selSkill=null;cur=null;go("home") }},resetArmed?t("resetConfirm"):t("reset"))),
+        h("button",{class:"btn ghost small",onclick:()=>{try{const a=document.createElement("a");a.href=URL.createObjectURL(new Blob([exportCSV()],{type:"text/csv"}));a.download="devwise-"+S.sid+".csv";a.click()}catch(e){}}},"📊 "+t("csvBtn")),
+        h("p",{class:"note"},t("csvNote",{s:S.sid})),
         showJson&&h("textarea",{readonly:true,"aria-label":"JSON",style:"margin-top:12px",onfocus:e=>e.target.select()},exportData()))));
 }
 function settings(){
@@ -39776,6 +39818,7 @@ function settings(){
     h("button",{class:"teacher-toggle","aria-expanded":String(open),onclick:()=>{S.teacherOpen=!open;save();render()}},(open?"▾ ":"▸ ")+t("teacherH")),
     open&&h("section",{class:"teacher"},
       h("p",{class:"note"},t("teacherP")),
+      h("p",null,h("b",null,t("sidLabel")+" "),h("code",null,S.sid)),
       h("h3",null,t("modelH")),
       h("p",null,t("pilotFixed",{m:t("models").elo,p:pct(master())})),
       URL_PILOT&&h("p",{class:"hint"},t("pilotUrl",{m:t("models")[URL_PILOT]})),

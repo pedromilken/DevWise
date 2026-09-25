@@ -32,7 +32,7 @@ const KT = (() => {
       init: L => ({ mu: logit(clamp(L, .02, .98)), r: [] }),
       post(m) { let w = GRID.map(t => Math.exp(-0.5 * Math.pow((t - m.mu) / 1.2, 2))); for (const [b, c, y] of m.r) w = w.map((x, i) => { const p = c + (1 - c) * sig(GRID[i] - b); return x * (y ? p : 1 - p); }); const s = w.reduce((a, b) => a + b, 0) || 1; return w.map(x => x / s); },
       predict(m, it, c) { const w = this.post(m), b = itemB(it); return w.reduce((a, x, i) => a + x * (c + (1 - c) * sig(GRID[i] - b)), 0); },
-      update(m, it, c, y) { m.r.push([+itemB(it).toFixed(2), +c.toFixed(3), y ? 1 : 0]); if (m.r.length > 60) m.r.shift(); },
+      update(m, it, c, y) { m.r.push([+itemB(it).toFixed(2), +c.toFixed(3), y ? 1 : 0]); },   /* sem janela: a EAP usa todo o histórico, como no teto do estudo do ENEM */
       mastery(m) { const w = this.post(m); return sig(w.reduce((a, x, i) => a + x * GRID[i], 0)); } },
     bkt: { master: 0.95, T: 0.2, SLIP: 0.1,
       init: L => ({ L }),
@@ -60,6 +60,15 @@ const KT = (() => {
     updateAll(tr, it, c, y) { this.ensure(tr); for (const k of IDS) MODELS[k].update(tr.m[k], it, c, y); },
     mastery(tr, pilot) { this.ensure(tr); return clamp(MODELS[pilot].mastery(tr.m[pilot]), .001, .999); },
     master: pilot => MODELS[pilot].master,
+    /* Replay: reconstrói os cinco modelos do zero, a partir do mesmo prior neutro, reprocessando o registro na ordem.
+       Devolve, para cada linha, a previsão que cada modelo teria feito ANTES daquela resposta. Serve à pesquisa:
+       independe do piloto, cobre linhas antigas sem previsão gravada e é reprodutível a partir do registro. */
+    replay(rows, L0) {
+      const st = {};
+      return rows.map(r => {
+        const k = r.key; if (!st[k]) st[k] = this.ensure({ L: L0 });
+        const p = this.predictAll(st[k], r.item, r.c); this.updateAll(st[k], r.item, r.c, r.y); return p; });
+    },
     /* métricas de previsão sobre um log: Brier, AUC (Mann-Whitney) e acurácia a 0,5 */
     score(log, k) { const rows = log.filter(l => l.preds && l.preds[k] != null); if (!rows.length) return null;
       const brier = rows.reduce((a, l) => a + Math.pow(l.preds[k] - (l.ok ? 1 : 0), 2), 0) / rows.length, acc = rows.filter(l => (l.preds[k] >= .5) === !!l.ok).length / rows.length;

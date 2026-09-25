@@ -90,6 +90,12 @@ A escolha segue o estudo de confundidores com o ENEM (estrutura do lado do item 
 | TRI 3PL com EAP (`irt`) | só sombra | grade de 81 pontos, só respostas anteriores, como o teto do estudo; é estático e por isso nunca pilota |
 | BKT, PFA, AFM | sombra em toda resposta | parâmetros a priori |
 
+- **Exportação para pesquisa** (Relatório > Seus dados > Baixar tabela para pesquisa): CSV longo, uma linha por resposta, esquema `devwise-kt-1`, com identificador pseudônimo aleatório por navegador (`student`), sessão e posição (derivadas pela mesma regra do jogo nas linhas antigas), item, habilidade, linguagem, `b`, `c`, acerto, nota (código livre), modo, piloto e dois conjuntos de previsões:
+  - `pred_*`: previsão que cada modelo gravou no jogo, antes da resposta (só em registros `log_version` 2);
+  - `rpred_*`: previsão reconstruída por **replay**, reprocessando o registro na ordem a partir do **mesmo prior neutro** para os cinco modelos. É a coluna para comparar modelos: independe do piloto, cobre linhas antigas e é reprodutível.
+- Por que o replay existe: até a v7, ao trocar o BKT pelo Elo, os cinco modelos foram inicializados com a estimativa do BKT antigo, sem reprocessar o histórico, e deixaram de ser independentes. As previsões gravadas no jogo carregam esse viés; as do replay não.
+- A TRI com EAP usa todo o histórico de respostas (sem janela), como o teto do estudo do ENEM.
+- Limites a declarar num artigo: o piloto escolhe a dificuldade dos itens, então os dados nascem condicionados a ele; os parâmetros de BKT, PFA e AFM são a priori, não ajustados; o replay começa cada par habilidade × linguagem no prior neutro, sem a transferência entre linguagens usada no jogo; a Oficina não entra no registro de rastreamento.
 - Cada linha do log traz `preds` (previsão de cada modelo antes da resposta), `pilot`, `b` e `c` do item, `session`, `pos` (posição na sessão) e `rt` (tempo de resposta em ms). Posição e tempo existem para os testes de efeito de posição e de chute rápido que o ENEM não permite.
 - **Confirmação em outro dia**: alcançar o limiar numa sessão deixa a habilidade "a confirmar"; ela só conta como dominada com acerto em pelo menos dois dias. Sessão única tem embalo e fadiga que não são conhecimento.
 - DKT, DKVMN, SAKT, AKT, SAINT e SimpleKT exigem treino com muitos alunos: treine-os fora do jogo com o log exportado, que já está no formato (estudante, posição, item, habilidade, acerto).
