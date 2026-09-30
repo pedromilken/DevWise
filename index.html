@@ -155,7 +155,7 @@ th{font-weight:700;color:var(--muted)}
 textarea{width:100%;height:160px;font-family:var(--mono);font-size:.8rem;background:var(--sunken);color:var(--ink);border:1px solid var(--line);border-radius:8px;padding:10px}
 
 @media (max-width:820px){
-  .home,.board{grid-template-columns:1fr}
+  .home,.board{grid-template-columns:minmax(0,1fr)}   /* minmax(0,...) impede o mapa de 500 px de alargar a coluna */
   .nav{margin-left:0}
   body{font-size:16px}
 }
@@ -321,6 +321,23 @@ textarea.editor:focus{border-color:var(--gold)}
 .ticket.locked{opacity:.55;cursor:not-allowed}
 .labgroup{margin-top:24px}.labgroup h3{font-size:1.25rem;font-weight:800;margin-bottom:10px}
 .labLang{display:inline-flex;align-items:center;gap:8px;margin-bottom:10px;font-weight:600}
+
+
+/* ---- v10.2: ajustes de desenho vindos da auditoria em celular ---- */
+/* Texto justificado numa coluna estreita abre "rios" de espaço entre palavras e atrapalha a leitura
+   (WCAG 1.4.8 recomenda não justificar). No celular, alinhamento à esquerda (ou à direita em RTL). */
+@media (max-width:700px){
+  .lead,.story,.theory div,.prompt,.fb p,.analogy,.hint,.ai,.panel p,.note,.loop li div,.sbc li,.sortcard p,.shopitem p,.skillinfo p,.soft{text-align:start}
+  /* alvos de toque com pelo menos 40 px de altura */
+  .tabs button,.nav button,.langbar select,.form select,.form input,select,.btn.small{min-height:40px}
+  .langbar select{max-width:100%}
+  .nav{gap:4px}
+}
+/* a assinatura pedida é texto comum; só o nome da função vai em fonte de código */
+.sig{font-family:inherit;font-size:.95rem}
+.sig code{font-family:var(--mono);background:var(--code-bg);color:var(--code-ink);padding:1px 6px;border-radius:5px}
+/* Oficina: cartões em grade no computador, em vez de uma fila de cartões da largura da tela */
+.labgroup .tickets{display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:12px}
 
 </style>
 </head>
@@ -1448,6 +1465,17 @@ if (x != 0 && 10 / x > 2) {
 `const char *hms(int seconds) {\n  \n}`)}
 ];
 
+/* Correções pontuais de tradução, por caminho plano ("ui.balance", "items.v10.cards.0", "skills.var.story").
+   Usada pelos arquivos lang-xx.patch.js, que carregam depois dos pacotes e nunca são sobrescritos pelo gerador. */
+function DW_PATCH(code, flat) {
+  const root = LANG[code]; if (!root) return;
+  for (const [p, v] of Object.entries(flat)) {
+    const ks = p.split("."); let o = root;
+    for (let i = 0; i < ks.length - 1; i++) { if (o[ks[i]] == null) o[ks[i]] = /^\d+$/.test(ks[i + 1]) ? [] : {}; o = o[ks[i]]; }
+    o[ks[ks.length - 1]] = v;
+  }
+}
+
 /* DevWise - camada de jogo: economia de XP, dificuldade, loja, desafios e chefões */
 
 /* Modos de dificuldade. mult: multiplicador de XP; pen: XP perdido por erro (x dificuldade do item);
@@ -1755,10 +1783,13 @@ const KT = (() => {
       update(m, it, c, y) { const p = this.predict(m, it, c); m.th = clamp(m.th + this.K0 / (1 + this.DEC * m.n) * (y - p) * (y ? 1 : this.WRONG), -4, 5); m.n++; },
       mastery: m => sig(m.th) },
     irt: { master: 0.85, shadowOnly: true,   // referência psicométrica ESTÁTICA (o "teto" do estudo): não acompanha quem está aprendendo, então nunca pilota
-      init: L => ({ mu: logit(clamp(L, .02, .98)), r: [] }),
-      post(m) { let w = GRID.map(t => Math.exp(-0.5 * Math.pow((t - m.mu) / 1.2, 2))); for (const [b, c, y] of m.r) w = w.map((x, i) => { const p = c + (1 - c) * sig(GRID[i] - b); return x * (y ? p : 1 - p); }); const s = w.reduce((a, b) => a + b, 0) || 1; return w.map(x => x / s); },
+      /* Posterior EAP acumulada em log numa grade de 81 pontos: cada resposta soma log P(resposta | θ) em cada ponto.
+         Mesmo resultado de refazer o produto sobre todo o histórico, mas a custo constante por resposta e com estado de tamanho fixo. */
+      init: L => { const mu = logit(clamp(L, .02, .98)); return { mu, n: 0, lp: GRID.map(t => -0.5 * Math.pow((t - mu) / 1.2, 2)) }; },
+      lpOf(m) { if (!m.lp) { m.lp = GRID.map(t => -0.5 * Math.pow((t - m.mu) / 1.2, 2)); for (const [b, c, y] of (m.r || [])) GRID.forEach((t, i) => { const p = c + (1 - c) * sig(t - b); m.lp[i] += Math.log(y ? p : 1 - p); }); m.n = (m.r || []).length; delete m.r; } return m.lp; },
+      post(m) { const lp = this.lpOf(m), mx = Math.max(...lp), w = lp.map(x => Math.exp(x - mx)), s = w.reduce((a, b) => a + b, 0); return w.map(x => x / s); },
       predict(m, it, c) { const w = this.post(m), b = itemB(it); return w.reduce((a, x, i) => a + x * (c + (1 - c) * sig(GRID[i] - b)), 0); },
-      update(m, it, c, y) { m.r.push([+itemB(it).toFixed(2), +c.toFixed(3), y ? 1 : 0]); },   /* sem janela: a EAP usa todo o histórico, como no teto do estudo do ENEM */
+      update(m, it, c, y) { const lp = this.lpOf(m), b = itemB(it); GRID.forEach((t, i) => { const p = c + (1 - c) * sig(t - b); lp[i] += Math.log(y ? p : 1 - p); }); m.n++; },
       mastery(m) { const w = this.post(m); return sig(w.reduce((a, x, i) => a + x * GRID[i], 0)); } },
     bkt: { master: 0.95, T: 0.2, SLIP: 0.1,
       init: L => ({ L }),
@@ -2815,13 +2846,13 @@ Object.assign(LANG.en.ui,{
  labNoMastery:"In the Workshop, skill mastery does not change. To make it count, solve the bonus challenges on the board.",
  backLab:"Back to the Workshop", tryAgain:"Try again", needsRunner:"needs a service",
  rulesH:"Challenge rules:", rulesCap:"If the code works but breaks a rule, the score is capped at Fair (59%).",
- freeNote:"Free challenge: take whatever path you like. The test cases decide.",
+ freeNote:"Open-ended challenge: take whatever path you like. The test cases decide.",
  ruleN:{noMul:"without the * operator",useFor:"using for",noPow:"without built-in power (**, pow)",useLoop:"using a loop",noMax:"without max or built-in sorting",noSum:"without built-in sum (sum, reduce, stream)",noMod:"without the % operator",useCond:"using a condition",noRev:"without built-in reversing (reverse, [::-1], StringBuilder)",noEval:"without eval",noLoop:"without for or while",selfCall:"calling itself"},
  ruleBroken:"The code works, but it broke a challenge rule: the score was capped at Fair.",
- kindRule:"with a restriction", kindFree:"free",
+ kindRule:"with a restriction", kindFree:"open-ended",
  bonusH:"Bonus challenge", bonusP:"Optional. Worth XP ×1.5 and counts towards skill mastery. Good for building up XP before facing a boss.",
  bonusTag:"Bonus", bonusXp:"Bonus challenge: XP multiplied by 1.5.",
- compH:"Code competency profile", compP:"Average score in the bonus challenges, separating those with a restriction (the fundamentals, without ready-made tools) from the free ones (problem solving). The Workshop is shown apart, because it is practice and does not count towards mastery.",
+ compH:"Code competency profile", compP:"Average score in the bonus challenges, separating those with a restriction (the fundamentals, without ready-made tools) from the open-ended ones (problem solving). The Workshop is shown apart, because it is practice and does not count towards mastery.",
  compEmpty:"No extra code challenge solved yet.", labStat:"{n} attempts, best {b}"
 });
 Object.assign(LANG.en.items,{
@@ -37959,13 +37990,22 @@ LANG.zh = {
 /* Traduções feitas à mão para a exportação de pesquisa (sem API). */
 Object.assign(LANG.ar.ui, {"csvBtn": "تنزيل جدول البحث (CSV)", "csvNote": "صفّ لكل إجابة، يتضمن المعرّف المستعار {s}، وتنبؤ كل نموذج كما سُجّل في اللعبة، والتنبؤ المُعاد بناؤه من البداية لجميع النماذج. لا شيء فيه يكشف هوية الطالب.", "sidLabel": "المعرّف المستعار لهذا المتصفح:"});
 
+/* "free" no sentido de desafio livre, aberto (não gratuito): corrigido à mão */
+DW_PATCH("ar", {"ui.kindFree": "مفتوح", "ui.freeNote": "تحدٍّ مفتوح: اختر الطريقة التي تفضّلها، وحالات الاختبار هي التي تحكم."});
+
 /* Traduções feitas fora do gerador. Carregado DEPOIS de lang-bn.js; uma nova geração do pacote não o apaga. */
 /* Traduções feitas à mão para a exportação de pesquisa (sem API). */
 Object.assign(LANG.bn.ui, {"csvBtn": "গবেষণার সারণি ডাউনলোড করুন (CSV)", "csvNote": "প্রতিটি উত্তরের জন্য একটি সারি, যাতে আছে ছদ্মনাম শনাক্তকারী {s}, খেলায় রেকর্ড করা প্রতিটি মডেলের পূর্বাভাস এবং সব মডেলের জন্য শুরু থেকে আবার তৈরি করা পূর্বাভাস। এতে শিক্ষার্থীকে ব্যক্তিগতভাবে শনাক্ত করার মতো কিছু নেই।", "sidLabel": "এই ব্রাউজারের ছদ্মনাম শনাক্তকারী:"});
 
+/* "free" no sentido de desafio livre, aberto (não gratuito): corrigido à mão */
+DW_PATCH("bn", {"ui.kindFree": "উন্মুক্ত", "ui.freeNote": "উন্মুক্ত চ্যালেঞ্জ: আপনার পছন্দের যেকোনো পথে সমাধান করুন। সিদ্ধান্ত নেবে পরীক্ষার কেসগুলো।"});
+
 /* Traduções feitas fora do gerador. Carregado DEPOIS de lang-de.js; uma nova geração do pacote não o apaga. */
 /* Traduções feitas à mão para a exportação de pesquisa (sem API). */
 Object.assign(LANG.de.ui, {"csvBtn": "Forschungstabelle herunterladen (CSV)", "csvNote": "Eine Zeile pro Antwort, mit der pseudonymen Kennung {s}, der im Spiel gespeicherten Vorhersage jedes Modells und der für alle Modelle von Grund auf neu berechneten Vorhersage. Nichts darin lässt Rückschlüsse auf die Person zu.", "sidLabel": "Pseudonyme Kennung dieses Browsers:"});
+
+/* "free" no sentido de desafio livre, aberto (não gratuito): corrigido à mão */
+DW_PATCH("de", {"ui.kindFree": "offen", "ui.freeNote": "Offene Aufgabe: Wähle den Weg, der dir liegt. Entscheidend sind die Testfälle."});
 
 /* Traduções feitas fora do gerador (revisão humana ou outro modelo). Carregado DEPOIS de lang-fr.js,
    então sobrescreve as chaves abaixo e não é apagado por uma nova geração do pacote. */
@@ -38241,6 +38281,9 @@ Object.assign(LANG.fr.items, {
 /* Traduções feitas à mão para a exportação de pesquisa (sem API). */
 Object.assign(LANG.fr.ui, {"csvBtn": "Télécharger le tableau de recherche (CSV)", "csvNote": "Une ligne par réponse, avec l'identifiant pseudonyme {s}, la prédiction de chaque modèle enregistrée dans le jeu et la prédiction reconstruite de zéro pour tous les modèles. Rien n'identifie personnellement l'élève.", "sidLabel": "Identifiant pseudonyme de ce navigateur :"});
 
+/* "free" no sentido de desafio livre, aberto (não gratuito): corrigido à mão */
+DW_PATCH("fr", {"ui.kindFree": "libre", "ui.freeNote": "Défi libre : prenez le chemin que vous voulez. Ce sont les cas de test qui tranchent."});
+
 /* Traduções feitas fora do gerador (revisão humana ou outro modelo). Carregado DEPOIS de lang-hi.js,
    então sobrescreve as chaves abaixo e não é apagado por uma nova geração do pacote. */
 Object.assign(LANG.hi.ui, {
@@ -38515,13 +38558,22 @@ Object.assign(LANG.hi.items, {
 /* Traduções feitas à mão para a exportação de pesquisa (sem API). */
 Object.assign(LANG.hi.ui, {"csvBtn": "शोध तालिका डाउनलोड करें (CSV)", "csvNote": "हर उत्तर के लिए एक पंक्ति, जिसमें छद्म पहचानकर्ता {s}, खेल में दर्ज हर मॉडल का पूर्वानुमान और सभी मॉडलों के लिए शुरू से दोबारा बनाया गया पूर्वानुमान है। इसमें ऐसा कुछ नहीं है जिससे छात्र की व्यक्तिगत पहचान हो सके।", "sidLabel": "इस ब्राउज़र का छद्म पहचानकर्ता:"});
 
+/* "free" no sentido de desafio livre, aberto (não gratuito): corrigido à mão */
+DW_PATCH("hi", {"ui.kindFree": "खुला", "ui.freeNote": "खुली चुनौती: जो तरीका आपको पसंद हो, वही अपनाइए। फ़ैसला टेस्ट केस करते हैं।"});
+
 /* Traduções feitas fora do gerador. Carregado DEPOIS de lang-id.js; uma nova geração do pacote não o apaga. */
 /* Traduções feitas à mão para a exportação de pesquisa (sem API). */
 Object.assign(LANG.id.ui, {"csvBtn": "Unduh tabel penelitian (CSV)", "csvNote": "Satu baris untuk setiap jawaban, berisi pengenal samaran {s}, prediksi tiap model yang tercatat di dalam game, dan prediksi yang dibangun ulang dari awal untuk semua model. Tidak ada yang bisa mengungkap identitas pribadi siswa.", "sidLabel": "Pengenal samaran untuk peramban ini:"});
 
+/* "free" no sentido de desafio livre, aberto (não gratuito): corrigido à mão */
+DW_PATCH("id", {"ui.kindFree": "bebas", "ui.freeNote": "Tantangan bebas: pakai cara apa saja yang kamu suka. Kasus uji yang menentukan."});
+
 /* Traduções feitas fora do gerador. Carregado DEPOIS de lang-ja.js; uma nova geração do pacote não o apaga. */
 /* Traduções feitas à mão para a exportação de pesquisa (sem API). */
 Object.assign(LANG.ja.ui, {"csvBtn": "研究用データ表をダウンロード（CSV）", "csvNote": "回答ごとに1行で、仮名ID {s}、ゲーム内で記録された各モデルの予測、そしてすべてのモデルについて最初から計算し直した予測が含まれます。学習者個人を特定できる情報は含まれません。", "sidLabel": "このブラウザの仮名ID："});
+
+/* "free" no sentido de desafio livre, aberto (não gratuito): corrigido à mão */
+DW_PATCH("ja", {"ui.kindFree": "自由形式", "ui.freeNote": "自由形式の課題です。好きな方法で解いてください。判定はテストケースで行います。"});
 
 /* Traduções feitas fora do gerador (revisão humana ou outro modelo). Carregado DEPOIS de lang-ko.js,
    então sobrescreve as chaves abaixo e não é apagado por uma nova geração do pacote. */
@@ -38797,37 +38849,64 @@ Object.assign(LANG.ko.items, {
 /* Traduções feitas à mão para a exportação de pesquisa (sem API). */
 Object.assign(LANG.ko.ui, {"csvBtn": "연구용 데이터 표 다운로드(CSV)", "csvNote": "답변마다 한 줄씩 기록되며, 가명 식별자 {s}, 게임에서 기록된 각 모델의 예측, 모든 모델에 대해 처음부터 다시 계산한 예측이 담깁니다. 학습자 개인을 식별할 수 있는 정보는 없습니다.", "sidLabel": "이 브라우저의 가명 식별자:"});
 
+/* "free" no sentido de desafio livre, aberto (não gratuito): corrigido à mão */
+DW_PATCH("ko", {"ui.kindFree": "자유형", "ui.freeNote": "자유형 도전: 원하는 방식으로 풀어 보세요. 판정은 테스트 케이스가 합니다."});
+
 /* Traduções feitas fora do gerador. Carregado DEPOIS de lang-mr.js; uma nova geração do pacote não o apaga. */
 /* Traduções feitas à mão para a exportação de pesquisa (sem API). */
 Object.assign(LANG.mr.ui, {"csvBtn": "संशोधन तक्ता डाउनलोड करा (CSV)", "csvNote": "प्रत्येक उत्तरासाठी एक ओळ, ज्यात टोपणनाव ओळखकर्ता {s}, खेळात नोंदवलेला प्रत्येक मॉडेलचा अंदाज आणि सर्व मॉडेलसाठी सुरुवातीपासून पुन्हा तयार केलेला अंदाज असतो. यात विद्यार्थ्याची वैयक्तिक ओळख पटेल असे काहीही नाही.", "sidLabel": "या ब्राउझरचा टोपणनाव ओळखकर्ता:"});
+
+/* "free" no sentido de desafio livre, aberto (não gratuito): corrigido à mão */
+DW_PATCH("mr", {"ui.kindFree": "मुक्त", "ui.freeNote": "मुक्त आव्हान: तुम्हाला आवडेल त्या पद्धतीने सोडवा. निर्णय चाचणी प्रकरणे घेतात."});
 
 /* Traduções feitas fora do gerador. Carregado DEPOIS de lang-pa.js; uma nova geração do pacote não o apaga. */
 /* Traduções feitas à mão para a exportação de pesquisa (sem API). */
 Object.assign(LANG.pa.ui, {"csvBtn": "ਖੋਜ ਸਾਰਣੀ ਡਾਊਨਲੋਡ ਕਰੋ (CSV)", "csvNote": "ਹਰ ਜਵਾਬ ਲਈ ਇੱਕ ਕਤਾਰ, ਜਿਸ ਵਿੱਚ ਉਪਨਾਮ ਪਛਾਣਕਰਤਾ {s}, ਖੇਡ ਵਿੱਚ ਦਰਜ ਹਰ ਮਾਡਲ ਦੀ ਭਵਿੱਖਬਾਣੀ, ਅਤੇ ਸਾਰੇ ਮਾਡਲਾਂ ਲਈ ਸ਼ੁਰੂ ਤੋਂ ਦੁਬਾਰਾ ਬਣਾਈ ਭਵਿੱਖਬਾਣੀ ਸ਼ਾਮਲ ਹੈ। ਇਸ ਵਿੱਚ ਅਜਿਹਾ ਕੁਝ ਨਹੀਂ ਜਿਸ ਨਾਲ ਵਿਦਿਆਰਥੀ ਦੀ ਨਿੱਜੀ ਪਛਾਣ ਹੋ ਸਕੇ।", "sidLabel": "ਇਸ ਬ੍ਰਾਊਜ਼ਰ ਦਾ ਉਪਨਾਮ ਪਛਾਣਕਰਤਾ:"});
 
+/* "free" no sentido de desafio livre, aberto (não gratuito): corrigido à mão */
+DW_PATCH("pa", {"ui.kindFree": "ਖੁੱਲ੍ਹਾ", "ui.freeNote": "ਖੁੱਲ੍ਹੀ ਚੁਣੌਤੀ: ਜਿਹੜਾ ਤਰੀਕਾ ਤੁਹਾਨੂੰ ਪਸੰਦ ਹੋਵੇ, ਉਹ ਵਰਤੋ। ਫ਼ੈਸਲਾ ਟੈਸਟ ਕੇਸ ਕਰਦੇ ਹਨ।"});
+
 /* Traduções feitas fora do gerador. Carregado DEPOIS de lang-ru.js; uma nova geração do pacote não o apaga. */
 /* Traduções feitas à mão para a exportação de pesquisa (sem API). */
 Object.assign(LANG.ru.ui, {"csvBtn": "Скачать таблицу для исследования (CSV)", "csvNote": "По одной строке на каждый ответ: псевдонимный идентификатор {s}, прогноз каждой модели, записанный в игре, и прогноз, заново вычисленный с нуля для всех моделей. Ничто в таблице не позволяет установить личность учащегося.", "sidLabel": "Псевдонимный идентификатор этого браузера:"});
+
+/* "free" no sentido de desafio livre, aberto (não gratuito): corrigido à mão */
+DW_PATCH("ru", {"ui.kindFree": "свободная", "ui.freeNote": "Свободная задача: решайте любым удобным способом. Результат определяют тестовые случаи."});
 
 /* Traduções feitas fora do gerador. Carregado DEPOIS de lang-ta.js; uma nova geração do pacote não o apaga. */
 /* Traduções feitas à mão para a exportação de pesquisa (sem API). */
 Object.assign(LANG.ta.ui, {"csvBtn": "ஆய்வு அட்டவணையைப் பதிவிறக்குங்கள் (CSV)", "csvNote": "ஒவ்வொரு பதிலுக்கும் ஒரு வரி: புனைப்பெயர் அடையாளங்காட்டி {s}, விளையாட்டில் பதிவான ஒவ்வொரு மாதிரியின் கணிப்பு, எல்லா மாதிரிகளுக்கும் தொடக்கத்திலிருந்து மீண்டும் கணக்கிட்ட கணிப்பு. மாணவரைத் தனிப்பட்ட முறையில் அடையாளம் காட்டும் எதுவும் இதில் இல்லை.", "sidLabel": "இந்த உலாவியின் புனைப்பெயர் அடையாளங்காட்டி:"});
 
+/* "free" no sentido de desafio livre, aberto (não gratuito): corrigido à mão */
+DW_PATCH("ta", {"ui.kindFree": "திறந்த", "ui.freeNote": "திறந்த சவால்: உங்களுக்குப் பிடித்த வழியில் தீர்த்துக்கொள்ளுங்கள். முடிவைச் சோதனை நிகழ்வுகள் தீர்மானிக்கும்."});
+
 /* Traduções feitas fora do gerador. Carregado DEPOIS de lang-te.js; uma nova geração do pacote não o apaga. */
 /* Traduções feitas à mão para a exportação de pesquisa (sem API). */
 Object.assign(LANG.te.ui, {"csvBtn": "పరిశోధన పట్టికను డౌన్‌లోడ్ చేయండి (CSV)", "csvNote": "ప్రతి సమాధానానికి ఒక వరుస, అందులో మారుపేరు గుర్తింపు {s}, ఆటలో నమోదైన ప్రతి మోడల్ అంచనా, అన్ని మోడళ్లకు మొదటి నుంచి మళ్లీ లెక్కించిన అంచనా ఉంటాయి. విద్యార్థిని వ్యక్తిగతంగా గుర్తించే సమాచారం ఏదీ ఇందులో ఉండదు.", "sidLabel": "ఈ బ్రౌజర్ మారుపేరు గుర్తింపు:"});
+
+/* "free" no sentido de desafio livre, aberto (não gratuito): corrigido à mão */
+DW_PATCH("te", {"ui.kindFree": "స్వేచ్ఛా", "ui.freeNote": "స్వేచ్ఛా సవాల్: మీకు నచ్చిన పద్ధతిలో పరిష్కరించండి. నిర్ణయం పరీక్షా సందర్భాలదే."});
 
 /* Traduções feitas fora do gerador. Carregado DEPOIS de lang-tr.js; uma nova geração do pacote não o apaga. */
 /* Traduções feitas à mão para a exportação de pesquisa (sem API). */
 Object.assign(LANG.tr.ui, {"csvBtn": "Araştırma tablosunu indir (CSV)", "csvNote": "Her cevap için bir satır: takma ad kimliği {s}, oyunda kaydedilen her modelin tahmini ve tüm modeller için baştan yeniden hesaplanan tahmin. Tabloda öğrenciyi kişisel olarak tanıtan hiçbir bilgi yok.", "sidLabel": "Bu tarayıcının takma ad kimliği:"});
 
+/* "free" no sentido de desafio livre, aberto (não gratuito): corrigido à mão */
+DW_PATCH("tr", {"ui.kindFree": "serbest", "ui.freeNote": "Serbest görev: istediğin yolu seç. Kararı test durumları verir."});
+
 /* Traduções feitas fora do gerador. Carregado DEPOIS de lang-ur.js; uma nova geração do pacote não o apaga. */
 /* Traduções feitas à mão para a exportação de pesquisa (sem API). */
 Object.assign(LANG.ur.ui, {"csvBtn": "تحقیقی جدول ڈاؤن لوڈ کریں (CSV)", "csvNote": "ہر جواب کے لیے ایک قطار، جس میں فرضی شناخت کنندہ {s}، کھیل میں درج ہر ماڈل کی پیش گوئی، اور تمام ماڈلز کے لیے شروع سے دوبارہ بنائی گئی پیش گوئی شامل ہے۔ اس میں ایسی کوئی چیز نہیں جس سے طالب علم کی ذاتی شناخت ہو سکے۔", "sidLabel": "اس براؤزر کا فرضی شناخت کنندہ:"});
 
+/* "free" no sentido de desafio livre, aberto (não gratuito): corrigido à mão */
+DW_PATCH("ur", {"ui.kindFree": "کھلا", "ui.freeNote": "کھلا چیلنج: جو طریقہ آپ کو پسند ہو اپنائیں۔ فیصلہ ٹیسٹ کیسز کرتے ہیں۔"});
+
 /* Traduções feitas fora do gerador. Carregado DEPOIS de lang-vi.js; uma nova geração do pacote não o apaga. */
 /* Traduções feitas à mão para a exportação de pesquisa (sem API). */
 Object.assign(LANG.vi.ui, {"csvBtn": "Tải bảng dữ liệu nghiên cứu (CSV)", "csvNote": "Mỗi câu trả lời là một dòng, gồm mã định danh ẩn danh {s}, dự đoán của từng mô hình được ghi lại trong trò chơi và dự đoán được tính lại từ đầu cho tất cả mô hình. Không có thông tin nào giúp nhận diện cá nhân học viên.", "sidLabel": "Mã định danh ẩn danh của trình duyệt này:"});
+
+/* "free" no sentido de desafio livre, aberto (não gratuito): corrigido à mão */
+DW_PATCH("vi", {"ui.kindFree": "tự do", "ui.freeNote": "Thử thách tự do: bạn giải theo cách nào cũng được. Các ca kiểm thử sẽ quyết định."});
 
 /* Traduções feitas fora do gerador (revisão humana ou outro modelo). Carregado DEPOIS de lang-zh.js,
    então sobrescreve as chaves abaixo e não é apagado por uma nova geração do pacote. */
@@ -39103,6 +39182,9 @@ Object.assign(LANG.zh.items, {
 /* Traduções feitas à mão para a exportação de pesquisa (sem API). */
 Object.assign(LANG.zh.ui, {"csvBtn": "下载研究数据表（CSV）", "csvNote": "每次作答一行，包含化名标识符 {s}、游戏中记录的每个模型的预测，以及为所有模型从头重建的预测。其中没有任何能识别学生个人身份的信息。", "sidLabel": "此浏览器的化名标识符："});
 
+/* "free" no sentido de desafio livre, aberto (não gratuito): corrigido à mão */
+DW_PATCH("zh", {"ui.kindFree": "自由发挥", "ui.freeNote": "自由挑战：用你喜欢的方法解决，由测试用例来判定。"});
+
 /* Mapa de romanização gerado por tools/gerar-idioma.js --romanizar. */
 ROM.ar = {};
 
@@ -39193,6 +39275,8 @@ const gateOk=id=>S.xpTotal>=(GATES[id]||0)||!!S.brief[id];
 const unlocked=id=>preOk(id)&&gateOk(id);
 /* Identificador pseudônimo, aleatório, gerado uma vez por navegador. Não deriva de nada pessoal e permite juntar exportações de muitos estudantes. */
 function newSid(){try{const a=new Uint8Array(8);crypto.getRandomValues(a);return "s"+[...a].map(x=>x.toString(36).padStart(2,"0")).join("").slice(0,12)}catch(e){return "s"+Math.random().toString(36).slice(2,14)}}
+/* Número no formato do idioma do jogo: 1,5 em português, 1.5 em inglês, chinês, japonês, hindi... */
+const num=x=>{try{return new Intl.NumberFormat(Lg().bcp||S.lang).format(x)}catch(e){return String(x)}};
 function earn(x){S.xp+=x;S.xpTotal+=x}
 const gt=()=>Lg().game||LANG.pt.game;
 const isTyped=it=>MODES[S.mode].typed&&it.type==="mc"&&it.mono&&!!it.code;
@@ -39425,7 +39509,7 @@ function topbar(){
       langBar()));
 }
 function home(){
-  const started=S.started&&S.log.length, done=SKILLS.filter(x=>mastered(x.id)&&confirmed(x.id)).length;
+  const started=!!(S.started&&S.log.length), done=SKILLS.filter(x=>mastered(x.id)&&confirmed(x.id)).length;
   const num=(v,k)=>h("div",null,h("b",null,String(v)),t(k));
   const go1=()=>{S.started=true;fillBoard();save();go("board")};
   return h("main",{class:"homepage"},
@@ -39475,7 +39559,7 @@ function bossCard(b){
 }
 function modePanel(){
   return h("div",{class:"panel",style:"margin-bottom:18px"},
-    h("div",{class:"tabs",role:"group","aria-label":t("modeH")},Object.keys(MODES).map(k=>h("button",{"aria-pressed":String(S.mode===k),onclick:()=>{S.mode=k;save();render()}},MODE_ICON[k]+" "+t("modes")[k]+" ×"+String(MODES[k].mult).replace(".",S.lang==="en"?".":",")))),
+    h("div",{class:"tabs",role:"group","aria-label":t("modeH")},Object.keys(MODES).map(k=>h("button",{"aria-pressed":String(S.mode===k),onclick:()=>{S.mode=k;save();render()}},MODE_ICON[k]+" "+t("modes")[k]+" ×"+num(MODES[k].mult)))),
     h("p",{class:"note",style:"margin:6px 0 14px"},t("modeDesc")[S.mode]),
     h("b",{style:"font-family:var(--display)"},"🎯 "+t("bountiesH")),
     h("ul",{class:"bounties"},BOUNTIES.map(b=>h("li",{class:S.sprint.b[b.id]?"ok":null},(S.sprint.b[b.id]?"✅ ":"")+fill(gt().bounties[b.id])+"  +"+b.xp+" XP"))));
@@ -39543,7 +39627,7 @@ function board(){
         (()=>{const bi=bonusItem(); return bi&&[h("h3",{class:"gap"},"⭐ "+t("bonusH")),h("p",{class:"note",style:"margin:-4px 0 10px"},t("bonusP")),
           h("div",{class:"tickets"},h("button",{class:"ticket bonus",onclick:()=>openTicket(bi.id,{bonus:true})},
             h("span",{class:"id"},"DW-"+bi.id.toUpperCase()+"  "+skT(bi.skill).client),h("span",{class:"tt"},itT(bi.id).title),
-            h("span",{class:"tags"},h("span",{class:"tag",style:"background:var(--gold-soft)"},"XP ×1,5"),h("span",{class:"tag plain"},bi.kind==="rule"?"📏 "+t("kindRule"):"🧭 "+t("kindFree")))))]})(),
+            h("span",{class:"tags"},h("span",{class:"tag",style:"background:var(--gold-soft)"},"XP ×"+num(1.5)),h("span",{class:"tag plain"},bi.kind==="rule"?"📏 "+t("kindRule"):"🧭 "+t("kindFree")))))]})(),
         dl&&[h("h3",{class:"gap"},"📅 "+t("dailyH")),S.daily.done?h("p",{class:"empty"},t("dailyDone")):h("div",{class:"tickets"},ticketCard(dl,true))],
         h("h3",{class:"gap"},"⚔️ "+t("bossesH")),h("div",{class:"tickets"},BOSSES.map(bossCard)),
         h("div",{class:"done"},h("h3",null,t("doneSprint")),
@@ -39576,7 +39660,7 @@ function openTicket(id,o){
 function bossView(){
   const b=BOSSES.find(x=>x.id===boss.id), x=gt().bosses[b.id], mult=MODES[S.mode].mult;
   if(boss.phase==="intro")return h("main",{class:"brief"},h("p",{class:"client"},t("client")+": "+x.client),h("h2",null,b.icon+" "+x.name),h("p",{class:"story"},x.story),
-    h("div",{class:"sbc"},h("b",null,t("modes")[S.mode]+" ×"+mult+". "),t("bossRules")+" "+t("reward",{x:Math.round(b.reward*mult)})),
+    h("div",{class:"sbc"},h("b",null,t("modes")[S.mode]+" ×"+num(mult)+". "),t("bossRules")+" "+t("reward",{x:Math.round(b.reward*mult)})),
     h("div",{class:"row"},h("button",{class:"btn",onclick:()=>{boss.phase="fight";openTicket(b.stages[0])}},t("bossStart")),h("button",{class:"btn ghost",onclick:()=>go("board")},t("backBoard"))));
   if(!boss.settled){boss.settled=true; if(boss.won){boss.gain=Math.round(b.reward*mult);earn(boss.gain);S.bosses[b.id]=true;setTimeout(()=>burst(["🏆","🎉","⭐",b.icon],60),50)} else {boss.loss=Math.min(S.xp,b.fail);S.xp-=boss.loss} save();}
   return h("main",{class:"work"},h("section",{class:"fb"+(boss.won?"":" bad")},h("h3",null,boss.won?"🏆 "+t("bossWin"):"🌱 "+t("bossLose")),
@@ -39639,7 +39723,7 @@ function ticket(){
       if(ap.length)body.push(h("div",{class:"rules"},h("b",null,"📏 "+t("rulesH")+" "),ap.map(x=>h("span",{class:"rule"+(r&&r.regras?(r.regras.find(y=>y.id===x.id)||{}).ok===false?" no":" ok":"")},t("ruleN")[x.id])),
         h("p",{class:"note",style:"margin:6px 0 0"},t("rulesCap"))));}
     else if(it.extra)body.push(h("p",{class:"note"},"🧭 "+t("freeNote")));
-    body.push(h("p",{class:"sig"},t("codeFn",{f:it.fn})));
+    {const parts=t("codeFn",{f:"\u0000"}).split("\u0000"); body.push(h("p",{class:"sig"},parts[0],h("code",null,it.fn),parts.slice(1).join("")));}
     if(!pode)body.push(h("div",{class:"hint"},h("b",null,t("noExecH",{l:PLS[L]})+" "),t("noExecP")));
     body.push(h("textarea",{class:"editor",spellcheck:"false",disabled:cur.done,"aria-label":t("codeFn",{f:it.fn}),
       oninput:e=>{cur.code=e.target.value; if(!cur.tel.first)cur.tel.first=Date.now()-cur.tel.t0},
@@ -39686,7 +39770,7 @@ function ticket(){
     isBoss&&h("p",{class:"promo",style:"margin-bottom:8px"},gt().bosses[it.boss].name+": "+t("bossStage",{n:boss.stage+1,m:b.stages.length})+". "+t("bossLives",{n:Math.max(0,1-boss.errors)})),
     h("div",{class:"meta"},h("span",{class:"tag plain"},"DW-"+it.id.toUpperCase()),h("span",{class:"tag"+(se?" se":"")},skT(it.skill).name),!isBoss&&h("span",{class:"tag plain"},skT(it.skill).client),
       h("span",{class:"tag plain"},t("types")[it.type]),h("span",{class:"tag plain"},t("bloom")[it.bloom-1]),it.code&&h("span",{class:"tag plain"},PLS[S.pl]),
-      cur.lab?h("span",{class:"tag",style:"background:var(--se-soft)"},"🛠️ "+t("navLab")):h("span",{class:"tag",style:"background:var(--gold-soft)"},t("modes")[cur.mode]+" ×"+m.mult),
+      cur.lab?h("span",{class:"tag",style:"background:var(--se-soft)"},"🛠️ "+t("navLab")):h("span",{class:"tag",style:"background:var(--gold-soft)"},t("modes")[cur.mode]+" ×"+num(m.mult)),
       cur.bonus&&h("span",{class:"tag",style:"background:var(--gold-soft)"},"⭐ "+t("bonusTag")),
       it.extra&&h("span",{class:"tag plain"},it.kind==="rule"?t("kindRule"):t("kindFree")),cur.daily&&h("span",{class:"tag",style:"background:var(--gold-soft)"},t("dailyTag"))),
     h("h2",null,tx.title),

@@ -4,3 +4,7 @@ node_modules/
 .env.*
 tools/cache/
 src/*.mock.js
+
+# kit de revisão: as partes são regeneradas por tools/revisao-qwen.js; as correções (correcoes-*.json) ficam versionadas
+revisao/*/parte-*.md
+revisao/*/auditoria.txt

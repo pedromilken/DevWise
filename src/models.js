@@ -29,10 +29,13 @@ const KT = (() => {
       update(m, it, c, y) { const p = this.predict(m, it, c); m.th = clamp(m.th + this.K0 / (1 + this.DEC * m.n) * (y - p) * (y ? 1 : this.WRONG), -4, 5); m.n++; },
       mastery: m => sig(m.th) },
     irt: { master: 0.85, shadowOnly: true,   // referência psicométrica ESTÁTICA (o "teto" do estudo): não acompanha quem está aprendendo, então nunca pilota
-      init: L => ({ mu: logit(clamp(L, .02, .98)), r: [] }),
-      post(m) { let w = GRID.map(t => Math.exp(-0.5 * Math.pow((t - m.mu) / 1.2, 2))); for (const [b, c, y] of m.r) w = w.map((x, i) => { const p = c + (1 - c) * sig(GRID[i] - b); return x * (y ? p : 1 - p); }); const s = w.reduce((a, b) => a + b, 0) || 1; return w.map(x => x / s); },
+      /* Posterior EAP acumulada em log numa grade de 81 pontos: cada resposta soma log P(resposta | θ) em cada ponto.
+         Mesmo resultado de refazer o produto sobre todo o histórico, mas a custo constante por resposta e com estado de tamanho fixo. */
+      init: L => { const mu = logit(clamp(L, .02, .98)); return { mu, n: 0, lp: GRID.map(t => -0.5 * Math.pow((t - mu) / 1.2, 2)) }; },
+      lpOf(m) { if (!m.lp) { m.lp = GRID.map(t => -0.5 * Math.pow((t - m.mu) / 1.2, 2)); for (const [b, c, y] of (m.r || [])) GRID.forEach((t, i) => { const p = c + (1 - c) * sig(t - b); m.lp[i] += Math.log(y ? p : 1 - p); }); m.n = (m.r || []).length; delete m.r; } return m.lp; },
+      post(m) { const lp = this.lpOf(m), mx = Math.max(...lp), w = lp.map(x => Math.exp(x - mx)), s = w.reduce((a, b) => a + b, 0); return w.map(x => x / s); },
       predict(m, it, c) { const w = this.post(m), b = itemB(it); return w.reduce((a, x, i) => a + x * (c + (1 - c) * sig(GRID[i] - b)), 0); },
-      update(m, it, c, y) { m.r.push([+itemB(it).toFixed(2), +c.toFixed(3), y ? 1 : 0]); },   /* sem janela: a EAP usa todo o histórico, como no teto do estudo do ENEM */
+      update(m, it, c, y) { const lp = this.lpOf(m), b = itemB(it); GRID.forEach((t, i) => { const p = c + (1 - c) * sig(t - b); lp[i] += Math.log(y ? p : 1 - p); }); m.n++; },
       mastery(m) { const w = this.post(m); return sig(w.reduce((a, x, i) => a + x * GRID[i], 0)); } },
     bkt: { master: 0.95, T: 0.2, SLIP: 0.1,
       init: L => ({ L }),

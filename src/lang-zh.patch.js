@@ -271,3 +271,6 @@ Object.assign(LANG.zh.items, {
 
 /* Traduções feitas à mão para a exportação de pesquisa (sem API). */
 Object.assign(LANG.zh.ui, {"csvBtn": "下载研究数据表（CSV）", "csvNote": "每次作答一行，包含化名标识符 {s}、游戏中记录的每个模型的预测，以及为所有模型从头重建的预测。其中没有任何能识别学生个人身份的信息。", "sidLabel": "此浏览器的化名标识符："});
+
+/* "free" no sentido de desafio livre, aberto (não gratuito): corrigido à mão */
+DW_PATCH("zh", {"ui.kindFree": "自由发挥", "ui.freeNote": "自由挑战：用你喜欢的方法解决，由测试用例来判定。"});

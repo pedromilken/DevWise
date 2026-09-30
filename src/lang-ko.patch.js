@@ -271,3 +271,6 @@ Object.assign(LANG.ko.items, {
 
 /* Traduções feitas à mão para a exportação de pesquisa (sem API). */
 Object.assign(LANG.ko.ui, {"csvBtn": "연구용 데이터 표 다운로드(CSV)", "csvNote": "답변마다 한 줄씩 기록되며, 가명 식별자 {s}, 게임에서 기록된 각 모델의 예측, 모든 모델에 대해 처음부터 다시 계산한 예측이 담깁니다. 학습자 개인을 식별할 수 있는 정보는 없습니다.", "sidLabel": "이 브라우저의 가명 식별자:"});
+
+/* "free" no sentido de desafio livre, aberto (não gratuito): corrigido à mão */
+DW_PATCH("ko", {"ui.kindFree": "자유형", "ui.freeNote": "자유형 도전: 원하는 방식으로 풀어 보세요. 판정은 테스트 케이스가 합니다."});

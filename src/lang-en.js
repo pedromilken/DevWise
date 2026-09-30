@@ -404,13 +404,13 @@ Object.assign(LANG.en.ui,{
  labNoMastery:"In the Workshop, skill mastery does not change. To make it count, solve the bonus challenges on the board.",
  backLab:"Back to the Workshop", tryAgain:"Try again", needsRunner:"needs a service",
  rulesH:"Challenge rules:", rulesCap:"If the code works but breaks a rule, the score is capped at Fair (59%).",
- freeNote:"Free challenge: take whatever path you like. The test cases decide.",
+ freeNote:"Open-ended challenge: take whatever path you like. The test cases decide.",
  ruleN:{noMul:"without the * operator",useFor:"using for",noPow:"without built-in power (**, pow)",useLoop:"using a loop",noMax:"without max or built-in sorting",noSum:"without built-in sum (sum, reduce, stream)",noMod:"without the % operator",useCond:"using a condition",noRev:"without built-in reversing (reverse, [::-1], StringBuilder)",noEval:"without eval",noLoop:"without for or while",selfCall:"calling itself"},
  ruleBroken:"The code works, but it broke a challenge rule: the score was capped at Fair.",
- kindRule:"with a restriction", kindFree:"free",
+ kindRule:"with a restriction", kindFree:"open-ended",
  bonusH:"Bonus challenge", bonusP:"Optional. Worth XP ×1.5 and counts towards skill mastery. Good for building up XP before facing a boss.",
  bonusTag:"Bonus", bonusXp:"Bonus challenge: XP multiplied by 1.5.",
- compH:"Code competency profile", compP:"Average score in the bonus challenges, separating those with a restriction (the fundamentals, without ready-made tools) from the free ones (problem solving). The Workshop is shown apart, because it is practice and does not count towards mastery.",
+ compH:"Code competency profile", compP:"Average score in the bonus challenges, separating those with a restriction (the fundamentals, without ready-made tools) from the open-ended ones (problem solving). The Workshop is shown apart, because it is practice and does not count towards mastery.",
  compEmpty:"No extra code challenge solved yet.", labStat:"{n} attempts, best {b}"
 });
 Object.assign(LANG.en.items,{

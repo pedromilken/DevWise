@@ -26,6 +26,15 @@ Você entra na Ponte, uma pequena casa de software que atende a padaria, o posto
 | Tutor com IA | Dicas socráticas e novas analogias via Anthropic, qualquer API compatível com OpenAI ou servidor local (Ollama); sem IA, usa as dicas autorais |
 | Relatório | Domínio por habilidade, acerto por nível de Bloom, recomendações e exportação do registro em formato longo de KT |
 
+### Revisão de textos dos 20 idiomas
+
+`node tools/revisao-qwen.js todos` prepara, **sobre os pacotes da sua pasta**, uma pasta `revisao/<idioma>/` para cada um dos 20 idiomas:
+
+- `auditoria.txt`: o que dá para achar sem IA (texto que ficou na língua de referência, marcador `{x}` trocado, nome próprio traduzido ou transliterado, vírgula decimal num idioma que usa ponto, texto vazio);
+- `parte-NN.md`: prompt + pares referência/tradução, em partes de ~28 mil caracteres, para colar no chat do Qwen ou para o Qwen Code ler.
+
+A referência é o inglês; para o inglês e o espanhol, que foram escritos a partir do português, é o português. O revisor devolve só o que mudou, num JSON plano (`{"ui.balance": "..."}`), e `node tools/aplicar-patch.js revisao/zh/correcoes-01.json --lang zh` valida cada correção (caminho, marcadores, posição em listas, escrita) e a **acrescenta** ao `lang-zh.patch.js` via `DW_PATCH`, sem apagar revisões anteriores. Respostas com texto antes ou depois do JSON são aceitas.
+
 ### Chave da API no gerador
 
 `node tools/gerar-idioma.js revisar` pede a chave do DeepSeek na hora, sem exibi-la, quando nenhuma chave está definida, e recusa o que não tiver o formato `sk-...`. Uma `OPENAI_API_KEY` gravada no sistema por outro projeto **não é usada por engano**: para usar a OpenAI de propósito, defina também `OPENAI_BASE_URL`. `--mock` e `pos-edicao` não pedem chave.
@@ -98,7 +107,7 @@ A escolha segue o estudo de confundidores com o ENEM (estrutura do lado do item 
   - `pred_*`: previsão que cada modelo gravou no jogo, antes da resposta (só em registros `log_version` 2);
   - `rpred_*`: previsão reconstruída por **replay**, reprocessando o registro na ordem a partir do **mesmo prior neutro** para os cinco modelos. É a coluna para comparar modelos: independe do piloto, cobre linhas antigas e é reprodutível.
 - Por que o replay existe: até a v7, ao trocar o BKT pelo Elo, os cinco modelos foram inicializados com a estimativa do BKT antigo, sem reprocessar o histórico, e deixaram de ser independentes. As previsões gravadas no jogo carregam esse viés; as do replay não.
-- A TRI com EAP usa todo o histórico de respostas (sem janela), como o teto do estudo do ENEM.
+- A TRI com EAP usa todo o histórico de respostas (sem janela), como o teto do estudo do ENEM. A posterior é acumulada em log numa grade de 81 pontos: mesmas previsões de refazer o produto sobre o histórico, a custo constante por resposta (replay de 3.000 respostas: 0,09 s).
 - Limites a declarar num artigo: o piloto escolhe a dificuldade dos itens, então os dados nascem condicionados a ele; os parâmetros de BKT, PFA e AFM são a priori, não ajustados; o replay começa cada par habilidade × linguagem no prior neutro, sem a transferência entre linguagens usada no jogo; a Oficina não entra no registro de rastreamento.
 - Cada linha do log traz `preds` (previsão de cada modelo antes da resposta), `pilot`, `b` e `c` do item, `session`, `pos` (posição na sessão) e `rt` (tempo de resposta em ms). Posição e tempo existem para os testes de efeito de posição e de chute rápido que o ENEM não permite.
 - **Confirmação em outro dia**: alcançar o limiar numa sessão deixa a habilidade "a confirmar"; ela só conta como dominada com acerto em pelo menos dois dias. Sessão única tem embalo e fadiga que não são conhecimento.

@@ -271,3 +271,6 @@ Object.assign(LANG.hi.items, {
 
 /* Traduções feitas à mão para a exportação de pesquisa (sem API). */
 Object.assign(LANG.hi.ui, {"csvBtn": "शोध तालिका डाउनलोड करें (CSV)", "csvNote": "हर उत्तर के लिए एक पंक्ति, जिसमें छद्म पहचानकर्ता {s}, खेल में दर्ज हर मॉडल का पूर्वानुमान और सभी मॉडलों के लिए शुरू से दोबारा बनाया गया पूर्वानुमान है। इसमें ऐसा कुछ नहीं है जिससे छात्र की व्यक्तिगत पहचान हो सके।", "sidLabel": "इस ब्राउज़र का छद्म पहचानकर्ता:"});
+
+/* "free" no sentido de desafio livre, aberto (não gratuito): corrigido à mão */
+DW_PATCH("hi", {"ui.kindFree": "खुला", "ui.freeNote": "खुली चुनौती: जो तरीका आपको पसंद हो, वही अपनाइए। फ़ैसला टेस्ट केस करते हैं।"});

@@ -271,3 +271,6 @@ Object.assign(LANG.fr.items, {
 
 /* Traduções feitas à mão para a exportação de pesquisa (sem API). */
 Object.assign(LANG.fr.ui, {"csvBtn": "Télécharger le tableau de recherche (CSV)", "csvNote": "Une ligne par réponse, avec l'identifiant pseudonyme {s}, la prédiction de chaque modèle enregistrée dans le jeu et la prédiction reconstruite de zéro pour tous les modèles. Rien n'identifie personnellement l'élève.", "sidLabel": "Identifiant pseudonyme de ce navigateur :"});
+
+/* "free" no sentido de desafio livre, aberto (não gratuito): corrigido à mão */
+DW_PATCH("fr", {"ui.kindFree": "libre", "ui.freeNote": "Défi libre : prenez le chemin que vous voulez. Ce sont les cas de test qui tranchent."});

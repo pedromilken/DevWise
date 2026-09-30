@@ -27,7 +27,37 @@ const KEEP = /(^|\.)(provAnthropic|provOpenAI|hardcore|models\.\w+|t3\.title)$/;
 const CODEY = s => s.length <= 30 && /[<>]=?|==|!=|[+\-*/%]\s*\d/.test(s);
 const ph = s => (String(s).match(/\{[a-z]\}/g) || []).sort().join(",");
 
-let raw; try { raw = JSON.parse(fs.readFileSync(file, "utf8")); } catch (e) { console.error("JSON inválido: " + e.message); process.exit(1); }
+/* aceita a resposta do revisor como veio: com texto antes ou depois, ou dentro de um bloco ```json */
+let raw; { const txt = fs.readFileSync(file, "utf8"), fence = txt.match(/```(?:json)?\s*([\s\S]*?)```/), body = fence ? fence[1] : txt, m = body.match(/\{[\s\S]*\}/);
+  try { raw = JSON.parse(m ? m[0] : body); } catch (e) { console.error("JSON inválido: " + e.message + "\nConfira se a resposta foi copiada inteira."); process.exit(1); } }
+/* Formato plano {"ui.balance": "...", "items.v6.analogy": "..."}: correções pontuais de uma revisão (tools/revisao-qwen.js).
+   São validadas uma a uma e ACRESCENTADAS ao lang-xx.patch.js, sem apagar o que já estava lá. */
+const isFlat = o => o && typeof o === "object" && !Array.isArray(o) && Object.keys(o).length > 0 && Object.keys(o).every(k => k.includes(".") && typeof o[k] === "string");
+if (isFlat(raw) || (only && raw && !Object.keys(raw).length)) {
+  if (!only) { console.error("Correções em formato plano: informe --lang xx"); process.exit(1); }
+  const meta = STUDY_LANGS.find(x => x.code === only); if (!meta) { console.error(only + ": não é um idioma do estudo"); process.exit(1); }
+  if (!Object.keys(raw).length) { console.log("Nenhuma correção neste arquivo (o revisor respondeu {})."); process.exit(0); }
+  const flatO = (o, p, out) => { if (typeof o === "string") out[p] = o; else if (o && typeof o === "object") for (const k in o) flatO(o[k], p ? p + "." + k : k, out); return out; };
+  const REF = flatO(LANG[only === "en" || only === "es" ? "pt" : "en"], "", {}), CUR = flatO(LANG[only], "", {});
+  const re = SCRIPT_RE[meta.script], ok = {}, bad = [];
+  for (const [k, v] of Object.entries(raw)) {
+    const a = REF[k];
+    if (a === undefined) { bad.push(k + ": caminho não existe"); continue; }
+    if (!v.trim()) { bad.push(k + ": vazio"); continue; }
+    if (ph(a) !== ph(v)) { bad.push(k + ": marcadores " + (ph(a) || "nenhum") + " viraram " + (ph(v) || "nenhum")); continue; }
+    if (re && a.length > 40 && !re.test(v)) { bad.push(k + ": sem a escrita " + meta.script); continue; }
+    if (/\.opts\.0$|\.cards\.\d+$|\.lines\.\d+$/.test(k) && CUR[k] === undefined) { bad.push(k + ": posição de lista inexistente"); continue; }
+    if (v !== CUR[k]) ok[k] = v;
+  }
+  if (bad.length) { console.log("Recusadas " + bad.length + ":"); bad.forEach(b => console.log("   - " + b)); }
+  const n = Object.keys(ok).length;
+  if (n) { const pf = path.join(srcDir, "lang-" + only + ".patch.js"), head = fs.existsSync(pf) ? "" : "/* Traduções feitas fora do gerador. Carregado DEPOIS de lang-" + only + ".js; uma nova geração do pacote não o apaga. */\n";
+    fs.appendFileSync(pf, head + "\n/* revisão: " + path.basename(file) + ", " + new Date().toISOString().slice(0, 10) + " */\nDW_PATCH(" + JSON.stringify(only) + ", " + JSON.stringify(ok, null, 1) + ");\n");
+    console.log(meta.native + " (" + only + "): " + n + " correções acrescentadas a src/lang-" + only + ".patch.js"); }
+  else console.log("Nenhuma correção nova para aplicar.");
+  console.log("Próximos passos: node tests.js && python build.py");
+  process.exit(0);
+}
 const pack = raw.ui || raw.items ? { [only || ""]: raw } : raw;
 if ((raw.ui || raw.items) && !only) { console.error("JSON de um idioma só: informe --lang xx"); process.exit(1); }
 

@@ -1118,3 +1118,14 @@ if (x != 0 && 10 / x > 2) {
 `static String hms(int seconds) {\n  \n}`,
 `const char *hms(int seconds) {\n  \n}`)}
 ];
+
+/* Correções pontuais de tradução, por caminho plano ("ui.balance", "items.v10.cards.0", "skills.var.story").
+   Usada pelos arquivos lang-xx.patch.js, que carregam depois dos pacotes e nunca são sobrescritos pelo gerador. */
+function DW_PATCH(code, flat) {
+  const root = LANG[code]; if (!root) return;
+  for (const [p, v] of Object.entries(flat)) {
+    const ks = p.split("."); let o = root;
+    for (let i = 0; i < ks.length - 1; i++) { if (o[ks[i]] == null) o[ks[i]] = /^\d+$/.test(ks[i + 1]) ? [] : {}; o = o[ks[i]]; }
+    o[ks[ks.length - 1]] = v;
+  }
+}

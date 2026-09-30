@@ -75,6 +75,8 @@ const gateOk=id=>S.xpTotal>=(GATES[id]||0)||!!S.brief[id];
 const unlocked=id=>preOk(id)&&gateOk(id);
 /* Identificador pseudônimo, aleatório, gerado uma vez por navegador. Não deriva de nada pessoal e permite juntar exportações de muitos estudantes. */
 function newSid(){try{const a=new Uint8Array(8);crypto.getRandomValues(a);return "s"+[...a].map(x=>x.toString(36).padStart(2,"0")).join("").slice(0,12)}catch(e){return "s"+Math.random().toString(36).slice(2,14)}}
+/* Número no formato do idioma do jogo: 1,5 em português, 1.5 em inglês, chinês, japonês, hindi... */
+const num=x=>{try{return new Intl.NumberFormat(Lg().bcp||S.lang).format(x)}catch(e){return String(x)}};
 function earn(x){S.xp+=x;S.xpTotal+=x}
 const gt=()=>Lg().game||LANG.pt.game;
 const isTyped=it=>MODES[S.mode].typed&&it.type==="mc"&&it.mono&&!!it.code;
@@ -307,7 +309,7 @@ function topbar(){
       langBar()));
 }
 function home(){
-  const started=S.started&&S.log.length, done=SKILLS.filter(x=>mastered(x.id)&&confirmed(x.id)).length;
+  const started=!!(S.started&&S.log.length), done=SKILLS.filter(x=>mastered(x.id)&&confirmed(x.id)).length;
   const num=(v,k)=>h("div",null,h("b",null,String(v)),t(k));
   const go1=()=>{S.started=true;fillBoard();save();go("board")};
   return h("main",{class:"homepage"},
@@ -357,7 +359,7 @@ function bossCard(b){
 }
 function modePanel(){
   return h("div",{class:"panel",style:"margin-bottom:18px"},
-    h("div",{class:"tabs",role:"group","aria-label":t("modeH")},Object.keys(MODES).map(k=>h("button",{"aria-pressed":String(S.mode===k),onclick:()=>{S.mode=k;save();render()}},MODE_ICON[k]+" "+t("modes")[k]+" ×"+String(MODES[k].mult).replace(".",S.lang==="en"?".":",")))),
+    h("div",{class:"tabs",role:"group","aria-label":t("modeH")},Object.keys(MODES).map(k=>h("button",{"aria-pressed":String(S.mode===k),onclick:()=>{S.mode=k;save();render()}},MODE_ICON[k]+" "+t("modes")[k]+" ×"+num(MODES[k].mult)))),
     h("p",{class:"note",style:"margin:6px 0 14px"},t("modeDesc")[S.mode]),
     h("b",{style:"font-family:var(--display)"},"🎯 "+t("bountiesH")),
     h("ul",{class:"bounties"},BOUNTIES.map(b=>h("li",{class:S.sprint.b[b.id]?"ok":null},(S.sprint.b[b.id]?"✅ ":"")+fill(gt().bounties[b.id])+"  +"+b.xp+" XP"))));
@@ -425,7 +427,7 @@ function board(){
         (()=>{const bi=bonusItem(); return bi&&[h("h3",{class:"gap"},"⭐ "+t("bonusH")),h("p",{class:"note",style:"margin:-4px 0 10px"},t("bonusP")),
           h("div",{class:"tickets"},h("button",{class:"ticket bonus",onclick:()=>openTicket(bi.id,{bonus:true})},
             h("span",{class:"id"},"DW-"+bi.id.toUpperCase()+"  "+skT(bi.skill).client),h("span",{class:"tt"},itT(bi.id).title),
-            h("span",{class:"tags"},h("span",{class:"tag",style:"background:var(--gold-soft)"},"XP ×1,5"),h("span",{class:"tag plain"},bi.kind==="rule"?"📏 "+t("kindRule"):"🧭 "+t("kindFree")))))]})(),
+            h("span",{class:"tags"},h("span",{class:"tag",style:"background:var(--gold-soft)"},"XP ×"+num(1.5)),h("span",{class:"tag plain"},bi.kind==="rule"?"📏 "+t("kindRule"):"🧭 "+t("kindFree")))))]})(),
         dl&&[h("h3",{class:"gap"},"📅 "+t("dailyH")),S.daily.done?h("p",{class:"empty"},t("dailyDone")):h("div",{class:"tickets"},ticketCard(dl,true))],
         h("h3",{class:"gap"},"⚔️ "+t("bossesH")),h("div",{class:"tickets"},BOSSES.map(bossCard)),
         h("div",{class:"done"},h("h3",null,t("doneSprint")),
@@ -458,7 +460,7 @@ function openTicket(id,o){
 function bossView(){
   const b=BOSSES.find(x=>x.id===boss.id), x=gt().bosses[b.id], mult=MODES[S.mode].mult;
   if(boss.phase==="intro")return h("main",{class:"brief"},h("p",{class:"client"},t("client")+": "+x.client),h("h2",null,b.icon+" "+x.name),h("p",{class:"story"},x.story),
-    h("div",{class:"sbc"},h("b",null,t("modes")[S.mode]+" ×"+mult+". "),t("bossRules")+" "+t("reward",{x:Math.round(b.reward*mult)})),
+    h("div",{class:"sbc"},h("b",null,t("modes")[S.mode]+" ×"+num(mult)+". "),t("bossRules")+" "+t("reward",{x:Math.round(b.reward*mult)})),
     h("div",{class:"row"},h("button",{class:"btn",onclick:()=>{boss.phase="fight";openTicket(b.stages[0])}},t("bossStart")),h("button",{class:"btn ghost",onclick:()=>go("board")},t("backBoard"))));
   if(!boss.settled){boss.settled=true; if(boss.won){boss.gain=Math.round(b.reward*mult);earn(boss.gain);S.bosses[b.id]=true;setTimeout(()=>burst(["🏆","🎉","⭐",b.icon],60),50)} else {boss.loss=Math.min(S.xp,b.fail);S.xp-=boss.loss} save();}
   return h("main",{class:"work"},h("section",{class:"fb"+(boss.won?"":" bad")},h("h3",null,boss.won?"🏆 "+t("bossWin"):"🌱 "+t("bossLose")),
@@ -521,7 +523,7 @@ function ticket(){
       if(ap.length)body.push(h("div",{class:"rules"},h("b",null,"📏 "+t("rulesH")+" "),ap.map(x=>h("span",{class:"rule"+(r&&r.regras?(r.regras.find(y=>y.id===x.id)||{}).ok===false?" no":" ok":"")},t("ruleN")[x.id])),
         h("p",{class:"note",style:"margin:6px 0 0"},t("rulesCap"))));}
     else if(it.extra)body.push(h("p",{class:"note"},"🧭 "+t("freeNote")));
-    body.push(h("p",{class:"sig"},t("codeFn",{f:it.fn})));
+    {const parts=t("codeFn",{f:"\u0000"}).split("\u0000"); body.push(h("p",{class:"sig"},parts[0],h("code",null,it.fn),parts.slice(1).join("")));}
     if(!pode)body.push(h("div",{class:"hint"},h("b",null,t("noExecH",{l:PLS[L]})+" "),t("noExecP")));
     body.push(h("textarea",{class:"editor",spellcheck:"false",disabled:cur.done,"aria-label":t("codeFn",{f:it.fn}),
       oninput:e=>{cur.code=e.target.value; if(!cur.tel.first)cur.tel.first=Date.now()-cur.tel.t0},
@@ -568,7 +570,7 @@ function ticket(){
     isBoss&&h("p",{class:"promo",style:"margin-bottom:8px"},gt().bosses[it.boss].name+": "+t("bossStage",{n:boss.stage+1,m:b.stages.length})+". "+t("bossLives",{n:Math.max(0,1-boss.errors)})),
     h("div",{class:"meta"},h("span",{class:"tag plain"},"DW-"+it.id.toUpperCase()),h("span",{class:"tag"+(se?" se":"")},skT(it.skill).name),!isBoss&&h("span",{class:"tag plain"},skT(it.skill).client),
       h("span",{class:"tag plain"},t("types")[it.type]),h("span",{class:"tag plain"},t("bloom")[it.bloom-1]),it.code&&h("span",{class:"tag plain"},PLS[S.pl]),
-      cur.lab?h("span",{class:"tag",style:"background:var(--se-soft)"},"🛠️ "+t("navLab")):h("span",{class:"tag",style:"background:var(--gold-soft)"},t("modes")[cur.mode]+" ×"+m.mult),
+      cur.lab?h("span",{class:"tag",style:"background:var(--se-soft)"},"🛠️ "+t("navLab")):h("span",{class:"tag",style:"background:var(--gold-soft)"},t("modes")[cur.mode]+" ×"+num(m.mult)),
       cur.bonus&&h("span",{class:"tag",style:"background:var(--gold-soft)"},"⭐ "+t("bonusTag")),
       it.extra&&h("span",{class:"tag plain"},it.kind==="rule"?t("kindRule"):t("kindFree")),cur.daily&&h("span",{class:"tag",style:"background:var(--gold-soft)"},t("dailyTag"))),
     h("h2",null,tx.title),
