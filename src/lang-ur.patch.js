@@ -4,3 +4,6 @@ Object.assign(LANG.ur.ui, {"csvBtn": "تحقیقی جدول ڈاؤن لوڈ کر
 
 /* "free" no sentido de desafio livre, aberto (não gratuito): corrigido à mão */
 DW_PATCH("ur", {"ui.kindFree": "کھلا", "ui.freeNote": "کھلا چیلنج: جو طریقہ آپ کو پسند ہو اپنائیں۔ فیصلہ ٹیسٹ کیسز کرتے ہیں۔"});
+
+/* revisão da versão publicada (30/09/2026): "Balance" isolado havia virado "equilíbrio"; rótulos curtos que ficaram em inglês */
+DW_PATCH("ur", {"ui.balance": "بیلنس"});

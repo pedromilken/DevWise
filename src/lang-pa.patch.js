@@ -4,3 +4,6 @@ Object.assign(LANG.pa.ui, {"csvBtn": "ਖੋਜ ਸਾਰਣੀ ਡਾਊਨਲ�
 
 /* "free" no sentido de desafio livre, aberto (não gratuito): corrigido à mão */
 DW_PATCH("pa", {"ui.kindFree": "ਖੁੱਲ੍ਹਾ", "ui.freeNote": "ਖੁੱਲ੍ਹੀ ਚੁਣੌਤੀ: ਜਿਹੜਾ ਤਰੀਕਾ ਤੁਹਾਨੂੰ ਪਸੰਦ ਹੋਵੇ, ਉਹ ਵਰਤੋ। ਫ਼ੈਸਲਾ ਟੈਸਟ ਕੇਸ ਕਰਦੇ ਹਨ।"});
+
+/* revisão da versão publicada (30/09/2026): "Balance" isolado havia virado "equilíbrio"; rótulos curtos que ficaram em inglês */
+DW_PATCH("pa", {"ui.lockedAria": "ਤਾਲਾਬੰਦ"});

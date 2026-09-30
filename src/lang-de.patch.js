@@ -4,3 +4,6 @@ Object.assign(LANG.de.ui, {"csvBtn": "Forschungstabelle herunterladen (CSV)", "c
 
 /* "free" no sentido de desafio livre, aberto (não gratuito): corrigido à mão */
 DW_PATCH("de", {"ui.kindFree": "offen", "ui.freeNote": "Offene Aufgabe: Wähle den Weg, der dir liegt. Entscheidend sind die Testfälle."});
+
+/* revisão da versão publicada (30/09/2026): "Balance" isolado havia virado "equilíbrio"; rótulos curtos que ficaram em inglês */
+DW_PATCH("de", {"ui.balance": "Guthaben"});

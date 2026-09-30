@@ -274,3 +274,6 @@ Object.assign(LANG.zh.ui, {"csvBtn": "下载研究数据表（CSV）", "csvNote"
 
 /* "free" no sentido de desafio livre, aberto (não gratuito): corrigido à mão */
 DW_PATCH("zh", {"ui.kindFree": "自由发挥", "ui.freeNote": "自由挑战：用你喜欢的方法解决，由测试用例来判定。"});
+
+/* revisão da versão publicada (30/09/2026): "Balance" isolado havia virado "equilíbrio"; rótulos curtos que ficaram em inglês */
+DW_PATCH("zh", {"ui.balance": "余额"});

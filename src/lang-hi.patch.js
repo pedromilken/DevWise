@@ -274,3 +274,6 @@ Object.assign(LANG.hi.ui, {"csvBtn": "शोध तालिका डाउन�
 
 /* "free" no sentido de desafio livre, aberto (não gratuito): corrigido à mão */
 DW_PATCH("hi", {"ui.kindFree": "खुला", "ui.freeNote": "खुली चुनौती: जो तरीका आपको पसंद हो, वही अपनाइए। फ़ैसला टेस्ट केस करते हैं।"});
+
+/* revisão da versão publicada (30/09/2026): "Balance" isolado havia virado "equilíbrio"; rótulos curtos que ficaram em inglês */
+DW_PATCH("hi", {"ui.balance": "शेष", "ui.role": "भूमिका", "ui.streak": "लगातार सही"});

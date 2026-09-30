@@ -4,3 +4,6 @@ Object.assign(LANG.ja.ui, {"csvBtn": "研究用データ表をダウンロード
 
 /* "free" no sentido de desafio livre, aberto (não gratuito): corrigido à mão */
 DW_PATCH("ja", {"ui.kindFree": "自由形式", "ui.freeNote": "自由形式の課題です。好きな方法で解いてください。判定はテストケースで行います。"});
+
+/* revisão da versão publicada (30/09/2026): "Balance" isolado havia virado "equilíbrio"; rótulos curtos que ficaram em inglês */
+DW_PATCH("ja", {"ui.balance": "残高"});

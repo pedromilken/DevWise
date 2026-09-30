@@ -274,3 +274,6 @@ Object.assign(LANG.ko.ui, {"csvBtn": "연구용 데이터 표 다운로드(CSV)"
 
 /* "free" no sentido de desafio livre, aberto (não gratuito): corrigido à mão */
 DW_PATCH("ko", {"ui.kindFree": "자유형", "ui.freeNote": "자유형 도전: 원하는 방식으로 풀어 보세요. 판정은 테스트 케이스가 합니다."});
+
+/* revisão da versão publicada (30/09/2026): "Balance" isolado havia virado "equilíbrio"; rótulos curtos que ficaram em inglês */
+DW_PATCH("ko", {"ui.balance": "잔액"});

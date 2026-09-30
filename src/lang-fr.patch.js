@@ -274,3 +274,6 @@ Object.assign(LANG.fr.ui, {"csvBtn": "Télécharger le tableau de recherche (CSV
 
 /* "free" no sentido de desafio livre, aberto (não gratuito): corrigido à mão */
 DW_PATCH("fr", {"ui.kindFree": "libre", "ui.freeNote": "Défi libre : prenez le chemin que vous voulez. Ce sont les cas de test qui tranchent."});
+
+/* revisão da versão publicada (30/09/2026): "Balance" isolado havia virado "equilíbrio"; rótulos curtos que ficaram em inglês */
+DW_PATCH("fr", {"ui.balance": "Solde", "ui.dailyTag": "XP doublé"});

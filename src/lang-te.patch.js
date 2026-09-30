@@ -4,3 +4,6 @@ Object.assign(LANG.te.ui, {"csvBtn": "పరిశోధన పట్టిక�
 
 /* "free" no sentido de desafio livre, aberto (não gratuito): corrigido à mão */
 DW_PATCH("te", {"ui.kindFree": "స్వేచ్ఛా", "ui.freeNote": "స్వేచ్ఛా సవాల్: మీకు నచ్చిన పద్ధతిలో పరిష్కరించండి. నిర్ణయం పరీక్షా సందర్భాలదే."});
+
+/* revisão da versão publicada (30/09/2026): "Balance" isolado havia virado "equilíbrio"; rótulos curtos que ficaram em inglês */
+DW_PATCH("te", {"ui.balance": "బ్యాలెన్స్"});

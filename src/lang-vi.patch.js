@@ -4,3 +4,6 @@ Object.assign(LANG.vi.ui, {"csvBtn": "Tải bảng dữ liệu nghiên cứu (CS
 
 /* "free" no sentido de desafio livre, aberto (não gratuito): corrigido à mão */
 DW_PATCH("vi", {"ui.kindFree": "tự do", "ui.freeNote": "Thử thách tự do: bạn giải theo cách nào cũng được. Các ca kiểm thử sẽ quyết định."});
+
+/* revisão da versão publicada (30/09/2026): "Balance" isolado havia virado "equilíbrio"; rótulos curtos que ficaram em inglês */
+DW_PATCH("vi", {"ui.balance": "Số dư"});

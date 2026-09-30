@@ -43,6 +43,7 @@ function audit(c) {
     if (b === undefined || !String(b).trim()) { out.push("FALTA        " + k); continue; }
     if (ph(a) !== ph(b)) out.push("MARCADOR     " + k + "   " + (ph(a) || "nenhum") + " -> " + (ph(b) || "nenhum"));
     if (c !== "pt" && c !== "en" && c !== "es" && a === b && a.length > (meta.script === "Latin" ? 40 : 12) && !KEEP.test(k) && !CODEY(a)) out.push("EM INGLÊS    " + k + "   " + a.slice(0, 70));
+    else if (meta.script !== "Latin" && c !== "en" && !/\.opts\./.test(k) && a === b && /^[A-Za-z][A-Za-z -]{2,}$/.test(a) && !/^(XP|Git|PDF|CSV|AUC|Brier|BKT|PFA|AFM|SBC|MVP|TDD|CI|CD|DevWise|Python|JavaScript|Java|C|OK|Pix|Ponte|Roda Viva|FizzBuzz|README|commit|push|merge|Agile|Scrum|Kanban|Extra hardcore)$/i.test(a) && !KEEP.test(k)) out.push("EM INGLÊS    " + k + "   rótulo curto: " + a);
     for (const n of NAMES) {
       if (!bare(a).includes(bare(n))) continue;
       const bb = bare(b), i = bb.indexOf(bare(n));

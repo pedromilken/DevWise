@@ -339,6 +339,14 @@ textarea.editor:focus{border-color:var(--gold)}
 /* Oficina: cartões em grade no computador, em vez de uma fila de cartões da largura da tela */
 .labgroup .tickets{display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:12px}
 
+/* ---- v10.3: palavras longas (alemão, russo, tâmil) não podem empurrar a página para os lados no celular ---- */
+.hero{grid-template-columns:minmax(0,1.35fr) minmax(0,.65fr)}
+.homepage h1,.work h2,.lead{overflow-wrap:break-word;hyphens:auto;-webkit-hyphens:auto}
+@media (max-width:820px){.hero{grid-template-columns:minmax(0,1fr)}}
+.numbers div{overflow-wrap:anywhere;hyphens:auto;-webkit-hyphens:auto;min-width:0}
+@media (max-width:820px){.numbers{grid-template-columns:repeat(2,minmax(0,1fr))}}
+.labLang{flex-wrap:wrap;max-width:100%}.labLang select{max-width:100%;min-width:0}
+
 </style>
 </head>
 <body>
@@ -38007,6 +38015,9 @@ Object.assign(LANG.de.ui, {"csvBtn": "Forschungstabelle herunterladen (CSV)", "c
 /* "free" no sentido de desafio livre, aberto (não gratuito): corrigido à mão */
 DW_PATCH("de", {"ui.kindFree": "offen", "ui.freeNote": "Offene Aufgabe: Wähle den Weg, der dir liegt. Entscheidend sind die Testfälle."});
 
+/* revisão da versão publicada (30/09/2026): "Balance" isolado havia virado "equilíbrio"; rótulos curtos que ficaram em inglês */
+DW_PATCH("de", {"ui.balance": "Guthaben"});
+
 /* Traduções feitas fora do gerador (revisão humana ou outro modelo). Carregado DEPOIS de lang-fr.js,
    então sobrescreve as chaves abaixo e não é apagado por uma nova geração do pacote. */
 Object.assign(LANG.fr.ui, {
@@ -38283,6 +38294,9 @@ Object.assign(LANG.fr.ui, {"csvBtn": "Télécharger le tableau de recherche (CSV
 
 /* "free" no sentido de desafio livre, aberto (não gratuito): corrigido à mão */
 DW_PATCH("fr", {"ui.kindFree": "libre", "ui.freeNote": "Défi libre : prenez le chemin que vous voulez. Ce sont les cas de test qui tranchent."});
+
+/* revisão da versão publicada (30/09/2026): "Balance" isolado havia virado "equilíbrio"; rótulos curtos que ficaram em inglês */
+DW_PATCH("fr", {"ui.balance": "Solde", "ui.dailyTag": "XP doublé"});
 
 /* Traduções feitas fora do gerador (revisão humana ou outro modelo). Carregado DEPOIS de lang-hi.js,
    então sobrescreve as chaves abaixo e não é apagado por uma nova geração do pacote. */
@@ -38561,6 +38575,9 @@ Object.assign(LANG.hi.ui, {"csvBtn": "शोध तालिका डाउन�
 /* "free" no sentido de desafio livre, aberto (não gratuito): corrigido à mão */
 DW_PATCH("hi", {"ui.kindFree": "खुला", "ui.freeNote": "खुली चुनौती: जो तरीका आपको पसंद हो, वही अपनाइए। फ़ैसला टेस्ट केस करते हैं।"});
 
+/* revisão da versão publicada (30/09/2026): "Balance" isolado havia virado "equilíbrio"; rótulos curtos que ficaram em inglês */
+DW_PATCH("hi", {"ui.balance": "शेष", "ui.role": "भूमिका", "ui.streak": "लगातार सही"});
+
 /* Traduções feitas fora do gerador. Carregado DEPOIS de lang-id.js; uma nova geração do pacote não o apaga. */
 /* Traduções feitas à mão para a exportação de pesquisa (sem API). */
 Object.assign(LANG.id.ui, {"csvBtn": "Unduh tabel penelitian (CSV)", "csvNote": "Satu baris untuk setiap jawaban, berisi pengenal samaran {s}, prediksi tiap model yang tercatat di dalam game, dan prediksi yang dibangun ulang dari awal untuk semua model. Tidak ada yang bisa mengungkap identitas pribadi siswa.", "sidLabel": "Pengenal samaran untuk peramban ini:"});
@@ -38568,12 +38585,18 @@ Object.assign(LANG.id.ui, {"csvBtn": "Unduh tabel penelitian (CSV)", "csvNote": 
 /* "free" no sentido de desafio livre, aberto (não gratuito): corrigido à mão */
 DW_PATCH("id", {"ui.kindFree": "bebas", "ui.freeNote": "Tantangan bebas: pakai cara apa saja yang kamu suka. Kasus uji yang menentukan."});
 
+/* revisão da versão publicada (30/09/2026): "Balance" isolado havia virado "equilíbrio"; rótulos curtos que ficaram em inglês */
+DW_PATCH("id", {"ui.streak": "Runtunan"});
+
 /* Traduções feitas fora do gerador. Carregado DEPOIS de lang-ja.js; uma nova geração do pacote não o apaga. */
 /* Traduções feitas à mão para a exportação de pesquisa (sem API). */
 Object.assign(LANG.ja.ui, {"csvBtn": "研究用データ表をダウンロード（CSV）", "csvNote": "回答ごとに1行で、仮名ID {s}、ゲーム内で記録された各モデルの予測、そしてすべてのモデルについて最初から計算し直した予測が含まれます。学習者個人を特定できる情報は含まれません。", "sidLabel": "このブラウザの仮名ID："});
 
 /* "free" no sentido de desafio livre, aberto (não gratuito): corrigido à mão */
 DW_PATCH("ja", {"ui.kindFree": "自由形式", "ui.freeNote": "自由形式の課題です。好きな方法で解いてください。判定はテストケースで行います。"});
+
+/* revisão da versão publicada (30/09/2026): "Balance" isolado havia virado "equilíbrio"; rótulos curtos que ficaram em inglês */
+DW_PATCH("ja", {"ui.balance": "残高"});
 
 /* Traduções feitas fora do gerador (revisão humana ou outro modelo). Carregado DEPOIS de lang-ko.js,
    então sobrescreve as chaves abaixo e não é apagado por uma nova geração do pacote. */
@@ -38852,6 +38875,9 @@ Object.assign(LANG.ko.ui, {"csvBtn": "연구용 데이터 표 다운로드(CSV)"
 /* "free" no sentido de desafio livre, aberto (não gratuito): corrigido à mão */
 DW_PATCH("ko", {"ui.kindFree": "자유형", "ui.freeNote": "자유형 도전: 원하는 방식으로 풀어 보세요. 판정은 테스트 케이스가 합니다."});
 
+/* revisão da versão publicada (30/09/2026): "Balance" isolado havia virado "equilíbrio"; rótulos curtos que ficaram em inglês */
+DW_PATCH("ko", {"ui.balance": "잔액"});
+
 /* Traduções feitas fora do gerador. Carregado DEPOIS de lang-mr.js; uma nova geração do pacote não o apaga. */
 /* Traduções feitas à mão para a exportação de pesquisa (sem API). */
 Object.assign(LANG.mr.ui, {"csvBtn": "संशोधन तक्ता डाउनलोड करा (CSV)", "csvNote": "प्रत्येक उत्तरासाठी एक ओळ, ज्यात टोपणनाव ओळखकर्ता {s}, खेळात नोंदवलेला प्रत्येक मॉडेलचा अंदाज आणि सर्व मॉडेलसाठी सुरुवातीपासून पुन्हा तयार केलेला अंदाज असतो. यात विद्यार्थ्याची वैयक्तिक ओळख पटेल असे काहीही नाही.", "sidLabel": "या ब्राउझरचा टोपणनाव ओळखकर्ता:"});
@@ -38865,6 +38891,9 @@ Object.assign(LANG.pa.ui, {"csvBtn": "ਖੋਜ ਸਾਰਣੀ ਡਾਊਨਲ�
 
 /* "free" no sentido de desafio livre, aberto (não gratuito): corrigido à mão */
 DW_PATCH("pa", {"ui.kindFree": "ਖੁੱਲ੍ਹਾ", "ui.freeNote": "ਖੁੱਲ੍ਹੀ ਚੁਣੌਤੀ: ਜਿਹੜਾ ਤਰੀਕਾ ਤੁਹਾਨੂੰ ਪਸੰਦ ਹੋਵੇ, ਉਹ ਵਰਤੋ। ਫ਼ੈਸਲਾ ਟੈਸਟ ਕੇਸ ਕਰਦੇ ਹਨ।"});
+
+/* revisão da versão publicada (30/09/2026): "Balance" isolado havia virado "equilíbrio"; rótulos curtos que ficaram em inglês */
+DW_PATCH("pa", {"ui.lockedAria": "ਤਾਲਾਬੰਦ"});
 
 /* Traduções feitas fora do gerador. Carregado DEPOIS de lang-ru.js; uma nova geração do pacote não o apaga. */
 /* Traduções feitas à mão para a exportação de pesquisa (sem API). */
@@ -38887,12 +38916,18 @@ Object.assign(LANG.te.ui, {"csvBtn": "పరిశోధన పట్టిక�
 /* "free" no sentido de desafio livre, aberto (não gratuito): corrigido à mão */
 DW_PATCH("te", {"ui.kindFree": "స్వేచ్ఛా", "ui.freeNote": "స్వేచ్ఛా సవాల్: మీకు నచ్చిన పద్ధతిలో పరిష్కరించండి. నిర్ణయం పరీక్షా సందర్భాలదే."});
 
+/* revisão da versão publicada (30/09/2026): "Balance" isolado havia virado "equilíbrio"; rótulos curtos que ficaram em inglês */
+DW_PATCH("te", {"ui.balance": "బ్యాలెన్స్"});
+
 /* Traduções feitas fora do gerador. Carregado DEPOIS de lang-tr.js; uma nova geração do pacote não o apaga. */
 /* Traduções feitas à mão para a exportação de pesquisa (sem API). */
 Object.assign(LANG.tr.ui, {"csvBtn": "Araştırma tablosunu indir (CSV)", "csvNote": "Her cevap için bir satır: takma ad kimliği {s}, oyunda kaydedilen her modelin tahmini ve tüm modeller için baştan yeniden hesaplanan tahmin. Tabloda öğrenciyi kişisel olarak tanıtan hiçbir bilgi yok.", "sidLabel": "Bu tarayıcının takma ad kimliği:"});
 
 /* "free" no sentido de desafio livre, aberto (não gratuito): corrigido à mão */
 DW_PATCH("tr", {"ui.kindFree": "serbest", "ui.freeNote": "Serbest görev: istediğin yolu seç. Kararı test durumları verir."});
+
+/* revisão da versão publicada (30/09/2026): "Balance" isolado havia virado "equilíbrio"; rótulos curtos que ficaram em inglês */
+DW_PATCH("tr", {"ui.balance": "Bakiye", "ui.role": "Rol"});
 
 /* Traduções feitas fora do gerador. Carregado DEPOIS de lang-ur.js; uma nova geração do pacote não o apaga. */
 /* Traduções feitas à mão para a exportação de pesquisa (sem API). */
@@ -38901,12 +38936,18 @@ Object.assign(LANG.ur.ui, {"csvBtn": "تحقیقی جدول ڈاؤن لوڈ کر
 /* "free" no sentido de desafio livre, aberto (não gratuito): corrigido à mão */
 DW_PATCH("ur", {"ui.kindFree": "کھلا", "ui.freeNote": "کھلا چیلنج: جو طریقہ آپ کو پسند ہو اپنائیں۔ فیصلہ ٹیسٹ کیسز کرتے ہیں۔"});
 
+/* revisão da versão publicada (30/09/2026): "Balance" isolado havia virado "equilíbrio"; rótulos curtos que ficaram em inglês */
+DW_PATCH("ur", {"ui.balance": "بیلنس"});
+
 /* Traduções feitas fora do gerador. Carregado DEPOIS de lang-vi.js; uma nova geração do pacote não o apaga. */
 /* Traduções feitas à mão para a exportação de pesquisa (sem API). */
 Object.assign(LANG.vi.ui, {"csvBtn": "Tải bảng dữ liệu nghiên cứu (CSV)", "csvNote": "Mỗi câu trả lời là một dòng, gồm mã định danh ẩn danh {s}, dự đoán của từng mô hình được ghi lại trong trò chơi và dự đoán được tính lại từ đầu cho tất cả mô hình. Không có thông tin nào giúp nhận diện cá nhân học viên.", "sidLabel": "Mã định danh ẩn danh của trình duyệt này:"});
 
 /* "free" no sentido de desafio livre, aberto (não gratuito): corrigido à mão */
 DW_PATCH("vi", {"ui.kindFree": "tự do", "ui.freeNote": "Thử thách tự do: bạn giải theo cách nào cũng được. Các ca kiểm thử sẽ quyết định."});
+
+/* revisão da versão publicada (30/09/2026): "Balance" isolado havia virado "equilíbrio"; rótulos curtos que ficaram em inglês */
+DW_PATCH("vi", {"ui.balance": "Số dư"});
 
 /* Traduções feitas fora do gerador (revisão humana ou outro modelo). Carregado DEPOIS de lang-zh.js,
    então sobrescreve as chaves abaixo e não é apagado por uma nova geração do pacote. */
@@ -39184,6 +39225,9 @@ Object.assign(LANG.zh.ui, {"csvBtn": "下载研究数据表（CSV）", "csvNote"
 
 /* "free" no sentido de desafio livre, aberto (não gratuito): corrigido à mão */
 DW_PATCH("zh", {"ui.kindFree": "自由发挥", "ui.freeNote": "自由挑战：用你喜欢的方法解决，由测试用例来判定。"});
+
+/* revisão da versão publicada (30/09/2026): "Balance" isolado havia virado "equilíbrio"; rótulos curtos que ficaram em inglês */
+DW_PATCH("zh", {"ui.balance": "余额"});
 
 /* Mapa de romanização gerado por tools/gerar-idioma.js --romanizar. */
 ROM.ar = {};

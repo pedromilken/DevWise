@@ -4,3 +4,6 @@ Object.assign(LANG.tr.ui, {"csvBtn": "Araştırma tablosunu indir (CSV)", "csvNo
 
 /* "free" no sentido de desafio livre, aberto (não gratuito): corrigido à mão */
 DW_PATCH("tr", {"ui.kindFree": "serbest", "ui.freeNote": "Serbest görev: istediğin yolu seç. Kararı test durumları verir."});
+
+/* revisão da versão publicada (30/09/2026): "Balance" isolado havia virado "equilíbrio"; rótulos curtos que ficaram em inglês */
+DW_PATCH("tr", {"ui.balance": "Bakiye", "ui.role": "Rol"});
