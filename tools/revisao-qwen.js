@@ -23,11 +23,15 @@ const ESTILO = JSON.parse(fs.readFileSync(path.join(__dirname, "estilo.json"), "
 
 const flat = (o, p, out) => { if (typeof o === "string") out[p] = o; else if (o && typeof o === "object") for (const k in o) flat(o[k], p ? p + "." + k : k, out); return out; };
 /* o nome não se traduz; o pronome de tratamento (Dona, Seu) pode ser adaptado: Doña Lúcia, Mr Antônio */
-const NAMES = ["Lúcia", "Rosa", "Marta", "Caio", "Bia", "Helena", "Antônio", "Ponte", "Roda Viva", "Pix"];
+const PERSONS = ["Lúcia", "Rosa", "Marta", "Caio", "Bia", "Helena", "Antônio"], ORGS = ["Ponte", "Roda Viva", "Pix"], NAMES = [...PERSONS, ...ORGS];
+/* Regra de nomes (decisão de set/2026): sempre em letras latinas; nas escritas não latinas, a primeira menção de cada pessoa
+   em cada história de missão (skills.<id>.story) leva a transliteração entre parênteses: Dona Lúcia（露西亚太太）.
+   Organizações e produtos (Ponte, Roda Viva, Pix) ficam só em letras latinas. */
+const INTRO = /^skills\.[^.]+\.story$/;
 const bare = s => String(s).normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLowerCase();
 const KEEP = /(^|\.)(provAnthropic|provOpenAI|hardcore|models\.\w+|t3\.title)$/;
 const CODEY = s => s.length <= 30 && /[<>]=?|==|!=/.test(s);
-const DOT_DECIMAL = new Set(["en", "zh", "ja", "ko", "hi", "mr", "bn", "te", "ta", "pa", "ur", "ar", "vi"]);   /* 1.5 */
+const DOT_DECIMAL = new Set(["en", "zh", "ja", "ko", "hi", "mr", "bn", "te", "ta", "pa", "ur", "ar"]);   /* 1.5; vietnamita, russo, turco e indonésio usam vírgula */
 const ph = s => (String(s).match(/\{[a-z]\}/g) || []).sort().join(",");
 /* referência de cada idioma: o inglês; para o inglês e o espanhol, o português (de onde foram escritos) */
 const refOf = c => c === "en" || c === "es" ? "pt" : "en";
@@ -39,7 +43,13 @@ function audit(c) {
     if (b === undefined || !String(b).trim()) { out.push("FALTA        " + k); continue; }
     if (ph(a) !== ph(b)) out.push("MARCADOR     " + k + "   " + (ph(a) || "nenhum") + " -> " + (ph(b) || "nenhum"));
     if (c !== "pt" && c !== "en" && c !== "es" && a === b && a.length > (meta.script === "Latin" ? 40 : 12) && !KEEP.test(k) && !CODEY(a)) out.push("EM INGLÊS    " + k + "   " + a.slice(0, 70));
-    for (const n of NAMES) if (bare(a).includes(bare(n)) && !bare(b).includes(bare(n))) out.push("NOME         " + k + "   \"" + n + "\" não aparece: foi traduzido ou transliterado?");
+    for (const n of NAMES) {
+      if (!bare(a).includes(bare(n))) continue;
+      const bb = bare(b), i = bb.indexOf(bare(n));
+      if (i < 0) { out.push("NOME         " + k + "   \"" + n + "\" não aparece em letras latinas"); continue; }
+      if (meta.script !== "Latin" && PERSONS.includes(n) && INTRO.test(k) && !/^\s*[(（]/.test(bb.slice(i + bare(n).length, i + bare(n).length + 4)))
+        out.push("NOME 1ª VEZ  " + k + "   \"" + n + "\" sem a transliteração entre parênteses na primeira menção");
+    }
     if (DOT_DECIMAL.has(c) && /\d,\d(?!\d\d)/.test(b) && !/\d,\d(?!\d\d)/.test(a)) out.push("DECIMAL      " + k + "   vírgula decimal num idioma que usa ponto: " + b.match(/\d+,\d+/)[0]);
   }
   return out;
@@ -59,7 +69,8 @@ Abaixo, um JSON em que cada chave é um caminho e cada valor tem "ref" (texto de
 ${c !== "pt" && c !== "en" && c !== "es" ? "- **Texto que ficou em inglês** deve ser traduzido.\n" : ""}
 ## O que NÃO pode mudar
 - marcadores entre chaves, como {n}, {s}, {x}, {d}: copie exatamente;
-- código, operadores, nomes de funções e variáveis, números, e os nomes próprios Lúcia, Rosa, Marta, Caio, Bia, Helena, Antônio, Ponte, Roda Viva, Pix, sempre em letras latinas (o pronome de tratamento "Dona" e "Seu" pode ser adaptado ao idioma);
+- código, operadores, nomes de funções e variáveis, e números;
+- **nomes**: Lúcia, Rosa, Marta, Caio, Bia, Helena e Antônio ficam sempre em letras latinas (o tratamento "Dona" e "Seu" pode ser adaptado ao idioma).${meta.script !== "Latin" ? " Nas histórias de missão (caminhos \\`skills.<id>.story\\`), na PRIMEIRA vez que cada pessoa aparece, acrescente logo depois do nome a transliteração em " + meta.en + " entre parênteses" + (["Han", "Kana", "Hangul"].includes(meta.script) ? " de largura cheia, como Dona Lúcia（露西亚太太）" : ", como Dona Lúcia (…)") + "; nas demais menções e em todos os outros textos, só letras latinas, sem transliteração." : ""} Ponte, Roda Viva e Pix são nomes de organização e produto: só em letras latinas, nunca traduzidos nem transliterados;
 - siglas e nomes técnicos: Git, commit, push, merge, CI, CD, TDD, MVP, SOLID, XP, SBC, BKT, PFA, AFM, Elo/Rasch, 3PL IRT with EAP, Brier, AUC, CSV, PDF;
 - o sentido do que é ensinado e a ordem de listas: nos caminhos terminados em .0, .1, .2, a posição importa (em "opts" o primeiro é a resposta certa).
 ${DOT_DECIMAL.has(c) ? "- números decimais em " + meta.en + " usam PONTO (1.5), não vírgula.\n" : ""}
@@ -96,7 +107,8 @@ function prepare(c) {
   if (size) parts.push(cur);
   parts.forEach((p, i) => fs.writeFileSync(path.join(dir, "parte-" + String(i + 1).padStart(2, "0") + ".md"),
     HEADER(c, i + 1, parts.length, meta, ref) + "```json\n" + JSON.stringify(p, null, 1) + "\n```\n"));
-  console.log((meta.native + " (" + c + ")").padEnd(26) + String(parts.length).padStart(2) + " partes   " + String(au.length).padStart(3) + " alertas automáticos");
+  const kinds = {}; for (const l of au) { const k = l.slice(0, 12).trim(); kinds[k] = (kinds[k] || 0) + 1; }
+  console.log((meta.native + " (" + c + ")").padEnd(26) + String(parts.length).padStart(2) + " partes   " + String(au.length).padStart(3) + " alertas" + (au.length ? "   " + Object.entries(kinds).map(([k, n]) => k.toLowerCase() + ": " + n).join(", ") : ""));
   return au.length;
 }
 

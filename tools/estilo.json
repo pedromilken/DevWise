@@ -9,7 +9,8 @@
   "Never leave English words in the middle of a sentence when the language has its own everyday term; placeholders in braces such as {d} or {h} stand for names the game fills in, so keep them exactly.",
   "Cohesion: the title, prompt, hint, explanation and analogy of one item form a single short lesson; use the same terms across them and natural connectives of the language.",
   "Comprehension: write for an adult beginner; prefer short sentences and the word order a native teacher would use when speaking to a class.",
-  "Naturalness: compose each sentence as people in that country really say it; avoid calques of English syntax, English punctuation habits and passive constructions that the language avoids. Follow local conventions for numbers, percent signs and quotation marks."
+  "Naturalness: compose each sentence as people in that country really say it; avoid calques of English syntax, English punctuation habits and passive constructions that the language avoids. Follow local conventions for numbers, percent signs and quotation marks.",
+  "Names of people (Lúcia, Rosa, Marta, Caio, Bia, Helena, Antônio) always stay in Latin letters; the honorifics Dona and Seu may be adapted. In languages with a non-Latin script, in each mission story (skills.<id>.story), the FIRST mention of each person is followed by a transliteration in parentheses (full-width in Chinese, Japanese and Korean), e.g. Dona Lúcia（露西亚太太）; every other mention, and every other text, uses Latin letters only. Ponte, Roda Viva and Pix are names of organisations and products: Latin letters only, never translated or transliterated."
  ],
  "de": {
   "tratamento": "Address the learner informally with 'du' (never 'Sie').",

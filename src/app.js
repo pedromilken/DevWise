@@ -76,7 +76,7 @@ const unlocked=id=>preOk(id)&&gateOk(id);
 /* Identificador pseudônimo, aleatório, gerado uma vez por navegador. Não deriva de nada pessoal e permite juntar exportações de muitos estudantes. */
 function newSid(){try{const a=new Uint8Array(8);crypto.getRandomValues(a);return "s"+[...a].map(x=>x.toString(36).padStart(2,"0")).join("").slice(0,12)}catch(e){return "s"+Math.random().toString(36).slice(2,14)}}
 /* Número no formato do idioma do jogo: 1,5 em português, 1.5 em inglês, chinês, japonês, hindi... */
-const num=x=>{try{return new Intl.NumberFormat(Lg().bcp||S.lang).format(x)}catch(e){return String(x)}};
+const num=x=>{try{return new Intl.NumberFormat(Lg().bcp||S.lang,{numberingSystem:"latn"}).format(x)}catch(e){return String(x)}};   /* algarismos latinos em todos os idiomas, como no resto da tela; só o separador muda */
 function earn(x){S.xp+=x;S.xpTotal+=x}
 const gt=()=>Lg().game||LANG.pt.game;
 const isTyped=it=>MODES[S.mode].typed&&it.type==="mc"&&it.mono&&!!it.code;

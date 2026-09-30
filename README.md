@@ -35,6 +35,10 @@ Você entra na Ponte, uma pequena casa de software que atende a padaria, o posto
 
 A referência é o inglês; para o inglês e o espanhol, que foram escritos a partir do português, é o português. O revisor devolve só o que mudou, num JSON plano (`{"ui.balance": "..."}`), e `node tools/aplicar-patch.js revisao/zh/correcoes-01.json --lang zh` valida cada correção (caminho, marcadores, posição em listas, escrita) e a **acrescenta** ao `lang-zh.patch.js` via `DW_PATCH`, sem apagar revisões anteriores. Respostas com texto antes ou depois do JSON são aceitas.
 
+### Nomes das personagens nos 20 idiomas
+
+Pessoas (Lúcia, Rosa, Marta, Caio, Bia, Helena, Antônio) ficam **sempre em letras latinas**; o tratamento "Dona" e "Seu" pode ser adaptado (Doña Lúcia, Mr Antônio). Nas escritas não latinas, **a primeira menção de cada pessoa em cada história de missão** (`skills.<id>.story`) leva a transliteração entre parênteses, de largura cheia em chinês, japonês e coreano: *Dona Lúcia（露西亚太太）*. Cada história conta como primeira menção porque as missões podem ser abertas em qualquer ordem. Nas demais menções e nos outros textos, só letras latinas. Ponte, Roda Viva e Pix são organização e produto: só letras latinas. A regra está no guia de estilo do gerador (`tools/estilo.json`), no prompt de revisão e na auditoria automática.
+
 ### Chave da API no gerador
 
 `node tools/gerar-idioma.js revisar` pede a chave do DeepSeek na hora, sem exibi-la, quando nenhuma chave está definida, e recusa o que não tiver o formato `sk-...`. Uma `OPENAI_API_KEY` gravada no sistema por outro projeto **não é usada por engano**: para usar a OpenAI de propósito, defina também `OPENAI_BASE_URL`. `--mock` e `pos-edicao` não pedem chave.
