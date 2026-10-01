@@ -40,43 +40,63 @@ function loadEngine() {
   let src = ["data.js", "game.js", "rom.js", "models.js", "run.js", ...langs, ...patches, ...roms, "app.js"].map(f => fs.readFileSync(path.join(S, f), "utf8")).join("\n");
   src = src.replace('"use strict";', "").replace(/S=load\(\);[\s\S]*$/, "");
   const stubEl = () => ({ append() {}, setAttribute() {}, addEventListener() {}, style: { setProperty() {} }, set className(v) {}, set textContent(v) {} });
-  const g = { localStorage: { getItem() { return null; }, setItem() {} }, window: { scrollTo() {} }, navigator: { language: "pt" }, location: { search: "" },
+  const M2 = Object.create(Math); M2.random = () => RNG();
+  const g = { Math: M2, localStorage: { getItem() { return null; }, setItem() {} }, window: { scrollTo() {} }, navigator: { language: "pt" }, location: { search: "" },
     document: { documentElement: { setAttribute() {} }, getElementById() { return stubEl(); }, createElement: stubEl, createElementNS: stubEl, createTextNode() { return {}; }, createDocumentFragment() { return { append() {} }; }, body: { append() {} } } };
   const fn = new Function(...Object.keys(g), src + `;return {get S(){return S},set S(v){S=v},setCur(v){cur=v},getCur(){return cur},
     fresh,fillBoard,pendingMissions,resolve,newSprint,exportCSV,researchRows,itemOpts,guessProb,itT,skT,trk,mastered,unlocked,
-    IT,ITEMS,SKILLS,SK,LANG,STUDY_LANGS,PLS,KT,RUN,L0};`);
+    IT,ITEMS,SKILLS,SK,LANG,STUDY_LANGS,PLS,KT,RUN,L0,RESEARCH_COLS};`);
   return fn(...Object.values(g));
 }
 
 /* ---------------- cérebros ---------------- */
 function makeBrain(spec) {
   const [kind, ...rest] = spec.split(":"), model = rest.join(":");
-  const stats = { calls: 0, ms: 0, inTok: 0, outTok: 0, fails: 0 };
+  const stats = { calls: 0, ms: 0, inTok: 0, outTok: 0, fails: 0, retries: 0 };
+  let consecutive = 0, noThink = false;
+  /* Rodadas longas: cada chamada tem tempo limite de 2 min e até 3 tentativas com espera crescente. A rodada só aborta
+     se o servidor falhar 10 vezes SEGUIDAS (fora do ar); soluços isolados viram resposta vazia, que conta como erro. */
+  const post = async (url, headers, body) => {
+    const ac = new AbortController(), tm = setTimeout(() => ac.abort(), 120000);
+    try { return await fetch(url, { method: "POST", headers, body: JSON.stringify(body), signal: ac.signal }); } finally { clearTimeout(tm); }
+  };
+  async function once(messages, temperature, max) {
+    if (kind === "simulado") return simulated(messages);
+    if (kind === "ollama") {
+      const base = process.env.OLLAMA_HOST || "http://localhost:11434", h = { "content-type": "application/json" };
+      const body = { model, messages, stream: false, think: false, options: { temperature, num_predict: max, num_ctx: 8192, seed: Math.floor(RNG() * 2147483647) } };
+      if (noThink) delete body.think;   /* modelo que recusou "think" uma vez não recebe de novo */
+      let r = await post(base + "/api/chat", h, body);
+      if (!r.ok && r.status === 400 && !noThink) { noThink = true; delete body.think; r = await post(base + "/api/chat", h, body); }
+      if (!r.ok) throw new Error("Ollama HTTP " + r.status + " " + (await r.text()).slice(0, 160));
+      const d = await r.json(); stats.inTok += d.prompt_eval_count || 0; stats.outTok += d.eval_count || 0; return (d.message && d.message.content) || "";
+    }
+    if (kind === "openai") {
+      const base = (process.env.OPENAI_BASE_URL || "https://api.openai.com/v1").replace(/\/+$/, "");
+      const r = await post(base + "/chat/completions", { "content-type": "application/json", authorization: "Bearer " + process.env.OPENAI_API_KEY }, { model, messages, temperature, max_tokens: max });
+      if (!r.ok) throw new Error("HTTP " + r.status + " " + (await r.text()).slice(0, 160));
+      const d = await r.json(); if (d.usage) { stats.inTok += d.usage.prompt_tokens; stats.outTok += d.usage.completion_tokens; } return d.choices[0].message.content || "";
+    }
+    if (kind === "anthropic") {
+      const sys = messages.filter(m => m.role === "system").map(m => m.content).join("\n");
+      const r = await post("https://api.anthropic.com/v1/messages", { "content-type": "application/json", "x-api-key": process.env.ANTHROPIC_API_KEY, "anthropic-version": "2023-06-01" },
+        { model, system: sys, messages: messages.filter(m => m.role !== "system"), temperature, max_tokens: max });
+      if (!r.ok) throw new Error("HTTP " + r.status + " " + (await r.text()).slice(0, 160));
+      const d = await r.json(); if (d.usage) { stats.inTok += d.usage.input_tokens; stats.outTok += d.usage.output_tokens; } return d.content.map(c => c.text || "").join("");
+    }
+    throw new Error("cérebro desconhecido: " + spec);
+  }
   async function call(messages, { temperature = 0.7, max = 80 } = {}) {
     const t0 = Date.now(); let text = "";
-    try {
-      if (kind === "simulado") text = simulated(messages);
-      else if (kind === "ollama") {
-        const base = process.env.OLLAMA_HOST || "http://localhost:11434";
-        const body = { model, messages, stream: false, think: false, options: { temperature, num_predict: max, num_ctx: 8192 } };
-        let r = await fetch(base + "/api/chat", { method: "POST", headers: { "content-type": "application/json" }, body: JSON.stringify(body) });
-        if (!r.ok && r.status === 400) { delete body.think; r = await fetch(base + "/api/chat", { method: "POST", headers: { "content-type": "application/json" }, body: JSON.stringify(body) }); }
-        if (!r.ok) throw new Error("Ollama HTTP " + r.status + " " + (await r.text()).slice(0, 160));
-        const d = await r.json(); text = (d.message && d.message.content) || ""; stats.inTok += d.prompt_eval_count || 0; stats.outTok += d.eval_count || 0;
-      } else if (kind === "openai") {
-        const base = (process.env.OPENAI_BASE_URL || "https://api.openai.com/v1").replace(/\/+$/, "");
-        const r = await fetch(base + "/chat/completions", { method: "POST", headers: { "content-type": "application/json", authorization: "Bearer " + process.env.OPENAI_API_KEY },
-          body: JSON.stringify({ model, messages, temperature, max_tokens: max }) });
-        if (!r.ok) throw new Error("HTTP " + r.status + " " + (await r.text()).slice(0, 160));
-        const d = await r.json(); text = d.choices[0].message.content || ""; if (d.usage) { stats.inTok += d.usage.prompt_tokens; stats.outTok += d.usage.completion_tokens; }
-      } else if (kind === "anthropic") {
-        const sys = messages.filter(m => m.role === "system").map(m => m.content).join("\n");
-        const r = await fetch("https://api.anthropic.com/v1/messages", { method: "POST", headers: { "content-type": "application/json", "x-api-key": process.env.ANTHROPIC_API_KEY, "anthropic-version": "2023-06-01" },
-          body: JSON.stringify({ model, system: sys, messages: messages.filter(m => m.role !== "system"), temperature, max_tokens: max }) });
-        if (!r.ok) throw new Error("HTTP " + r.status + " " + (await r.text()).slice(0, 160));
-        const d = await r.json(); text = d.content.map(c => c.text || "").join(""); if (d.usage) { stats.inTok += d.usage.input_tokens; stats.outTok += d.usage.output_tokens; }
-      } else throw new Error("cérebro desconhecido: " + spec);
-    } catch (e) { stats.fails++; if (stats.fails <= 3) console.error("   aviso: " + e.message); if (stats.fails > 20) throw new Error("falhas demais no cérebro; o servidor está no ar?"); }
+    for (let att = 1; att <= 3; att++) {
+      try { text = await once(messages, temperature, max); consecutive = 0; break; }
+      catch (e) {
+        if (att < 3) { stats.retries++; await new Promise(r => setTimeout(r, att * (kind === "simulado" ? 1 : 1500))); continue; }
+        stats.fails++; consecutive++;
+        if (stats.fails <= 3) console.error("\n   aviso: " + (e.name === "AbortError" ? "sem resposta em 2 min" : e.message));
+        if (consecutive >= 10) throw new Error("o cérebro falhou 10 vezes seguidas; o servidor está no ar? Rode o mesmo comando com a mesma --rodada para retomar.");
+      }
+    }
     stats.calls++; stats.ms += Date.now() - t0;
     return text.replace(/<think>[\s\S]*?<\/think>/g, "").trim();
   }
@@ -87,9 +107,10 @@ function simulated(messages) {
   const u = messages[messages.length - 1].content, sys = messages[0].content;
   if (/^Translate/.test(sys)) return u;
   if (/TUTOR/.test(sys)) { const m = u.match(/REFERENCE_HINT: (.*)/); return m ? m[1] : "..."; }
-  const hasNotes = /NOTES:\n(?!\(none\))/.test(u), p = hasNotes ? 0.85 : 0.3, right = Math.random() < p;
+  const hasNotes = /NOTES:\n(?!\(none\))/.test(u), p = hasNotes ? 0.85 : 0.3, right = RNG() < p;
   const k = (u.match(/CORRECT_FOR_SIMULATION: (.*)/) || [])[1] || "";
   if (right) return "ANSWER: " + k;
+  if (/Which line has the bug/.test(u)) return "ANSWER: " + (k === "1" ? "2" : "1");
   if (/ORDER/.test(u)) return "ANSWER: " + k.split(",").reverse().join(",");
   if (/BINS/.test(u)) return "ANSWER: " + k.split(",").map(x => x.replace(/[12]$/, d => d === "1" ? "2" : "1")).join(",");
   const L = (u.match(/^([A-D])\) /gm) || ["A) "]).map(x => x[0]).filter(x => x !== k); return "ANSWER: " + (L[0] || "A");
@@ -180,7 +201,7 @@ function readAnswer(a, kind, opts) {
 }
 
 /* ---------------- apresentação de um ticket ao aprendiz, e correção ---------------- */
-const shuf = a => { a = a.slice(); for (let i = a.length - 1; i > 0; i--) { const j = Math.floor(Math.random() * (i + 1)); [a[i], a[j]] = [a[j], a[i]]; } return a; };
+const shuf = a => { a = a.slice(); for (let i = a.length - 1; i > 0; i--) { const j = Math.floor(RNG() * (i + 1)); [a[i], a[j]] = [a[j], a[i]]; } return a; };
 function presentItem(E, lang, it, pl) {
   const x = E.LANG[lang].items[it.id] || E.LANG.en.items[it.id], code = it.code ? encipher(E, it.skill, it.code[pl]) : null;
   let body = "TICKET: " + x.title + "\n" + x.prompt + "\n", key = "", grade;
@@ -243,7 +264,7 @@ async function tutorRun(E, brain, lang, it) {
   const meta = E.STUDY_LANGS.find(x => x.code === lang), L = langName(E, lang);
   const X = l => E.LANG[l].items[it.id] || E.LANG.en.items[it.id];
   const prevLang = E.S.lang, opts = l => { E.S.lang = l; const o = E.itemOpts(it); E.S.lang = prevLang; return o; };
-  const wrong = 1 + Math.floor(Math.random() * (opts(lang).length - 1));
+  const wrong = 1 + Math.floor(RNG() * (opts(lang).length - 1));
   const task = l => "ITEM: " + X(l).title + "\n" + X(l).prompt + "\nOPTIONS:\n" + opts(l).map((o, i) => "- " + o).join("\n") + "\nTHE STUDENT CHOSE: " + opts(l)[wrong] + "\n" +
     (brain.kind === "simulado" ? "REFERENCE_HINT: " + X(l).hint + "\n" : "");
   const out = {};
@@ -261,76 +282,171 @@ async function tutorRun(E, brain, lang, it) {
   return rows;
 }
 
-/* ---------------- piloto ---------------- */
+/* ---------------- sementes: a mesma rodada, refeita, dá o mesmo resultado ----------------
+   Tudo que é sorteado (ordem das opções, partida fixa, escolhas do jogo, erro simulado do tutor, amostragem do LLM)
+   sai de um gerador com semente derivada de (semente da rodada, cérebro, modo, idioma, aluno). */
+let RNG = Math.random;
+function seedRNG(...parts) {
+  const s = parts.join("|"); let h = 1779033703 ^ s.length;
+  for (let i = 0; i < s.length; i++) { h = Math.imul(h ^ s.charCodeAt(i), 3432918353); h = (h << 13) | (h >>> 19); }
+  let a = h >>> 0;
+  RNG = () => { a |= 0; a = (a + 0x6D2B79F5) | 0; let t = Math.imul(a ^ (a >>> 15), 1 | a); t = (t + Math.imul(t ^ (t >>> 7), 61 | t)) ^ t; return ((t ^ (t >>> 14)) >>> 0) / 4294967296; };
+}
+
+/* ---------------- piloto e estudo completo ---------------- */
 const PILOT_SKILLS = ["var", "cond", "req", "git"];
-async function pilot(opts) {
-  const brain = makeBrain(opts.cerebro), langs = opts.idiomas, budgetMs = opts.minutos * 60000, t0 = Date.now();
-  await preflight(brain); NOTES_MODE = opts.notas;
-  const out = path.join(ROOT, "agentes", "saida", new Date().toISOString().slice(0, 16).replace(/[:T]/g, "-") + "-" + opts.cerebro.replace(/[^\w.-]+/g, "_") + (DIALECT ? "-dialeto" : ""));
-  fs.mkdirSync(out, { recursive: true });
-  const E0 = loadEngine(); E0.S = E0.fresh(); E0.S.lang = "en"; E0.S.pl = "js";
-  const SK_ = opts.habilidades ? opts.habilidades.split(",") : E0.SKILLS.map(x => x.id);
-  const items = E0.ITEMS.filter(i => SK_.includes(i.skill) && i.type !== "code" && !i.extra);
-  const reps = opts.reps, gameTickets = opts.tickets, tutorN = opts.tutor;
-  console.log("Piloto: " + brain.spec + " | idiomas " + langs.join(",") + " | " + items.length + " itens x 2 condições x " + reps + " repetições + partida de " + gameTickets + " tickets + " + tutorN + " itens de tutor, por idioma");
-  const med = [], game = [], fixed = [], tut = [], perLang = [], timeLeft = () => budgetMs - (Date.now() - t0);
-  for (const lang of langs) {
-    if (timeLeft() <= 0) { console.log("Tempo esgotado antes de " + lang + "."); break; }
-    const E = loadEngine(); E.S = E.fresh(); E.S.lang = lang; E.S.pl = "js"; E.S.started = true; E.S.confirm = false;
-    const tl = Date.now(), st0 = { ...brain.stats }; process.stdout.write(lang + ": medição");
-    /* C0 e C1: taxa de acerto medida de cada item, sem notas e com todas as notas do piloto */
-    const truth = {};
-    for (const it of items) { truth[it.id] = { c0: 0, c1: 0, n: 0 };
-      for (let r = 0; r < reps; r++) { const a0 = await askStudent(E, brain, lang, it, [], "js"), a1 = await askStudent(E, brain, lang, it, [it.skill], "js");
-        truth[it.id].c0 += a0.ok; truth[it.id].c1 += a1.ok; truth[it.id].n++;
-        med.push({ lang, item: it.id, skill: it.skill, type: it.type, rep: r + 1, c0: a0.ok ? 1 : 0, c1: a1.ok ? 1 : 0, fmt0: a0.fmt, fmt1: a1.fmt, key0: a0.key, key1: a1.key, raw0: a0.raw.slice(0, 120), raw1: a1.raw.slice(0, 120) }); } }
-    for (const k in truth) { truth[k].c0 /= truth[k].n; truth[k].c1 /= truth[k].n; }
-    /* C2: partida real, com degrau conhecido: notas da habilidade só depois do 3º ticket dela */
-    process.stdout.write(" | partida");
-    const seen = {}, notes = new Set(); let n = 0;
-    while (n < gameTickets && timeLeft() > 0) {
-      E.pendingMissions().forEach(m => E.S.brief[m.id] = true); E.fillBoard(); if (!E.S.board.length) break;
-      const it = E.IT[E.S.board[0]]; seen[it.skill] = (seen[it.skill] || 0) + 1;
-      if (seen[it.skill] > 3) notes.add(it.skill);   /* degrau conhecido: notas a partir do 4º ticket da habilidade */
-      const a = await askStudent(E, brain, lang, it, notes.has(it.skill) ? [it.skill] : [], "js");   /* RAG: só as notas da habilidade do ticket */
-      E.setCur({ t0: Date.now(), item: it, hint: false, mode: "normal", typed: false, res: it.type === "code" ? { pct: a.ok ? 1 : 0, modo: "exec" } : null, tel: { pastes: 0, runs: 1 }, code: "" });
-      E.resolve(a.ok); n++;
-      const tr = truth[it.id]; game.push({ lang, row: n, item: it.id, skill: it.skill, kc_index: seen[it.skill], has_notes: notes.has(it.skill) ? 1 : 0,
-        p_true: tr ? +(notes.has(it.skill) ? tr.c1 : tr.c0).toFixed(3) : "", y: a.ok ? 1 : 0 });
-      if (E.S.sprint.done.length >= 5) E.S.sprint = E.newSprint(E.S.sprint.n + 1);
+const MODELS = ["elo", "irt", "bkt", "pfa", "afm"];
+const csvOf = rows => { if (!rows.length) return ""; const h = [...new Set(rows.flatMap(r => Object.keys(r)))]; return [h.join(","), ...rows.map(r => h.map(k => { const v = r[k] == null ? "" : String(r[k]); return /[",\n]/.test(v) ? '"' + v.replace(/"/g, '""') + '"' : v; }).join(","))].join("\n"); };
+
+async function runLanguage(opts, brain, lang, items, timeLeft) {
+  const L = { med: [], game: [], fixed: [], tut: [], perLang: [] }, tl = Date.now(), st0 = { ...brain.stats }, slug = brainSlug(opts.cerebro);
+  seedRNG(opts.semente, slug, DIALECT, lang, "medicao");
+  const E = loadEngine(); E.S = E.fresh(); E.S.lang = lang; E.S.pl = "js"; E.S.started = true; E.S.confirm = false;
+  process.stdout.write(lang + ": medição");
+  /* C0 e C1: taxa de acerto medida de cada item, sem notas e com as notas da habilidade */
+  const truth = {};
+  for (const it of items) { truth[it.id] = { c0: 0, c1: 0, n: 0 };
+    for (let r = 0; r < opts.reps; r++) { const a0 = await askStudent(E, brain, lang, it, [], "js"), a1 = await askStudent(E, brain, lang, it, [it.skill], "js");
+      truth[it.id].c0 += a0.ok; truth[it.id].c1 += a1.ok; truth[it.id].n++;
+      L.med.push({ lang, item: it.id, skill: it.skill, type: it.type, rep: r + 1, c0: a0.ok ? 1 : 0, c1: a1.ok ? 1 : 0, fmt0: a0.fmt, fmt1: a1.fmt, key0: a0.key, key1: a1.key, raw0: a0.raw.slice(0, 120), raw1: a1.raw.slice(0, 120) }); } }
+  for (const k in truth) { truth[k].c0 /= truth[k].n; truth[k].c1 /= truth[k].n; }
+  const cols = ["pred_elo", "pred_irt", "pred_bkt", "pred_pfa", "pred_afm", "rpred_elo", "rpred_irt", "rpred_bkt", "rpred_pfa", "rpred_afm"];
+  for (let s = 1; s <= opts.alunos; s++) {
+    if (timeLeft() <= 0) break;
+    const student = lang + "-" + s;
+    /* C2 adaptativa: o jogo real; notas da habilidade só a partir do 4º ticket dela (degrau conhecido) */
+    if (opts.partida !== "fixa") {
+      process.stdout.write(" | aluno " + s);
+      seedRNG(opts.semente, slug, DIALECT, lang, "aluno", s, "adaptativa");
+      const Es = loadEngine(); Es.S = Es.fresh(); Es.S.lang = lang; Es.S.pl = "js"; Es.S.started = true; Es.S.confirm = false; Es.S.sid = slug + "-" + student;
+      const seen = {}, notes = new Set(), rows = []; let n = 0;
+      while (n < opts.tickets && timeLeft() > 0) {
+        Es.pendingMissions().forEach(m => Es.S.brief[m.id] = true); Es.fillBoard(); if (!Es.S.board.length) break;
+        const it = Es.IT[Es.S.board[0]]; seen[it.skill] = (seen[it.skill] || 0) + 1; if (seen[it.skill] > 3) notes.add(it.skill);
+        const a = await askStudent(Es, brain, lang, it, notes.has(it.skill) ? [it.skill] : [], "js");
+        Es.setCur({ t0: Date.now(), item: it, hint: false, mode: "normal", typed: false, res: it.type === "code" ? { pct: a.ok ? 1 : 0, modo: "exec" } : null, tel: { pastes: 0, runs: 1 }, code: "" });
+        Es.resolve(a.ok); n++;
+        const tr = truth[it.id];
+        rows.push({ lang, student, row: n, item: it.id, skill: it.skill, area: (Es.SK[it.skill] || {}).area, kc_index: seen[it.skill], has_notes: notes.has(it.skill) ? 1 : 0, p_true: tr ? +(notes.has(it.skill) ? tr.c1 : tr.c0).toFixed(3) : "", y: a.ok ? 1 : 0, fmt: a.fmt });
+        if (Es.S.sprint.done.length >= 5) Es.S.sprint = Es.newSprint(Es.S.sprint.n + 1);
+      }
+      const rr = Es.researchRows(), head = Es.RESEARCH_COLS;
+      rr.forEach((r, i) => { if (rows[i]) cols.forEach(c => rows[i][c] = r[head.indexOf(c)]); });
+      L.game.push(...rows);
     }
-    /* previsões gravadas pelo jogo (online) e reconstruídas do zero (replay), linha a linha */
-    const rr = E.researchRows(), cols = ["pred_elo", "pred_irt", "pred_bkt", "pred_pfa", "pred_afm", "rpred_elo", "rpred_irt", "rpred_bkt", "rpred_pfa", "rpred_afm"];
-    const head = ["schema", "student", "row", "timestamp", "session", "position", "sprint", "item", "skill", "area", "pl", "item_type", "bloom", "difficulty", "b", "c", "correct", "score", "mode", "hint", "typed", "ai", "bonus", "boss", "pilot", "log_version", ...cols];
-    const gl = game.filter(g => g.lang === lang); rr.forEach((r, i) => { if (gl[i]) cols.forEach(c => gl[i][c] = r[head.indexOf(c)]); });
-    /* C2 FIXA: o mesmo degrau (notas a partir do 4º ticket de cada habilidade), mas todos os itens em ordem aleatória,
-       sem o piloto escolher a dificuldade. Separa a detecção de aprendizagem do efeito da seleção adaptativa, que sobe a
-       dificuldade conforme o aluno melhora e por isso esconde o ganho na taxa de acerto. Previsões por replay, do zero. */
+    /* C2 fixa: o mesmo degrau, todos os itens em ordem aleatória, sem adaptação; previsões por replay */
     if (opts.partida !== "adaptativa") {
-      process.stdout.write(" | partida fixa");
+      process.stdout.write(opts.partida === "fixa" ? " | aluno " + s + " (fixa)" : "+fixa");
+      seedRNG(opts.semente, slug, DIALECT, lang, "aluno", s, "fixa");
       const seenF = {}, notesF = new Set(), rowsF = [];
       for (const it of shuf(items)) { if (timeLeft() <= 0) break;
         seenF[it.skill] = (seenF[it.skill] || 0) + 1; if (seenF[it.skill] > 3) notesF.add(it.skill);
         const a = await askStudent(E, brain, lang, it, notesF.has(it.skill) ? [it.skill] : [], "js"), tr = truth[it.id];
-        rowsF.push({ lang, row: rowsF.length + 1, item: it.id, skill: it.skill, area: (E.SK[it.skill] || {}).area, kc_index: seenF[it.skill], has_notes: notesF.has(it.skill) ? 1 : 0,
+        rowsF.push({ lang, student, row: rowsF.length + 1, item: it.id, skill: it.skill, area: (E.SK[it.skill] || {}).area, kc_index: seenF[it.skill], has_notes: notesF.has(it.skill) ? 1 : 0,
           p_true: tr ? +(notesF.has(it.skill) ? tr.c1 : tr.c0).toFixed(3) : "", y: a.ok ? 1 : 0, fmt: a.fmt }); }
       const rp = E.KT.replay(rowsF.map(g => ({ key: g.skill, item: E.IT[g.item], c: E.guessProb(E.IT[g.item]), y: g.y })), E.L0);
-      rowsF.forEach((g, i) => ["elo", "irt", "bkt", "pfa", "afm"].forEach(m => g["rpred_" + m] = rp[i][m]));
-      fixed.push(...rowsF);
+      rowsF.forEach((g, i) => MODELS.forEach(m => g["rpred_" + m] = rp[i][m]));
+      L.fixed.push(...rowsF);
     }
-    /* tutores */
-    process.stdout.write(" | tutores");
-    const tItems = shuf(items.filter(i => i.type === "mc" && !i.opts)).slice(0, tutorN);
-    for (const it of tItems) { if (timeLeft() <= 0) break; tut.push(...await tutorRun(E, brain, lang, it)); }
-    const d = k => brain.stats[k] - st0[k]; perLang.push({ lang, calls: d("calls"), min: (Date.now() - tl) / 60000, inTok: d("inTok"), outTok: d("outTok") });
-    console.log(" | " + ((Date.now() - tl) / 60000).toFixed(1) + " min");
   }
-  /* gravação */
-  const csv = (rows) => { if (!rows.length) return ""; const h = Object.keys(rows[0]); return [h.join(","), ...rows.map(r => h.map(k => { const v = r[k] == null ? "" : String(r[k]); return /[",\n]/.test(v) ? '"' + v.replace(/"/g, '""') + '"' : v; }).join(","))].join("\n"); };
-  fs.writeFileSync(path.join(out, "medicao.csv"), csv(med)); fs.writeFileSync(path.join(out, "jogo.csv"), csv(game)); if (fixed.length) fs.writeFileSync(path.join(out, "jogo-fixo.csv"), csv(fixed));
-  fs.writeFileSync(path.join(out, "tutores.jsonl"), tut.map(r => JSON.stringify(r)).join("\n"));
-  fs.writeFileSync(path.join(out, "RESUMO.md"), report(brain, langs, med, game, tut, Date.now() - t0, E0, perLang, fixed));
-  console.log("\nPronto em " + ((Date.now() - t0) / 60000).toFixed(1) + " min. Resultados em " + path.relative(ROOT, out) + "\\RESUMO.md");
+  /* tutores: não dependem do dialeto, então rodam uma vez por cérebro (na passada sem dialeto) */
+  if (opts.tutor > 0 && (!DIALECT || opts.dialeto === "sim") && timeLeft() > 0) {
+    process.stdout.write(" | tutores"); seedRNG(opts.semente, slug, lang, "tutor");
+    const tItems = shuf(items.filter(i => i.type === "mc" && !i.opts)).slice(0, opts.tutor);
+    for (const it of tItems) { if (timeLeft() <= 0) break; L.tut.push(...await tutorRun(E, brain, lang, it)); }
+  }
+  const d = k => brain.stats[k] - st0[k]; L.perLang.push({ lang, calls: d("calls"), min: (Date.now() - tl) / 60000, inTok: d("inTok"), outTok: d("outTok") });
+  console.log(" | " + ((Date.now() - tl) / 60000).toFixed(1) + " min");
+  return L;
+}
+const brainSlug = spec => spec.replace(/[^\w.-]+/g, "_");
+
+async function pilot(opts) {
+  const brain = makeBrain(opts.cerebro), langs = opts.idiomas, budgetMs = opts.minutos * 60000, t0 = Date.now();
+  await preflight(brain); NOTES_MODE = opts.notas;
+  const out = path.join(ROOT, "agentes", "saida", opts.rodada, brainSlug(opts.cerebro) + (DIALECT ? "-dialeto" : "")), parc = path.join(out, "parcial");
+  fs.mkdirSync(parc, { recursive: true });
+  fs.writeFileSync(path.join(out, "config.json"), JSON.stringify({ ...opts, dialetoNestaPassada: DIALECT, cerebro: opts.cerebro, inicio: new Date().toISOString() }, null, 1));
+  const E0 = loadEngine(); E0.S = E0.fresh(); E0.S.lang = "en"; E0.S.pl = "js";
+  const SK_ = opts.habilidades ? opts.habilidades.split(",") : E0.SKILLS.map(x => x.id);
+  const items = E0.ITEMS.filter(i => SK_.includes(i.skill) && i.type !== "code" && !i.extra);
+  console.log("\n== " + brain.spec + (DIALECT ? " · com dialeto" : " · sem dialeto") + " · rodada " + opts.rodada + " · " + items.length + " itens · " + opts.reps + " repetições · " + opts.alunos + " alunos · semente " + opts.semente);
+  const all = { med: [], game: [], fixed: [], tut: [], perLang: [] }, timeLeft = () => budgetMs - (Date.now() - t0);
+  for (const lang of langs) {
+    const pf = path.join(parc, lang + ".json");
+    let L;
+    if (fs.existsSync(pf)) { L = JSON.parse(fs.readFileSync(pf, "utf8")); console.log(lang + ": já feito nesta rodada, retomado do disco"); }
+    else { if (timeLeft() <= 0) { console.log("Tempo esgotado antes de " + lang + ". Rode o mesmo comando com --rodada " + opts.rodada + " para continuar daqui."); break; }
+      L = await runLanguage(opts, brain, lang, items, timeLeft);
+      fs.writeFileSync(pf + ".tmp", JSON.stringify(L)); fs.renameSync(pf + ".tmp", pf); }   /* gravação atômica: um arquivo pela metade nunca é lido como pronto */
+    for (const k in all) all[k].push(...L[k]);
+  }
+  fs.writeFileSync(path.join(out, "medicao.csv"), csvOf(all.med)); fs.writeFileSync(path.join(out, "jogo.csv"), csvOf(all.game));
+  if (all.fixed.length) fs.writeFileSync(path.join(out, "jogo-fixo.csv"), csvOf(all.fixed));
+  fs.writeFileSync(path.join(out, "tutores.jsonl"), all.tut.map(r => JSON.stringify(r)).join("\n"));
+  const units = unitMetrics(E0, all.med, all.game, all.fixed);
+  fs.writeFileSync(path.join(out, "metricas.json"), JSON.stringify({ cerebro: opts.cerebro, dialeto: DIALECT, units }, null, 1));
+  fs.writeFileSync(path.join(out, "RESUMO.md"), report(brain, langs, all.med, all.game, all.tut, Date.now() - t0, E0, all.perLang, all.fixed) + varianceSection(units));
+  console.log("Pronto em " + ((Date.now() - t0) / 60000).toFixed(1) + " min. Resultados em " + path.relative(ROOT, out));
+}
+
+/* ---------------- métricas por aluno (unidade = idioma × aluno) e intervalos ---------------- */
+function unitMetrics(E, med, game, fixed) {
+  const mean = a => a.length ? a.reduce((s, v) => s + v, 0) / a.length : null;
+  const c0 = {}; med.forEach(x => { const k = x.lang + "|" + x.skill; (c0[k] = c0[k] || []).push(x.c0); });
+  const units = [];
+  for (const st of [...new Set(fixed.map(g => g.student))]) {
+    const F = fixed.filter(g => g.student === st && g.p_true !== ""), A = game.filter(g => g.student === st && g.p_true !== ""), lang = st.split("-")[0];
+    const P = [];
+    for (const sk of [...new Set(F.map(g => g.skill))]) { const R = F.filter(g => g.skill === sk);
+      const rp = E.KT.replay(R.map(g => ({ key: sk, item: E.IT[g.item], c: E.guessProb(E.IT[g.item]), y: g.y })), Math.min(.95, Math.max(.05, mean(c0[lang + "|" + sk] || [E.L0]))));
+      R.forEach((g, i) => P.push({ g, p: rp[i] })); }
+    const u = { student: st, lang };
+    const dTrue = (rows, f) => mean(rows.filter(g => f(g).kc_index >= 4).map(g => +f(g).p_true)) - mean(rows.filter(g => f(g).kc_index <= 3).map(g => +f(g).p_true));
+    u.mask_adapt = A.length ? dTrue(A, g => g) : null; u.mask_fixed = dTrue(F, g => g);
+    for (const ar of ["prog", "se"]) { const Q = P.filter(x => x.g.area === ar); if (Q.length < 6) continue;
+      const dT = dTrue(Q, x => x.g); u["dtrue_" + ar] = dT;
+      for (const m of MODELS) { const dP = mean(Q.filter(x => x.g.kc_index >= 4).map(x => x.p[m])) - mean(Q.filter(x => x.g.kc_index <= 3).map(x => x.p[m]));
+        u[m + "_excess_" + ar] = dP - dT; u[m + "_brier_" + ar] = mean(Q.map(x => (x.p[m] - x.g.p_true) ** 2)); } }
+    units.push(u);
+  }
+  return units;
+}
+function ci(vals, B = 2000) {   /* média e intervalo de 95% por bootstrap sobre as unidades */
+  const v = vals.filter(x => x != null && !isNaN(x)); if (v.length < 2) return null;
+  const m = v.reduce((s, x) => s + x, 0) / v.length, bs = [];
+  let a = 987654321; const r = () => { a = (a * 1103515245 + 12345) >>> 0; return a / 4294967296; };
+  for (let b = 0; b < B; b++) { let s = 0; for (let i = 0; i < v.length; i++) s += v[Math.floor(r() * v.length)]; bs.push(s / v.length); }
+  bs.sort((x, y) => x - y); return { m, lo: bs[Math.floor(.025 * B)], hi: bs[Math.floor(.975 * B)], n: v.length };
+}
+const fci = c => c ? (c.m >= 0 ? "+" : "") + c.m.toFixed(2) + " [" + c.lo.toFixed(2) + ", " + c.hi.toFixed(2) + "]" : "-";
+function varianceSection(units) {
+  if (units.length < 2) return "";
+  let r = `\n## 6. Variância entre alunos (${units.length} unidades = idiomas × alunos), prior correto, partida fixa\n\nMédia e intervalo de 95% por bootstrap. **Excesso** = ganho previsto menos o verdadeiro: em engenharia de software (nada a aprender) é o **alarme falso**; em programação com dialeto, positivo é exagerar a aprendizagem real e negativo é não enxergá-la. Um intervalo que não contém zero indica efeito consistente entre alunos.\n\n`;
+  r += `**Mascaramento**: verdade antes → depois do degrau, Δ na partida adaptativa ${fci(ci(units.map(u => u.mask_adapt)))}; na fixa ${fci(ci(units.map(u => u.mask_fixed)))}.\n\n`;
+  r += "| Modelo | Alarme falso (eng. software) | Excesso em programação | Brier em programação |\n|---|---|---|---|\n";
+  for (const m of MODELS) r += `| ${m.toUpperCase()} | ${fci(ci(units.map(u => u[m + "_excess_se"])))} | ${fci(ci(units.map(u => u[m + "_excess_prog"])))} | ${fci(ci(units.map(u => u[m + "_brier_prog"])))} |\n`;
+  return r;
+}
+
+/* ---------------- consolidação: todos os cérebros e modos de uma rodada ---------------- */
+function consolidate(opts) {
+  const base = path.join(ROOT, "agentes", "saida", opts.rodada);
+  if (!fs.existsSync(base)) throw new Error("Rodada não encontrada: " + base);
+  const runs = fs.readdirSync(base).filter(d => fs.existsSync(path.join(base, d, "metricas.json"))).sort();
+  let r = `# Consolidado da rodada ${opts.rodada}\n\nCada linha: um cérebro num modo. Médias com intervalo de 95% por bootstrap sobre as unidades (idioma × aluno), partida fixa, prior correto.\n\n## Alarme falso (engenharia de software, nada a aprender)\n\n| Cérebro | Dialeto | n | ` + MODELS.map(m => m.toUpperCase()).join(" | ") + " |\n|---|---|---|" + MODELS.map(() => "---").join("|") + "|\n";
+  const rows = runs.map(d => ({ d, j: JSON.parse(fs.readFileSync(path.join(base, d, "metricas.json"), "utf8")) }));
+  for (const { j } of rows) r += `| ${j.cerebro} | ${j.dialeto ? "sim" : "não"} | ${j.units.length} | ` + MODELS.map(m => fci(ci(j.units.map(u => u[m + "_excess_se"])))).join(" | ") + " |\n";
+  r += "\n## Excesso em programação (com dialeto, onde há aprendizagem real)\n\n| Cérebro | Ganho verdadeiro | " + MODELS.map(m => m.toUpperCase()).join(" | ") + " |\n|---|---|" + MODELS.map(() => "---").join("|") + "|\n";
+  for (const { j } of rows.filter(x => x.j.dialeto)) r += `| ${j.cerebro} | ${fci(ci(j.units.map(u => u.dtrue_prog)))} | ` + MODELS.map(m => fci(ci(j.units.map(u => u[m + "_excess_prog"])))).join(" | ") + " |\n";
+  r += "\n## Mascaramento pela adaptação\n\n| Cérebro | Dialeto | Δ verdade, adaptativa | Δ verdade, fixa |\n|---|---|---|---|\n";
+  for (const { j } of rows) r += `| ${j.cerebro} | ${j.dialeto ? "sim" : "não"} | ${fci(ci(j.units.map(u => u.mask_adapt)))} | ${fci(ci(j.units.map(u => u.mask_fixed)))} |\n`;
+  const all = rows.flatMap(x => x.j.units);
+  r += `\n## Todos juntos (${all.length} unidades)\n\n| Modelo | Alarme falso | Excesso em programação (só com dialeto) |\n|---|---|---|\n`;
+  const dial = rows.filter(x => x.j.dialeto).flatMap(x => x.j.units);
+  for (const m of MODELS) r += `| ${m.toUpperCase()} | ${fci(ci(all.map(u => u[m + "_excess_se"])))} | ${fci(ci(dial.map(u => u[m + "_excess_prog"])))} |\n`;
+  fs.writeFileSync(path.join(base, "CONSOLIDADO.md"), r);
+  console.log(r); console.log("\nGravado em " + path.relative(ROOT, path.join(base, "CONSOLIDADO.md")));
 }
 
 /* ---------------- relatório ---------------- */
@@ -354,7 +470,7 @@ function report(brain, langs, med, game, tut, ms, E, perLang = [], fixed = []) {
   r += "\n## 2. Os modelos de KT na partida real (C2) e embaralhada (C3)\n\n`p_true` é a taxa de acerto medida do mesmo item na condição em que o agente estava (C0 antes do degrau, C1 depois). Brier contra a verdade mede se o modelo acompanha o conhecimento real; AUC mede se separa acertos de erros. Viés = previsão menos a verdade do mesmo item, nos tickets 1–3 e 4+ de cada habilidade: o ideal é chegar a zero depois do degrau; positivo é aprendizagem fantasma (prever mais acerto do que existe). C3 refaz o replay com a ordem das respostas embaralhada dentro do estudante.\n\n| Modelo | AUC (respostas) | Brier vs verdade | Viés antes do degrau | Viés depois | AUC embaralhado (C3) |\n|---|---|---|---|---|---|\n";
   const G = game.filter(g => g.p_true !== "" && g.rpred_elo !== undefined && g.rpred_elo !== "");
   const dTrue = mean(G.filter(g => g.kc_index >= 4).map(g => +g.p_true)) - mean(G.filter(g => g.kc_index <= 3).map(g => +g.p_true));
-  const shuffled = {}; for (const l of langs) { const rows = game.filter(g => g.lang === l); if (!rows.length) continue;
+  const shuffled = {}; for (const st of [...new Set(game.map(g => g.student || g.lang))]) { const rows = game.filter(g => (g.student || g.lang) === st); if (!rows.length) continue;
     const perm = shuf(rows), rp = E.KT.replay(perm.map(g => ({ key: g.skill, item: E.IT[g.item], c: E.guessProb(E.IT[g.item]), y: g.y })), E.L0);
     perm.forEach((g, i) => models.forEach(m => (shuffled[m] = shuffled[m] || { p: [], y: [] }).p.push(rp[i][m]) && shuffled[m].y.push(g.y))); }
   for (const m of models) { const p = G.map(g => +g["rpred_" + m]), y = G.map(g => g.y), pt = G.map(g => +g.p_true);
@@ -379,6 +495,23 @@ function report(brain, langs, med, game, tut, ms, E, perLang = [], fixed = []) {
       r += `\n**${lab}** (${F.length} linhas) · verdade ${f2(tv(F, g => g.kc_index <= 3))} → ${f2(tv(F, g => g.kc_index >= 4))} (Δ verdadeiro ${f2(dT)})\n\n| Modelo | AUC | Brier vs verdade | Δ previsto | Viés depois |\n|---|---|---|---|---|\n`;
       for (const m of models) { const p = F.map(g => +g["rpred_" + m]), y = F.map(g => g.y), pt = F.map(g => +g.p_true), pm = s2 => mean(F.filter(s2).map(g => +g["rpred_" + m]));
         r += `| ${m.toUpperCase()} | ${f3(auc(p, y))} | ${f3(mean(p.map((v, i) => (v - pt[i]) ** 2)))} | ${f2(pm(g => g.kc_index >= 4) - pm(g => g.kc_index <= 3))} | ${f2(mean(F.filter(g => g.kc_index >= 4).map(g => +g["rpred_" + m] - +g.p_true)))} |\n`; } }
+    /* Prior correto: o mesmo replay, mas cada habilidade começa do acerto MEDIDO do agente sem notas (C0), e não dos 15% do jogo.
+       Com o ponto de partida certo, ganho previsto onde não há aprendizagem é fantasma puro, e não o modelo "alcançando" o aluno. */
+    const c0 = {}; med.forEach(x => { const k = x.lang + "|" + x.skill; (c0[k] = c0[k] || []).push(x.c0); });
+    const FP = []; for (const l of [...new Set(fixed.map(g => g.lang))]) for (const sk of [...new Set(fixed.filter(g => g.lang === l).map(g => g.skill))]) {
+      const R = fixed.filter(g => g.lang === l && g.skill === sk && g.p_true !== ""); if (!R.length) continue;
+      const L0c = Math.min(.95, Math.max(.05, mean(c0[l + "|" + sk] || [E.L0])));
+      const rp = E.KT.replay(R.map(g => ({ key: sk, item: E.IT[g.item], c: E.guessProb(E.IT[g.item]), y: g.y })), L0c);
+      R.forEach((g, i) => FP.push({ g, p: rp[i] })); }
+    r += "\n### Partida fixa com o prior correto\n\nCada habilidade começa do acerto medido do agente sem notas, não dos 15% do jogo. Isso retira o efeito de o modelo estar só alcançando o aluno: o que sobra de ganho previsto onde não há aprendizagem é aprendizagem fantasma.\n\n| Área | Δ verdadeiro | " + models.map(m => m.toUpperCase() + " Δ (Brier)").join(" | ") + " |\n|---|---|" + models.map(() => "---").join("|") + "|\n";
+    const det = {};
+    for (const ar of ["prog", "se"]) { const P = FP.filter(x => x.g.area === ar); if (P.length < 10) continue;
+      const tv2 = sel => mean(P.filter(x => sel(x.g.kc_index)).map(x => +x.g.p_true)), dT = tv2(k => k >= 4) - tv2(k => k <= 3);
+      r += `| ${ar === "prog" ? "programação" : "engenharia de software"} | ${f2(dT)} | ` + models.map(m => { const d = mean(P.filter(x => x.g.kc_index >= 4).map(x => x.p[m])) - mean(P.filter(x => x.g.kc_index <= 3).map(x => x.p[m]));
+        (det[m] = det[m] || {})[ar] = { d, dT }; return f2(d) + " (" + f3(mean(P.map(x => (x.p[m] - x.g.p_true) ** 2))) + ")"; }).join(" | ") + " |\n"; }
+    if (det.elo && det.elo.prog && det.elo.se) {
+      r += "\n**Placar do detector** (prior correto): *alarme falso* é o ganho previsto além do verdadeiro em engenharia de software, onde não há o que aprender; *fração detectada* é o ganho previsto sobre o verdadeiro em programação (1,0 = viu exatamente o que existe; só faz sentido com o dialeto ligado, quando há ganho real).\n\n| Modelo | Alarme falso | Fração detectada |\n|---|---|---|\n";
+      for (const m of models) { const x = det[m]; r += `| ${m.toUpperCase()} | ${f2(x.se.d - x.se.dT)} | ${x.prog.dT > 0.03 ? f2(x.prog.d / x.prog.dT) : "-"} |\n`; } }
     const A = G, F = fixed.filter(g => g.p_true !== "");
     r += `\n**Mascaramento pela adaptação**: verdade antes → depois do degrau, na partida adaptativa ${f2(tv(A, g => g.kc_index <= 3))} → ${f2(tv(A, g => g.kc_index >= 4))}, na fixa ${f2(tv(F, g => g.kc_index <= 3))} → ${f2(tv(F, g => g.kc_index >= 4))}. Se a adaptativa desce enquanto a fixa sobe, a seleção de itens mais difíceis está escondendo a aprendizagem na taxa de acerto.\n`;
   }
@@ -400,12 +533,15 @@ async function calibrate(opts) {
   let ok = 0; for (const it of its) { const a = await askStudent(E, brain, "pt", it, PILOT_SKILLS, "js"); ok += a.ok; console.log("  " + it.id.padEnd(4) + (a.ok ? " certo  " : " errado ") + JSON.stringify(a.raw).slice(0, 70)); }
   const s = brain.stats, per = s.ms / s.calls / 1000;
   console.log("\nLatência média: " + per.toFixed(2) + " s por chamada (" + s.fails + " falhas). Acertos com notas: " + ok + "/8.");
-  console.log("Piloto de 5 idiomas (~1.300 chamadas): ~" + (1300 * per / 60).toFixed(0) + " min. Estudo completo (~28 mil): ~" + (28000 * per / 3600).toFixed(0) + " h.");
+  const nIt = E.ITEMS.filter(i => i.type !== "code" && !i.extra).length, perLangCalls = nIt * 2 * opts.reps + opts.alunos * (opts.tickets + nIt) + opts.tutor * 4;
+  const plan = (langs, modes) => perLangCalls * langs * modes * per;
+  console.log("Por idioma, com " + opts.alunos + " alunos e " + opts.reps + " repetições: ~" + perLangCalls + " chamadas.");
+  console.log("Este cérebro, sem e com dialeto: 5 idiomas ~" + (plan(5, 2) / 60).toFixed(0) + " min · 20 idiomas ~" + (plan(20, 2) / 3600).toFixed(1) + " h. (A latência quente costuma ser menor que a desta calibração, que inclui carregar o modelo.)");
 }
 
 /* ---------------- linha de comando ---------------- */
 const argv = process.argv.slice(2), cmd = argv[0], arg = (k, d) => { const i = argv.indexOf("--" + k); return i >= 0 ? argv[i + 1] : d; };
-const opts = { cerebro: arg("cerebro", "ollama:qwen3:8b"), idiomas: arg("idiomas", "pt,en,zh,hi,ar").split(","), minutos: +arg("minutos", 60), reps: +arg("repeticoes", 2), habilidades: arg("habilidades", null), notas: arg("notas", "ricas"), dialeto: arg("dialeto", "nao"), partida: arg("partida", "ambas"), tickets: +arg("tickets", 60), tutor: +arg("tutor", 8) };
-(cmd === "piloto" ? (async () => { const modes = opts.dialeto === "ambos" ? [false, true] : [opts.dialeto === "sim"];
-  for (const c of (arg("cerebros") || opts.cerebro).split(",")) for (const dm of modes) { DIALECT = dm; for (const k in DICT) delete DICT[k]; await pilot({ ...opts, cerebro: c }); } })() : cmd === "calibrar" ? calibrate(opts) : Promise.resolve(console.log("Uso: node tools/agentes/laboratorio.js calibrar|piloto --cerebro ollama:qwen3:8b [--idiomas pt,en,zh,hi,ar] [--minutos 60]")))
+const opts = { cerebro: arg("cerebro", "ollama:qwen3:8b"), idiomas: arg("idiomas", "pt,en,zh,hi,ar").split(","), minutos: +arg("minutos", 60), reps: +arg("repeticoes", 2), habilidades: arg("habilidades", null), notas: arg("notas", "ricas"), dialeto: arg("dialeto", "nao"), partida: arg("partida", "ambas"), alunos: +arg("alunos", 1), semente: arg("semente", "devwise"), rodada: arg("rodada", new Date().toISOString().slice(0, 16).replace(/[:T]/g, "-")), tickets: +arg("tickets", 60), tutor: +arg("tutor", 8) };
+(cmd === "consolidar" ? Promise.resolve(consolidate(opts)) : cmd === "piloto" ? (async () => { const modes = opts.dialeto === "ambos" ? [false, true] : [opts.dialeto === "sim"];
+  for (const c of (arg("cerebros") || opts.cerebro).split(",")) for (const dm of modes) { DIALECT = dm; for (const k in DICT) delete DICT[k]; await pilot({ ...opts, cerebro: c }); } })() : cmd === "calibrar" ? calibrate(opts) : Promise.resolve(console.log("Uso: node tools/agentes/laboratorio.js calibrar|piloto|consolidar --cerebro ollama:qwen3:8b [--idiomas pt,en,zh,hi,ar] [--minutos 60]")))
   .catch(e => { console.error("\nERRO: " + e.message); process.exit(1); });
