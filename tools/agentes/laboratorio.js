@@ -273,7 +273,7 @@ async function pilot(opts) {
   const items = E0.ITEMS.filter(i => SK_.includes(i.skill) && i.type !== "code" && !i.extra);
   const reps = opts.reps, gameTickets = opts.tickets, tutorN = opts.tutor;
   console.log("Piloto: " + brain.spec + " | idiomas " + langs.join(",") + " | " + items.length + " itens x 2 condições x " + reps + " repetições + partida de " + gameTickets + " tickets + " + tutorN + " itens de tutor, por idioma");
-  const med = [], game = [], tut = [], perLang = [], timeLeft = () => budgetMs - (Date.now() - t0);
+  const med = [], game = [], fixed = [], tut = [], perLang = [], timeLeft = () => budgetMs - (Date.now() - t0);
   for (const lang of langs) {
     if (timeLeft() <= 0) { console.log("Tempo esgotado antes de " + lang + "."); break; }
     const E = loadEngine(); E.S = E.fresh(); E.S.lang = lang; E.S.pl = "js"; E.S.started = true; E.S.confirm = false;
@@ -303,6 +303,21 @@ async function pilot(opts) {
     const rr = E.researchRows(), cols = ["pred_elo", "pred_irt", "pred_bkt", "pred_pfa", "pred_afm", "rpred_elo", "rpred_irt", "rpred_bkt", "rpred_pfa", "rpred_afm"];
     const head = ["schema", "student", "row", "timestamp", "session", "position", "sprint", "item", "skill", "area", "pl", "item_type", "bloom", "difficulty", "b", "c", "correct", "score", "mode", "hint", "typed", "ai", "bonus", "boss", "pilot", "log_version", ...cols];
     const gl = game.filter(g => g.lang === lang); rr.forEach((r, i) => { if (gl[i]) cols.forEach(c => gl[i][c] = r[head.indexOf(c)]); });
+    /* C2 FIXA: o mesmo degrau (notas a partir do 4º ticket de cada habilidade), mas todos os itens em ordem aleatória,
+       sem o piloto escolher a dificuldade. Separa a detecção de aprendizagem do efeito da seleção adaptativa, que sobe a
+       dificuldade conforme o aluno melhora e por isso esconde o ganho na taxa de acerto. Previsões por replay, do zero. */
+    if (opts.partida !== "adaptativa") {
+      process.stdout.write(" | partida fixa");
+      const seenF = {}, notesF = new Set(), rowsF = [];
+      for (const it of shuf(items)) { if (timeLeft() <= 0) break;
+        seenF[it.skill] = (seenF[it.skill] || 0) + 1; if (seenF[it.skill] > 3) notesF.add(it.skill);
+        const a = await askStudent(E, brain, lang, it, notesF.has(it.skill) ? [it.skill] : [], "js"), tr = truth[it.id];
+        rowsF.push({ lang, row: rowsF.length + 1, item: it.id, skill: it.skill, area: (E.SK[it.skill] || {}).area, kc_index: seenF[it.skill], has_notes: notesF.has(it.skill) ? 1 : 0,
+          p_true: tr ? +(notesF.has(it.skill) ? tr.c1 : tr.c0).toFixed(3) : "", y: a.ok ? 1 : 0, fmt: a.fmt }); }
+      const rp = E.KT.replay(rowsF.map(g => ({ key: g.skill, item: E.IT[g.item], c: E.guessProb(E.IT[g.item]), y: g.y })), E.L0);
+      rowsF.forEach((g, i) => ["elo", "irt", "bkt", "pfa", "afm"].forEach(m => g["rpred_" + m] = rp[i][m]));
+      fixed.push(...rowsF);
+    }
     /* tutores */
     process.stdout.write(" | tutores");
     const tItems = shuf(items.filter(i => i.type === "mc" && !i.opts)).slice(0, tutorN);
@@ -312,16 +327,16 @@ async function pilot(opts) {
   }
   /* gravação */
   const csv = (rows) => { if (!rows.length) return ""; const h = Object.keys(rows[0]); return [h.join(","), ...rows.map(r => h.map(k => { const v = r[k] == null ? "" : String(r[k]); return /[",\n]/.test(v) ? '"' + v.replace(/"/g, '""') + '"' : v; }).join(","))].join("\n"); };
-  fs.writeFileSync(path.join(out, "medicao.csv"), csv(med)); fs.writeFileSync(path.join(out, "jogo.csv"), csv(game));
+  fs.writeFileSync(path.join(out, "medicao.csv"), csv(med)); fs.writeFileSync(path.join(out, "jogo.csv"), csv(game)); if (fixed.length) fs.writeFileSync(path.join(out, "jogo-fixo.csv"), csv(fixed));
   fs.writeFileSync(path.join(out, "tutores.jsonl"), tut.map(r => JSON.stringify(r)).join("\n"));
-  fs.writeFileSync(path.join(out, "RESUMO.md"), report(brain, langs, med, game, tut, Date.now() - t0, E0, perLang));
+  fs.writeFileSync(path.join(out, "RESUMO.md"), report(brain, langs, med, game, tut, Date.now() - t0, E0, perLang, fixed));
   console.log("\nPronto em " + ((Date.now() - t0) / 60000).toFixed(1) + " min. Resultados em " + path.relative(ROOT, out) + "\\RESUMO.md");
 }
 
 /* ---------------- relatório ---------------- */
 function auc(p, y) { const pos = [], neg = []; p.forEach((v, i) => (y[i] ? pos : neg).push(v)); if (!pos.length || !neg.length) return null; let w = 0; for (const a of pos) for (const b of neg) w += a > b ? 1 : a === b ? .5 : 0; return w / (pos.length * neg.length); }
 const mean = a => a.length ? a.reduce((s, v) => s + v, 0) / a.length : null, f2 = v => v == null ? "-" : v.toFixed(2), f3 = v => v == null ? "-" : v.toFixed(3);
-function report(brain, langs, med, game, tut, ms, E, perLang = []) {
+function report(brain, langs, med, game, tut, ms, E, perLang = [], fixed = []) {
   const st = brain.stats, models = ["elo", "irt", "bkt", "pfa", "afm"];
   let r = `# Piloto do laboratório de agentes\n\nCérebro: \`${brain.spec}\` · notas: ${NOTES_MODE} · dialeto cifrado: ${DIALECT ? "sim" : "não"} · idiomas: ${langs.join(", ")} · duração: ${(ms / 60000).toFixed(1)} min · chamadas: ${st.calls} (${st.fails} falhas) · latência média: ${(st.ms / Math.max(1, st.calls) / 1000).toFixed(2)} s` +
     (st.inTok ? ` · tokens: ${st.inTok} de entrada, ${st.outTok} de saída` : "") + "\n\n";
@@ -355,6 +370,18 @@ function report(brain, langs, med, game, tut, ms, E, perLang = []) {
     r += `\n**${ar === "prog" ? "Programação" : "Engenharia de software"}** (${GA.length} linhas): viés antes → depois do degrau\n\n| Modelo | Antes | Depois | Brier vs verdade |\n|---|---|---|---|\n`;
     for (const m of models) { const b = sel => mean(GA.filter(sel).map(g => +g["rpred_" + m] - +g.p_true));
       r += `| ${m.toUpperCase()} | ${f2(b(g => g.kc_index <= 3))} | ${f2(b(g => g.kc_index >= 4))} | ${f3(mean(GA.map(g => (+g["rpred_" + m] - +g.p_true) ** 2)))} |\n`; } }
+  if (fixed.length) {
+    const tv = (rows, sel) => mean(rows.filter(sel).map(g => +g.p_true));
+    r += "\n### Partida fixa (sem seleção adaptativa)\n\nMesmo degrau, itens em ordem aleatória. Aqui a diferença de verdade antes e depois do degrau é o ganho real de conhecimento, sem a dificuldade crescente misturada. Δ previsto deveria se aproximar de Δ verdadeiro; viés depois do degrau deveria ficar perto de zero.\n";
+    for (const [lab, sel] of [["Todas as áreas", () => true], ["Programação", g => g.area === "prog"], ["Engenharia de software", g => g.area === "se"]]) {
+      const F = fixed.filter(g => g.p_true !== "" && sel(g)); if (F.length < 10) continue;
+      const dT = tv(F, g => g.kc_index >= 4) - tv(F, g => g.kc_index <= 3);
+      r += `\n**${lab}** (${F.length} linhas) · verdade ${f2(tv(F, g => g.kc_index <= 3))} → ${f2(tv(F, g => g.kc_index >= 4))} (Δ verdadeiro ${f2(dT)})\n\n| Modelo | AUC | Brier vs verdade | Δ previsto | Viés depois |\n|---|---|---|---|---|\n`;
+      for (const m of models) { const p = F.map(g => +g["rpred_" + m]), y = F.map(g => g.y), pt = F.map(g => +g.p_true), pm = s2 => mean(F.filter(s2).map(g => +g["rpred_" + m]));
+        r += `| ${m.toUpperCase()} | ${f3(auc(p, y))} | ${f3(mean(p.map((v, i) => (v - pt[i]) ** 2)))} | ${f2(pm(g => g.kc_index >= 4) - pm(g => g.kc_index <= 3))} | ${f2(mean(F.filter(g => g.kc_index >= 4).map(g => +g["rpred_" + m] - +g.p_true)))} |\n`; } }
+    const A = G, F = fixed.filter(g => g.p_true !== "");
+    r += `\n**Mascaramento pela adaptação**: verdade antes → depois do degrau, na partida adaptativa ${f2(tv(A, g => g.kc_index <= 3))} → ${f2(tv(A, g => g.kc_index >= 4))}, na fixa ${f2(tv(F, g => g.kc_index <= 3))} → ${f2(tv(F, g => g.kc_index >= 4))}. Se a adaptativa desce enquanto a fixa sobe, a seleção de itens mais difíceis está escondendo a aprendizagem na taxa de acerto.\n`;
+  }
   r += `\n${G.length} linhas da partida com verdade medida.\n\n## 3. Tutores: três estratégias de localização\n\nEscrita: fração das letras no sistema de escrita do idioma (1,0 = todo o texto na escrita certa). Vazamento: a dica contém a resposta certa. chrF contra a dica de referência do jogo (nos idiomas gerados por máquina, a referência também é tradução, então serve para comparar estratégias entre si, não como nota absoluta).\n\n| Idioma | Estratégia | Escrita | Vazamento | chrF | Caracteres |\n|---|---|---|---|---|---|\n`;
   for (const l of langs) for (const s of ["S1", "S2", "S3"]) { const t = tut.filter(x => x.lang === l && x.strategy === s); if (!t.length) continue;
     r += `| ${l} | ${s} | ${f2(mean(t.map(x => x.script_share)))} | ${f2(mean(t.map(x => x.leak)))} | ${mean(t.map(x => x.chrf)).toFixed(1)} | ${Math.round(mean(t.map(x => x.chars)))} |\n`; }
@@ -378,7 +405,7 @@ async function calibrate(opts) {
 
 /* ---------------- linha de comando ---------------- */
 const argv = process.argv.slice(2), cmd = argv[0], arg = (k, d) => { const i = argv.indexOf("--" + k); return i >= 0 ? argv[i + 1] : d; };
-const opts = { cerebro: arg("cerebro", "ollama:qwen3:8b"), idiomas: arg("idiomas", "pt,en,zh,hi,ar").split(","), minutos: +arg("minutos", 60), reps: +arg("repeticoes", 2), habilidades: arg("habilidades", null), notas: arg("notas", "ricas"), dialeto: arg("dialeto", "nao"), tickets: +arg("tickets", 60), tutor: +arg("tutor", 8) };
+const opts = { cerebro: arg("cerebro", "ollama:qwen3:8b"), idiomas: arg("idiomas", "pt,en,zh,hi,ar").split(","), minutos: +arg("minutos", 60), reps: +arg("repeticoes", 2), habilidades: arg("habilidades", null), notas: arg("notas", "ricas"), dialeto: arg("dialeto", "nao"), partida: arg("partida", "ambas"), tickets: +arg("tickets", 60), tutor: +arg("tutor", 8) };
 (cmd === "piloto" ? (async () => { const modes = opts.dialeto === "ambos" ? [false, true] : [opts.dialeto === "sim"];
   for (const c of (arg("cerebros") || opts.cerebro).split(",")) for (const dm of modes) { DIALECT = dm; for (const k in DICT) delete DICT[k]; await pilot({ ...opts, cerebro: c }); } })() : cmd === "calibrar" ? calibrate(opts) : Promise.resolve(console.log("Uso: node tools/agentes/laboratorio.js calibrar|piloto --cerebro ollama:qwen3:8b [--idiomas pt,en,zh,hi,ar] [--minutos 60]")))
   .catch(e => { console.error("\nERRO: " + e.message); process.exit(1); });

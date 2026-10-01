@@ -11,3 +11,6 @@ revisao/*/auditoria.txt
 
 # resultados do laboratório de agentes (grandes; versione só o RESUMO.md se quiser)
 agentes/saida/
+
+# pacotes de resultados e de atualização: ficam fora do repositório
+*.zip

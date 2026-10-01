@@ -11,6 +11,8 @@ Agente = **cérebro** (um LLM) + **base de conhecimento** (as notas que ele "est
 
 **Dialeto cifrado** (`--dialeto sim`, `nao` ou `ambos`): nos itens de programação, as palavras-chave do JavaScript viram palavras inventadas, com **um dialeto por habilidade** (o `if` de Condicionais é `nataki`, o de Laços é outro). As notas trazem o dicionário da habilidade. Sem notas, o código fica ilegível até para quem sabe programar; com notas, volta a ser legível: um degrau limpo e por habilidade. Os itens de engenharia de software ficam sem dialeto e servem de controle interno. O degrau medido é o de aprender um vocabulário, não programação: serve para validar instrumentos de KT. Com `ambos`, cada cérebro roda sem e com dialeto, e as pastas de saída com dialeto terminam em `-dialeto`.
 
+**Partida** (`--partida adaptativa`, `fixa` ou `ambas`, o padrão): a adaptativa é o jogo real, em que o Elo sobe a dificuldade conforme o agente melhora; a fixa usa o mesmo degrau com todos os itens em ordem aleatória, sem adaptação. Comparar as duas separa a detecção de aprendizagem do efeito da seleção adaptativa, que esconde o ganho na taxa de acerto.
+
 A verdade de cada resposta da C2 é **medida** (taxa de acerto do mesmo item em C0 antes do degrau, em C1 depois), não suposta. Os cinco modelos do jogo (Elo/Rasch, TRI 3PL, BKT, PFA, AFM) são avaliados por AUC, Brier contra a verdade, viés item a item antes e depois do degrau (positivo depois do degrau é aprendizagem fantasma) e queda sob embaralhamento.
 
 ## Piloto (uma hora, um cérebro local, cinco idiomas)
