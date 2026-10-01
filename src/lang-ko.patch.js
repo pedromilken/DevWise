@@ -277,3 +277,6 @@ DW_PATCH("ko", {"ui.kindFree": "자유형", "ui.freeNote": "자유형 도전: �
 
 /* revisão da versão publicada (30/09/2026): "Balance" isolado havia virado "equilíbrio"; rótulos curtos que ficaram em inglês */
 DW_PATCH("ko", {"ui.balance": "잔액"});
+
+/* filtro do gráfico de evolução e seletor de linguagem junto do mapa: traduzido à mão */
+DW_PATCH("ko", {"ui.evoFilter": "그래프에 표시(게임의 프로그래밍 언어는 바뀌지 않습니다):", "ui.evoEmptyAll": "아직 답한 티켓이 없습니다. 몇 개에 답하면 학습 곡선을 볼 수 있습니다.", "ui.evoEmptyPl": "{l}로 답한 티켓이 아직 없습니다. 게임의 프로그래밍 언어는 숙련도 지도 위에서 고를 수 있습니다."});

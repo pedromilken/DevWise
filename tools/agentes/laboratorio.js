@@ -106,13 +106,55 @@ async function preflight(brain) {
 }
 
 /* ---------------- notas (base de conhecimento) ---------------- */
+/* ---------------- dialeto cifrado (opcional) ----------------
+   Nos itens de PROGRAMAÇÃO, as palavras-chave do JavaScript viram palavras inventadas, e cada habilidade tem o seu próprio
+   dialeto: o "if" de Condicionais não é o "if" de Laços. Sem as notas (que trazem o dicionário daquela habilidade), o código
+   fica ilegível até para um cérebro que sabe programar; com as notas, volta a ser legível. Isso cria um degrau de
+   aprendizagem limpo e por habilidade. Os itens de engenharia de software não têm código e ficam sem dialeto: servem de
+   controle interno, itens em que não há o que aprender com as notas além do que o cérebro já sabe.
+   O degrau medido é o de aprender um VOCABULÁRIO, não programação: serve para validar instrumentos de KT. */
+let DIALECT = false;
+const KEYWORDS = ["console.log", "Math.floor", "function", "return", "const", "while", "false", "true", "else", "let", "for", "if", "of"];
+const DICT = {};
+function pseudoWords(seed, n, taken) {
+  const C = "bdfgklmnprstvz", V = "aeiou"; let x = 0; for (const ch of seed) x = (x * 31 + ch.charCodeAt(0)) >>> 0;
+  const rnd = () => ((x = (x * 1103515245 + 12345) >>> 0) / 4294967296), out = [];
+  while (out.length < n) { let w = ""; for (let s = 0; s < 3; s++) w += C[Math.floor(rnd() * C.length)] + V[Math.floor(rnd() * V.length)]; if (!taken.has(w)) { taken.add(w); out.push(w); } }
+  return out;
+}
+function dictFor(E, skill) {
+  if (DICT[skill]) return DICT[skill];
+  const taken = new Set(Object.values(DICT).flatMap(d => Object.values(d)));
+  E.ITEMS.forEach(i => { const c = (i.code && i.code.js) || (i.stub && i.stub.js) || ""; (c.match(/[A-Za-z_]\w*/g) || []).forEach(w => taken.add(w.toLowerCase())); });
+  const words = pseudoWords("devwise:" + skill, KEYWORDS.length, taken);
+  return DICT[skill] = Object.fromEntries(KEYWORDS.map((k, i) => [k, words[i]]));
+}
+const isProgSkill = (E, s) => (E.SK[s] || {}).area === "prog";
+/* troca só fora de textos entre aspas, para não alterar mensagens que o programa imprime */
+function mapOutsideStrings(code, f) { return code.split(/("(?:\\.|[^"\\])*"|'(?:\\.|[^'\\])*'|`(?:\\.|[^`\\])*`)/).map((part, i) => i % 2 ? part : f(part)).join(""); }
+function encipher(E, skill, code) {
+  if (!DIALECT || !code || !isProgSkill(E, skill)) return code;
+  const d = dictFor(E, skill);
+  return mapOutsideStrings(code, s => { for (const k of KEYWORDS) s = s.replace(new RegExp("(?<![\\w.])" + k.replace(".", "\\.") + "(?!\\w)", "g"), d[k]); return s; });
+}
+function decipher(E, skill, code) {
+  if (!DIALECT || !code || !isProgSkill(E, skill)) return code;
+  const d = dictFor(E, skill);
+  return mapOutsideStrings(code, s => { for (const k of KEYWORDS) s = s.replace(new RegExp("\\b" + d[k] + "\\b", "g"), k); return s; });
+}
+function dictionaryNote(E, lang, skill) {
+  if (!DIALECT || !isProgSkill(E, skill)) return "";
+  const d = dictFor(E, skill);
+  return "\nDIALECT OF THIS SKILL (the code in these tickets uses these words):\n" + KEYWORDS.map(k => "  " + d[k] + " = " + k).join("\n");
+}
+
 let NOTES_MODE = "ricas";
 /* Notas = o que o agente "estudou". Básicas: os três conceitos do arsenal teórico. Ricas: os conceitos e até 4 exemplos
    resolvidos, que são as explicações de OUTROS tickets da mesma habilidade (nunca do ticket que está sendo respondido). */
 function notesFor(E, lang, skills, exclude) {
   if (!skills.length) return "(none)";
   return skills.map(id => { const s = (E.LANG[lang].skills[id] || E.LANG.en.skills[id]);
-    let t = "## " + s.name + "\n" + s.theory.map(x => "- " + (Array.isArray(x) ? x.filter(Boolean).join(": ") : (x.t || x.h || "") + ": " + (x.p || x.x || ""))).join("\n");
+    let t = "## " + s.name + dictionaryNote(E, lang, id) + "\n" + s.theory.map(x => "- " + (Array.isArray(x) ? x.filter(Boolean).join(": ") : (x.t || x.h || "") + ": " + (x.p || x.x || ""))).join("\n");
     if (NOTES_MODE === "ricas") { const ex = E.ITEMS.filter(j => j.skill === id && j.id !== exclude && !j.extra && j.type !== "code").slice(0, 4);
       t += "\nWORKED EXAMPLES:\n" + ex.map(j => { const x = E.LANG[lang].items[j.id] || E.LANG.en.items[j.id]; return "* " + x.title + ": " + x.why; }).join("\n"); }
     return t; }).join("\n\n");
@@ -140,7 +182,7 @@ function readAnswer(a, kind, opts) {
 /* ---------------- apresentação de um ticket ao aprendiz, e correção ---------------- */
 const shuf = a => { a = a.slice(); for (let i = a.length - 1; i > 0; i--) { const j = Math.floor(Math.random() * (i + 1)); [a[i], a[j]] = [a[j], a[i]]; } return a; };
 function presentItem(E, lang, it, pl) {
-  const x = E.LANG[lang].items[it.id] || E.LANG.en.items[it.id], code = it.code ? it.code[pl] : null;
+  const x = E.LANG[lang].items[it.id] || E.LANG.en.items[it.id], code = it.code ? encipher(E, it.skill, it.code[pl]) : null;
   let body = "TICKET: " + x.title + "\n" + x.prompt + "\n", key = "", grade;
   if (it.type === "mc") {
     const prev = E.S.lang; E.S.lang = lang; const opts = E.itemOpts(it); E.S.lang = prev;
@@ -162,8 +204,8 @@ function presentItem(E, lang, it, pl) {
     key = it.key.map((k, i) => (i + 1) + ":" + (k + 1)).join(",");
     grade = a => { const r = readAnswer(a, "pairs"); if (!r.v) return { ok: false, fmt: r.fmt }; const got = {}; r.v.split(",").forEach(x => { const [c, b] = x.split(":"); got[c] = +b - 1; }); return { ok: it.key.every((k, i) => got[i + 1] === k), fmt: r.fmt }; };
   } else if (it.type === "code") {
-    body += "\nWrite the JavaScript function " + it.fn + ". Reply ONLY with the code, no explanation.\n\nSTARTER:\n" + it.stub.js;
-    key = "(code)"; grade = a => ({ ok: gradeJS(it, a) >= 0.6, fmt: /```|function\s/.test(a) ? "pedido" : "tolerado" });
+    body += "\nWrite the function " + it.fn + (DIALECT ? " in the dialect used by this ticket" : " in JavaScript") + ". Reply ONLY with the code, no explanation.\n\nSTARTER:\n" + encipher(E, it.skill, it.stub.js);
+    key = "(code)"; grade = a => ({ ok: gradeJS(it, decipher(E, it.skill, a)) >= 0.6, fmt: /```|function\s/.test(a) ? "pedido" : "tolerado" });
   }
   return { body, key, grade };
 }
@@ -224,7 +266,7 @@ const PILOT_SKILLS = ["var", "cond", "req", "git"];
 async function pilot(opts) {
   const brain = makeBrain(opts.cerebro), langs = opts.idiomas, budgetMs = opts.minutos * 60000, t0 = Date.now();
   await preflight(brain); NOTES_MODE = opts.notas;
-  const out = path.join(ROOT, "agentes", "saida", new Date().toISOString().slice(0, 16).replace(/[:T]/g, "-") + "-" + opts.cerebro.replace(/[^\w.-]+/g, "_"));
+  const out = path.join(ROOT, "agentes", "saida", new Date().toISOString().slice(0, 16).replace(/[:T]/g, "-") + "-" + opts.cerebro.replace(/[^\w.-]+/g, "_") + (DIALECT ? "-dialeto" : ""));
   fs.mkdirSync(out, { recursive: true });
   const E0 = loadEngine(); E0.S = E0.fresh(); E0.S.lang = "en"; E0.S.pl = "js";
   const SK_ = opts.habilidades ? opts.habilidades.split(",") : E0.SKILLS.map(x => x.id);
@@ -281,10 +323,12 @@ function auc(p, y) { const pos = [], neg = []; p.forEach((v, i) => (y[i] ? pos :
 const mean = a => a.length ? a.reduce((s, v) => s + v, 0) / a.length : null, f2 = v => v == null ? "-" : v.toFixed(2), f3 = v => v == null ? "-" : v.toFixed(3);
 function report(brain, langs, med, game, tut, ms, E, perLang = []) {
   const st = brain.stats, models = ["elo", "irt", "bkt", "pfa", "afm"];
-  let r = `# Piloto do laboratório de agentes\n\nCérebro: \`${brain.spec}\` · notas: ${NOTES_MODE} · idiomas: ${langs.join(", ")} · duração: ${(ms / 60000).toFixed(1)} min · chamadas: ${st.calls} (${st.fails} falhas) · latência média: ${(st.ms / Math.max(1, st.calls) / 1000).toFixed(2)} s` +
+  let r = `# Piloto do laboratório de agentes\n\nCérebro: \`${brain.spec}\` · notas: ${NOTES_MODE} · dialeto cifrado: ${DIALECT ? "sim" : "não"} · idiomas: ${langs.join(", ")} · duração: ${(ms / 60000).toFixed(1)} min · chamadas: ${st.calls} (${st.fails} falhas) · latência média: ${(st.ms / Math.max(1, st.calls) / 1000).toFixed(2)} s` +
     (st.inTok ? ` · tokens: ${st.inTok} de entrada, ${st.outTok} de saída` : "") + "\n\n";
   r += "## 1. Aprendizes: vazamento e efeito das notas (C0 e C1)\n\nC0 é a taxa de acerto sem notas: o quanto o cérebro já sabe sozinho. Se ficar perto de C1, as notas não fazem diferença e o degrau da C2 fica invisível.\n\n| Idioma | C0 sem notas | C1 com notas | Ganho |\n|---|---|---|---|\n";
   for (const l of langs) { const m = med.filter(x => x.lang === l); if (!m.length) continue; const a = mean(m.map(x => x.c0)), b = mean(m.map(x => x.c1)); r += `| ${l} | ${f2(a)} | ${f2(b)} | ${f2(b - a)} |\n`; }
+  r += "\n**Por área** (com o dialeto ligado, programação é onde as notas ensinam o vocabulário; engenharia de software fica como controle):\n\n| Área | C0 | C1 | Ganho |\n|---|---|---|---|\n";
+  for (const ar of ["prog", "se"]) { const m = med.filter(x => (E.SK[x.skill] || {}).area === ar); if (m.length) r += `| ${ar === "prog" ? "programação" : "engenharia de software"} | ${f2(mean(m.map(x => x.c0)))} | ${f2(mean(m.map(x => x.c1)))} | ${f2(mean(m.map(x => x.c1 - x.c0)))} |\n`; }
   r += "\n**Conformidade de formato**: fração das respostas que vieram no formato pedido (\`ANSWER: ...\`). Abaixo de 1, o corretor tolerante entendeu o resto; \"ilegível\" é o que nem ele entendeu e conta como erro. Seguir instruções pior num idioma também é desigualdade.\n\n| Idioma | No formato | Tolerado | Ilegível |\n|---|---|---|---|\n";
   for (const l of langs) { const f = med.filter(x => x.lang === l).flatMap(x => [x.fmt0, x.fmt1]); if (!f.length) continue; const q = k => f.filter(v => v === k).length / f.length; r += `| ${l} | ${f2(q("pedido"))} | ${f2(q("tolerado"))} | ${f2(q("ilegivel"))} |\n`; }
   r += "\n**Por tipo de item** (todos os idiomas):\n\n| Tipo | C0 | C1 | Ganho | n |\n|---|---|---|---|---|\n";
@@ -307,6 +351,10 @@ function report(brain, langs, med, game, tut, ms, E, perLang = []) {
     for (const m of models) { const p = GI.map(g => +g["rpred_" + m]), y = GI.map(g => g.y), pt = GI.map(g => +g.p_true);
       const dP = mean(GI.filter(g => g.kc_index >= 4).map(g => +g["rpred_" + m])) - mean(GI.filter(g => g.kc_index <= 3).map(g => +g["rpred_" + m]));
       r += `| ${m.toUpperCase()} | ${f3(auc(p, y))} | ${f3(mean(p.map((v, i) => (v - pt[i]) ** 2)))} | ${f2(dP)} | ${f2(dT)} |\n`; } }
+  for (const ar of ["prog", "se"]) { const GA = G.filter(g => (E.SK[g.skill] || {}).area === ar); if (GA.length < 10) continue;
+    r += `\n**${ar === "prog" ? "Programação" : "Engenharia de software"}** (${GA.length} linhas): viés antes → depois do degrau\n\n| Modelo | Antes | Depois | Brier vs verdade |\n|---|---|---|---|\n`;
+    for (const m of models) { const b = sel => mean(GA.filter(sel).map(g => +g["rpred_" + m] - +g.p_true));
+      r += `| ${m.toUpperCase()} | ${f2(b(g => g.kc_index <= 3))} | ${f2(b(g => g.kc_index >= 4))} | ${f3(mean(GA.map(g => (+g["rpred_" + m] - +g.p_true) ** 2)))} |\n`; } }
   r += `\n${G.length} linhas da partida com verdade medida.\n\n## 3. Tutores: três estratégias de localização\n\nEscrita: fração das letras no sistema de escrita do idioma (1,0 = todo o texto na escrita certa). Vazamento: a dica contém a resposta certa. chrF contra a dica de referência do jogo (nos idiomas gerados por máquina, a referência também é tradução, então serve para comparar estratégias entre si, não como nota absoluta).\n\n| Idioma | Estratégia | Escrita | Vazamento | chrF | Caracteres |\n|---|---|---|---|---|---|\n`;
   for (const l of langs) for (const s of ["S1", "S2", "S3"]) { const t = tut.filter(x => x.lang === l && x.strategy === s); if (!t.length) continue;
     r += `| ${l} | ${s} | ${f2(mean(t.map(x => x.script_share)))} | ${f2(mean(t.map(x => x.leak)))} | ${mean(t.map(x => x.chrf)).toFixed(1)} | ${Math.round(mean(t.map(x => x.chars)))} |\n`; }
@@ -330,6 +378,7 @@ async function calibrate(opts) {
 
 /* ---------------- linha de comando ---------------- */
 const argv = process.argv.slice(2), cmd = argv[0], arg = (k, d) => { const i = argv.indexOf("--" + k); return i >= 0 ? argv[i + 1] : d; };
-const opts = { cerebro: arg("cerebro", "ollama:qwen3:8b"), idiomas: arg("idiomas", "pt,en,zh,hi,ar").split(","), minutos: +arg("minutos", 60), reps: +arg("repeticoes", 2), habilidades: arg("habilidades", null), notas: arg("notas", "ricas"), tickets: +arg("tickets", 60), tutor: +arg("tutor", 8) };
-(cmd === "piloto" ? (async () => { for (const c of (arg("cerebros") || opts.cerebro).split(",")) await pilot({ ...opts, cerebro: c }); })() : cmd === "calibrar" ? calibrate(opts) : Promise.resolve(console.log("Uso: node tools/agentes/laboratorio.js calibrar|piloto --cerebro ollama:qwen3:8b [--idiomas pt,en,zh,hi,ar] [--minutos 60]")))
+const opts = { cerebro: arg("cerebro", "ollama:qwen3:8b"), idiomas: arg("idiomas", "pt,en,zh,hi,ar").split(","), minutos: +arg("minutos", 60), reps: +arg("repeticoes", 2), habilidades: arg("habilidades", null), notas: arg("notas", "ricas"), dialeto: arg("dialeto", "nao"), tickets: +arg("tickets", 60), tutor: +arg("tutor", 8) };
+(cmd === "piloto" ? (async () => { const modes = opts.dialeto === "ambos" ? [false, true] : [opts.dialeto === "sim"];
+  for (const c of (arg("cerebros") || opts.cerebro).split(",")) for (const dm of modes) { DIALECT = dm; for (const k in DICT) delete DICT[k]; await pilot({ ...opts, cerebro: c }); } })() : cmd === "calibrar" ? calibrate(opts) : Promise.resolve(console.log("Uso: node tools/agentes/laboratorio.js calibrar|piloto --cerebro ollama:qwen3:8b [--idiomas pt,en,zh,hi,ar] [--minutos 60]")))
   .catch(e => { console.error("\nERRO: " + e.message); process.exit(1); });

@@ -7,3 +7,6 @@ DW_PATCH("tr", {"ui.kindFree": "serbest", "ui.freeNote": "Serbest görev: istedi
 
 /* revisão da versão publicada (30/09/2026): "Balance" isolado havia virado "equilíbrio"; rótulos curtos que ficaram em inglês */
 DW_PATCH("tr", {"ui.balance": "Bakiye", "ui.role": "Rol"});
+
+/* filtro do gráfico de evolução e seletor de linguagem junto do mapa: traduzido à mão */
+DW_PATCH("tr", {"ui.evoFilter": "Grafikte göster (oyunun programlama dilini değiştirmez):", "ui.evoEmptyAll": "Henüz hiç görev çözmedin. Öğrenme eğrini görmek için birkaç tane çöz.", "ui.evoEmptyPl": "{l} ile henüz görev çözülmedi. Oyunun programlama dilini ustalık haritasının üstünden seçebilirsin."});

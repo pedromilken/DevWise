@@ -279,7 +279,7 @@ function go(v){if(v!=="ticket")stopTimer(); view=v; resetArmed=false; setMsg="";
 const langMeta=l=>STUDY_LANGS.find(x=>x.code===l)||{};
 function applyLang(){const el=document.documentElement; el.lang=S.lang; if(el.setAttribute)el.setAttribute("dir",langMeta(S.lang).rtl?"rtl":"ltr")}
 function setLang(l){S.lang=l; save(); applyLang(); render()}
-function setPl(p){S.pl=p; SKILLS.forEach(s=>{const k=tkey(s.id); if(S.sprint.start[k]===undefined)S.sprint.start[k]=trk(s.id).L}); fillBoard(); save(); render()}
+function setPl(p){S.pl=p; evoPl=null; SKILLS.forEach(s=>{const k=tkey(s.id); if(S.sprint.start[k]===undefined)S.sprint.start[k]=trk(s.id).L}); fillBoard(); save(); render()}
 function langBar(){
   const ks=Object.keys(LANG), can=ROMANIZER.available(S.lang);
   return h("div",{class:"langbar"},
@@ -432,7 +432,7 @@ function board(){
         h("h3",{class:"gap"},"⚔️ "+t("bossesH")),h("div",{class:"tickets"},BOSSES.map(bossCard)),
         h("div",{class:"done"},h("h3",null,t("doneSprint")),
           S.sprint.done.length?h("div",{class:"chips"},S.sprint.done.map(d=>h("span",{class:"chip"+(d.ok?"":" bad")},"DW-"+d.item.toUpperCase()+" "+(d.ok?t("resolved"):t("toReview"))))):h("p",{class:"empty"},t("nothingDone")))),
-      h("section",{class:"col"},h("h3",null,t("modeH")),modePanel(),h("h3",null,t("map")),h("div",{class:"panel"},skillMap(),skillInfo()))));
+      h("section",{class:"col"},h("h3",null,t("modeH")),modePanel(),h("h3",null,t("map")),h("div",{class:"panel"},h("p",{class:"note",style:"margin:0 0 6px"},t("codeLang")),plTabs(),skillMap(),skillInfo()))));
 }
 function brief(){
   const s=SK[briefId], x=skT(briefId), first=!S.brief[briefId];
@@ -634,7 +634,8 @@ function evolution(){
   if(!list.find(z=>z.k===evoSel))evoSel=list.length?list[list.length-1].k:null;
   const label=z=>skT(z.skill).name+(z.pl&&pl==="all"?" ("+PLS[z.pl]+")":"");
   const tabs=h("div",{class:"tabs",role:"group","aria-label":t("codeLang")},["all"].concat(Object.keys(PLS)).map(p=>h("button",{"aria-pressed":String(pl===p),onclick:()=>{evoPl=p;render()}},p==="all"?t("evoAll"):PLS[p])));
-  if(!list.length)return h("section",{class:"panel",style:"margin-top:20px"},h("h3",null,"📈 "+t("evoH")),tabs,h("p",{class:"empty"},t("evoEmpty")));
+  const filt=h("p",{class:"note",style:"margin:0 0 6px"},t("evoFilter"));
+  if(!list.length)return h("section",{class:"panel",style:"margin-top:20px"},h("h3",null,"📈 "+t("evoH")),filt,tabs,h("p",{class:"empty"},pl==="all"?t("evoEmptyAll"):t("evoEmptyPl",{l:PLS[pl]})));
   const svg=sv("svg",{viewBox:`0 0 ${W} ${H}`,role:"img","aria-label":t("evoH")});
   [0,.5,1].forEach(v=>{svg.append(sv("line",{x1:pl_,x2:W-pr,y1:Y(v),y2:Y(v),stroke:"var(--line)","stroke-width":"1"}),sv("text",{x:pl_-6,y:Y(v)+4,"text-anchor":"end","font-size":"11",fill:"var(--muted)"},Math.round(v*100)+"%"))});
   [[UNLOCK,"var(--gold)"],[master(),"var(--ok)"]].forEach(([v,c])=>{svg.append(sv("line",{x1:pl_,x2:W-pr,y1:Y(v),y2:Y(v),stroke:c,"stroke-width":"1.5","stroke-dasharray":"5 5"}),sv("text",{x:W-pr,y:Y(v)-4,"text-anchor":"end","font-size":"11",fill:c},Math.round(v*100)+"%"))});
@@ -644,7 +645,7 @@ function evolution(){
   const sel=series[evoSel], col=SK[sel.skill].area==="se"?"var(--se)":"var(--prog)";
   svg.append(sv("path",{d:path(sel),fill:"none",stroke:col,"stroke-width":"3.5","stroke-linejoin":"round"}));
   sel.pts.forEach(p=>svg.append(sv("circle",{cx:X(p.x),cy:Y(p.y),r:"5",fill:p.ok?"var(--ok)":"var(--gold)",stroke:"var(--surface)","stroke-width":"2"})));
-  return h("section",{class:"panel",style:"margin-top:20px"},h("h3",null,"📈 "+t("evoH")),h("p",{class:"note"},t("evoP",{m:pct(master())})),tabs,
+  return h("section",{class:"panel",style:"margin-top:20px"},h("h3",null,"📈 "+t("evoH")),h("p",{class:"note"},t("evoP",{m:pct(master())})),filt,tabs,
     h("div",{class:"mapwrap"},svg),
     h("div",{class:"tabs",style:"margin-top:10px"},list.map(z=>h("button",{"aria-pressed":String(z.k===evoSel),onclick:()=>{evoSel=z.k;render()}},label(z)))),
     h("div",{class:"tblwrap",style:"margin-top:12px"},h("table",null,h("thead",null,h("tr",null,h("th",null,t("colSkill")),h("th",null,t("colFirst")),h("th",null,t("colNow")),h("th",null,t("colGain")),h("th",null,t("colTries")))),

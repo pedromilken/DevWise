@@ -7,3 +7,6 @@ DW_PATCH("pa", {"ui.kindFree": "ਖੁੱਲ੍ਹਾ", "ui.freeNote": "ਖੁ�
 
 /* revisão da versão publicada (30/09/2026): "Balance" isolado havia virado "equilíbrio"; rótulos curtos que ficaram em inglês */
 DW_PATCH("pa", {"ui.lockedAria": "ਤਾਲਾਬੰਦ"});
+
+/* filtro do gráfico de evolução e seletor de linguagem junto do mapa: traduzido à mão */
+DW_PATCH("pa", {"ui.evoFilter": "ਚਾਰਟ ਵਿੱਚ ਦਿਖਾਓ (ਇਸ ਨਾਲ ਖੇਡ ਦੀ ਪ੍ਰੋਗਰਾਮਿੰਗ ਭਾਸ਼ਾ ਨਹੀਂ ਬਦਲਦੀ):", "ui.evoEmptyAll": "ਹਾਲੇ ਤੱਕ ਕਿਸੇ ਟਿਕਟ ਦਾ ਜਵਾਬ ਨਹੀਂ ਦਿੱਤਾ। ਆਪਣੀ ਸਿੱਖਣ ਦੀ ਪ੍ਰਗਤੀ ਦੇਖਣ ਲਈ ਕੁਝ ਦੇ ਜਵਾਬ ਦਿਓ।", "ui.evoEmptyPl": "{l} ਵਿੱਚ ਹਾਲੇ ਤੱਕ ਕਿਸੇ ਟਿਕਟ ਦਾ ਜਵਾਬ ਨਹੀਂ ਦਿੱਤਾ। ਖੇਡ ਦੀ ਪ੍ਰੋਗਰਾਮਿੰਗ ਭਾਸ਼ਾ ਮੁਹਾਰਤ ਦੇ ਨਕਸ਼ੇ ਦੇ ਉੱਪਰ ਚੁਣੀ ਜਾਂਦੀ ਹੈ।"});

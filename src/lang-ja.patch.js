@@ -7,3 +7,6 @@ DW_PATCH("ja", {"ui.kindFree": "自由形式", "ui.freeNote": "自由形式の�
 
 /* revisão da versão publicada (30/09/2026): "Balance" isolado havia virado "equilíbrio"; rótulos curtos que ficaram em inglês */
 DW_PATCH("ja", {"ui.balance": "残高"});
+
+/* filtro do gráfico de evolução e seletor de linguagem junto do mapa: traduzido à mão */
+DW_PATCH("ja", {"ui.evoFilter": "グラフに表示（ゲームのプログラミング言語は変わりません）：", "ui.evoEmptyAll": "まだチケットに回答していません。いくつか回答すると学習曲線が表示されます。", "ui.evoEmptyPl": "{l} のチケットにはまだ回答していません。ゲームのプログラミング言語は習熟度マップの上で選べます。"});

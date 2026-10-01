@@ -4,3 +4,6 @@ Object.assign(LANG.bn.ui, {"csvBtn": "গবেষণার সারণি ড�
 
 /* "free" no sentido de desafio livre, aberto (não gratuito): corrigido à mão */
 DW_PATCH("bn", {"ui.kindFree": "উন্মুক্ত", "ui.freeNote": "উন্মুক্ত চ্যালেঞ্জ: আপনার পছন্দের যেকোনো পথে সমাধান করুন। সিদ্ধান্ত নেবে পরীক্ষার কেসগুলো।"});
+
+/* filtro do gráfico de evolução e seletor de linguagem junto do mapa: traduzido à mão */
+DW_PATCH("bn", {"ui.evoFilter": "চার্টে দেখান (এতে খেলার প্রোগ্রামিং ভাষা বদলায় না):", "ui.evoEmptyAll": "এখনও কোনো টিকিটের উত্তর দেননি। আপনার শেখার অগ্রগতি দেখতে কয়েকটির উত্তর দিন।", "ui.evoEmptyPl": "{l}-এ এখনও কোনো টিকিটের উত্তর দেননি। খেলার প্রোগ্রামিং ভাষা দক্ষতার মানচিত্রের উপরে বেছে নেওয়া যায়।"});

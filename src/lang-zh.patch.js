@@ -277,3 +277,6 @@ DW_PATCH("zh", {"ui.kindFree": "自由发挥", "ui.freeNote": "自由挑战：�
 
 /* revisão da versão publicada (30/09/2026): "Balance" isolado havia virado "equilíbrio"; rótulos curtos que ficaram em inglês */
 DW_PATCH("zh", {"ui.balance": "余额"});
+
+/* filtro do gráfico de evolução e seletor de linguagem junto do mapa: traduzido à mão */
+DW_PATCH("zh", {"ui.evoFilter": "图表中显示（不会改变游戏使用的编程语言）：", "ui.evoEmptyAll": "还没有回答任何工单。回答几个就能看到你的学习曲线。", "ui.evoEmptyPl": "还没有用 {l} 回答过工单。游戏使用的编程语言在掌握度地图上方选择。"});

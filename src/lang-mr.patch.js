@@ -4,3 +4,6 @@ Object.assign(LANG.mr.ui, {"csvBtn": "संशोधन तक्ता डा�
 
 /* "free" no sentido de desafio livre, aberto (não gratuito): corrigido à mão */
 DW_PATCH("mr", {"ui.kindFree": "मुक्त", "ui.freeNote": "मुक्त आव्हान: तुम्हाला आवडेल त्या पद्धतीने सोडवा. निर्णय चाचणी प्रकरणे घेतात."});
+
+/* filtro do gráfico de evolução e seletor de linguagem junto do mapa: traduzido à mão */
+DW_PATCH("mr", {"ui.evoFilter": "आलेखात दाखवा (यामुळे खेळाची प्रोग्रामिंग भाषा बदलत नाही):", "ui.evoEmptyAll": "अजून एकही तिकीट सोडवलेले नाही. तुमची शिकण्याची प्रगती पाहण्यासाठी काही तिकिटे सोडवा.", "ui.evoEmptyPl": "{l} मध्ये अजून एकही तिकीट सोडवलेले नाही. खेळाची प्रोग्रामिंग भाषा प्रावीण्य नकाशाच्या वर निवडता येते."});

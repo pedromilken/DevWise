@@ -4,3 +4,6 @@ Object.assign(LANG.ta.ui, {"csvBtn": "ஆய்வு அட்டவணைய�
 
 /* "free" no sentido de desafio livre, aberto (não gratuito): corrigido à mão */
 DW_PATCH("ta", {"ui.kindFree": "திறந்த", "ui.freeNote": "திறந்த சவால்: உங்களுக்குப் பிடித்த வழியில் தீர்த்துக்கொள்ளுங்கள். முடிவைச் சோதனை நிகழ்வுகள் தீர்மானிக்கும்."});
+
+/* filtro do gráfico de evolução e seletor de linguagem junto do mapa: traduzido à mão */
+DW_PATCH("ta", {"ui.evoFilter": "வரைபடத்தில் காட்டுங்கள் (இது விளையாட்டின் நிரலாக்க மொழியை மாற்றாது):", "ui.evoEmptyAll": "இதுவரை எந்த டிக்கெட்டுக்கும் பதில் அளிக்கவில்லை. உங்கள் கற்றல் வளைவைப் பார்க்க சிலவற்றுக்குப் பதில் அளியுங்கள்.", "ui.evoEmptyPl": "{l} இல் இதுவரை எந்த டிக்கெட்டுக்கும் பதில் அளிக்கவில்லை. விளையாட்டின் நிரலாக்க மொழியைத் தேர்ச்சி வரைபடத்தின் மேலே தேர்வு செய்யலாம்."});

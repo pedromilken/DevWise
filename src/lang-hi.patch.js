@@ -277,3 +277,6 @@ DW_PATCH("hi", {"ui.kindFree": "खुला", "ui.freeNote": "खुली च�
 
 /* revisão da versão publicada (30/09/2026): "Balance" isolado havia virado "equilíbrio"; rótulos curtos que ficaram em inglês */
 DW_PATCH("hi", {"ui.balance": "शेष", "ui.role": "भूमिका", "ui.streak": "लगातार सही"});
+
+/* filtro do gráfico de evolução e seletor de linguagem junto do mapa: traduzido à mão */
+DW_PATCH("hi", {"ui.evoFilter": "चार्ट में दिखाएँ (इससे गेम की प्रोग्रामिंग भाषा नहीं बदलती):", "ui.evoEmptyAll": "अभी तक कोई टिकट हल नहीं हुआ। अपनी सीखने की प्रगति देखने के लिए कुछ टिकट हल करें।", "ui.evoEmptyPl": "{l} में अभी तक कोई टिकट हल नहीं हुआ। गेम की प्रोग्रामिंग भाषा महारत के नक्शे के ऊपर चुनी जाती है।"});

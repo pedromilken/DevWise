@@ -277,3 +277,6 @@ DW_PATCH("fr", {"ui.kindFree": "libre", "ui.freeNote": "Défi libre : prenez le 
 
 /* revisão da versão publicada (30/09/2026): "Balance" isolado havia virado "equilíbrio"; rótulos curtos que ficaram em inglês */
 DW_PATCH("fr", {"ui.balance": "Solde", "ui.dailyTag": "XP doublé"});
+
+/* filtro do gráfico de evolução e seletor de linguagem junto do mapa: traduzido à mão */
+DW_PATCH("fr", {"ui.evoFilter": "Afficher dans le graphique (ne change pas le langage du jeu) :", "ui.evoEmptyAll": "Aucun ticket résolu pour l'instant. Résolvez-en quelques-uns pour voir votre courbe d'apprentissage.", "ui.evoEmptyPl": "Aucun ticket résolu en {l} pour l'instant. Le langage du jeu se choisit au-dessus de la carte de maîtrise."});

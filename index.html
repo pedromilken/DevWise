@@ -2448,6 +2448,8 @@ x12:{title:"Segundos no relógio",prompt:"Escreva hms(seconds), que converte uma
 /* v10.1: exportação para pesquisa */
 Object.assign(LANG.pt.ui,{"csvBtn": "Baixar tabela para pesquisa (CSV)", "csvNote": "Uma linha por resposta, com o identificador pseudônimo {s}, a previsão de cada modelo gravada no jogo e a previsão reconstruída do zero para todos os modelos. Nada identifica o estudante pessoalmente.", "sidLabel": "Identificador pseudônimo deste navegador:"});
 
+Object.assign(LANG.pt.ui,{"evoFilter": "Mostrar no gráfico (não muda a linguagem do jogo):", "evoEmptyAll": "Nenhum ticket respondido ainda. Responda alguns para ver sua curva de aprendizagem.", "evoEmptyPl": "Nenhum ticket respondido em {l} ainda. A linguagem do jogo se escolhe acima do mapa de domínio."});
+
 LANG.en = {
 name:"English", llmName:"English",
 ui:{
@@ -2881,6 +2883,8 @@ x12:{title:"Seconds on the clock",prompt:"Write hms(seconds), which converts a n
 /* v10.1: exportação para pesquisa */
 Object.assign(LANG.en.ui,{"csvBtn": "Download research table (CSV)", "csvNote": "One row per answer, with the pseudonymous identifier {s}, each model's prediction recorded in the game and the prediction rebuilt from scratch for all models. Nothing identifies the student personally.", "sidLabel": "Pseudonymous identifier for this browser:"});
 
+Object.assign(LANG.en.ui,{"evoFilter": "Show in the chart (does not change the game's language):", "evoEmptyAll": "No tickets answered yet. Answer a few to see your learning curve.", "evoEmptyPl": "No tickets answered in {l} yet. The game's programming language is chosen above the mastery map."});
+
 LANG.es = {
 name:"Español", llmName:"Latin American Spanish",
 ui:{
@@ -3313,6 +3317,8 @@ x12:{title:"Segundos en el reloj",prompt:"Escribe hms(seconds), que convierte un
 
 /* v10.1: exportação para pesquisa */
 Object.assign(LANG.es.ui,{"csvBtn": "Descargar tabla para investigación (CSV)", "csvNote": "Una fila por respuesta, con el identificador seudónimo {s}, la predicción de cada modelo registrada en el juego y la predicción reconstruida desde cero para todos los modelos. Nada identifica personalmente al estudiante.", "sidLabel": "Identificador seudónimo de este navegador:"});
+
+Object.assign(LANG.es.ui,{"evoFilter": "Mostrar en el gráfico (no cambia el lenguaje del juego):", "evoEmptyAll": "Todavía no respondiste ningún ticket. Responde algunos para ver tu curva de aprendizaje.", "evoEmptyPl": "Todavía no hay tickets respondidos en {l}. El lenguaje del juego se elige arriba del mapa de dominio."});
 
 /* Pacote gerado por tools/gerar-idioma.js a partir de "en". REVISAR com um falante nativo antes de publicar. */
 LANG.ar = {
@@ -38001,12 +38007,18 @@ Object.assign(LANG.ar.ui, {"csvBtn": "تنزيل جدول البحث (CSV)", "cs
 /* "free" no sentido de desafio livre, aberto (não gratuito): corrigido à mão */
 DW_PATCH("ar", {"ui.kindFree": "مفتوح", "ui.freeNote": "تحدٍّ مفتوح: اختر الطريقة التي تفضّلها، وحالات الاختبار هي التي تحكم."});
 
+/* filtro do gráfico de evolução e seletor de linguagem junto do mapa: traduzido à mão */
+DW_PATCH("ar", {"ui.evoFilter": "العرض في الرسم البياني (لا يغيّر لغة البرمجة في اللعبة):", "ui.evoEmptyAll": "لم تُجب عن أي تذكرة بعد. أجب عن بعضها لترى منحنى تعلّمك.", "ui.evoEmptyPl": "لم تُجب عن أي تذكرة بلغة {l} بعد. تُختار لغة البرمجة في اللعبة فوق خريطة الإتقان."});
+
 /* Traduções feitas fora do gerador. Carregado DEPOIS de lang-bn.js; uma nova geração do pacote não o apaga. */
 /* Traduções feitas à mão para a exportação de pesquisa (sem API). */
 Object.assign(LANG.bn.ui, {"csvBtn": "গবেষণার সারণি ডাউনলোড করুন (CSV)", "csvNote": "প্রতিটি উত্তরের জন্য একটি সারি, যাতে আছে ছদ্মনাম শনাক্তকারী {s}, খেলায় রেকর্ড করা প্রতিটি মডেলের পূর্বাভাস এবং সব মডেলের জন্য শুরু থেকে আবার তৈরি করা পূর্বাভাস। এতে শিক্ষার্থীকে ব্যক্তিগতভাবে শনাক্ত করার মতো কিছু নেই।", "sidLabel": "এই ব্রাউজারের ছদ্মনাম শনাক্তকারী:"});
 
 /* "free" no sentido de desafio livre, aberto (não gratuito): corrigido à mão */
 DW_PATCH("bn", {"ui.kindFree": "উন্মুক্ত", "ui.freeNote": "উন্মুক্ত চ্যালেঞ্জ: আপনার পছন্দের যেকোনো পথে সমাধান করুন। সিদ্ধান্ত নেবে পরীক্ষার কেসগুলো।"});
+
+/* filtro do gráfico de evolução e seletor de linguagem junto do mapa: traduzido à mão */
+DW_PATCH("bn", {"ui.evoFilter": "চার্টে দেখান (এতে খেলার প্রোগ্রামিং ভাষা বদলায় না):", "ui.evoEmptyAll": "এখনও কোনো টিকিটের উত্তর দেননি। আপনার শেখার অগ্রগতি দেখতে কয়েকটির উত্তর দিন।", "ui.evoEmptyPl": "{l}-এ এখনও কোনো টিকিটের উত্তর দেননি। খেলার প্রোগ্রামিং ভাষা দক্ষতার মানচিত্রের উপরে বেছে নেওয়া যায়।"});
 
 /* Traduções feitas fora do gerador. Carregado DEPOIS de lang-de.js; uma nova geração do pacote não o apaga. */
 /* Traduções feitas à mão para a exportação de pesquisa (sem API). */
@@ -38017,6 +38029,9 @@ DW_PATCH("de", {"ui.kindFree": "offen", "ui.freeNote": "Offene Aufgabe: Wähle d
 
 /* revisão da versão publicada (30/09/2026): "Balance" isolado havia virado "equilíbrio"; rótulos curtos que ficaram em inglês */
 DW_PATCH("de", {"ui.balance": "Guthaben"});
+
+/* filtro do gráfico de evolução e seletor de linguagem junto do mapa: traduzido à mão */
+DW_PATCH("de", {"ui.evoFilter": "Im Diagramm anzeigen (ändert die Programmiersprache des Spiels nicht):", "ui.evoEmptyAll": "Du hast noch kein Ticket beantwortet. Beantworte ein paar, um deine Lernkurve zu sehen.", "ui.evoEmptyPl": "Noch keine Tickets in {l} beantwortet. Die Programmiersprache des Spiels wählst du über der Lernkarte."});
 
 /* Traduções feitas fora do gerador (revisão humana ou outro modelo). Carregado DEPOIS de lang-fr.js,
    então sobrescreve as chaves abaixo e não é apagado por uma nova geração do pacote. */
@@ -38298,6 +38313,9 @@ DW_PATCH("fr", {"ui.kindFree": "libre", "ui.freeNote": "Défi libre : prenez le 
 /* revisão da versão publicada (30/09/2026): "Balance" isolado havia virado "equilíbrio"; rótulos curtos que ficaram em inglês */
 DW_PATCH("fr", {"ui.balance": "Solde", "ui.dailyTag": "XP doublé"});
 
+/* filtro do gráfico de evolução e seletor de linguagem junto do mapa: traduzido à mão */
+DW_PATCH("fr", {"ui.evoFilter": "Afficher dans le graphique (ne change pas le langage du jeu) :", "ui.evoEmptyAll": "Aucun ticket résolu pour l'instant. Résolvez-en quelques-uns pour voir votre courbe d'apprentissage.", "ui.evoEmptyPl": "Aucun ticket résolu en {l} pour l'instant. Le langage du jeu se choisit au-dessus de la carte de maîtrise."});
+
 /* Traduções feitas fora do gerador (revisão humana ou outro modelo). Carregado DEPOIS de lang-hi.js,
    então sobrescreve as chaves abaixo e não é apagado por uma nova geração do pacote. */
 Object.assign(LANG.hi.ui, {
@@ -38578,6 +38596,9 @@ DW_PATCH("hi", {"ui.kindFree": "खुला", "ui.freeNote": "खुली च�
 /* revisão da versão publicada (30/09/2026): "Balance" isolado havia virado "equilíbrio"; rótulos curtos que ficaram em inglês */
 DW_PATCH("hi", {"ui.balance": "शेष", "ui.role": "भूमिका", "ui.streak": "लगातार सही"});
 
+/* filtro do gráfico de evolução e seletor de linguagem junto do mapa: traduzido à mão */
+DW_PATCH("hi", {"ui.evoFilter": "चार्ट में दिखाएँ (इससे गेम की प्रोग्रामिंग भाषा नहीं बदलती):", "ui.evoEmptyAll": "अभी तक कोई टिकट हल नहीं हुआ। अपनी सीखने की प्रगति देखने के लिए कुछ टिकट हल करें।", "ui.evoEmptyPl": "{l} में अभी तक कोई टिकट हल नहीं हुआ। गेम की प्रोग्रामिंग भाषा महारत के नक्शे के ऊपर चुनी जाती है।"});
+
 /* Traduções feitas fora do gerador. Carregado DEPOIS de lang-id.js; uma nova geração do pacote não o apaga. */
 /* Traduções feitas à mão para a exportação de pesquisa (sem API). */
 Object.assign(LANG.id.ui, {"csvBtn": "Unduh tabel penelitian (CSV)", "csvNote": "Satu baris untuk setiap jawaban, berisi pengenal samaran {s}, prediksi tiap model yang tercatat di dalam game, dan prediksi yang dibangun ulang dari awal untuk semua model. Tidak ada yang bisa mengungkap identitas pribadi siswa.", "sidLabel": "Pengenal samaran untuk peramban ini:"});
@@ -38588,6 +38609,9 @@ DW_PATCH("id", {"ui.kindFree": "bebas", "ui.freeNote": "Tantangan bebas: pakai c
 /* revisão da versão publicada (30/09/2026): "Balance" isolado havia virado "equilíbrio"; rótulos curtos que ficaram em inglês */
 DW_PATCH("id", {"ui.streak": "Runtunan"});
 
+/* filtro do gráfico de evolução e seletor de linguagem junto do mapa: traduzido à mão */
+DW_PATCH("id", {"ui.evoFilter": "Tampilkan di grafik (tidak mengubah bahasa pemrograman game):", "ui.evoEmptyAll": "Belum ada tiket yang kamu jawab. Jawab beberapa untuk melihat kurva belajarmu.", "ui.evoEmptyPl": "Belum ada tiket yang dijawab dalam {l}. Bahasa pemrograman game dipilih di atas peta penguasaan."});
+
 /* Traduções feitas fora do gerador. Carregado DEPOIS de lang-ja.js; uma nova geração do pacote não o apaga. */
 /* Traduções feitas à mão para a exportação de pesquisa (sem API). */
 Object.assign(LANG.ja.ui, {"csvBtn": "研究用データ表をダウンロード（CSV）", "csvNote": "回答ごとに1行で、仮名ID {s}、ゲーム内で記録された各モデルの予測、そしてすべてのモデルについて最初から計算し直した予測が含まれます。学習者個人を特定できる情報は含まれません。", "sidLabel": "このブラウザの仮名ID："});
@@ -38597,6 +38621,9 @@ DW_PATCH("ja", {"ui.kindFree": "自由形式", "ui.freeNote": "自由形式の�
 
 /* revisão da versão publicada (30/09/2026): "Balance" isolado havia virado "equilíbrio"; rótulos curtos que ficaram em inglês */
 DW_PATCH("ja", {"ui.balance": "残高"});
+
+/* filtro do gráfico de evolução e seletor de linguagem junto do mapa: traduzido à mão */
+DW_PATCH("ja", {"ui.evoFilter": "グラフに表示（ゲームのプログラミング言語は変わりません）：", "ui.evoEmptyAll": "まだチケットに回答していません。いくつか回答すると学習曲線が表示されます。", "ui.evoEmptyPl": "{l} のチケットにはまだ回答していません。ゲームのプログラミング言語は習熟度マップの上で選べます。"});
 
 /* Traduções feitas fora do gerador (revisão humana ou outro modelo). Carregado DEPOIS de lang-ko.js,
    então sobrescreve as chaves abaixo e não é apagado por uma nova geração do pacote. */
@@ -38878,12 +38905,18 @@ DW_PATCH("ko", {"ui.kindFree": "자유형", "ui.freeNote": "자유형 도전: �
 /* revisão da versão publicada (30/09/2026): "Balance" isolado havia virado "equilíbrio"; rótulos curtos que ficaram em inglês */
 DW_PATCH("ko", {"ui.balance": "잔액"});
 
+/* filtro do gráfico de evolução e seletor de linguagem junto do mapa: traduzido à mão */
+DW_PATCH("ko", {"ui.evoFilter": "그래프에 표시(게임의 프로그래밍 언어는 바뀌지 않습니다):", "ui.evoEmptyAll": "아직 답한 티켓이 없습니다. 몇 개에 답하면 학습 곡선을 볼 수 있습니다.", "ui.evoEmptyPl": "{l}로 답한 티켓이 아직 없습니다. 게임의 프로그래밍 언어는 숙련도 지도 위에서 고를 수 있습니다."});
+
 /* Traduções feitas fora do gerador. Carregado DEPOIS de lang-mr.js; uma nova geração do pacote não o apaga. */
 /* Traduções feitas à mão para a exportação de pesquisa (sem API). */
 Object.assign(LANG.mr.ui, {"csvBtn": "संशोधन तक्ता डाउनलोड करा (CSV)", "csvNote": "प्रत्येक उत्तरासाठी एक ओळ, ज्यात टोपणनाव ओळखकर्ता {s}, खेळात नोंदवलेला प्रत्येक मॉडेलचा अंदाज आणि सर्व मॉडेलसाठी सुरुवातीपासून पुन्हा तयार केलेला अंदाज असतो. यात विद्यार्थ्याची वैयक्तिक ओळख पटेल असे काहीही नाही.", "sidLabel": "या ब्राउझरचा टोपणनाव ओळखकर्ता:"});
 
 /* "free" no sentido de desafio livre, aberto (não gratuito): corrigido à mão */
 DW_PATCH("mr", {"ui.kindFree": "मुक्त", "ui.freeNote": "मुक्त आव्हान: तुम्हाला आवडेल त्या पद्धतीने सोडवा. निर्णय चाचणी प्रकरणे घेतात."});
+
+/* filtro do gráfico de evolução e seletor de linguagem junto do mapa: traduzido à mão */
+DW_PATCH("mr", {"ui.evoFilter": "आलेखात दाखवा (यामुळे खेळाची प्रोग्रामिंग भाषा बदलत नाही):", "ui.evoEmptyAll": "अजून एकही तिकीट सोडवलेले नाही. तुमची शिकण्याची प्रगती पाहण्यासाठी काही तिकिटे सोडवा.", "ui.evoEmptyPl": "{l} मध्ये अजून एकही तिकीट सोडवलेले नाही. खेळाची प्रोग्रामिंग भाषा प्रावीण्य नकाशाच्या वर निवडता येते."});
 
 /* Traduções feitas fora do gerador. Carregado DEPOIS de lang-pa.js; uma nova geração do pacote não o apaga. */
 /* Traduções feitas à mão para a exportação de pesquisa (sem API). */
@@ -38895,6 +38928,9 @@ DW_PATCH("pa", {"ui.kindFree": "ਖੁੱਲ੍ਹਾ", "ui.freeNote": "ਖੁ�
 /* revisão da versão publicada (30/09/2026): "Balance" isolado havia virado "equilíbrio"; rótulos curtos que ficaram em inglês */
 DW_PATCH("pa", {"ui.lockedAria": "ਤਾਲਾਬੰਦ"});
 
+/* filtro do gráfico de evolução e seletor de linguagem junto do mapa: traduzido à mão */
+DW_PATCH("pa", {"ui.evoFilter": "ਚਾਰਟ ਵਿੱਚ ਦਿਖਾਓ (ਇਸ ਨਾਲ ਖੇਡ ਦੀ ਪ੍ਰੋਗਰਾਮਿੰਗ ਭਾਸ਼ਾ ਨਹੀਂ ਬਦਲਦੀ):", "ui.evoEmptyAll": "ਹਾਲੇ ਤੱਕ ਕਿਸੇ ਟਿਕਟ ਦਾ ਜਵਾਬ ਨਹੀਂ ਦਿੱਤਾ। ਆਪਣੀ ਸਿੱਖਣ ਦੀ ਪ੍ਰਗਤੀ ਦੇਖਣ ਲਈ ਕੁਝ ਦੇ ਜਵਾਬ ਦਿਓ।", "ui.evoEmptyPl": "{l} ਵਿੱਚ ਹਾਲੇ ਤੱਕ ਕਿਸੇ ਟਿਕਟ ਦਾ ਜਵਾਬ ਨਹੀਂ ਦਿੱਤਾ। ਖੇਡ ਦੀ ਪ੍ਰੋਗਰਾਮਿੰਗ ਭਾਸ਼ਾ ਮੁਹਾਰਤ ਦੇ ਨਕਸ਼ੇ ਦੇ ਉੱਪਰ ਚੁਣੀ ਜਾਂਦੀ ਹੈ।"});
+
 /* Traduções feitas fora do gerador. Carregado DEPOIS de lang-ru.js; uma nova geração do pacote não o apaga. */
 /* Traduções feitas à mão para a exportação de pesquisa (sem API). */
 Object.assign(LANG.ru.ui, {"csvBtn": "Скачать таблицу для исследования (CSV)", "csvNote": "По одной строке на каждый ответ: псевдонимный идентификатор {s}, прогноз каждой модели, записанный в игре, и прогноз, заново вычисленный с нуля для всех моделей. Ничто в таблице не позволяет установить личность учащегося.", "sidLabel": "Псевдонимный идентификатор этого браузера:"});
@@ -38902,12 +38938,18 @@ Object.assign(LANG.ru.ui, {"csvBtn": "Скачать таблицу для ис�
 /* "free" no sentido de desafio livre, aberto (não gratuito): corrigido à mão */
 DW_PATCH("ru", {"ui.kindFree": "свободная", "ui.freeNote": "Свободная задача: решайте любым удобным способом. Результат определяют тестовые случаи."});
 
+/* filtro do gráfico de evolução e seletor de linguagem junto do mapa: traduzido à mão */
+DW_PATCH("ru", {"ui.evoFilter": "Показать на графике (язык программирования в игре не меняется):", "ui.evoEmptyAll": "Вы ещё не решили ни одной задачи. Решите несколько, чтобы увидеть свою кривую обучения.", "ui.evoEmptyPl": "Задач на {l} пока не решено. Язык программирования игры выбирается над картой освоения."});
+
 /* Traduções feitas fora do gerador. Carregado DEPOIS de lang-ta.js; uma nova geração do pacote não o apaga. */
 /* Traduções feitas à mão para a exportação de pesquisa (sem API). */
 Object.assign(LANG.ta.ui, {"csvBtn": "ஆய்வு அட்டவணையைப் பதிவிறக்குங்கள் (CSV)", "csvNote": "ஒவ்வொரு பதிலுக்கும் ஒரு வரி: புனைப்பெயர் அடையாளங்காட்டி {s}, விளையாட்டில் பதிவான ஒவ்வொரு மாதிரியின் கணிப்பு, எல்லா மாதிரிகளுக்கும் தொடக்கத்திலிருந்து மீண்டும் கணக்கிட்ட கணிப்பு. மாணவரைத் தனிப்பட்ட முறையில் அடையாளம் காட்டும் எதுவும் இதில் இல்லை.", "sidLabel": "இந்த உலாவியின் புனைப்பெயர் அடையாளங்காட்டி:"});
 
 /* "free" no sentido de desafio livre, aberto (não gratuito): corrigido à mão */
 DW_PATCH("ta", {"ui.kindFree": "திறந்த", "ui.freeNote": "திறந்த சவால்: உங்களுக்குப் பிடித்த வழியில் தீர்த்துக்கொள்ளுங்கள். முடிவைச் சோதனை நிகழ்வுகள் தீர்மானிக்கும்."});
+
+/* filtro do gráfico de evolução e seletor de linguagem junto do mapa: traduzido à mão */
+DW_PATCH("ta", {"ui.evoFilter": "வரைபடத்தில் காட்டுங்கள் (இது விளையாட்டின் நிரலாக்க மொழியை மாற்றாது):", "ui.evoEmptyAll": "இதுவரை எந்த டிக்கெட்டுக்கும் பதில் அளிக்கவில்லை. உங்கள் கற்றல் வளைவைப் பார்க்க சிலவற்றுக்குப் பதில் அளியுங்கள்.", "ui.evoEmptyPl": "{l} இல் இதுவரை எந்த டிக்கெட்டுக்கும் பதில் அளிக்கவில்லை. விளையாட்டின் நிரலாக்க மொழியைத் தேர்ச்சி வரைபடத்தின் மேலே தேர்வு செய்யலாம்."});
 
 /* Traduções feitas fora do gerador. Carregado DEPOIS de lang-te.js; uma nova geração do pacote não o apaga. */
 /* Traduções feitas à mão para a exportação de pesquisa (sem API). */
@@ -38919,6 +38961,9 @@ DW_PATCH("te", {"ui.kindFree": "స్వేచ్ఛా", "ui.freeNote": "స�
 /* revisão da versão publicada (30/09/2026): "Balance" isolado havia virado "equilíbrio"; rótulos curtos que ficaram em inglês */
 DW_PATCH("te", {"ui.balance": "బ్యాలెన్స్"});
 
+/* filtro do gráfico de evolução e seletor de linguagem junto do mapa: traduzido à mão */
+DW_PATCH("te", {"ui.evoFilter": "చార్ట్‌లో చూపించండి (ఇది ఆట ప్రోగ్రామింగ్ భాషను మార్చదు):", "ui.evoEmptyAll": "మీరు ఇంకా ఏ టికెట్‌కూ సమాధానం ఇవ్వలేదు. మీ నేర్చుకునే వక్రరేఖ చూడటానికి కొన్నింటికి సమాధానం ఇవ్వండి.", "ui.evoEmptyPl": "{l}లో ఇంకా ఏ టికెట్‌కూ సమాధానం ఇవ్వలేదు. ఆట ప్రోగ్రామింగ్ భాషను నైపుణ్య మ్యాప్ పైన ఎంచుకోవచ్చు."});
+
 /* Traduções feitas fora do gerador. Carregado DEPOIS de lang-tr.js; uma nova geração do pacote não o apaga. */
 /* Traduções feitas à mão para a exportação de pesquisa (sem API). */
 Object.assign(LANG.tr.ui, {"csvBtn": "Araştırma tablosunu indir (CSV)", "csvNote": "Her cevap için bir satır: takma ad kimliği {s}, oyunda kaydedilen her modelin tahmini ve tüm modeller için baştan yeniden hesaplanan tahmin. Tabloda öğrenciyi kişisel olarak tanıtan hiçbir bilgi yok.", "sidLabel": "Bu tarayıcının takma ad kimliği:"});
@@ -38928,6 +38973,9 @@ DW_PATCH("tr", {"ui.kindFree": "serbest", "ui.freeNote": "Serbest görev: istedi
 
 /* revisão da versão publicada (30/09/2026): "Balance" isolado havia virado "equilíbrio"; rótulos curtos que ficaram em inglês */
 DW_PATCH("tr", {"ui.balance": "Bakiye", "ui.role": "Rol"});
+
+/* filtro do gráfico de evolução e seletor de linguagem junto do mapa: traduzido à mão */
+DW_PATCH("tr", {"ui.evoFilter": "Grafikte göster (oyunun programlama dilini değiştirmez):", "ui.evoEmptyAll": "Henüz hiç görev çözmedin. Öğrenme eğrini görmek için birkaç tane çöz.", "ui.evoEmptyPl": "{l} ile henüz görev çözülmedi. Oyunun programlama dilini ustalık haritasının üstünden seçebilirsin."});
 
 /* Traduções feitas fora do gerador. Carregado DEPOIS de lang-ur.js; uma nova geração do pacote não o apaga. */
 /* Traduções feitas à mão para a exportação de pesquisa (sem API). */
@@ -38939,6 +38987,9 @@ DW_PATCH("ur", {"ui.kindFree": "کھلا", "ui.freeNote": "کھلا چیلنج: 
 /* revisão da versão publicada (30/09/2026): "Balance" isolado havia virado "equilíbrio"; rótulos curtos que ficaram em inglês */
 DW_PATCH("ur", {"ui.balance": "بیلنس"});
 
+/* filtro do gráfico de evolução e seletor de linguagem junto do mapa: traduzido à mão */
+DW_PATCH("ur", {"ui.evoFilter": "چارٹ میں دکھائیں (اس سے گیم کی پروگرامنگ زبان نہیں بدلتی):", "ui.evoEmptyAll": "ابھی تک کوئی ٹکٹ حل نہیں ہوا۔ اپنی سیکھنے کی پیش رفت دیکھنے کے لیے چند ٹکٹ حل کریں۔", "ui.evoEmptyPl": "{l} میں ابھی تک کوئی ٹکٹ حل نہیں ہوا۔ گیم کی پروگرامنگ زبان مہارت کے نقشے کے اوپر منتخب کی جاتی ہے۔"});
+
 /* Traduções feitas fora do gerador. Carregado DEPOIS de lang-vi.js; uma nova geração do pacote não o apaga. */
 /* Traduções feitas à mão para a exportação de pesquisa (sem API). */
 Object.assign(LANG.vi.ui, {"csvBtn": "Tải bảng dữ liệu nghiên cứu (CSV)", "csvNote": "Mỗi câu trả lời là một dòng, gồm mã định danh ẩn danh {s}, dự đoán của từng mô hình được ghi lại trong trò chơi và dự đoán được tính lại từ đầu cho tất cả mô hình. Không có thông tin nào giúp nhận diện cá nhân học viên.", "sidLabel": "Mã định danh ẩn danh của trình duyệt này:"});
@@ -38948,6 +38999,9 @@ DW_PATCH("vi", {"ui.kindFree": "tự do", "ui.freeNote": "Thử thách tự do: 
 
 /* revisão da versão publicada (30/09/2026): "Balance" isolado havia virado "equilíbrio"; rótulos curtos que ficaram em inglês */
 DW_PATCH("vi", {"ui.balance": "Số dư"});
+
+/* filtro do gráfico de evolução e seletor de linguagem junto do mapa: traduzido à mão */
+DW_PATCH("vi", {"ui.evoFilter": "Hiển thị trên biểu đồ (không đổi ngôn ngữ lập trình của trò chơi):", "ui.evoEmptyAll": "Bạn chưa trả lời ticket nào. Hãy trả lời vài ticket để xem đường cong học tập của bạn.", "ui.evoEmptyPl": "Chưa có ticket nào được trả lời bằng {l}. Ngôn ngữ lập trình của trò chơi được chọn phía trên bản đồ thành thạo."});
 
 /* Traduções feitas fora do gerador (revisão humana ou outro modelo). Carregado DEPOIS de lang-zh.js,
    então sobrescreve as chaves abaixo e não é apagado por uma nova geração do pacote. */
@@ -39228,6 +39282,9 @@ DW_PATCH("zh", {"ui.kindFree": "自由发挥", "ui.freeNote": "自由挑战：�
 
 /* revisão da versão publicada (30/09/2026): "Balance" isolado havia virado "equilíbrio"; rótulos curtos que ficaram em inglês */
 DW_PATCH("zh", {"ui.balance": "余额"});
+
+/* filtro do gráfico de evolução e seletor de linguagem junto do mapa: traduzido à mão */
+DW_PATCH("zh", {"ui.evoFilter": "图表中显示（不会改变游戏使用的编程语言）：", "ui.evoEmptyAll": "还没有回答任何工单。回答几个就能看到你的学习曲线。", "ui.evoEmptyPl": "还没有用 {l} 回答过工单。游戏使用的编程语言在掌握度地图上方选择。"});
 
 /* Mapa de romanização gerado por tools/gerar-idioma.js --romanizar. */
 ROM.ar = {};
@@ -39523,7 +39580,7 @@ function go(v){if(v!=="ticket")stopTimer(); view=v; resetArmed=false; setMsg="";
 const langMeta=l=>STUDY_LANGS.find(x=>x.code===l)||{};
 function applyLang(){const el=document.documentElement; el.lang=S.lang; if(el.setAttribute)el.setAttribute("dir",langMeta(S.lang).rtl?"rtl":"ltr")}
 function setLang(l){S.lang=l; save(); applyLang(); render()}
-function setPl(p){S.pl=p; SKILLS.forEach(s=>{const k=tkey(s.id); if(S.sprint.start[k]===undefined)S.sprint.start[k]=trk(s.id).L}); fillBoard(); save(); render()}
+function setPl(p){S.pl=p; evoPl=null; SKILLS.forEach(s=>{const k=tkey(s.id); if(S.sprint.start[k]===undefined)S.sprint.start[k]=trk(s.id).L}); fillBoard(); save(); render()}
 function langBar(){
   const ks=Object.keys(LANG), can=ROMANIZER.available(S.lang);
   return h("div",{class:"langbar"},
@@ -39676,7 +39733,7 @@ function board(){
         h("h3",{class:"gap"},"⚔️ "+t("bossesH")),h("div",{class:"tickets"},BOSSES.map(bossCard)),
         h("div",{class:"done"},h("h3",null,t("doneSprint")),
           S.sprint.done.length?h("div",{class:"chips"},S.sprint.done.map(d=>h("span",{class:"chip"+(d.ok?"":" bad")},"DW-"+d.item.toUpperCase()+" "+(d.ok?t("resolved"):t("toReview"))))):h("p",{class:"empty"},t("nothingDone")))),
-      h("section",{class:"col"},h("h3",null,t("modeH")),modePanel(),h("h3",null,t("map")),h("div",{class:"panel"},skillMap(),skillInfo()))));
+      h("section",{class:"col"},h("h3",null,t("modeH")),modePanel(),h("h3",null,t("map")),h("div",{class:"panel"},h("p",{class:"note",style:"margin:0 0 6px"},t("codeLang")),plTabs(),skillMap(),skillInfo()))));
 }
 function brief(){
   const s=SK[briefId], x=skT(briefId), first=!S.brief[briefId];
@@ -39878,7 +39935,8 @@ function evolution(){
   if(!list.find(z=>z.k===evoSel))evoSel=list.length?list[list.length-1].k:null;
   const label=z=>skT(z.skill).name+(z.pl&&pl==="all"?" ("+PLS[z.pl]+")":"");
   const tabs=h("div",{class:"tabs",role:"group","aria-label":t("codeLang")},["all"].concat(Object.keys(PLS)).map(p=>h("button",{"aria-pressed":String(pl===p),onclick:()=>{evoPl=p;render()}},p==="all"?t("evoAll"):PLS[p])));
-  if(!list.length)return h("section",{class:"panel",style:"margin-top:20px"},h("h3",null,"📈 "+t("evoH")),tabs,h("p",{class:"empty"},t("evoEmpty")));
+  const filt=h("p",{class:"note",style:"margin:0 0 6px"},t("evoFilter"));
+  if(!list.length)return h("section",{class:"panel",style:"margin-top:20px"},h("h3",null,"📈 "+t("evoH")),filt,tabs,h("p",{class:"empty"},pl==="all"?t("evoEmptyAll"):t("evoEmptyPl",{l:PLS[pl]})));
   const svg=sv("svg",{viewBox:`0 0 ${W} ${H}`,role:"img","aria-label":t("evoH")});
   [0,.5,1].forEach(v=>{svg.append(sv("line",{x1:pl_,x2:W-pr,y1:Y(v),y2:Y(v),stroke:"var(--line)","stroke-width":"1"}),sv("text",{x:pl_-6,y:Y(v)+4,"text-anchor":"end","font-size":"11",fill:"var(--muted)"},Math.round(v*100)+"%"))});
   [[UNLOCK,"var(--gold)"],[master(),"var(--ok)"]].forEach(([v,c])=>{svg.append(sv("line",{x1:pl_,x2:W-pr,y1:Y(v),y2:Y(v),stroke:c,"stroke-width":"1.5","stroke-dasharray":"5 5"}),sv("text",{x:W-pr,y:Y(v)-4,"text-anchor":"end","font-size":"11",fill:c},Math.round(v*100)+"%"))});
@@ -39888,7 +39946,7 @@ function evolution(){
   const sel=series[evoSel], col=SK[sel.skill].area==="se"?"var(--se)":"var(--prog)";
   svg.append(sv("path",{d:path(sel),fill:"none",stroke:col,"stroke-width":"3.5","stroke-linejoin":"round"}));
   sel.pts.forEach(p=>svg.append(sv("circle",{cx:X(p.x),cy:Y(p.y),r:"5",fill:p.ok?"var(--ok)":"var(--gold)",stroke:"var(--surface)","stroke-width":"2"})));
-  return h("section",{class:"panel",style:"margin-top:20px"},h("h3",null,"📈 "+t("evoH")),h("p",{class:"note"},t("evoP",{m:pct(master())})),tabs,
+  return h("section",{class:"panel",style:"margin-top:20px"},h("h3",null,"📈 "+t("evoH")),h("p",{class:"note"},t("evoP",{m:pct(master())})),filt,tabs,
     h("div",{class:"mapwrap"},svg),
     h("div",{class:"tabs",style:"margin-top:10px"},list.map(z=>h("button",{"aria-pressed":String(z.k===evoSel),onclick:()=>{evoSel=z.k;render()}},label(z)))),
     h("div",{class:"tblwrap",style:"margin-top:12px"},h("table",null,h("thead",null,h("tr",null,h("th",null,t("colSkill")),h("th",null,t("colFirst")),h("th",null,t("colNow")),h("th",null,t("colGain")),h("th",null,t("colTries")))),

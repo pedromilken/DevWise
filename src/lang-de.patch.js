@@ -7,3 +7,6 @@ DW_PATCH("de", {"ui.kindFree": "offen", "ui.freeNote": "Offene Aufgabe: Wähle d
 
 /* revisão da versão publicada (30/09/2026): "Balance" isolado havia virado "equilíbrio"; rótulos curtos que ficaram em inglês */
 DW_PATCH("de", {"ui.balance": "Guthaben"});
+
+/* filtro do gráfico de evolução e seletor de linguagem junto do mapa: traduzido à mão */
+DW_PATCH("de", {"ui.evoFilter": "Im Diagramm anzeigen (ändert die Programmiersprache des Spiels nicht):", "ui.evoEmptyAll": "Du hast noch kein Ticket beantwortet. Beantworte ein paar, um deine Lernkurve zu sehen.", "ui.evoEmptyPl": "Noch keine Tickets in {l} beantwortet. Die Programmiersprache des Spiels wählst du über der Lernkarte."});

@@ -7,3 +7,6 @@ DW_PATCH("ur", {"ui.kindFree": "کھلا", "ui.freeNote": "کھلا چیلنج: 
 
 /* revisão da versão publicada (30/09/2026): "Balance" isolado havia virado "equilíbrio"; rótulos curtos que ficaram em inglês */
 DW_PATCH("ur", {"ui.balance": "بیلنس"});
+
+/* filtro do gráfico de evolução e seletor de linguagem junto do mapa: traduzido à mão */
+DW_PATCH("ur", {"ui.evoFilter": "چارٹ میں دکھائیں (اس سے گیم کی پروگرامنگ زبان نہیں بدلتی):", "ui.evoEmptyAll": "ابھی تک کوئی ٹکٹ حل نہیں ہوا۔ اپنی سیکھنے کی پیش رفت دیکھنے کے لیے چند ٹکٹ حل کریں۔", "ui.evoEmptyPl": "{l} میں ابھی تک کوئی ٹکٹ حل نہیں ہوا۔ گیم کی پروگرامنگ زبان مہارت کے نقشے کے اوپر منتخب کی جاتی ہے۔"});

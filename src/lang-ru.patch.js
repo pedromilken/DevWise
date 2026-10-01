@@ -4,3 +4,6 @@ Object.assign(LANG.ru.ui, {"csvBtn": "Скачать таблицу для ис�
 
 /* "free" no sentido de desafio livre, aberto (não gratuito): corrigido à mão */
 DW_PATCH("ru", {"ui.kindFree": "свободная", "ui.freeNote": "Свободная задача: решайте любым удобным способом. Результат определяют тестовые случаи."});
+
+/* filtro do gráfico de evolução e seletor de linguagem junto do mapa: traduzido à mão */
+DW_PATCH("ru", {"ui.evoFilter": "Показать на графике (язык программирования в игре не меняется):", "ui.evoEmptyAll": "Вы ещё не решили ни одной задачи. Решите несколько, чтобы увидеть свою кривую обучения.", "ui.evoEmptyPl": "Задач на {l} пока не решено. Язык программирования игры выбирается над картой освоения."});

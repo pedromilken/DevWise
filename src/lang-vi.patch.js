@@ -7,3 +7,6 @@ DW_PATCH("vi", {"ui.kindFree": "tự do", "ui.freeNote": "Thử thách tự do: 
 
 /* revisão da versão publicada (30/09/2026): "Balance" isolado havia virado "equilíbrio"; rótulos curtos que ficaram em inglês */
 DW_PATCH("vi", {"ui.balance": "Số dư"});
+
+/* filtro do gráfico de evolução e seletor de linguagem junto do mapa: traduzido à mão */
+DW_PATCH("vi", {"ui.evoFilter": "Hiển thị trên biểu đồ (không đổi ngôn ngữ lập trình của trò chơi):", "ui.evoEmptyAll": "Bạn chưa trả lời ticket nào. Hãy trả lời vài ticket để xem đường cong học tập của bạn.", "ui.evoEmptyPl": "Chưa có ticket nào được trả lời bằng {l}. Ngôn ngữ lập trình của trò chơi được chọn phía trên bản đồ thành thạo."});

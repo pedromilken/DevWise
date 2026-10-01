@@ -9,6 +9,8 @@ Agente = **cérebro** (um LLM) + **base de conhecimento** (as notas que ele "est
 
 **Notas** (`--notas ricas`, o padrão, ou `--notas basicas`): básicas são os três conceitos do arsenal teórico; ricas acrescentam até quatro exemplos resolvidos, as explicações de outros tickets da mesma habilidade, nunca do ticket respondido. Na partida, o agente recupera só as notas da habilidade do ticket.
 
+**Dialeto cifrado** (`--dialeto sim`, `nao` ou `ambos`): nos itens de programação, as palavras-chave do JavaScript viram palavras inventadas, com **um dialeto por habilidade** (o `if` de Condicionais é `nataki`, o de Laços é outro). As notas trazem o dicionário da habilidade. Sem notas, o código fica ilegível até para quem sabe programar; com notas, volta a ser legível: um degrau limpo e por habilidade. Os itens de engenharia de software ficam sem dialeto e servem de controle interno. O degrau medido é o de aprender um vocabulário, não programação: serve para validar instrumentos de KT. Com `ambos`, cada cérebro roda sem e com dialeto, e as pastas de saída com dialeto terminam em `-dialeto`.
+
 A verdade de cada resposta da C2 é **medida** (taxa de acerto do mesmo item em C0 antes do degrau, em C1 depois), não suposta. Os cinco modelos do jogo (Elo/Rasch, TRI 3PL, BKT, PFA, AFM) são avaliados por AUC, Brier contra a verdade, viés item a item antes e depois do degrau (positivo depois do degrau é aprendizagem fantasma) e queda sob embaralhamento.
 
 ## Piloto (uma hora, um cérebro local, cinco idiomas)
