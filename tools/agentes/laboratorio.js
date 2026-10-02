@@ -362,7 +362,7 @@ async function runLanguage(opts, brain, lang, items, timeLeft) {
 const brainSlug = spec => spec.replace(/[^\w.-]+/g, "_");
 
 async function pilot(opts) {
-  const brain = makeBrain(opts.cerebro), langs = opts.idiomas, budgetMs = opts.minutos * 60000, t0 = Date.now();
+  const brain = makeBrain(opts.cerebro), langs = opts.idiomas, budgetMs = opts.minutos > 0 ? opts.minutos * 60000 : Infinity, t0 = Date.now();
   await preflight(brain); NOTES_MODE = opts.notas;
   const out = path.join(ROOT, "agentes", "saida", opts.rodada, brainSlug(opts.cerebro) + (DIALECT ? "-dialeto" : "")), parc = path.join(out, "parcial");
   fs.mkdirSync(parc, { recursive: true });
@@ -375,9 +375,15 @@ async function pilot(opts) {
   for (const lang of langs) {
     const pf = path.join(parc, lang + ".json");
     let L;
-    if (fs.existsSync(pf)) { L = JSON.parse(fs.readFileSync(pf, "utf8")); console.log(lang + ": já feito nesta rodada, retomado do disco"); }
+    if (fs.existsSync(pf)) { L = JSON.parse(fs.readFileSync(pf, "utf8"));
+      const nAl = new Set((opts.partida === "adaptativa" ? L.game : L.fixed).map(g => g.student)).size;
+      if (nAl < opts.alunos) { console.log(lang + ": gravado com " + nAl + " de " + opts.alunos + " alunos; refazendo"); fs.unlinkSync(pf); L = null; }
+      else console.log(lang + ": já feito nesta rodada, retomado do disco"); }
+    if (L) { for (const k in all) all[k].push(...L[k]); continue; }
     else { if (timeLeft() <= 0) { console.log("Tempo esgotado antes de " + lang + ". Rode o mesmo comando com --rodada " + opts.rodada + " para continuar daqui."); break; }
       L = await runLanguage(opts, brain, lang, items, timeLeft);
+      const nAl = new Set((opts.partida === "adaptativa" ? L.game : L.fixed).map(g => g.student)).size;
+      if (nAl < opts.alunos) { console.log("   " + lang + " ficou incompleto (" + nAl + " de " + opts.alunos + " alunos) e não foi gravado; será refeito na retomada."); break; }
       fs.writeFileSync(pf + ".tmp", JSON.stringify(L)); fs.renameSync(pf + ".tmp", pf); }   /* gravação atômica: um arquivo pela metade nunca é lido como pronto */
     for (const k in all) all[k].push(...L[k]);
   }
@@ -419,13 +425,21 @@ function ci(vals, B = 2000) {   /* média e intervalo de 95% por bootstrap sobre
   for (let b = 0; b < B; b++) { let s = 0; for (let i = 0; i < v.length; i++) s += v[Math.floor(r() * v.length)]; bs.push(s / v.length); }
   bs.sort((x, y) => x - y); return { m, lo: bs[Math.floor(.025 * B)], hi: bs[Math.floor(.975 * B)], n: v.length };
 }
+function ciLang(units, key, B = 2000) {   /* bootstrap de IDIOMAS inteiros: respeita a dependência entre alunos do mesmo idioma */
+  const by = {}; for (const u of units) { const v = typeof key === "function" ? key(u) : u[key]; if (v == null || isNaN(v)) continue; (by[u.lang] = by[u.lang] || []).push(v); }
+  const L = Object.keys(by); if (L.length < 2) return ci(units.map(u => typeof key === "function" ? key(u) : u[key]));
+  const all = L.flatMap(l => by[l]), m = all.reduce((s, x) => s + x, 0) / all.length, bs = [];
+  let a = 123456789; const r = () => { a = (a * 1103515245 + 12345) >>> 0; return a / 4294967296; };
+  for (let b = 0; b < B; b++) { let s2 = 0, n = 0; for (let i = 0; i < L.length; i++) { const g = by[L[Math.floor(r() * L.length)]]; for (const x of g) { s2 += x; n++; } } bs.push(s2 / n); }
+  bs.sort((x, y) => x - y); return { m, lo: bs[Math.floor(.025 * B)], hi: bs[Math.floor(.975 * B)], n: all.length };
+}
 const fci = c => c ? (c.m >= 0 ? "+" : "") + c.m.toFixed(2) + " [" + c.lo.toFixed(2) + ", " + c.hi.toFixed(2) + "]" : "-";
 function varianceSection(units) {
   if (units.length < 2) return "";
-  let r = `\n## 6. Variância entre alunos (${units.length} unidades = idiomas × alunos), prior correto, partida fixa\n\nMédia e intervalo de 95% por bootstrap. **Excesso** = ganho previsto menos o verdadeiro: em engenharia de software (nada a aprender) é o **alarme falso**; em programação com dialeto, positivo é exagerar a aprendizagem real e negativo é não enxergá-la. Um intervalo que não contém zero indica efeito consistente entre alunos.\n\n`;
-  r += `**Mascaramento**: verdade antes → depois do degrau, Δ na partida adaptativa ${fci(ci(units.map(u => u.mask_adapt)))}; na fixa ${fci(ci(units.map(u => u.mask_fixed)))}.\n\n`;
+  let r = `\n## 6. Variância entre alunos (${units.length} unidades = idiomas × alunos), prior correto, partida fixa\n\nMédia e intervalo de 95% por bootstrap de idiomas inteiros (os alunos de um mesmo idioma compartilham itens e verdade medida, então não são independentes). **Excesso** = ganho previsto menos o verdadeiro: em engenharia de software (nada a aprender) é o **alarme falso**; em programação com dialeto, positivo é exagerar a aprendizagem real e negativo é não enxergá-la. Um intervalo que não contém zero indica efeito consistente entre alunos.\n\n`;
+  r += `**Mascaramento**: verdade antes → depois do degrau, Δ na partida adaptativa ${fci(ciLang(units, "mask_adapt"))}; na fixa ${fci(ciLang(units, "mask_fixed"))}.\n\n`;
   r += "| Modelo | Alarme falso (eng. software) | Excesso em programação | Brier em programação |\n|---|---|---|---|\n";
-  for (const m of MODELS) r += `| ${m.toUpperCase()} | ${fci(ci(units.map(u => u[m + "_excess_se"])))} | ${fci(ci(units.map(u => u[m + "_excess_prog"])))} | ${fci(ci(units.map(u => u[m + "_brier_prog"])))} |\n`;
+  for (const m of MODELS) r += `| ${m.toUpperCase()} | ${fci(ciLang(units, m + "_excess_se"))} | ${fci(ciLang(units, m + "_excess_prog"))} | ${fci(ciLang(units, m + "_brier_prog"))} |\n`;
   return r;
 }
 
@@ -434,17 +448,33 @@ function consolidate(opts) {
   const base = path.join(ROOT, "agentes", "saida", opts.rodada);
   if (!fs.existsSync(base)) throw new Error("Rodada não encontrada: " + base);
   const runs = fs.readdirSync(base).filter(d => fs.existsSync(path.join(base, d, "metricas.json"))).sort();
-  let r = `# Consolidado da rodada ${opts.rodada}\n\nCada linha: um cérebro num modo. Médias com intervalo de 95% por bootstrap sobre as unidades (idioma × aluno), partida fixa, prior correto.\n\n## Alarme falso (engenharia de software, nada a aprender)\n\n| Cérebro | Dialeto | n | ` + MODELS.map(m => m.toUpperCase()).join(" | ") + " |\n|---|---|---|" + MODELS.map(() => "---").join("|") + "|\n";
+  let r = `# Consolidado da rodada ${opts.rodada}\n\nCada linha: um cérebro num modo. Médias com intervalo de 95% por bootstrap de idiomas inteiros (alunos do mesmo idioma não são independentes), partida fixa, prior correto.\n\n## Alarme falso (engenharia de software, nada a aprender)\n\n| Cérebro | Dialeto | n | ` + MODELS.map(m => m.toUpperCase()).join(" | ") + " |\n|---|---|---|" + MODELS.map(() => "---").join("|") + "|\n";
   const rows = runs.map(d => ({ d, j: JSON.parse(fs.readFileSync(path.join(base, d, "metricas.json"), "utf8")) }));
-  for (const { j } of rows) r += `| ${j.cerebro} | ${j.dialeto ? "sim" : "não"} | ${j.units.length} | ` + MODELS.map(m => fci(ci(j.units.map(u => u[m + "_excess_se"])))).join(" | ") + " |\n";
+  for (const { j } of rows) r += `| ${j.cerebro} | ${j.dialeto ? "sim" : "não"} | ${j.units.length} | ` + MODELS.map(m => fci(ciLang(j.units, m + "_excess_se"))).join(" | ") + " |\n";
   r += "\n## Excesso em programação (com dialeto, onde há aprendizagem real)\n\n| Cérebro | Ganho verdadeiro | " + MODELS.map(m => m.toUpperCase()).join(" | ") + " |\n|---|---|" + MODELS.map(() => "---").join("|") + "|\n";
-  for (const { j } of rows.filter(x => x.j.dialeto)) r += `| ${j.cerebro} | ${fci(ci(j.units.map(u => u.dtrue_prog)))} | ` + MODELS.map(m => fci(ci(j.units.map(u => u[m + "_excess_prog"])))).join(" | ") + " |\n";
+  for (const { j } of rows.filter(x => x.j.dialeto)) r += `| ${j.cerebro} | ${fci(ciLang(j.units, "dtrue_prog"))} | ` + MODELS.map(m => fci(ciLang(j.units, m + "_excess_prog"))).join(" | ") + " |\n";
   r += "\n## Mascaramento pela adaptação\n\n| Cérebro | Dialeto | Δ verdade, adaptativa | Δ verdade, fixa |\n|---|---|---|---|\n";
-  for (const { j } of rows) r += `| ${j.cerebro} | ${j.dialeto ? "sim" : "não"} | ${fci(ci(j.units.map(u => u.mask_adapt)))} | ${fci(ci(j.units.map(u => u.mask_fixed)))} |\n`;
+  for (const { j } of rows) r += `| ${j.cerebro} | ${j.dialeto ? "sim" : "não"} | ${fci(ciLang(j.units, "mask_adapt"))} | ${fci(ciLang(j.units, "mask_fixed"))} |\n`;
   const all = rows.flatMap(x => x.j.units);
   r += `\n## Todos juntos (${all.length} unidades)\n\n| Modelo | Alarme falso | Excesso em programação (só com dialeto) |\n|---|---|---|\n`;
   const dial = rows.filter(x => x.j.dialeto).flatMap(x => x.j.units);
-  for (const m of MODELS) r += `| ${m.toUpperCase()} | ${fci(ci(all.map(u => u[m + "_excess_se"])))} | ${fci(ci(dial.map(u => u[m + "_excess_prog"])))} |\n`;
+  for (const m of MODELS) r += `| ${m.toUpperCase()} | ${fci(ciLang(all, m + "_excess_se"))} | ${fci(ciLang(dial, m + "_excess_prog"))} |\n`;
+  r += "\n## Idiomas: custo de tokens e viés da medida\n\nPor cérebro: custo de tokens de entrada relativo ao inglês, e correlação de Spearman (entre idiomas) desse custo com o excesso dos modelos onde não há o que aprender, com p por permutação. Sinais opostos entre cérebros indicam que o viés é do par cérebro × idioma, não do idioma.\n\n";
+  const rank = v => { const o = v.map((x, i) => [x, i]).sort((a, b) => a[0] - b[0]), r2 = Array(v.length); o.forEach(([, i], k) => r2[i] = k); return r2; };
+  const pear = (a, b) => { const ma = a.reduce((s, x) => s + x, 0) / a.length, mb = b.reduce((s, x) => s + x, 0) / b.length; let n = 0, da = 0, db = 0; for (let i = 0; i < a.length; i++) { n += (a[i] - ma) * (b[i] - mb); da += (a[i] - ma) ** 2; db += (b[i] - mb) ** 2; } return da && db ? n / Math.sqrt(da * db) : 0; };
+  const sp = (a, b) => pear(rank(a), rank(b));
+  const perm = (a, b) => { const r0 = Math.abs(sp(a, b)); let c = 0, x = 7; const bb = b.slice(); for (let k = 0; k < 2000; k++) { for (let i = bb.length - 1; i > 0; i--) { x = (x * 1103515245 + 12345) >>> 0; const j2 = x % (i + 1); [bb[i], bb[j2]] = [bb[j2], bb[i]]; } if (Math.abs(sp(a, bb)) >= r0) c++; } return c / 2000; };
+  for (const cer of [...new Set(rows.map(x => x.j.cerebro))]) {
+    const tok = {}; for (const { d, j } of rows.filter(x => x.j.cerebro === cer && !x.j.dialeto)) { const pd = path.join(base, d, "parcial");
+      if (fs.existsSync(pd)) for (const f of fs.readdirSync(pd)) { const P = JSON.parse(fs.readFileSync(path.join(pd, f), "utf8")); for (const x of P.perLang || []) tok[x.lang] = x.inTok; } }
+    if (!tok.en) continue;
+    const U2 = rows.filter(x => x.j.cerebro === cer).flatMap(x => x.j.units), L = Object.keys(tok).filter(l => U2.some(u => u.lang === l)).sort((a, b) => tok[b] - tok[a]);
+    if (L.length < 5) continue;
+    const rel = L.map(l => tok[l] / tok.en), ex = m => L.map(l => { const v = U2.filter(u => u.lang === l && u[m + "_excess_se"] != null).map(u => u[m + "_excess_se"]); return v.reduce((s, x) => s + x, 0) / v.length; });
+    r += `**${cer}** · custo: ` + L.map((l, i) => l + " " + rel[i].toFixed(2) + "×").join(", ") + "\n\n| Modelo | ρ (custo × excesso) | p |\n|---|---|---|\n";
+    for (const m of MODELS) { const e = ex(m); r += `| ${m.toUpperCase()} | ${(sp(rel, e) >= 0 ? "+" : "") + sp(rel, e).toFixed(2)} | ${perm(rel, e).toFixed(3)} |\n`; }
+    r += "\n";
+  }
   fs.writeFileSync(path.join(base, "CONSOLIDADO.md"), r);
   console.log(r); console.log("\nGravado em " + path.relative(ROOT, path.join(base, "CONSOLIDADO.md")));
 }
@@ -541,7 +571,7 @@ async function calibrate(opts) {
 
 /* ---------------- linha de comando ---------------- */
 const argv = process.argv.slice(2), cmd = argv[0], arg = (k, d) => { const i = argv.indexOf("--" + k); return i >= 0 ? argv[i + 1] : d; };
-const opts = { cerebro: arg("cerebro", "ollama:qwen3:8b"), idiomas: arg("idiomas", "pt,en,zh,hi,ar").split(","), minutos: +arg("minutos", 60), reps: +arg("repeticoes", 2), habilidades: arg("habilidades", null), notas: arg("notas", "ricas"), dialeto: arg("dialeto", "nao"), partida: arg("partida", "ambas"), alunos: +arg("alunos", 1), semente: arg("semente", "devwise"), rodada: arg("rodada", new Date().toISOString().slice(0, 16).replace(/[:T]/g, "-")), tickets: +arg("tickets", 60), tutor: +arg("tutor", 8) };
+const opts = { cerebro: arg("cerebro", "ollama:qwen3:8b"), idiomas: arg("idiomas", "pt,en,zh,hi,ar").split(","), minutos: +arg("minutos", 0),   /* 0 = sem limite; o limite antigo de 60 min cortava as passadas longas */ reps: +arg("repeticoes", 2), habilidades: arg("habilidades", null), notas: arg("notas", "ricas"), dialeto: arg("dialeto", "nao"), partida: arg("partida", "ambas"), alunos: +arg("alunos", 1), semente: arg("semente", "devwise"), rodada: arg("rodada", new Date().toISOString().slice(0, 16).replace(/[:T]/g, "-")), tickets: +arg("tickets", 60), tutor: +arg("tutor", 8) };
 (cmd === "consolidar" ? Promise.resolve(consolidate(opts)) : cmd === "piloto" ? (async () => { const modes = opts.dialeto === "ambos" ? [false, true] : [opts.dialeto === "sim"];
   for (const c of (arg("cerebros") || opts.cerebro).split(",")) for (const dm of modes) { DIALECT = dm; for (const k in DICT) delete DICT[k]; await pilot({ ...opts, cerebro: c }); } })() : cmd === "calibrar" ? calibrate(opts) : Promise.resolve(console.log("Uso: node tools/agentes/laboratorio.js calibrar|piloto|consolidar --cerebro ollama:qwen3:8b [--idiomas pt,en,zh,hi,ar] [--minutos 60]")))
   .catch(e => { console.error("\nERRO: " + e.message); process.exit(1); });

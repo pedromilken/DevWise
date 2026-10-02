@@ -1,5 +1,47 @@
 # Laboratório de agentes: achados
 
+> **Versão final do estudo de 1º/10/2026**: a seção A traz o estudo completo (20 idiomas, 400 unidades). As seções seguintes registram o piloto e as rodadas exploratórias, mantidas para o capítulo de método.
+
+## A. Estudo completo: 20 idiomas, 400 unidades
+
+**Desenho.** Cérebros qwen3:8b e gemma3:4b (Ollama, local, pesos fixos), sem e com dialeto cifrado, 20 idiomas, 5 alunos simulados por idioma, 3 repetições da medição de cada item, notas ricas, semente `devwise` (rodada reproduzível byte a byte). Partida fixa, prior correto (cada habilidade começa do acerto medido sem notas). Intervalos de 95% por **bootstrap de idiomas inteiros**: os 5 alunos de um idioma compartilham itens e verdade medida e não são independentes; o bootstrap por aluno dava intervalos duas a três vezes estreitos demais.
+
+### A1. O caráter de cada modelo como detector de aprendizagem
+
+| Modelo | Excesso onde não há o que aprender (400 unidades) | Excesso onde há aprendizagem (200, programação com dialeto) | Leitura |
+|---|---|---|---|
+| Elo/Rasch | −0,04 [−0,05; −0,03] | −0,10 [−0,12; −0,07] | subestima, sobretudo onde há aprendizagem |
+| TRI 3PL (EAP) | −0,07 [−0,09; −0,06] | −0,14 [−0,16; −0,11] | cega para aprendizagem, por ser estática |
+| **BKT** | **+0,01 [−0,00; 0,02]** | **−0,01 [−0,03; 0,01]** | praticamente sem viés nos dois regimes |
+| PFA | +0,06 [0,04; 0,07] | +0,05 [0,03; 0,07] | exagera |
+| AFM | +0,07 [0,06; 0,08] | +0,13 [0,11; 0,16] | exagera, mais onde há prática |
+
+A ordem (TRI < Elo < BKT < PFA < AFM) se repete nos dois cérebros e nos dois modos. Ganho real produzido pelo dialeto: **+0,12 [0,09; 0,15]**.
+
+### A2. A seleção adaptativa esconde a aprendizagem
+
+Verdade antes → depois do degrau: **−0,15 [−0,17; −0,13]** na partida adaptativa, **+0,08 [0,06; 0,09]** na fixa. A taxa de acerto observada num tutor adaptativo cai enquanto o aluno aprende, porque os itens ficam mais difíceis.
+
+### A3. O custo do idioma
+
+Tokens de entrada para as mesmas tarefas, relativos ao inglês: no Qwen, **telugu 4,29×, punjabi 4,13×, tâmil 3,55×, bengali 2,95×, hindi 2,75×, marata 2,66×, urdu 2,17×** (as sete escritas do subcontinente nas sete primeiras posições); os demais entre 1,05× e 1,35×. No Gemma, o máximo é o punjabi, 1,90×. A desigualdade de tokenização depende da família do modelo (ressalva: recontar com o tokenizador de cada modelo, pois o Ollama pode não contar trechos de cache).
+
+### A4. O viés da medida é do par cérebro × idioma
+
+O excesso dos modelos varia entre idiomas, mas:
+
+- no Qwen, idiomas mais caros têm **menos** exagero (Spearman entre custo e excesso: Elo −0,58, p = 0,01; TRI −0,74, p = 0,001); o viés acompanha o quanto o modelo já sabe naquele idioma (Elo +0,50 com o acerto sem notas, p = 0,02);
+- no Gemma, idiomas mais caros têm **mais** exagero (PFA +0,51, p = 0,02; AFM +0,57, p = 0,01);
+- o perfil de viés por idioma não se repete entre os cérebros (Spearman −0,16, p = 0,48).
+
+**Consequência:** validar um modelo de KT num idioma, com um modelo de linguagem, não certifica o mesmo instrumento em outro idioma nem com outro modelo. A validação precisa ser feita por par. Ressalva: são várias correlações; as de p ≥ 0,01 devem ser lidas como indício, não como prova.
+
+### A5. Limites
+
+Dois cérebros (generalizar para "LLMs" exige mais famílias); agentes não são aprendizes (não cansam, não esquecem, já sabem programação); o degrau do dialeto é aprender um vocabulário, não programação; uma semente; a verdade medida com 3 repetições por item tem ruído próprio. Isto valida **instrumentos de medida** sob condições controladas; não substitui a Fase 5 com aprendizes reais.
+
+---
+
 > **Atualização (piloto com variância, 1º/10/2026, 100 unidades):** qwen3:8b e gemma3:4b, sem e com dialeto, 5 idiomas, 5 alunos, 3 repetições, partida fixa e prior correto, intervalos de 95% por bootstrap. Os números da seção 5 abaixo, de um aluno só, **estavam inflados pelo ruído** e foram substituídos pela tabela da seção 0.
 
 ## 0. Piloto com variância (o que vale hoje)
