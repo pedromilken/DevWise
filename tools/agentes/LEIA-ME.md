@@ -41,6 +41,15 @@ O script encontra o Ollama, baixa os modelos que faltarem, impede o Windows de h
 - **Falhas**: tempo limite de 2 min por chamada, 3 tentativas, e a rodada só aborta após 10 falhas seguidas.
 - **Consolidação**: `node tools/agentes/laboratorio.js consolidar --rodada <nome>`.
 
+## Painel de cérebros (as quatro afirmações)
+
+    powershell -ExecutionPolicy Bypass -File tools\agentes\rodar-painel.ps1
+    powershell -ExecutionPolicy Bypass -File tools\agentes\rodar-painel.ps1 -Locais "" -Apis "deepseek:deepseek-chat"
+
+Para cada cérebro: **triagem** com critérios fixados antes dos resultados (≥ 90% de respostas legíveis em pt, hi e te; acerto com notas ≥ 0,40; ganho do dialeto em programação ≥ +0,05), registrada em `triagem-<cérebro>.json`; se aprovado, o estudo completo na mesma rodada. Cérebros por API rodam com `--paralelo` (chamadas simultâneas); a reprodutibilidade dos locais é preservada porque cada contexto tem o próprio gerador de sorteios.
+
+O `consolidar` responde às quatro afirmações: (1) concordância da ordem dos modelos entre cérebros (W de Kendall); (2) efeito médio com bootstrap em dois estágios (cérebros, depois idiomas); (3) decomposição cérebro × idioma com teste de efeito de idioma comum; (4) locais contra API.
+
 ## Limites
 
 Agentes não cansam, não esquecem e já sabem programação (a C0 mede isso). O laboratório valida **instrumentos de medida**; não substitui aprendizes reais (Fase 5). No piloto, as notas são recuperadas pela habilidade do ticket; o estudo completo usa embeddings multilíngues.

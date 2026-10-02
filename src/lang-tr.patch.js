@@ -10,3 +10,6 @@ DW_PATCH("tr", {"ui.balance": "Bakiye", "ui.role": "Rol"});
 
 /* filtro do gráfico de evolução e seletor de linguagem junto do mapa: traduzido à mão */
 DW_PATCH("tr", {"ui.evoFilter": "Grafikte göster (oyunun programlama dilini değiştirmez):", "ui.evoEmptyAll": "Henüz hiç görev çözmedin. Öğrenme eğrini görmek için birkaç tane çöz.", "ui.evoEmptyPl": "{l} ile henüz görev çözülmedi. Oyunun programlama dilini ustalık haritasının üstünden seçebilirsin."});
+
+/* gráfico de evolução: aviso de engenharia de software e linguagem não registrada, traduzido à mão */
+DW_PATCH("tr", {"ui.evoSeNote": "Yazılım mühendisliği programlama diline bağlı değildir: becerileri {a} altında görünür.", "ui.evoUnknown": "dil kaydedilmemiş"});

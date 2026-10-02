@@ -10,3 +10,6 @@ DW_PATCH("te", {"ui.balance": "బ్యాలెన్స్"});
 
 /* filtro do gráfico de evolução e seletor de linguagem junto do mapa: traduzido à mão */
 DW_PATCH("te", {"ui.evoFilter": "చార్ట్‌లో చూపించండి (ఇది ఆట ప్రోగ్రామింగ్ భాషను మార్చదు):", "ui.evoEmptyAll": "మీరు ఇంకా ఏ టికెట్‌కూ సమాధానం ఇవ్వలేదు. మీ నేర్చుకునే వక్రరేఖ చూడటానికి కొన్నింటికి సమాధానం ఇవ్వండి.", "ui.evoEmptyPl": "{l}లో ఇంకా ఏ టికెట్‌కూ సమాధానం ఇవ్వలేదు. ఆట ప్రోగ్రామింగ్ భాషను నైపుణ్య మ్యాప్ పైన ఎంచుకోవచ్చు."});
+
+/* gráfico de evolução: aviso de engenharia de software e linguagem não registrada, traduzido à mão */
+DW_PATCH("te", {"ui.evoSeNote": "సాఫ్ట్‌వేర్ ఇంజనీరింగ్ ప్రోగ్రామింగ్ భాషపై ఆధారపడదు: దాని నైపుణ్యాలు {a}లో కనిపిస్తాయి.", "ui.evoUnknown": "భాష నమోదు కాలేదు"});

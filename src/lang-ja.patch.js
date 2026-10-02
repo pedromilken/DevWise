@@ -10,3 +10,6 @@ DW_PATCH("ja", {"ui.balance": "残高"});
 
 /* filtro do gráfico de evolução e seletor de linguagem junto do mapa: traduzido à mão */
 DW_PATCH("ja", {"ui.evoFilter": "グラフに表示（ゲームのプログラミング言語は変わりません）：", "ui.evoEmptyAll": "まだチケットに回答していません。いくつか回答すると学習曲線が表示されます。", "ui.evoEmptyPl": "{l} のチケットにはまだ回答していません。ゲームのプログラミング言語は習熟度マップの上で選べます。"});
+
+/* gráfico de evolução: aviso de engenharia de software e linguagem não registrada, traduzido à mão */
+DW_PATCH("ja", {"ui.evoSeNote": "ソフトウェア工学はプログラミング言語に依存しません。そのスキルは「{a}」に表示されます。", "ui.evoUnknown": "言語の記録なし"});

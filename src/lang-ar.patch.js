@@ -7,3 +7,6 @@ DW_PATCH("ar", {"ui.kindFree": "مفتوح", "ui.freeNote": "تحدٍّ مفتو
 
 /* filtro do gráfico de evolução e seletor de linguagem junto do mapa: traduzido à mão */
 DW_PATCH("ar", {"ui.evoFilter": "العرض في الرسم البياني (لا يغيّر لغة البرمجة في اللعبة):", "ui.evoEmptyAll": "لم تُجب عن أي تذكرة بعد. أجب عن بعضها لترى منحنى تعلّمك.", "ui.evoEmptyPl": "لم تُجب عن أي تذكرة بلغة {l} بعد. تُختار لغة البرمجة في اللعبة فوق خريطة الإتقان."});
+
+/* gráfico de evolução: aviso de engenharia de software e linguagem não registrada, traduzido à mão */
+DW_PATCH("ar", {"ui.evoSeNote": "هندسة البرمجيات لا تعتمد على لغة البرمجة: تظهر مهاراتها في {a}.", "ui.evoUnknown": "لغة غير مسجّلة"});

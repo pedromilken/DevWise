@@ -627,14 +627,16 @@ function retro(){
     h("button",{class:"btn",onclick:()=>{S.sprint=newSprint(S.sprint.n+1);fillBoard();save();go("board")}},t("nextSprint",{n:S.sprint.n+1})));
 }
 function evolution(){
-  const pl=evoPl||S.pl, rows=S.log.filter(l=>!l.pl||pl==="all"||l.pl===pl), series={};
-  rows.forEach((l,x)=>{const k=l.pl?l.skill+"@"+l.pl:l.skill; (series[k]=series[k]||{k,skill:l.skill,pl:l.pl,pts:[]}).pts.push({x:x+1,y:l.after,ok:l.ok,b:l.before})});
+  /* aba de linguagem: só as habilidades de programação daquela linguagem; engenharia de software não depende da linguagem e
+     fica em "Todas", assim como respostas antigas de programação sem linguagem registrada */
+  const pl=evoPl||S.pl, rows=S.log.filter(l=>pl==="all"||(isProg(l.skill)&&l.pl===pl)), series={};
+  rows.forEach((l,x)=>{const k=isProg(l.skill)?l.skill+"@"+(l.pl||"?"):l.skill; (series[k]=series[k]||{k,skill:l.skill,pl:l.pl,pts:[]}).pts.push({x:x+1,y:l.after,ok:l.ok,b:l.before})});
   const list=Object.values(series), N=Math.max(rows.length,2), W=640,H=250,pl_=38,pr=12,pt=12,pb=30;
   const X=x=>pl_+(x-0)*(W-pl_-pr)/N, Y=y=>pt+(1-y)*(H-pt-pb);
   if(!list.find(z=>z.k===evoSel))evoSel=list.length?list[list.length-1].k:null;
-  const label=z=>skT(z.skill).name+(z.pl&&pl==="all"?" ("+PLS[z.pl]+")":"");
+  const label=z=>skT(z.skill).name+(isProg(z.skill)&&pl==="all"?" ("+(z.pl?PLS[z.pl]:t("evoUnknown"))+")":"");
   const tabs=h("div",{class:"tabs",role:"group","aria-label":t("codeLang")},["all"].concat(Object.keys(PLS)).map(p=>h("button",{"aria-pressed":String(pl===p),onclick:()=>{evoPl=p;render()}},p==="all"?t("evoAll"):PLS[p])));
-  const filt=h("p",{class:"note",style:"margin:0 0 6px"},t("evoFilter"));
+  const filt=h("div",null,h("p",{class:"note",style:"margin:0 0 6px"},t("evoFilter")),pl!=="all"&&h("p",{class:"note",style:"margin:0 0 6px"},t("evoSeNote",{a:t("evoAll")})));
   if(!list.length)return h("section",{class:"panel",style:"margin-top:20px"},h("h3",null,"📈 "+t("evoH")),filt,tabs,h("p",{class:"empty"},pl==="all"?t("evoEmptyAll"):t("evoEmptyPl",{l:PLS[pl]})));
   const svg=sv("svg",{viewBox:`0 0 ${W} ${H}`,role:"img","aria-label":t("evoH")});
   [0,.5,1].forEach(v=>{svg.append(sv("line",{x1:pl_,x2:W-pr,y1:Y(v),y2:Y(v),stroke:"var(--line)","stroke-width":"1"}),sv("text",{x:pl_-6,y:Y(v)+4,"text-anchor":"end","font-size":"11",fill:"var(--muted)"},Math.round(v*100)+"%"))});

@@ -280,3 +280,6 @@ DW_PATCH("ko", {"ui.balance": "잔액"});
 
 /* filtro do gráfico de evolução e seletor de linguagem junto do mapa: traduzido à mão */
 DW_PATCH("ko", {"ui.evoFilter": "그래프에 표시(게임의 프로그래밍 언어는 바뀌지 않습니다):", "ui.evoEmptyAll": "아직 답한 티켓이 없습니다. 몇 개에 답하면 학습 곡선을 볼 수 있습니다.", "ui.evoEmptyPl": "{l}로 답한 티켓이 아직 없습니다. 게임의 프로그래밍 언어는 숙련도 지도 위에서 고를 수 있습니다."});
+
+/* gráfico de evolução: aviso de engenharia de software e linguagem não registrada, traduzido à mão */
+DW_PATCH("ko", {"ui.evoSeNote": "소프트웨어 공학은 프로그래밍 언어와 무관합니다. 해당 기술은 '{a}'에 표시됩니다.", "ui.evoUnknown": "언어 기록 없음"});

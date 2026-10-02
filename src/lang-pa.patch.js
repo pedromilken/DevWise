@@ -10,3 +10,6 @@ DW_PATCH("pa", {"ui.lockedAria": "ਤਾਲਾਬੰਦ"});
 
 /* filtro do gráfico de evolução e seletor de linguagem junto do mapa: traduzido à mão */
 DW_PATCH("pa", {"ui.evoFilter": "ਚਾਰਟ ਵਿੱਚ ਦਿਖਾਓ (ਇਸ ਨਾਲ ਖੇਡ ਦੀ ਪ੍ਰੋਗਰਾਮਿੰਗ ਭਾਸ਼ਾ ਨਹੀਂ ਬਦਲਦੀ):", "ui.evoEmptyAll": "ਹਾਲੇ ਤੱਕ ਕਿਸੇ ਟਿਕਟ ਦਾ ਜਵਾਬ ਨਹੀਂ ਦਿੱਤਾ। ਆਪਣੀ ਸਿੱਖਣ ਦੀ ਪ੍ਰਗਤੀ ਦੇਖਣ ਲਈ ਕੁਝ ਦੇ ਜਵਾਬ ਦਿਓ।", "ui.evoEmptyPl": "{l} ਵਿੱਚ ਹਾਲੇ ਤੱਕ ਕਿਸੇ ਟਿਕਟ ਦਾ ਜਵਾਬ ਨਹੀਂ ਦਿੱਤਾ। ਖੇਡ ਦੀ ਪ੍ਰੋਗਰਾਮਿੰਗ ਭਾਸ਼ਾ ਮੁਹਾਰਤ ਦੇ ਨਕਸ਼ੇ ਦੇ ਉੱਪਰ ਚੁਣੀ ਜਾਂਦੀ ਹੈ।"});
+
+/* gráfico de evolução: aviso de engenharia de software e linguagem não registrada, traduzido à mão */
+DW_PATCH("pa", {"ui.evoSeNote": "ਸਾਫ਼ਟਵੇਅਰ ਇੰਜੀਨੀਅਰਿੰਗ ਪ੍ਰੋਗਰਾਮਿੰਗ ਭਾਸ਼ਾ ਉੱਤੇ ਨਿਰਭਰ ਨਹੀਂ ਕਰਦੀ: ਇਸ ਦੇ ਹੁਨਰ {a} ਵਿੱਚ ਦਿਖਦੇ ਹਨ।", "ui.evoUnknown": "ਭਾਸ਼ਾ ਦਰਜ ਨਹੀਂ"});

@@ -7,3 +7,6 @@ DW_PATCH("ta", {"ui.kindFree": "திறந்த", "ui.freeNote": "திற�
 
 /* filtro do gráfico de evolução e seletor de linguagem junto do mapa: traduzido à mão */
 DW_PATCH("ta", {"ui.evoFilter": "வரைபடத்தில் காட்டுங்கள் (இது விளையாட்டின் நிரலாக்க மொழியை மாற்றாது):", "ui.evoEmptyAll": "இதுவரை எந்த டிக்கெட்டுக்கும் பதில் அளிக்கவில்லை. உங்கள் கற்றல் வளைவைப் பார்க்க சிலவற்றுக்குப் பதில் அளியுங்கள்.", "ui.evoEmptyPl": "{l} இல் இதுவரை எந்த டிக்கெட்டுக்கும் பதில் அளிக்கவில்லை. விளையாட்டின் நிரலாக்க மொழியைத் தேர்ச்சி வரைபடத்தின் மேலே தேர்வு செய்யலாம்."});
+
+/* gráfico de evolução: aviso de engenharia de software e linguagem não registrada, traduzido à mão */
+DW_PATCH("ta", {"ui.evoSeNote": "மென்பொருள் பொறியியல் நிரலாக்க மொழியைச் சார்ந்ததல்ல: அதன் திறன்கள் {a} இல் தெரியும்.", "ui.evoUnknown": "மொழி பதிவாகவில்லை"});

@@ -10,3 +10,6 @@ DW_PATCH("id", {"ui.streak": "Runtunan"});
 
 /* filtro do gráfico de evolução e seletor de linguagem junto do mapa: traduzido à mão */
 DW_PATCH("id", {"ui.evoFilter": "Tampilkan di grafik (tidak mengubah bahasa pemrograman game):", "ui.evoEmptyAll": "Belum ada tiket yang kamu jawab. Jawab beberapa untuk melihat kurva belajarmu.", "ui.evoEmptyPl": "Belum ada tiket yang dijawab dalam {l}. Bahasa pemrograman game dipilih di atas peta penguasaan."});
+
+/* gráfico de evolução: aviso de engenharia de software e linguagem não registrada, traduzido à mão */
+DW_PATCH("id", {"ui.evoSeNote": "Rekayasa perangkat lunak tidak bergantung pada bahasa pemrograman: keterampilannya tampil di {a}.", "ui.evoUnknown": "bahasa tidak tercatat"});

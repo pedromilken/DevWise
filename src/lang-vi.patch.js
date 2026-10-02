@@ -10,3 +10,6 @@ DW_PATCH("vi", {"ui.balance": "Số dư"});
 
 /* filtro do gráfico de evolução e seletor de linguagem junto do mapa: traduzido à mão */
 DW_PATCH("vi", {"ui.evoFilter": "Hiển thị trên biểu đồ (không đổi ngôn ngữ lập trình của trò chơi):", "ui.evoEmptyAll": "Bạn chưa trả lời ticket nào. Hãy trả lời vài ticket để xem đường cong học tập của bạn.", "ui.evoEmptyPl": "Chưa có ticket nào được trả lời bằng {l}. Ngôn ngữ lập trình của trò chơi được chọn phía trên bản đồ thành thạo."});
+
+/* gráfico de evolução: aviso de engenharia de software e linguagem não registrada, traduzido à mão */
+DW_PATCH("vi", {"ui.evoSeNote": "Kỹ thuật phần mềm không phụ thuộc vào ngôn ngữ lập trình: các kỹ năng của nó hiển thị ở mục {a}.", "ui.evoUnknown": "chưa ghi ngôn ngữ"});

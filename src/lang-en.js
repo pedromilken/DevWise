@@ -432,3 +432,5 @@ x12:{title:"Seconds on the clock",prompt:"Write hms(seconds), which converts a n
 Object.assign(LANG.en.ui,{"csvBtn": "Download research table (CSV)", "csvNote": "One row per answer, with the pseudonymous identifier {s}, each model's prediction recorded in the game and the prediction rebuilt from scratch for all models. Nothing identifies the student personally.", "sidLabel": "Pseudonymous identifier for this browser:"});
 
 Object.assign(LANG.en.ui,{"evoFilter": "Show in the chart (does not change the game's language):", "evoEmptyAll": "No tickets answered yet. Answer a few to see your learning curve.", "evoEmptyPl": "No tickets answered in {l} yet. The game's programming language is chosen above the mastery map."});
+
+Object.assign(LANG.en.ui,{"evoSeNote": "Software engineering does not depend on the programming language: its skills appear under {a}.", "evoUnknown": "no language recorded"});

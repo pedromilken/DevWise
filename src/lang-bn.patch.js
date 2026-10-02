@@ -7,3 +7,6 @@ DW_PATCH("bn", {"ui.kindFree": "উন্মুক্ত", "ui.freeNote": "উ�
 
 /* filtro do gráfico de evolução e seletor de linguagem junto do mapa: traduzido à mão */
 DW_PATCH("bn", {"ui.evoFilter": "চার্টে দেখান (এতে খেলার প্রোগ্রামিং ভাষা বদলায় না):", "ui.evoEmptyAll": "এখনও কোনো টিকিটের উত্তর দেননি। আপনার শেখার অগ্রগতি দেখতে কয়েকটির উত্তর দিন।", "ui.evoEmptyPl": "{l}-এ এখনও কোনো টিকিটের উত্তর দেননি। খেলার প্রোগ্রামিং ভাষা দক্ষতার মানচিত্রের উপরে বেছে নেওয়া যায়।"});
+
+/* gráfico de evolução: aviso de engenharia de software e linguagem não registrada, traduzido à mão */
+DW_PATCH("bn", {"ui.evoSeNote": "সফটওয়্যার প্রকৌশল প্রোগ্রামিং ভাষার ওপর নির্ভর করে না: এর দক্ষতাগুলো {a}-এ দেখা যায়।", "ui.evoUnknown": "ভাষা নথিভুক্ত নয়"});

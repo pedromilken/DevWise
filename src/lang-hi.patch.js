@@ -280,3 +280,6 @@ DW_PATCH("hi", {"ui.balance": "शेष", "ui.role": "भूमिका", "ui.
 
 /* filtro do gráfico de evolução e seletor de linguagem junto do mapa: traduzido à mão */
 DW_PATCH("hi", {"ui.evoFilter": "चार्ट में दिखाएँ (इससे गेम की प्रोग्रामिंग भाषा नहीं बदलती):", "ui.evoEmptyAll": "अभी तक कोई टिकट हल नहीं हुआ। अपनी सीखने की प्रगति देखने के लिए कुछ टिकट हल करें।", "ui.evoEmptyPl": "{l} में अभी तक कोई टिकट हल नहीं हुआ। गेम की प्रोग्रामिंग भाषा महारत के नक्शे के ऊपर चुनी जाती है।"});
+
+/* gráfico de evolução: aviso de engenharia de software e linguagem não registrada, traduzido à mão */
+DW_PATCH("hi", {"ui.evoSeNote": "सॉफ़्टवेयर इंजीनियरिंग प्रोग्रामिंग भाषा पर निर्भर नहीं करती: इसके कौशल {a} में दिखते हैं।", "ui.evoUnknown": "भाषा दर्ज नहीं"});

@@ -2450,6 +2450,8 @@ Object.assign(LANG.pt.ui,{"csvBtn": "Baixar tabela para pesquisa (CSV)", "csvNot
 
 Object.assign(LANG.pt.ui,{"evoFilter": "Mostrar no gráfico (não muda a linguagem do jogo):", "evoEmptyAll": "Nenhum ticket respondido ainda. Responda alguns para ver sua curva de aprendizagem.", "evoEmptyPl": "Nenhum ticket respondido em {l} ainda. A linguagem do jogo se escolhe acima do mapa de domínio."});
 
+Object.assign(LANG.pt.ui,{"evoSeNote": "Engenharia de software não depende da linguagem de programação: suas habilidades aparecem em {a}.", "evoUnknown": "sem linguagem registrada"});
+
 LANG.en = {
 name:"English", llmName:"English",
 ui:{
@@ -2885,6 +2887,8 @@ Object.assign(LANG.en.ui,{"csvBtn": "Download research table (CSV)", "csvNote": 
 
 Object.assign(LANG.en.ui,{"evoFilter": "Show in the chart (does not change the game's language):", "evoEmptyAll": "No tickets answered yet. Answer a few to see your learning curve.", "evoEmptyPl": "No tickets answered in {l} yet. The game's programming language is chosen above the mastery map."});
 
+Object.assign(LANG.en.ui,{"evoSeNote": "Software engineering does not depend on the programming language: its skills appear under {a}.", "evoUnknown": "no language recorded"});
+
 LANG.es = {
 name:"Español", llmName:"Latin American Spanish",
 ui:{
@@ -3319,6 +3323,8 @@ x12:{title:"Segundos en el reloj",prompt:"Escribe hms(seconds), que convierte un
 Object.assign(LANG.es.ui,{"csvBtn": "Descargar tabla para investigación (CSV)", "csvNote": "Una fila por respuesta, con el identificador seudónimo {s}, la predicción de cada modelo registrada en el juego y la predicción reconstruida desde cero para todos los modelos. Nada identifica personalmente al estudiante.", "sidLabel": "Identificador seudónimo de este navegador:"});
 
 Object.assign(LANG.es.ui,{"evoFilter": "Mostrar en el gráfico (no cambia el lenguaje del juego):", "evoEmptyAll": "Todavía no respondiste ningún ticket. Responde algunos para ver tu curva de aprendizaje.", "evoEmptyPl": "Todavía no hay tickets respondidos en {l}. El lenguaje del juego se elige arriba del mapa de dominio."});
+
+Object.assign(LANG.es.ui,{"evoSeNote": "La ingeniería de software no depende del lenguaje de programación: sus habilidades aparecen en {a}.", "evoUnknown": "sin lenguaje registrado"});
 
 /* Pacote gerado por tools/gerar-idioma.js a partir de "en". REVISAR com um falante nativo antes de publicar. */
 LANG.ar = {
@@ -38010,6 +38016,9 @@ DW_PATCH("ar", {"ui.kindFree": "مفتوح", "ui.freeNote": "تحدٍّ مفتو
 /* filtro do gráfico de evolução e seletor de linguagem junto do mapa: traduzido à mão */
 DW_PATCH("ar", {"ui.evoFilter": "العرض في الرسم البياني (لا يغيّر لغة البرمجة في اللعبة):", "ui.evoEmptyAll": "لم تُجب عن أي تذكرة بعد. أجب عن بعضها لترى منحنى تعلّمك.", "ui.evoEmptyPl": "لم تُجب عن أي تذكرة بلغة {l} بعد. تُختار لغة البرمجة في اللعبة فوق خريطة الإتقان."});
 
+/* gráfico de evolução: aviso de engenharia de software e linguagem não registrada, traduzido à mão */
+DW_PATCH("ar", {"ui.evoSeNote": "هندسة البرمجيات لا تعتمد على لغة البرمجة: تظهر مهاراتها في {a}.", "ui.evoUnknown": "لغة غير مسجّلة"});
+
 /* Traduções feitas fora do gerador. Carregado DEPOIS de lang-bn.js; uma nova geração do pacote não o apaga. */
 /* Traduções feitas à mão para a exportação de pesquisa (sem API). */
 Object.assign(LANG.bn.ui, {"csvBtn": "গবেষণার সারণি ডাউনলোড করুন (CSV)", "csvNote": "প্রতিটি উত্তরের জন্য একটি সারি, যাতে আছে ছদ্মনাম শনাক্তকারী {s}, খেলায় রেকর্ড করা প্রতিটি মডেলের পূর্বাভাস এবং সব মডেলের জন্য শুরু থেকে আবার তৈরি করা পূর্বাভাস। এতে শিক্ষার্থীকে ব্যক্তিগতভাবে শনাক্ত করার মতো কিছু নেই।", "sidLabel": "এই ব্রাউজারের ছদ্মনাম শনাক্তকারী:"});
@@ -38019,6 +38028,9 @@ DW_PATCH("bn", {"ui.kindFree": "উন্মুক্ত", "ui.freeNote": "উ�
 
 /* filtro do gráfico de evolução e seletor de linguagem junto do mapa: traduzido à mão */
 DW_PATCH("bn", {"ui.evoFilter": "চার্টে দেখান (এতে খেলার প্রোগ্রামিং ভাষা বদলায় না):", "ui.evoEmptyAll": "এখনও কোনো টিকিটের উত্তর দেননি। আপনার শেখার অগ্রগতি দেখতে কয়েকটির উত্তর দিন।", "ui.evoEmptyPl": "{l}-এ এখনও কোনো টিকিটের উত্তর দেননি। খেলার প্রোগ্রামিং ভাষা দক্ষতার মানচিত্রের উপরে বেছে নেওয়া যায়।"});
+
+/* gráfico de evolução: aviso de engenharia de software e linguagem não registrada, traduzido à mão */
+DW_PATCH("bn", {"ui.evoSeNote": "সফটওয়্যার প্রকৌশল প্রোগ্রামিং ভাষার ওপর নির্ভর করে না: এর দক্ষতাগুলো {a}-এ দেখা যায়।", "ui.evoUnknown": "ভাষা নথিভুক্ত নয়"});
 
 /* Traduções feitas fora do gerador. Carregado DEPOIS de lang-de.js; uma nova geração do pacote não o apaga. */
 /* Traduções feitas à mão para a exportação de pesquisa (sem API). */
@@ -38032,6 +38044,9 @@ DW_PATCH("de", {"ui.balance": "Guthaben"});
 
 /* filtro do gráfico de evolução e seletor de linguagem junto do mapa: traduzido à mão */
 DW_PATCH("de", {"ui.evoFilter": "Im Diagramm anzeigen (ändert die Programmiersprache des Spiels nicht):", "ui.evoEmptyAll": "Du hast noch kein Ticket beantwortet. Beantworte ein paar, um deine Lernkurve zu sehen.", "ui.evoEmptyPl": "Noch keine Tickets in {l} beantwortet. Die Programmiersprache des Spiels wählst du über der Lernkarte."});
+
+/* gráfico de evolução: aviso de engenharia de software e linguagem não registrada, traduzido à mão */
+DW_PATCH("de", {"ui.evoSeNote": "Softwaretechnik hängt nicht von der Programmiersprache ab: Ihre Fähigkeiten erscheinen unter {a}.", "ui.evoUnknown": "keine Sprache erfasst"});
 
 /* Traduções feitas fora do gerador (revisão humana ou outro modelo). Carregado DEPOIS de lang-fr.js,
    então sobrescreve as chaves abaixo e não é apagado por uma nova geração do pacote. */
@@ -38316,6 +38331,9 @@ DW_PATCH("fr", {"ui.balance": "Solde", "ui.dailyTag": "XP doublé"});
 /* filtro do gráfico de evolução e seletor de linguagem junto do mapa: traduzido à mão */
 DW_PATCH("fr", {"ui.evoFilter": "Afficher dans le graphique (ne change pas le langage du jeu) :", "ui.evoEmptyAll": "Aucun ticket résolu pour l'instant. Résolvez-en quelques-uns pour voir votre courbe d'apprentissage.", "ui.evoEmptyPl": "Aucun ticket résolu en {l} pour l'instant. Le langage du jeu se choisit au-dessus de la carte de maîtrise."});
 
+/* gráfico de evolução: aviso de engenharia de software e linguagem não registrada, traduzido à mão */
+DW_PATCH("fr", {"ui.evoSeNote": "Le génie logiciel ne dépend pas du langage de programmation : ses compétences apparaissent dans {a}.", "ui.evoUnknown": "langage non enregistré"});
+
 /* Traduções feitas fora do gerador (revisão humana ou outro modelo). Carregado DEPOIS de lang-hi.js,
    então sobrescreve as chaves abaixo e não é apagado por uma nova geração do pacote. */
 Object.assign(LANG.hi.ui, {
@@ -38599,6 +38617,9 @@ DW_PATCH("hi", {"ui.balance": "शेष", "ui.role": "भूमिका", "ui.
 /* filtro do gráfico de evolução e seletor de linguagem junto do mapa: traduzido à mão */
 DW_PATCH("hi", {"ui.evoFilter": "चार्ट में दिखाएँ (इससे गेम की प्रोग्रामिंग भाषा नहीं बदलती):", "ui.evoEmptyAll": "अभी तक कोई टिकट हल नहीं हुआ। अपनी सीखने की प्रगति देखने के लिए कुछ टिकट हल करें।", "ui.evoEmptyPl": "{l} में अभी तक कोई टिकट हल नहीं हुआ। गेम की प्रोग्रामिंग भाषा महारत के नक्शे के ऊपर चुनी जाती है।"});
 
+/* gráfico de evolução: aviso de engenharia de software e linguagem não registrada, traduzido à mão */
+DW_PATCH("hi", {"ui.evoSeNote": "सॉफ़्टवेयर इंजीनियरिंग प्रोग्रामिंग भाषा पर निर्भर नहीं करती: इसके कौशल {a} में दिखते हैं।", "ui.evoUnknown": "भाषा दर्ज नहीं"});
+
 /* Traduções feitas fora do gerador. Carregado DEPOIS de lang-id.js; uma nova geração do pacote não o apaga. */
 /* Traduções feitas à mão para a exportação de pesquisa (sem API). */
 Object.assign(LANG.id.ui, {"csvBtn": "Unduh tabel penelitian (CSV)", "csvNote": "Satu baris untuk setiap jawaban, berisi pengenal samaran {s}, prediksi tiap model yang tercatat di dalam game, dan prediksi yang dibangun ulang dari awal untuk semua model. Tidak ada yang bisa mengungkap identitas pribadi siswa.", "sidLabel": "Pengenal samaran untuk peramban ini:"});
@@ -38612,6 +38633,9 @@ DW_PATCH("id", {"ui.streak": "Runtunan"});
 /* filtro do gráfico de evolução e seletor de linguagem junto do mapa: traduzido à mão */
 DW_PATCH("id", {"ui.evoFilter": "Tampilkan di grafik (tidak mengubah bahasa pemrograman game):", "ui.evoEmptyAll": "Belum ada tiket yang kamu jawab. Jawab beberapa untuk melihat kurva belajarmu.", "ui.evoEmptyPl": "Belum ada tiket yang dijawab dalam {l}. Bahasa pemrograman game dipilih di atas peta penguasaan."});
 
+/* gráfico de evolução: aviso de engenharia de software e linguagem não registrada, traduzido à mão */
+DW_PATCH("id", {"ui.evoSeNote": "Rekayasa perangkat lunak tidak bergantung pada bahasa pemrograman: keterampilannya tampil di {a}.", "ui.evoUnknown": "bahasa tidak tercatat"});
+
 /* Traduções feitas fora do gerador. Carregado DEPOIS de lang-ja.js; uma nova geração do pacote não o apaga. */
 /* Traduções feitas à mão para a exportação de pesquisa (sem API). */
 Object.assign(LANG.ja.ui, {"csvBtn": "研究用データ表をダウンロード（CSV）", "csvNote": "回答ごとに1行で、仮名ID {s}、ゲーム内で記録された各モデルの予測、そしてすべてのモデルについて最初から計算し直した予測が含まれます。学習者個人を特定できる情報は含まれません。", "sidLabel": "このブラウザの仮名ID："});
@@ -38624,6 +38648,9 @@ DW_PATCH("ja", {"ui.balance": "残高"});
 
 /* filtro do gráfico de evolução e seletor de linguagem junto do mapa: traduzido à mão */
 DW_PATCH("ja", {"ui.evoFilter": "グラフに表示（ゲームのプログラミング言語は変わりません）：", "ui.evoEmptyAll": "まだチケットに回答していません。いくつか回答すると学習曲線が表示されます。", "ui.evoEmptyPl": "{l} のチケットにはまだ回答していません。ゲームのプログラミング言語は習熟度マップの上で選べます。"});
+
+/* gráfico de evolução: aviso de engenharia de software e linguagem não registrada, traduzido à mão */
+DW_PATCH("ja", {"ui.evoSeNote": "ソフトウェア工学はプログラミング言語に依存しません。そのスキルは「{a}」に表示されます。", "ui.evoUnknown": "言語の記録なし"});
 
 /* Traduções feitas fora do gerador (revisão humana ou outro modelo). Carregado DEPOIS de lang-ko.js,
    então sobrescreve as chaves abaixo e não é apagado por uma nova geração do pacote. */
@@ -38908,6 +38935,9 @@ DW_PATCH("ko", {"ui.balance": "잔액"});
 /* filtro do gráfico de evolução e seletor de linguagem junto do mapa: traduzido à mão */
 DW_PATCH("ko", {"ui.evoFilter": "그래프에 표시(게임의 프로그래밍 언어는 바뀌지 않습니다):", "ui.evoEmptyAll": "아직 답한 티켓이 없습니다. 몇 개에 답하면 학습 곡선을 볼 수 있습니다.", "ui.evoEmptyPl": "{l}로 답한 티켓이 아직 없습니다. 게임의 프로그래밍 언어는 숙련도 지도 위에서 고를 수 있습니다."});
 
+/* gráfico de evolução: aviso de engenharia de software e linguagem não registrada, traduzido à mão */
+DW_PATCH("ko", {"ui.evoSeNote": "소프트웨어 공학은 프로그래밍 언어와 무관합니다. 해당 기술은 '{a}'에 표시됩니다.", "ui.evoUnknown": "언어 기록 없음"});
+
 /* Traduções feitas fora do gerador. Carregado DEPOIS de lang-mr.js; uma nova geração do pacote não o apaga. */
 /* Traduções feitas à mão para a exportação de pesquisa (sem API). */
 Object.assign(LANG.mr.ui, {"csvBtn": "संशोधन तक्ता डाउनलोड करा (CSV)", "csvNote": "प्रत्येक उत्तरासाठी एक ओळ, ज्यात टोपणनाव ओळखकर्ता {s}, खेळात नोंदवलेला प्रत्येक मॉडेलचा अंदाज आणि सर्व मॉडेलसाठी सुरुवातीपासून पुन्हा तयार केलेला अंदाज असतो. यात विद्यार्थ्याची वैयक्तिक ओळख पटेल असे काहीही नाही.", "sidLabel": "या ब्राउझरचा टोपणनाव ओळखकर्ता:"});
@@ -38917,6 +38947,9 @@ DW_PATCH("mr", {"ui.kindFree": "मुक्त", "ui.freeNote": "मुक्�
 
 /* filtro do gráfico de evolução e seletor de linguagem junto do mapa: traduzido à mão */
 DW_PATCH("mr", {"ui.evoFilter": "आलेखात दाखवा (यामुळे खेळाची प्रोग्रामिंग भाषा बदलत नाही):", "ui.evoEmptyAll": "अजून एकही तिकीट सोडवलेले नाही. तुमची शिकण्याची प्रगती पाहण्यासाठी काही तिकिटे सोडवा.", "ui.evoEmptyPl": "{l} मध्ये अजून एकही तिकीट सोडवलेले नाही. खेळाची प्रोग्रामिंग भाषा प्रावीण्य नकाशाच्या वर निवडता येते."});
+
+/* gráfico de evolução: aviso de engenharia de software e linguagem não registrada, traduzido à mão */
+DW_PATCH("mr", {"ui.evoSeNote": "सॉफ्टवेअर अभियांत्रिकी प्रोग्रामिंग भाषेवर अवलंबून नाही: तिची कौशल्ये {a} मध्ये दिसतात.", "ui.evoUnknown": "भाषा नोंदलेली नाही"});
 
 /* Traduções feitas fora do gerador. Carregado DEPOIS de lang-pa.js; uma nova geração do pacote não o apaga. */
 /* Traduções feitas à mão para a exportação de pesquisa (sem API). */
@@ -38931,6 +38964,9 @@ DW_PATCH("pa", {"ui.lockedAria": "ਤਾਲਾਬੰਦ"});
 /* filtro do gráfico de evolução e seletor de linguagem junto do mapa: traduzido à mão */
 DW_PATCH("pa", {"ui.evoFilter": "ਚਾਰਟ ਵਿੱਚ ਦਿਖਾਓ (ਇਸ ਨਾਲ ਖੇਡ ਦੀ ਪ੍ਰੋਗਰਾਮਿੰਗ ਭਾਸ਼ਾ ਨਹੀਂ ਬਦਲਦੀ):", "ui.evoEmptyAll": "ਹਾਲੇ ਤੱਕ ਕਿਸੇ ਟਿਕਟ ਦਾ ਜਵਾਬ ਨਹੀਂ ਦਿੱਤਾ। ਆਪਣੀ ਸਿੱਖਣ ਦੀ ਪ੍ਰਗਤੀ ਦੇਖਣ ਲਈ ਕੁਝ ਦੇ ਜਵਾਬ ਦਿਓ।", "ui.evoEmptyPl": "{l} ਵਿੱਚ ਹਾਲੇ ਤੱਕ ਕਿਸੇ ਟਿਕਟ ਦਾ ਜਵਾਬ ਨਹੀਂ ਦਿੱਤਾ। ਖੇਡ ਦੀ ਪ੍ਰੋਗਰਾਮਿੰਗ ਭਾਸ਼ਾ ਮੁਹਾਰਤ ਦੇ ਨਕਸ਼ੇ ਦੇ ਉੱਪਰ ਚੁਣੀ ਜਾਂਦੀ ਹੈ।"});
 
+/* gráfico de evolução: aviso de engenharia de software e linguagem não registrada, traduzido à mão */
+DW_PATCH("pa", {"ui.evoSeNote": "ਸਾਫ਼ਟਵੇਅਰ ਇੰਜੀਨੀਅਰਿੰਗ ਪ੍ਰੋਗਰਾਮਿੰਗ ਭਾਸ਼ਾ ਉੱਤੇ ਨਿਰਭਰ ਨਹੀਂ ਕਰਦੀ: ਇਸ ਦੇ ਹੁਨਰ {a} ਵਿੱਚ ਦਿਖਦੇ ਹਨ।", "ui.evoUnknown": "ਭਾਸ਼ਾ ਦਰਜ ਨਹੀਂ"});
+
 /* Traduções feitas fora do gerador. Carregado DEPOIS de lang-ru.js; uma nova geração do pacote não o apaga. */
 /* Traduções feitas à mão para a exportação de pesquisa (sem API). */
 Object.assign(LANG.ru.ui, {"csvBtn": "Скачать таблицу для исследования (CSV)", "csvNote": "По одной строке на каждый ответ: псевдонимный идентификатор {s}, прогноз каждой модели, записанный в игре, и прогноз, заново вычисленный с нуля для всех моделей. Ничто в таблице не позволяет установить личность учащегося.", "sidLabel": "Псевдонимный идентификатор этого браузера:"});
@@ -38941,6 +38977,9 @@ DW_PATCH("ru", {"ui.kindFree": "свободная", "ui.freeNote": "Свобо�
 /* filtro do gráfico de evolução e seletor de linguagem junto do mapa: traduzido à mão */
 DW_PATCH("ru", {"ui.evoFilter": "Показать на графике (язык программирования в игре не меняется):", "ui.evoEmptyAll": "Вы ещё не решили ни одной задачи. Решите несколько, чтобы увидеть свою кривую обучения.", "ui.evoEmptyPl": "Задач на {l} пока не решено. Язык программирования игры выбирается над картой освоения."});
 
+/* gráfico de evolução: aviso de engenharia de software e linguagem não registrada, traduzido à mão */
+DW_PATCH("ru", {"ui.evoSeNote": "Программная инженерия не зависит от языка программирования: её навыки показаны в разделе «{a}».", "ui.evoUnknown": "язык не записан"});
+
 /* Traduções feitas fora do gerador. Carregado DEPOIS de lang-ta.js; uma nova geração do pacote não o apaga. */
 /* Traduções feitas à mão para a exportação de pesquisa (sem API). */
 Object.assign(LANG.ta.ui, {"csvBtn": "ஆய்வு அட்டவணையைப் பதிவிறக்குங்கள் (CSV)", "csvNote": "ஒவ்வொரு பதிலுக்கும் ஒரு வரி: புனைப்பெயர் அடையாளங்காட்டி {s}, விளையாட்டில் பதிவான ஒவ்வொரு மாதிரியின் கணிப்பு, எல்லா மாதிரிகளுக்கும் தொடக்கத்திலிருந்து மீண்டும் கணக்கிட்ட கணிப்பு. மாணவரைத் தனிப்பட்ட முறையில் அடையாளம் காட்டும் எதுவும் இதில் இல்லை.", "sidLabel": "இந்த உலாவியின் புனைப்பெயர் அடையாளங்காட்டி:"});
@@ -38950,6 +38989,9 @@ DW_PATCH("ta", {"ui.kindFree": "திறந்த", "ui.freeNote": "திற�
 
 /* filtro do gráfico de evolução e seletor de linguagem junto do mapa: traduzido à mão */
 DW_PATCH("ta", {"ui.evoFilter": "வரைபடத்தில் காட்டுங்கள் (இது விளையாட்டின் நிரலாக்க மொழியை மாற்றாது):", "ui.evoEmptyAll": "இதுவரை எந்த டிக்கெட்டுக்கும் பதில் அளிக்கவில்லை. உங்கள் கற்றல் வளைவைப் பார்க்க சிலவற்றுக்குப் பதில் அளியுங்கள்.", "ui.evoEmptyPl": "{l} இல் இதுவரை எந்த டிக்கெட்டுக்கும் பதில் அளிக்கவில்லை. விளையாட்டின் நிரலாக்க மொழியைத் தேர்ச்சி வரைபடத்தின் மேலே தேர்வு செய்யலாம்."});
+
+/* gráfico de evolução: aviso de engenharia de software e linguagem não registrada, traduzido à mão */
+DW_PATCH("ta", {"ui.evoSeNote": "மென்பொருள் பொறியியல் நிரலாக்க மொழியைச் சார்ந்ததல்ல: அதன் திறன்கள் {a} இல் தெரியும்.", "ui.evoUnknown": "மொழி பதிவாகவில்லை"});
 
 /* Traduções feitas fora do gerador. Carregado DEPOIS de lang-te.js; uma nova geração do pacote não o apaga. */
 /* Traduções feitas à mão para a exportação de pesquisa (sem API). */
@@ -38964,6 +39006,9 @@ DW_PATCH("te", {"ui.balance": "బ్యాలెన్స్"});
 /* filtro do gráfico de evolução e seletor de linguagem junto do mapa: traduzido à mão */
 DW_PATCH("te", {"ui.evoFilter": "చార్ట్‌లో చూపించండి (ఇది ఆట ప్రోగ్రామింగ్ భాషను మార్చదు):", "ui.evoEmptyAll": "మీరు ఇంకా ఏ టికెట్‌కూ సమాధానం ఇవ్వలేదు. మీ నేర్చుకునే వక్రరేఖ చూడటానికి కొన్నింటికి సమాధానం ఇవ్వండి.", "ui.evoEmptyPl": "{l}లో ఇంకా ఏ టికెట్‌కూ సమాధానం ఇవ్వలేదు. ఆట ప్రోగ్రామింగ్ భాషను నైపుణ్య మ్యాప్ పైన ఎంచుకోవచ్చు."});
 
+/* gráfico de evolução: aviso de engenharia de software e linguagem não registrada, traduzido à mão */
+DW_PATCH("te", {"ui.evoSeNote": "సాఫ్ట్‌వేర్ ఇంజనీరింగ్ ప్రోగ్రామింగ్ భాషపై ఆధారపడదు: దాని నైపుణ్యాలు {a}లో కనిపిస్తాయి.", "ui.evoUnknown": "భాష నమోదు కాలేదు"});
+
 /* Traduções feitas fora do gerador. Carregado DEPOIS de lang-tr.js; uma nova geração do pacote não o apaga. */
 /* Traduções feitas à mão para a exportação de pesquisa (sem API). */
 Object.assign(LANG.tr.ui, {"csvBtn": "Araştırma tablosunu indir (CSV)", "csvNote": "Her cevap için bir satır: takma ad kimliği {s}, oyunda kaydedilen her modelin tahmini ve tüm modeller için baştan yeniden hesaplanan tahmin. Tabloda öğrenciyi kişisel olarak tanıtan hiçbir bilgi yok.", "sidLabel": "Bu tarayıcının takma ad kimliği:"});
@@ -38976,6 +39021,9 @@ DW_PATCH("tr", {"ui.balance": "Bakiye", "ui.role": "Rol"});
 
 /* filtro do gráfico de evolução e seletor de linguagem junto do mapa: traduzido à mão */
 DW_PATCH("tr", {"ui.evoFilter": "Grafikte göster (oyunun programlama dilini değiştirmez):", "ui.evoEmptyAll": "Henüz hiç görev çözmedin. Öğrenme eğrini görmek için birkaç tane çöz.", "ui.evoEmptyPl": "{l} ile henüz görev çözülmedi. Oyunun programlama dilini ustalık haritasının üstünden seçebilirsin."});
+
+/* gráfico de evolução: aviso de engenharia de software e linguagem não registrada, traduzido à mão */
+DW_PATCH("tr", {"ui.evoSeNote": "Yazılım mühendisliği programlama diline bağlı değildir: becerileri {a} altında görünür.", "ui.evoUnknown": "dil kaydedilmemiş"});
 
 /* Traduções feitas fora do gerador. Carregado DEPOIS de lang-ur.js; uma nova geração do pacote não o apaga. */
 /* Traduções feitas à mão para a exportação de pesquisa (sem API). */
@@ -38990,6 +39038,9 @@ DW_PATCH("ur", {"ui.balance": "بیلنس"});
 /* filtro do gráfico de evolução e seletor de linguagem junto do mapa: traduzido à mão */
 DW_PATCH("ur", {"ui.evoFilter": "چارٹ میں دکھائیں (اس سے گیم کی پروگرامنگ زبان نہیں بدلتی):", "ui.evoEmptyAll": "ابھی تک کوئی ٹکٹ حل نہیں ہوا۔ اپنی سیکھنے کی پیش رفت دیکھنے کے لیے چند ٹکٹ حل کریں۔", "ui.evoEmptyPl": "{l} میں ابھی تک کوئی ٹکٹ حل نہیں ہوا۔ گیم کی پروگرامنگ زبان مہارت کے نقشے کے اوپر منتخب کی جاتی ہے۔"});
 
+/* gráfico de evolução: aviso de engenharia de software e linguagem não registrada, traduzido à mão */
+DW_PATCH("ur", {"ui.evoSeNote": "سافٹ ویئر انجینئرنگ پروگرامنگ زبان پر منحصر نہیں: اس کی مہارتیں {a} میں دکھائی دیتی ہیں۔", "ui.evoUnknown": "زبان درج نہیں"});
+
 /* Traduções feitas fora do gerador. Carregado DEPOIS de lang-vi.js; uma nova geração do pacote não o apaga. */
 /* Traduções feitas à mão para a exportação de pesquisa (sem API). */
 Object.assign(LANG.vi.ui, {"csvBtn": "Tải bảng dữ liệu nghiên cứu (CSV)", "csvNote": "Mỗi câu trả lời là một dòng, gồm mã định danh ẩn danh {s}, dự đoán của từng mô hình được ghi lại trong trò chơi và dự đoán được tính lại từ đầu cho tất cả mô hình. Không có thông tin nào giúp nhận diện cá nhân học viên.", "sidLabel": "Mã định danh ẩn danh của trình duyệt này:"});
@@ -39002,6 +39053,9 @@ DW_PATCH("vi", {"ui.balance": "Số dư"});
 
 /* filtro do gráfico de evolução e seletor de linguagem junto do mapa: traduzido à mão */
 DW_PATCH("vi", {"ui.evoFilter": "Hiển thị trên biểu đồ (không đổi ngôn ngữ lập trình của trò chơi):", "ui.evoEmptyAll": "Bạn chưa trả lời ticket nào. Hãy trả lời vài ticket để xem đường cong học tập của bạn.", "ui.evoEmptyPl": "Chưa có ticket nào được trả lời bằng {l}. Ngôn ngữ lập trình của trò chơi được chọn phía trên bản đồ thành thạo."});
+
+/* gráfico de evolução: aviso de engenharia de software e linguagem não registrada, traduzido à mão */
+DW_PATCH("vi", {"ui.evoSeNote": "Kỹ thuật phần mềm không phụ thuộc vào ngôn ngữ lập trình: các kỹ năng của nó hiển thị ở mục {a}.", "ui.evoUnknown": "chưa ghi ngôn ngữ"});
 
 /* Traduções feitas fora do gerador (revisão humana ou outro modelo). Carregado DEPOIS de lang-zh.js,
    então sobrescreve as chaves abaixo e não é apagado por uma nova geração do pacote. */
@@ -39285,6 +39339,9 @@ DW_PATCH("zh", {"ui.balance": "余额"});
 
 /* filtro do gráfico de evolução e seletor de linguagem junto do mapa: traduzido à mão */
 DW_PATCH("zh", {"ui.evoFilter": "图表中显示（不会改变游戏使用的编程语言）：", "ui.evoEmptyAll": "还没有回答任何工单。回答几个就能看到你的学习曲线。", "ui.evoEmptyPl": "还没有用 {l} 回答过工单。游戏使用的编程语言在掌握度地图上方选择。"});
+
+/* gráfico de evolução: aviso de engenharia de software e linguagem não registrada, traduzido à mão */
+DW_PATCH("zh", {"ui.evoSeNote": "软件工程与编程语言无关：其技能显示在“{a}”中。", "ui.evoUnknown": "未记录语言"});
 
 /* Mapa de romanização gerado por tools/gerar-idioma.js --romanizar. */
 ROM.ar = {};
@@ -39928,14 +39985,16 @@ function retro(){
     h("button",{class:"btn",onclick:()=>{S.sprint=newSprint(S.sprint.n+1);fillBoard();save();go("board")}},t("nextSprint",{n:S.sprint.n+1})));
 }
 function evolution(){
-  const pl=evoPl||S.pl, rows=S.log.filter(l=>!l.pl||pl==="all"||l.pl===pl), series={};
-  rows.forEach((l,x)=>{const k=l.pl?l.skill+"@"+l.pl:l.skill; (series[k]=series[k]||{k,skill:l.skill,pl:l.pl,pts:[]}).pts.push({x:x+1,y:l.after,ok:l.ok,b:l.before})});
+  /* aba de linguagem: só as habilidades de programação daquela linguagem; engenharia de software não depende da linguagem e
+     fica em "Todas", assim como respostas antigas de programação sem linguagem registrada */
+  const pl=evoPl||S.pl, rows=S.log.filter(l=>pl==="all"||(isProg(l.skill)&&l.pl===pl)), series={};
+  rows.forEach((l,x)=>{const k=isProg(l.skill)?l.skill+"@"+(l.pl||"?"):l.skill; (series[k]=series[k]||{k,skill:l.skill,pl:l.pl,pts:[]}).pts.push({x:x+1,y:l.after,ok:l.ok,b:l.before})});
   const list=Object.values(series), N=Math.max(rows.length,2), W=640,H=250,pl_=38,pr=12,pt=12,pb=30;
   const X=x=>pl_+(x-0)*(W-pl_-pr)/N, Y=y=>pt+(1-y)*(H-pt-pb);
   if(!list.find(z=>z.k===evoSel))evoSel=list.length?list[list.length-1].k:null;
-  const label=z=>skT(z.skill).name+(z.pl&&pl==="all"?" ("+PLS[z.pl]+")":"");
+  const label=z=>skT(z.skill).name+(isProg(z.skill)&&pl==="all"?" ("+(z.pl?PLS[z.pl]:t("evoUnknown"))+")":"");
   const tabs=h("div",{class:"tabs",role:"group","aria-label":t("codeLang")},["all"].concat(Object.keys(PLS)).map(p=>h("button",{"aria-pressed":String(pl===p),onclick:()=>{evoPl=p;render()}},p==="all"?t("evoAll"):PLS[p])));
-  const filt=h("p",{class:"note",style:"margin:0 0 6px"},t("evoFilter"));
+  const filt=h("div",null,h("p",{class:"note",style:"margin:0 0 6px"},t("evoFilter")),pl!=="all"&&h("p",{class:"note",style:"margin:0 0 6px"},t("evoSeNote",{a:t("evoAll")})));
   if(!list.length)return h("section",{class:"panel",style:"margin-top:20px"},h("h3",null,"📈 "+t("evoH")),filt,tabs,h("p",{class:"empty"},pl==="all"?t("evoEmptyAll"):t("evoEmptyPl",{l:PLS[pl]})));
   const svg=sv("svg",{viewBox:`0 0 ${W} ${H}`,role:"img","aria-label":t("evoH")});
   [0,.5,1].forEach(v=>{svg.append(sv("line",{x1:pl_,x2:W-pr,y1:Y(v),y2:Y(v),stroke:"var(--line)","stroke-width":"1"}),sv("text",{x:pl_-6,y:Y(v)+4,"text-anchor":"end","font-size":"11",fill:"var(--muted)"},Math.round(v*100)+"%"))});

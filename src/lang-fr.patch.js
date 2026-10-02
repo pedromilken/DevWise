@@ -280,3 +280,6 @@ DW_PATCH("fr", {"ui.balance": "Solde", "ui.dailyTag": "XP doublé"});
 
 /* filtro do gráfico de evolução e seletor de linguagem junto do mapa: traduzido à mão */
 DW_PATCH("fr", {"ui.evoFilter": "Afficher dans le graphique (ne change pas le langage du jeu) :", "ui.evoEmptyAll": "Aucun ticket résolu pour l'instant. Résolvez-en quelques-uns pour voir votre courbe d'apprentissage.", "ui.evoEmptyPl": "Aucun ticket résolu en {l} pour l'instant. Le langage du jeu se choisit au-dessus de la carte de maîtrise."});
+
+/* gráfico de evolução: aviso de engenharia de software e linguagem não registrada, traduzido à mão */
+DW_PATCH("fr", {"ui.evoSeNote": "Le génie logiciel ne dépend pas du langage de programmation : ses compétences apparaissent dans {a}.", "ui.evoUnknown": "langage non enregistré"});

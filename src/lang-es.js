@@ -432,3 +432,5 @@ x12:{title:"Segundos en el reloj",prompt:"Escribe hms(seconds), que convierte un
 Object.assign(LANG.es.ui,{"csvBtn": "Descargar tabla para investigación (CSV)", "csvNote": "Una fila por respuesta, con el identificador seudónimo {s}, la predicción de cada modelo registrada en el juego y la predicción reconstruida desde cero para todos los modelos. Nada identifica personalmente al estudiante.", "sidLabel": "Identificador seudónimo de este navegador:"});
 
 Object.assign(LANG.es.ui,{"evoFilter": "Mostrar en el gráfico (no cambia el lenguaje del juego):", "evoEmptyAll": "Todavía no respondiste ningún ticket. Responde algunos para ver tu curva de aprendizaje.", "evoEmptyPl": "Todavía no hay tickets respondidos en {l}. El lenguaje del juego se elige arriba del mapa de dominio."});
+
+Object.assign(LANG.es.ui,{"evoSeNote": "La ingeniería de software no depende del lenguaje de programación: sus habilidades aparecen en {a}.", "evoUnknown": "sin lenguaje registrado"});

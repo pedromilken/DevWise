@@ -10,3 +10,6 @@ DW_PATCH("ur", {"ui.balance": "بیلنس"});
 
 /* filtro do gráfico de evolução e seletor de linguagem junto do mapa: traduzido à mão */
 DW_PATCH("ur", {"ui.evoFilter": "چارٹ میں دکھائیں (اس سے گیم کی پروگرامنگ زبان نہیں بدلتی):", "ui.evoEmptyAll": "ابھی تک کوئی ٹکٹ حل نہیں ہوا۔ اپنی سیکھنے کی پیش رفت دیکھنے کے لیے چند ٹکٹ حل کریں۔", "ui.evoEmptyPl": "{l} میں ابھی تک کوئی ٹکٹ حل نہیں ہوا۔ گیم کی پروگرامنگ زبان مہارت کے نقشے کے اوپر منتخب کی جاتی ہے۔"});
+
+/* gráfico de evolução: aviso de engenharia de software e linguagem não registrada, traduzido à mão */
+DW_PATCH("ur", {"ui.evoSeNote": "سافٹ ویئر انجینئرنگ پروگرامنگ زبان پر منحصر نہیں: اس کی مہارتیں {a} میں دکھائی دیتی ہیں۔", "ui.evoUnknown": "زبان درج نہیں"});

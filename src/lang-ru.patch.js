@@ -7,3 +7,6 @@ DW_PATCH("ru", {"ui.kindFree": "свободная", "ui.freeNote": "Свобо�
 
 /* filtro do gráfico de evolução e seletor de linguagem junto do mapa: traduzido à mão */
 DW_PATCH("ru", {"ui.evoFilter": "Показать на графике (язык программирования в игре не меняется):", "ui.evoEmptyAll": "Вы ещё не решили ни одной задачи. Решите несколько, чтобы увидеть свою кривую обучения.", "ui.evoEmptyPl": "Задач на {l} пока не решено. Язык программирования игры выбирается над картой освоения."});
+
+/* gráfico de evolução: aviso de engenharia de software e linguagem não registrada, traduzido à mão */
+DW_PATCH("ru", {"ui.evoSeNote": "Программная инженерия не зависит от языка программирования: её навыки показаны в разделе «{a}».", "ui.evoUnknown": "язык не записан"});

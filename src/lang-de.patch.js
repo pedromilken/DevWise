@@ -10,3 +10,6 @@ DW_PATCH("de", {"ui.balance": "Guthaben"});
 
 /* filtro do gráfico de evolução e seletor de linguagem junto do mapa: traduzido à mão */
 DW_PATCH("de", {"ui.evoFilter": "Im Diagramm anzeigen (ändert die Programmiersprache des Spiels nicht):", "ui.evoEmptyAll": "Du hast noch kein Ticket beantwortet. Beantworte ein paar, um deine Lernkurve zu sehen.", "ui.evoEmptyPl": "Noch keine Tickets in {l} beantwortet. Die Programmiersprache des Spiels wählst du über der Lernkarte."});
+
+/* gráfico de evolução: aviso de engenharia de software e linguagem não registrada, traduzido à mão */
+DW_PATCH("de", {"ui.evoSeNote": "Softwaretechnik hängt nicht von der Programmiersprache ab: Ihre Fähigkeiten erscheinen unter {a}.", "ui.evoUnknown": "keine Sprache erfasst"});
